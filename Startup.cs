@@ -1,16 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+using System.IO;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.FileProviders;
+using store.Utils;
 
 namespace store
 {
@@ -27,6 +27,12 @@ namespace store
         public void ConfigureServices(IServiceCollection services)
         {
 
+            //Dependency Injection 
+            services.AddScoped<IConfig, Config>();
+            services.AddScoped<IDBHelper, DBHelper>();
+            services.AddScoped<IRedis, Redis>();
+
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -37,11 +43,20 @@ namespace store
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+
+
             if (env.IsDevelopment())
             {
+                app.UseStaticFiles();
+                app.UseStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "docs")),
+                    RequestPath = "/document"
+                });
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "store v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/document/swagger/v1.json", "Store v1"));
             }
 
             app.UseHttpsRedirection();
