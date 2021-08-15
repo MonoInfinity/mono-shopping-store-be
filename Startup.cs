@@ -11,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.FileProviders;
 using store.Utils;
+using store.UserModule.Entity;
+using store.UserModule;
 
 namespace store
 {
@@ -31,6 +33,10 @@ namespace store
             services.AddScoped<IConfig, Config>();
             services.AddScoped<IDBHelper, DBHelper>();
             services.AddScoped<IRedis, Redis>();
+
+            //User Module
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
 
 
             services.AddControllers();
