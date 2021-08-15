@@ -28,3 +28,4 @@ E:\server\mua5\mono-shopping-store-be\store\obj\Debug\net5.0\store.dll
 E:\server\mua5\mono-shopping-store-be\store\obj\Debug\net5.0\ref\store.dll
 E:\server\mua5\mono-shopping-store-be\store\obj\Debug\net5.0\store.pdb
 E:\server\mua5\mono-shopping-store-be\store\obj\Debug\net5.0\store.genruntimeconfig.cache
+E:\server\mua5\mono-shopping-store-be\store\bin\Debug\net5.0\env.json

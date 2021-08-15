@@ -4,11 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using store.Utils;
 
 namespace store.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("/controller")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -16,16 +17,18 @@ namespace store.Controllers
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<WeatherForecastController> _logger;
+        private readonly IConfig myConfig;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IConfig config)
         {
-            _logger = logger;
+            myConfig = config;
         }
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+
+            Console.WriteLine(this.myConfig.getEnvByKey("hello"));
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
