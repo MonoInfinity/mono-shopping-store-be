@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "e:\\server\\mua5\\mono-shopping-store-be\\store\\store.csproj": {}
+    "c:\\Users\\HaiCao\\Desktop\\mono-shopping-store-be\\store.csproj": {}
   },
   "projects": {
-    "e:\\server\\mua5\\mono-shopping-store-be\\store\\store.csproj": {
+    "c:\\Users\\HaiCao\\Desktop\\mono-shopping-store-be\\store.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "e:\\server\\mua5\\mono-shopping-store-be\\store\\store.csproj",
+        "projectUniqueName": "c:\\Users\\HaiCao\\Desktop\\mono-shopping-store-be\\store.csproj",
         "projectName": "store",
-        "projectPath": "e:\\server\\mua5\\mono-shopping-store-be\\store\\store.csproj",
-        "packagesPath": "C:\\Users\\heaty566\\.nuget\\packages\\",
-        "outputPath": "e:\\server\\mua5\\mono-shopping-store-be\\store\\obj\\",
+        "projectPath": "c:\\Users\\HaiCao\\Desktop\\mono-shopping-store-be\\store.csproj",
+        "packagesPath": "C:\\Users\\HaiCao\\.nuget\\packages\\",
+        "outputPath": "c:\\Users\\HaiCao\\Desktop\\mono-shopping-store-be\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\heaty566\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\HaiCao\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,9 +40,17 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.2.62, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.2, )"
             }
           },
           "imports": [
