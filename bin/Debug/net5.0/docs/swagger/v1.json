@@ -1,0 +1,153 @@
+{
+        "openapi": "3.0.0",
+        "info": {
+                "title": "Store-V1",
+                "description": "",
+                "contact": {
+                        "name": "Pham Vinh Nhan",
+                        "email": "heaty566@gmail.com"
+                },
+                "license": {
+                        "name": "Apache 2.0",
+                        "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+                },
+                "version": "2.1.7"
+        },
+        "tags": [
+                {
+                        "name": "auth",
+                        "description": "handle authentication"
+                },
+                {
+                        "name": "user",
+                        "description": "service for user"
+                },
+                {
+                        "name": "admin",
+                        "description": "service for administrator, have to login and with role is ADMIN"
+                }
+        ],
+        "servers": [
+                {
+                        "url": "http://localhost:4000",
+                        "description": "Development server"
+                }
+        ],
+        "paths": {},
+        "components": {
+                "schemas": {
+                        "user": {
+                                "type": "object",
+                                "description": "chat object",
+                                "properties": {
+                                        "id": {
+                                                "type": "string",
+                                                "description": "chat id use to join chat in socketId"
+                                        },
+                                        "createDate": {
+                                                "type": "string",
+                                                "description": "create new"
+                                        },
+                                        "users": {
+                                                "type": "array",
+                                                "items": {
+                                                        "type": "object",
+                                                        "description": "public user without some sensitive information",
+                                                        "properties": {
+                                                                "id": {
+                                                                        "type": "string"
+                                                                },
+                                                                "username": {
+                                                                        "type": "string"
+                                                                },
+                                                                "avatarUrl": {
+                                                                        "type": "string"
+                                                                },
+                                                                "name": {
+                                                                        "type": "string"
+                                                                },
+                                                                "elo": {
+                                                                        "type": "number"
+                                                                },
+                                                                "createDate": {
+                                                                        "type": "string"
+                                                                }
+                                                        }
+                                                }
+                                        },
+                                        "messages": {
+                                                "type": "array",
+                                                "items": {
+                                                        "type": "object",
+                                                        "description": "message in chat object",
+                                                        "properties": {
+                                                                "id": {
+                                                                        "type": "string"
+                                                                },
+                                                                "createDate": {
+                                                                        "type": "string"
+                                                                },
+                                                                "content": {
+                                                                        "type": "string"
+                                                                },
+                                                                "userId": {
+                                                                        "description": "id of user who creates this message",
+                                                                        "type": "string"
+                                                                }
+                                                        }
+                                                }
+                                        }
+                                }
+                        },
+                        "chat": {
+                                "$ref": "#/components/schemas/user"
+                        },
+                        "chat-message": {
+                                "type": "object",
+                                "description": "message in chat object",
+                                "properties": {
+                                        "id": {
+                                                "type": "string"
+                                        },
+                                        "createDate": {
+                                                "type": "string"
+                                        },
+                                        "content": {
+                                                "type": "string"
+                                        },
+                                        "userId": {
+                                                "description": "id of user who creates this message",
+                                                "type": "string"
+                                        }
+                                }
+                        },
+                        "apiResponse": {
+                                "type": "object",
+                                "properties": {
+                                        "data": {
+                                                "type": "object",
+                                                "description": "it type any base on your api"
+                                        },
+                                        "details": {
+                                                "type": "object",
+                                                "properties": {
+                                                        "field": {
+                                                                "type": "string",
+                                                                "description": "field will be the name of invalid field",
+                                                                "example": "should not be empty"
+                                                        },
+                                                        "message": {
+                                                                "type": "string",
+                                                                "example": "this is an error message"
+                                                        },
+                                                        "errorMessage": {
+                                                                "type": "string",
+                                                                "example": "this is an error message"
+                                                        }
+                                                }
+                                        }
+                                }
+                        }
+                }
+        }
+}
