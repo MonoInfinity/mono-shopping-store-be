@@ -29,6 +29,8 @@ namespace store
 
             //Dependency Injection 
             services.AddScoped<IConfig, Config>();
+            services.AddScoped<IDBHelper, DBHelper>();
+            services.AddScoped<IRedis, Redis>();
 
 
             services.AddControllers();
@@ -41,6 +43,8 @@ namespace store
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+
 
             if (env.IsDevelopment())
             {
