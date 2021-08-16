@@ -34,7 +34,9 @@ namespace store.UserModule.Entity
 
         public override string ToString()
         {
-            return "User: \n" + userId + " \n" + username + " \n" + password + " \n" + name + " \n" + email + " \n" + phone + " \n" + address + " \n" + googleId + " \n" + createDate + " \n" + salary + " \n" + role;
+            return "User: \nUserId: " + userId + " \nUsername: " + username + " \nPassword: " + password + " \nName: " + 
+                            name + " \nEmail: " + email + " \nPhone: " + phone + " \nAddress: " + address + " \nGoogleId: " + 
+                            googleId + " \nCreateDate: " + createDate + " \nSalary: " + salary + " \nRole: " + role;
         }
     }
 }

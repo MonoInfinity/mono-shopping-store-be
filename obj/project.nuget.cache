@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "BDzMA/GJaMvTWj42IMUrEa4KwZBQaRb9vPynH89DLb6hFjj2Dx8DdGYDqLbZRNBtku6R1iaWGhc5is1E7QcTzg==",
+  "dgSpecHash": "k2XyjmDMP3yBFlWV1R78I8xQrctjK2U/zoETB3nPXO9Iw7HXRiZw2rPKw2YLMLhyOrzlgPltfbyh6xNEKa1D6Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\HaiCao\\Desktop\\mono-shopping-store-be\\store.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\HaiCao\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\fluentvalidation\\10.3.0\\fluentvalidation.10.3.0.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\microsoft.codecoverage\\16.11.0\\microsoft.codecoverage.16.11.0.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",

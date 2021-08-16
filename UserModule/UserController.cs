@@ -45,10 +45,15 @@ namespace store.UserModule
             User user = this.userService.getUserByUsername(body.username);
             if (user == null)
             {
-                res.setErrorMessage("User with the given username was not found");
+                res.setErrorMessage("Username or password is wrong");
                 return res.getResponse();
             }
 
+            bool isMatchPassword = this.userService.comparePassword(body.password, user.password);
+            if(!isMatchPassword){
+                res.setErrorMessage("Username or password is wrong");
+                return res.getResponse();
+            }
 
             res.data = user;
             return res.getResponse();
@@ -76,7 +81,7 @@ namespace store.UserModule
             insertedUser.userId = Guid.NewGuid().ToString();
             insertedUser.name = body.name;
             insertedUser.username = body.username;
-            insertedUser.password = body.password;
+            insertedUser.password = this.userService.hashingPassword(body.password);
             insertedUser.email = body.email;
             insertedUser.phone = body.phone;
             insertedUser.address = body.address;
@@ -88,7 +93,6 @@ namespace store.UserModule
                 res.setErrorMessage("Fail to save new user");
                 return res.getResponse();
             }
-
             res.data = insertedUser;
             return res.getResponse();
         }

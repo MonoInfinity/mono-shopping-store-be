@@ -23,5 +23,15 @@ namespace store.UserModule
             bool res = this.userRepository.saveUser(user);
             return res;
         }
+
+        public string hashingPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password);
+        }
+
+        public bool comparePassword(string inputPassword, string encryptedPasswrod)
+        {
+            return BCrypt.Net.BCrypt.Verify(inputPassword, encryptedPasswrod);
+        }
     }
 }

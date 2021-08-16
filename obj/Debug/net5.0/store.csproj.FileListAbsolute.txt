@@ -259,3 +259,4 @@ C:\Users\HaiCao\Desktop\mono-shopping-store-be\obj\Debug\net5.0\ref\store.dll
 C:\Users\HaiCao\Desktop\mono-shopping-store-be\obj\Debug\net5.0\store.pdb
 C:\Users\HaiCao\Desktop\mono-shopping-store-be\obj\Debug\net5.0\store.genruntimeconfig.cache
 C:\Users\HaiCao\Desktop\mono-shopping-store-be\bin\Debug\net5.0\Uma.Uuid.dll
+C:\Users\HaiCao\Desktop\mono-shopping-store-be\bin\Debug\net5.0\BCrypt.Net-Next.dll
