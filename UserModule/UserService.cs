@@ -1,4 +1,5 @@
 using store.UserModule.Entity;
+using store.UserModule.Interface;
 
 namespace store.UserModule
 {
@@ -15,6 +16,12 @@ namespace store.UserModule
         {
             User user = this.userRepository.getUserByUsername(username);
             return user;
+        }
+
+        public bool saveUser(User user)
+        {
+            bool res = this.userRepository.saveUser(user);
+            return res;
         }
     }
 }

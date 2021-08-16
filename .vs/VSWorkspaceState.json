@@ -2,8 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\Properties",
+    "\\UserModule",
+    "\\UserModule\\DTO",
+    "\\UserModule\\Entity",
     "\\Utils"
   ],
-  "SelectedNode": "\\Utils\\Config.cs",
+  "SelectedNode": "\\UserModule\\DTO\\RegisterUserDto.cs",
   "PreviewInSolutionExplorer": false
 }
