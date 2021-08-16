@@ -17,6 +17,7 @@ using store.Utils.Locale;
 using FluentValidation;
 using System.Globalization;
 using store.UserModule.DTO;
+using store.UserModule.Interface;
 
 namespace store
 {
@@ -44,7 +45,7 @@ namespace store
 
             //validator  
             services.AddScoped<LoginUserDtoValidator, LoginUserDtoValidator>();
-
+            services.AddScoped<RegisterUserDtoValidator, RegisterUserDtoValidator>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -5,7 +5,7 @@ using store.UserModule.DTO;
 using store.UserModule.Entity;
 using store.Utils;
 using store.Utils.Test;
-
+using store.UserModule.Interface;
 
 namespace store.UserModule.Test
 {
@@ -21,11 +21,12 @@ namespace store.UserModule.Test
         {
 
             LoginUserDtoValidator loginUserDtoValidator = new LoginUserDtoValidator();
+            RegisterUserDtoValidator registerUserDtoValidator = new RegisterUserDtoValidator();
             ConfigTest config = new ConfigTest();
             IDBHelper dbHelper = new DBHelper(config);
             IUserRepository userRepository = new UserRepository(dbHelper);
             IUserService userService = new UserService(userRepository);
-            this.userController = new UserController(userService, loginUserDtoValidator);
+            this.userController = new UserController(userService, loginUserDtoValidator, registerUserDtoValidator);
         }
 
         [Fact]

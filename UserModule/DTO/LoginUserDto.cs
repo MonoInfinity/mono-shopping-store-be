@@ -1,6 +1,7 @@
 using System.IO;
 using FluentValidation;
 using store.Utils.Validator;
+
 namespace store.UserModule.DTO
 {
     public class LoginUserDto
@@ -19,8 +20,8 @@ namespace store.UserModule.DTO
     {
         public LoginUserDtoValidator()
         {
-            RuleFor(x => x.username).NotEmpty().Length(3, 10).NotNull();
-            RuleFor(x => x.password).NotEmpty().Length(3, 10).NotNull();
+            RuleFor(x => x.username).NotEmpty().Length(UserValidator.USERNAME_MIN, UserValidator.USERNAME_MAX).NotNull();
+            RuleFor(x => x.password).NotEmpty().Length(UserValidator.PASSWORD_MIN, UserValidator.PASSWORD_MAX).NotNull();
         }
     }
 }

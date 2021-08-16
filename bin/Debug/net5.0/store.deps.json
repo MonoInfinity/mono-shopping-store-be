@@ -33,11 +33,13 @@
     ".NETCoreApp,Version=v5.0": {
       "store/1.0.0": {
         "dependencies": {
+          "BCrypt.Net-Next": "4.0.2",
           "FluentValidation": "10.3.0",
           "Microsoft.NET.Test.Sdk": "16.11.0",
           "StackExchange.Redis": "2.2.62",
           "Swashbuckle.AspNetCore": "5.6.3",
           "System.Data.SqlClient": "4.8.2",
+          "Uma.Uuid": "0.1.0",
           "xunit": "2.4.1",
           "xunit.runner.visualstudio": "2.4.3",
           "Microsoft.AspNetCore.Antiforgery": "5.0.0.0",
@@ -329,6 +331,17 @@
         },
         "compile": {
           "store.dll": {}
+        }
+      },
+      "BCrypt.Net-Next/4.0.2": {
+        "runtime": {
+          "lib/net5.0/BCrypt.Net-Next.dll": {
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.0.2.0"
+          }
+        },
+        "compile": {
+          "lib/net5.0/BCrypt.Net-Next.dll": {}
         }
       },
       "FluentValidation/10.3.0": {
@@ -1617,6 +1630,17 @@
           "System.Text.Encoding": "4.3.0",
           "System.Threading": "4.3.0",
           "System.Xml.ReaderWriter": "4.3.0"
+        }
+      },
+      "Uma.Uuid/0.1.0": {
+        "runtime": {
+          "lib/netcoreapp2.2/Uma.Uuid.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp2.2/Uma.Uuid.dll": {}
         }
       },
       "xunit/2.4.1": {
@@ -3395,6 +3419,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "BCrypt.Net-Next/4.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-LyNKpIpr4GraRD9+xlTviyxxbZpF6J4xJf7DvraC1mR8PSN/KonGc4rt8C/fjkD3vaEvgA7BcvsbHFCOjgczyQ==",
+      "path": "bcrypt.net-next/4.0.2",
+      "hashPath": "bcrypt.net-next.4.0.2.nupkg.sha512"
+    },
     "FluentValidation/10.3.0": {
       "type": "package",
       "serviceable": true,
@@ -4150,6 +4181,13 @@
       "sha512": "sha512-5zJ0XDxAIg8iy+t4aMnQAu0MqVbqyvfoUVl1yDV61xdo3Vth45oA2FoY4pPkxYAH5f8ixpmTqXeEIya95x0aCQ==",
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
+    },
+    "Uma.Uuid/0.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-aVrcdaXa3H+UWSCXvHPjAGHz7keTNeqeiIDyQ5I216gZJRBvTfIpd7C4Cgso8Zuiy3HKnzq0IZ2uRKp6Jkta/A==",
+      "path": "uma.uuid/0.1.0",
+      "hashPath": "uma.uuid.0.1.0.nupkg.sha512"
     },
     "xunit/2.4.1": {
       "type": "package",
