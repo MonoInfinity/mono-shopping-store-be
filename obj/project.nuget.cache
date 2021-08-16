@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "Ekx4sYOwFKTa/Gw6rh5uC49UzYDqljEn9gX02SLwz/IfXMQ0noQEG3I2RdN1E67feKGhaa943Glmb1I+RMn2pQ==",
+  "dgSpecHash": "uH8p1z5NvFmsLmq8Vi2IMB0mEAaUBQudA3jL509eMbweXMwjt5ZhIQpeGYE7ThMbwkaODXa+lr2B4bNfaRvjGQ==",
   "success": true,
   "projectFilePath": "E:\\server\\mua5\\mono-shopping-store-be\\store\\store.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\heaty566\\.nuget\\packages\\fluentvalidation\\10.3.0\\fluentvalidation.10.3.0.nupkg.sha512",
     "C:\\Users\\heaty566\\.nuget\\packages\\microsoft.codecoverage\\16.11.0\\microsoft.codecoverage.16.11.0.nupkg.sha512",
     "C:\\Users\\heaty566\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",
     "C:\\Users\\heaty566\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
