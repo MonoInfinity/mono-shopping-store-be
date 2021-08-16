@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Properties",
+    "\\UserModule",
     "\\Utils"
   ],
-  "SelectedNode": "\\Utils\\Config.cs",
+  "SelectedNode": "\\UserModule\\Entity",
   "PreviewInSolutionExplorer": false
 }

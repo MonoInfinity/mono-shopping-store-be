@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using store.UserModule.DTO;
 using store.UserModule.Entity;
 using store.Utils.Common;
+using store.Utils;
 namespace store.UserModule
 {
     [ApiController]
@@ -16,13 +17,23 @@ namespace store.UserModule
     {
 
         private readonly IUserService userService;
+        private readonly IRedis redis;
         private readonly LoginUserDtoValidator loginUserDtoValidator;
-        public UserController(IUserService userService, LoginUserDtoValidator loginUserDtoValidator)
+        public UserController(IUserService userService, LoginUserDtoValidator loginUserDtoValidator, IRedis redis)
         {
+            this.redis = redis;
             this.userService = userService;
             this.loginUserDtoValidator = loginUserDtoValidator;
         }
 
+        [HttpGet("redis")]
+        public IDictionary<string, Object> redisahiahi()
+        {
+            ServerResponse<User> res = new ServerResponse<User>();
+            redis.setByValue("ahihi", "ahiahiahai");
+            return res.getResponse();
+
+        }
 
         [HttpPost("login")]
         public IDictionary<string, Object> loginUser([FromBody] LoginUserDto body)

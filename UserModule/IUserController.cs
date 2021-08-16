@@ -9,5 +9,6 @@ namespace store.UserModule
     {
         public IDictionary<string, Object> loginUser(LoginUserDto body);
 
+        public IDictionary<string, Object> redisahiahi();
     }
 }

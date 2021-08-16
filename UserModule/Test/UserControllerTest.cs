@@ -25,7 +25,8 @@ namespace store.UserModule.Test
             IDBHelper dbHelper = new DBHelper(config);
             IUserRepository userRepository = new UserRepository(dbHelper);
             IUserService userService = new UserService(userRepository);
-            this.userController = new UserController(userService, loginUserDtoValidator);
+            IRedis redis = new Redis(config);
+            this.userController = new UserController(userService, loginUserDtoValidator, redis);
         }
 
         [Fact]
