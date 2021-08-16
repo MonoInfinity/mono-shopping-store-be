@@ -13,6 +13,10 @@ using Microsoft.Extensions.FileProviders;
 using store.Utils;
 using store.UserModule.Entity;
 using store.UserModule;
+using store.Utils.Locale;
+using FluentValidation;
+using System.Globalization;
+using store.UserModule.DTO;
 
 namespace store
 {
@@ -38,6 +42,9 @@ namespace store
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
 
+            //validator  
+            services.AddScoped<LoginUserDtoValidator, LoginUserDtoValidator>();
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -51,7 +58,8 @@ namespace store
         {
 
 
-
+            ValidatorOptions.Global.LanguageManager = new CustomLanguageValidator();
+            ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("en");
             if (env.IsDevelopment())
             {
                 app.UseStaticFiles();

@@ -19,12 +19,12 @@ namespace store.UserModule.Entity
             SqlConnection connection = this.dbHelper.getDBConnection();
 
             User User = null;
-            string Sql = "SELECT * FROM tblUser WHERE Username = @Username";
-            SqlCommand Command = new SqlCommand(Sql, this.dbHelper.getDBConnection());
+            string Sql = "SELECT * FROM tblUser WHERE username = @username";
+            SqlCommand Command = new SqlCommand(Sql, connection);
             try
             {
                 connection.Open();
-                Command.Parameters.AddWithValue("@Username", username);
+                Command.Parameters.AddWithValue("@username", username);
                 SqlDataReader reader = Command.ExecuteReader();
 
                 if (reader.HasRows)

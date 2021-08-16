@@ -1,3 +1,6 @@
+using System.IO;
+using FluentValidation;
+using store.Utils.Validator;
 namespace store.UserModule.DTO
 {
     public class LoginUserDto
@@ -10,5 +13,14 @@ namespace store.UserModule.DTO
             this.password = password;
         }
 
+    }
+
+    public class LoginUserDtoValidator : AbstractValidator<LoginUserDto>
+    {
+        public LoginUserDtoValidator()
+        {
+            RuleFor(x => x.username).NotEmpty().Length(3, 10).NotNull();
+            RuleFor(x => x.password).NotEmpty().Length(3, 10).NotNull();
+        }
     }
 }
