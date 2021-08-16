@@ -3,6 +3,7 @@ using System.ComponentModel;
 using Xunit;
 using store.UserModule.DTO;
 using store.UserModule.Entity;
+using store.Utils.Interface;
 using store.Utils;
 using store.Utils.Test;
 using store.UserModule.Interface;
