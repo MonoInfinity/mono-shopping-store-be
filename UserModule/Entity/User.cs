@@ -4,6 +4,15 @@ using System;
 
 namespace store.UserModule.Entity
 {
+
+    public enum UserRole
+    {
+        CUSTOMER = 1,
+        SHIPPER = 2,
+        CASHIER = 3,
+        MANAGER = 4,
+        OWNER = 5,
+    }
     public class User
     {
         public string userId { get; set; }
@@ -16,9 +25,10 @@ namespace store.UserModule.Entity
         public string googleId { get; set; }
         public DateTime createDate { get; set; }
         public double salary { get; set; }
-        public string role { get; set; }
+        public UserRole role { get; set; }
 
-        public User(){
+        public User()
+        {
             this.userId = "";
             this.name = "";
             this.username = "";
@@ -29,14 +39,16 @@ namespace store.UserModule.Entity
             this.googleId = "";
             this.createDate = DateTime.Now;
             this.salary = 0;
-            this.role = "";
+            this.role = UserRole.CUSTOMER;
         }
 
         public override string ToString()
         {
-            return "User: \nUserId: " + userId + " \nUsername: " + username + " \nPassword: " + password + " \nName: " + 
-                            name + " \nEmail: " + email + " \nPhone: " + phone + " \nAddress: " + address + " \nGoogleId: " + 
+            return "User: \nUserId: " + userId + " \nUsername: " + username + " \nPassword: " + password + " \nName: " +
+                            name + " \nEmail: " + email + " \nPhone: " + phone + " \nAddress: " + address + " \nGoogleId: " +
                             googleId + " \nCreateDate: " + createDate + " \nSalary: " + salary + " \nRole: " + role;
         }
     }
+
+
 }

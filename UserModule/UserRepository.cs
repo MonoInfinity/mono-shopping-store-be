@@ -44,7 +44,7 @@ namespace store.UserModule
                         user.googleId = reader.GetString("googleId");
                         user.createDate = reader.GetDateTime("createDate");
                         user.salary = reader.GetDouble("salary");
-                        user.role = reader.GetString("role");
+                        user.role = (UserRole)reader.GetInt32("role");
                     }
 
                 }
