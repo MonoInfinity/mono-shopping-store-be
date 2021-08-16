@@ -41,16 +41,20 @@ namespace store.UserModule
             }
 
 
-
             User user = this.userService.getUserByUsername(body.username);
+
+
             if (user == null)
             {
                 res.setErrorMessage("Username or password is wrong");
                 return res.getResponse();
             }
 
+
+
             bool isMatchPassword = this.userService.comparePassword(body.password, user.password);
-            if(!isMatchPassword){
+            if (!isMatchPassword)
+            {
                 res.setErrorMessage("Username or password is wrong");
                 return res.getResponse();
             }
@@ -67,12 +71,14 @@ namespace store.UserModule
             ValidationResult result = this.registerUserDtoValidator.Validate(body);
             res.mapDetails(result);
 
-            if(!result.IsValid){
+            if (!result.IsValid)
+            {
                 return res.getResponse();
             }
 
             User user = this.userService.getUserByUsername(body.username);
-            if(user != null) {
+            if (user != null)
+            {
                 res.setErrorMessage("Username is already exist");
                 return res.getResponse();
             }
@@ -86,10 +92,11 @@ namespace store.UserModule
             insertedUser.phone = body.phone;
             insertedUser.address = body.address;
             insertedUser.createDate = DateTime.Now;
-            insertedUser.role = "CUSTOMER";
+            insertedUser.role = UserRole.CUSTOMER;
 
             bool isInserted = this.userService.saveUser(insertedUser);
-            if(!isInserted){
+            if (!isInserted)
+            {
                 res.setErrorMessage("Fail to save new user");
                 return res.getResponse();
             }

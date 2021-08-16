@@ -26,12 +26,12 @@ namespace store.UserModule
 
         public string hashingPassword(string password)
         {
-            return BCrypt.Net.BCrypt.HashPassword(password);
+            return BCrypt.Net.BCrypt.HashPassword(password, workFactor: 8);
         }
 
-        public bool comparePassword(string inputPassword, string encryptedPasswrod)
+        public bool comparePassword(string inputPassword, string encryptedPassword)
         {
-            return BCrypt.Net.BCrypt.Verify(inputPassword, encryptedPasswrod);
+            return BCrypt.Net.BCrypt.Verify(inputPassword, encryptedPassword);
         }
     }
 }
