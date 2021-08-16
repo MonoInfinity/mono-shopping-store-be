@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "uH8p1z5NvFmsLmq8Vi2IMB0mEAaUBQudA3jL509eMbweXMwjt5ZhIQpeGYE7ThMbwkaODXa+lr2B4bNfaRvjGQ==",
+  "dgSpecHash": "lM+1+POI/H7vzwPxlvADGtbf4WDqOVDWwoulKjr3bjlYop9Zk2m4keoFQVK9KGQwWv5TsVIhniVzU9EfOY6qLA==",
   "success": true,
-  "projectFilePath": "E:\\server\\mua5\\mono-shopping-store-be\\store\\store.csproj",
+  "projectFilePath": "E:\\server\\mua5\\mono-shopping-store-be\\store.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\heaty566\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",
     "C:\\Users\\heaty566\\.nuget\\packages\\fluentvalidation\\10.3.0\\fluentvalidation.10.3.0.nupkg.sha512",
     "C:\\Users\\heaty566\\.nuget\\packages\\microsoft.codecoverage\\16.11.0\\microsoft.codecoverage.16.11.0.nupkg.sha512",
     "C:\\Users\\heaty566\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",
@@ -112,6 +113,7 @@
     "C:\\Users\\heaty566\\.nuget\\packages\\system.windows.extensions\\5.0.0\\system.windows.extensions.5.0.0.nupkg.sha512",
     "C:\\Users\\heaty566\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\heaty566\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\heaty566\\.nuget\\packages\\uma.uuid\\0.1.0\\uma.uuid.0.1.0.nupkg.sha512",
     "C:\\Users\\heaty566\\.nuget\\packages\\xunit\\2.4.1\\xunit.2.4.1.nupkg.sha512",
     "C:\\Users\\heaty566\\.nuget\\packages\\xunit.abstractions\\2.0.3\\xunit.abstractions.2.0.3.nupkg.sha512",
     "C:\\Users\\heaty566\\.nuget\\packages\\xunit.analyzers\\0.10.0\\xunit.analyzers.0.10.0.nupkg.sha512",

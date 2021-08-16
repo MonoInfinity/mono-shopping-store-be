@@ -4,7 +4,7 @@ namespace store.Utils.Locale
     {
         public CustomLanguageValidator()
         {
-            AddTranslation("en-US", "NotNullValidator", "'{PropertyName}' is DSADS.");
+            AddTranslation("en", "NotNullValidator", "'{PropertyName}' is DSADS.");
             AddTranslation("fr", "NotNullValidator", "'{PropertyName}' is TEST.");
         }
     }

@@ -1,9 +1,9 @@
-using System;
 using StackExchange.Redis;
+using store.Utils.Interface;
 
 namespace store.Utils
 {
-    public class Redis : IRedis
+    public class Redis : IRedisHelper
     {
 
         private readonly ConnectionMultiplexer redis;

@@ -1,6 +1,6 @@
 
 
-namespace store.Utils
+namespace store.Utils.Interface
 {
     public interface IConfig
     {
