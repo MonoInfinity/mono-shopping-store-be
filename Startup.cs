@@ -18,6 +18,11 @@ using System.Globalization;
 using store.UserModule.DTO;
 using store.UserModule.Interface;
 using store.Utils.Interface;
+using mono_shopping_store_be.Utils.Interface;
+using mono_shopping_store_be.Utils;
+using mono_store_be.Utils.Interface;
+using mono_store_be.Utils;
+
 namespace store
 {
     public class Startup
@@ -37,15 +42,18 @@ namespace store
             services.AddScoped<IConfig, Config>();
             services.AddScoped<IDBHelper, DBHelper>();
             services.AddScoped<IRedisHelper, Redis>();
+            services.AddScoped<IUploadFileService, UploadFileService>();
+            services.AddScoped<IJwtService, JwtService>();
 
             //User Module
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
 
-            //validator  
+            //Validator  
             services.AddScoped<LoginUserDtoValidator, LoginUserDtoValidator>();
             services.AddScoped<RegisterUserDtoValidator, RegisterUserDtoValidator>();
             services.AddScoped<UpdateUserDtoValidator, UpdateUserDtoValidator>();
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

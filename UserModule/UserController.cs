@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using FluentValidation.Results;
 
 using Microsoft.AspNetCore.Mvc;
+using mono_store_be.Utils.Interface;
 using store.UserModule.DTO;
 using store.UserModule.Entity;
 using store.UserModule.Interface;
@@ -15,17 +16,18 @@ namespace store.UserModule
     [Route("/api/user")]
     public class UserController : IUserController
     {
-
+        private readonly IJwtService jwtService;
         private readonly IUserService userService;
         private readonly LoginUserDtoValidator loginUserDtoValidator;
         private readonly RegisterUserDtoValidator registerUserDtoValidator;
         private readonly UpdateUserDtoValidator updateUserDtoValidator;
-        public UserController(IUserService userService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator)
+        public UserController(IJwtService jwtService, IUserService userService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator)
         {
             this.userService = userService;
             this.loginUserDtoValidator = loginUserDtoValidator;
             this.registerUserDtoValidator = registerUserDtoValidator;
             this.updateUserDtoValidator = updateUserDtoValidator;
+            this.jwtService = jwtService;
         }
 
 
@@ -51,8 +53,9 @@ namespace store.UserModule
                 res.setErrorMessage("Username or password is wrong");
                 return res.getResponse();
             }
-
-
+            string token = this.jwtService.GenerateToken(user.userId);
+            Console.WriteLine(token);
+            Console.WriteLine(this.jwtService.VerifyToken(token));
 
             bool isMatchPassword = this.userService.comparePassword(body.password, user.password);
             if (!isMatchPassword)
