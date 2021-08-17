@@ -105,6 +105,7 @@ namespace store.UserModule
             res.data = insertedUser;
             return res.getResponse();
         }
+
         [HttpPost("update")]
         public IDictionary<string, Object> updateUser([FromBody] UpdateUserDto body)
         {
@@ -121,7 +122,6 @@ namespace store.UserModule
             if (user == null)
             {
                 res.setErrorMessage("User with the given id was not found");
-                Console.WriteLine(user);
                 return res.getResponse();
             }
             else
@@ -135,8 +135,6 @@ namespace store.UserModule
             }
 
             bool isUpdated = userService.updateUser(user);
-            Console.WriteLine(user);
-            Console.WriteLine(isUpdated);
             if (!isUpdated)
             {
                 res.setErrorMessage("Update fail");
