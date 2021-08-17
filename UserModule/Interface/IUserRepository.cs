@@ -7,5 +7,7 @@ namespace store.UserModule.Interface
         public User getUserByUsername(string username);
 
         public bool saveUser(User user);
+
+        public bool updateUser(User user);
     }
 }

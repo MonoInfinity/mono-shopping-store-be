@@ -45,6 +45,7 @@ namespace store
             //validator  
             services.AddScoped<LoginUserDtoValidator, LoginUserDtoValidator>();
             services.AddScoped<RegisterUserDtoValidator, RegisterUserDtoValidator>();
+            services.AddScoped<UpdateUserDtoValidator, UpdateUserDtoValidator>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
