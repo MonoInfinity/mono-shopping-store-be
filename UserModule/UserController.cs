@@ -19,11 +19,13 @@ namespace store.UserModule
         private readonly IUserService userService;
         private readonly LoginUserDtoValidator loginUserDtoValidator;
         private readonly RegisterUserDtoValidator registerUserDtoValidator;
-        public UserController(IUserService userService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator)
+        private readonly UpdateUserDtoValidator updateUserDtoValidator;
+        public UserController(IUserService userService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator)
         {
             this.userService = userService;
             this.loginUserDtoValidator = loginUserDtoValidator;
             this.registerUserDtoValidator = registerUserDtoValidator;
+            this.updateUserDtoValidator = updateUserDtoValidator;
         }
 
 
@@ -102,6 +104,48 @@ namespace store.UserModule
             }
             res.data = insertedUser;
             return res.getResponse();
+        }
+        [HttpPost("update")]
+        public IDictionary<string, Object> updateUser([FromBody] UpdateUserDto body)
+        {
+            ServerResponse<User> res = new ServerResponse<User>();
+            ValidationResult result = this.updateUserDtoValidator.Validate(body);
+            res.mapDetails(result);
+
+            if (!result.IsValid)
+            {
+                return res.getResponse();
+            }
+
+            User user = userService.getUserByUsername(body.username);
+            if (user == null)
+            {
+                res.setErrorMessage("User with the given id was not found");
+                Console.WriteLine(user);
+                return res.getResponse();
+            }
+            else
+            {
+                user = new User();
+                user.username = body.username;
+                user.name = body.newName;
+                user.email = body.newEmail;
+                user.phone = body.newPhone;
+                user.address = body.newAddress;
+            }
+
+            bool isUpdated = userService.updateUser(user);
+            Console.WriteLine(user);
+            Console.WriteLine(isUpdated);
+            if (!isUpdated)
+            {
+                res.setErrorMessage("Update fail");
+                return res.getResponse();
+            }
+
+            res.data = user;
+            return res.getResponse();
+
         }
     }
 }
