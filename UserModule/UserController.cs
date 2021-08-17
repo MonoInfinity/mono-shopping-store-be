@@ -26,15 +26,6 @@ namespace store.UserModule
             this.loginUserDtoValidator = loginUserDtoValidator;
         }
 
-        [HttpGet("redis")]
-        public IDictionary<string, Object> redisahiahi()
-        {
-            ServerResponse<User> res = new ServerResponse<User>();
-            redis.setByValue("ahihi", "ahiahiahai");
-            return res.getResponse();
-
-        }
-
         [HttpPost("login")]
         public IDictionary<string, Object> loginUser([FromBody] LoginUserDto body)
         {
