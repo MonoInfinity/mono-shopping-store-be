@@ -14,7 +14,6 @@ namespace store
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine(Encoding.ASCII.GetBytes("PDv7DrqznYL6nv7DrqzjnQYO9JxIsWdcjnQYL6nu0f"));
             CreateHostBuilder(args).Build().Run();
         }
 
