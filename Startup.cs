@@ -11,13 +11,13 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.FileProviders;
 using store.Utils;
-using store.UserModule.Entity;
 using store.UserModule;
 using store.Utils.Locale;
 using FluentValidation;
 using System.Globalization;
 using store.UserModule.DTO;
-
+using store.UserModule.Interface;
+using store.Utils.Interface;
 namespace store
 {
     public class Startup
@@ -36,7 +36,7 @@ namespace store
             //Dependency Injection 
             services.AddScoped<IConfig, Config>();
             services.AddScoped<IDBHelper, DBHelper>();
-            services.AddScoped<IRedis, Redis>();
+            services.AddScoped<IRedisHelper, Redis>();
 
             //User Module
             services.AddScoped<IUserRepository, UserRepository>();
@@ -44,7 +44,7 @@ namespace store
 
             //validator  
             services.AddScoped<LoginUserDtoValidator, LoginUserDtoValidator>();
-
+            services.AddScoped<RegisterUserDtoValidator, RegisterUserDtoValidator>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

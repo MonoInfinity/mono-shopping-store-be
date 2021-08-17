@@ -1,5 +1,6 @@
 using System.IO;
 using Microsoft.Extensions.Configuration;
+using store.Utils.Interface;
 
 
 namespace store.Utils.Test

@@ -1,11 +1,11 @@
-using System;
 using StackExchange.Redis;
-using System.Collections.Generic;
+using System;
 using System.Reflection;
+using store.Utils.Interface;
 
 namespace store.Utils
 {
-    public class Redis : IRedis
+    public class Redis : IRedisHelper
     {
 
         private readonly ConnectionMultiplexer redis;
@@ -14,10 +14,10 @@ namespace store.Utils
         public Redis(IConfig config)
         {
             redis = ConnectionMultiplexer.Connect(
-                     new ConfigurationOptions
-                     {
-                         EndPoints = { config.getEnvByKey("REDIS_URL") }
-                     });
+                new ConfigurationOptions
+                {
+                    EndPoints = { config.getEnvByKey("REDIS_URL") }
+                });
 
             redisDB = redis.GetDatabase();
         }

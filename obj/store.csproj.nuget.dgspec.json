@@ -44,6 +44,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.2, )"
+            },
             "FluentValidation": {
               "target": "Package",
               "version": "[10.3.0, )"
@@ -63,6 +67,10 @@
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.2, )"
+            },
+            "Uma.Uuid": {
+              "target": "Package",
+              "version": "[0.1.0, )"
             },
             "xunit": {
               "target": "Package",
