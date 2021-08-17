@@ -5,7 +5,7 @@ using store.Utils.Interface;
 
 namespace store.Utils
 {
-    public class Redis : IRedisHelper
+    public class Redis : IRedis
     {
 
         private readonly ConnectionMultiplexer redis;

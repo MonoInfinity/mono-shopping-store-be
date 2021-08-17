@@ -1,15 +1,15 @@
-
-
 using System;
 using System.Collections.Generic;
 using FluentValidation.Results;
 
+using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
 using store.UserModule.DTO;
 using store.UserModule.Entity;
 using store.UserModule.Interface;
 using store.Utils.Common;
-using store.Utils;
+
+
 namespace store.UserModule
 {
     [ApiController]
@@ -17,16 +17,25 @@ namespace store.UserModule
     public class UserController : IUserController
     {
 
+        private readonly ILogger loggerr;
         private readonly IUserService userService;
-        private readonly IRedis redis;
         private readonly LoginUserDtoValidator loginUserDtoValidator;
         private readonly RegisterUserDtoValidator registerUserDtoValidator;
-        public UserController(IUserService userService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator)
+        public UserController(IUserService userService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, ILogger<UserController> loggerr)
         {
-            this.redis = redis;
+            this.loggerr = loggerr;
             this.userService = userService;
             this.loginUserDtoValidator = loginUserDtoValidator;
             this.registerUserDtoValidator = registerUserDtoValidator;
+        }
+
+        [HttpGet("logger")]
+        public IDictionary<string, Object> logger()
+        {
+            ServerResponse<User> res = new ServerResponse<User>();
+            loggerr.LogInformation("Hello from the Get() method!");
+
+            return res.getResponse();
         }
 
         [HttpPost("login")]
