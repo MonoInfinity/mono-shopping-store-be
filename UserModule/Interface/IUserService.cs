@@ -11,5 +11,8 @@ namespace store.UserModule.Interface
         public string hashingPassword(string password);
 
         public bool comparePassword(string inputPassword, string encryptedPasswrod);
+
+        public bool updateUserPassword(string username, string password);
+
     }
 }

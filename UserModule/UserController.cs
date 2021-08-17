@@ -19,11 +19,14 @@ namespace store.UserModule
         private readonly IUserService userService;
         private readonly LoginUserDtoValidator loginUserDtoValidator;
         private readonly RegisterUserDtoValidator registerUserDtoValidator;
-        public UserController(IUserService userService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator)
+        private readonly UpdateUserPasswordDtoValidater updateUserPasswordDtoValidator;
+
+        public UserController(IUserService userService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserPasswordDtoValidater updateUserPasswordDtoValidator)
         {
             this.userService = userService;
             this.loginUserDtoValidator = loginUserDtoValidator;
             this.registerUserDtoValidator = registerUserDtoValidator;
+            this.updateUserPasswordDtoValidator = updateUserPasswordDtoValidator;
         }
 
 
@@ -102,6 +105,55 @@ namespace store.UserModule
             }
             res.data = insertedUser;
             return res.getResponse();
+        }
+
+        [HttpPut("password")]
+        public IDictionary<string, object> updateUserPassword([FromBody] UpdateUserPasswordDto body)
+        {
+            ServerResponse<User> res = new ServerResponse<User>();
+
+            ValidationResult result = this.updateUserPasswordDtoValidator.Validate(body);
+            res.mapDetails(result);
+
+            if (!result.IsValid)
+            {
+                return res.getResponse();
+            }
+
+            User user = this.userService.getUserByUsername(body.username);
+            if (user == null)
+            {
+                res.setErrorMessage("User not found");
+                return res.getResponse();
+            }
+
+            bool isMatchPassword = body.newPassword.Equals(body.confirmPassword);
+
+            if (!isMatchPassword)
+            {
+                res.setErrorMessage("Password or confirm-password is wrong");
+                return res.getResponse();
+            }
+            bool isMatchOldPassword = this.userService.comparePassword(body.newPassword, user.password);
+
+            if (isMatchOldPassword)
+            {
+                res.setErrorMessage("New password can't be duplicate with old password");
+                return res.getResponse();
+            }
+            user.password = this.userService.hashingPassword(body.newPassword);
+
+            bool isUpdate = this.userService.updateUserPassword(user.username, user.password);
+
+            if (!isUpdate)
+            {
+                res.setErrorMessage("Fail to update user password");
+                return res.getResponse();
+            }
+
+            res.data = user;
+            return res.getResponse();
+
         }
     }
 }

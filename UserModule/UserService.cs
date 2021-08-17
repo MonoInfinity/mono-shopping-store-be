@@ -33,5 +33,12 @@ namespace store.UserModule
         {
             return BCrypt.Net.BCrypt.Verify(inputPassword, encryptedPassword);
         }
+
+
+        public bool updateUserPassword(string username, string password)
+        {
+            bool res = this.userRepository.updateUserPassword(username, password);
+            return res;
+        }
     }
 }

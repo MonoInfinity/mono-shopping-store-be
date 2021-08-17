@@ -90,5 +90,29 @@ namespace store.UserModule
             }
             return res;
         }
+        public bool updateUserPassword(string username, string password)
+        {
+            SqlConnection connection = this.dbHelper.getDBConnection();
+            bool res = false;
+            string sql = "UPDATE tblUser " +
+            " SET password = @password " +
+            "WHERE username = @username";
+            SqlCommand Command = new SqlCommand(sql, connection);
+
+            try
+            {
+                connection.Open();
+                Command.Parameters.AddWithValue("@password", password);
+                Command.Parameters.AddWithValue("@username", username);
+                res = Command.ExecuteNonQuery() > 0;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine("This is an error in UserRepository: " + e.Message);
+            }
+            return res;
+        }
     }
+
+
 }

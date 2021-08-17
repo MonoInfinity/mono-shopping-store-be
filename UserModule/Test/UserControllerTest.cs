@@ -36,11 +36,12 @@ namespace store.UserModule.Test
 
             LoginUserDtoValidator loginUserDtoValidator = new LoginUserDtoValidator();
             RegisterUserDtoValidator registerUserDtoValidator = new RegisterUserDtoValidator();
+            UpdateUserPasswordDtoValidater updateUserPasswordDtoValidater = new UpdateUserPasswordDtoValidater();
             ConfigTest config = new ConfigTest();
             IDBHelper dbHelper = new DBHelper(config);
             this.userRepository = new UserRepository(dbHelper);
             this.userService = new UserService(userRepository);
-            this.userController = new UserController(userService, loginUserDtoValidator, registerUserDtoValidator);
+            this.userController = new UserController(userService, loginUserDtoValidator, registerUserDtoValidator, updateUserPasswordDtoValidater);
 
             this.user = new User();
             this.user.userId = Guid.NewGuid().ToString();
