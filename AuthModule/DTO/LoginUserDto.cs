@@ -2,7 +2,7 @@ using System.IO;
 using FluentValidation;
 using store.Utils.Validator;
 
-namespace store.UserModule.DTO
+namespace store.AuthModule.DTO
 {
     public class LoginUserDto
     {

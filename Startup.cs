@@ -18,6 +18,11 @@ using System.Globalization;
 using store.UserModule.DTO;
 using store.UserModule.Interface;
 using store.Utils.Interface;
+using store.AuthModule.DTO;
+using store.AuthModule;
+using store.AuthModule.Interface;
+
+
 namespace store
 {
     public class Startup
@@ -41,6 +46,8 @@ namespace store
             //User Module
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthService, AuthService>();
 
             //validator  
             services.AddScoped<LoginUserDtoValidator, LoginUserDtoValidator>();
