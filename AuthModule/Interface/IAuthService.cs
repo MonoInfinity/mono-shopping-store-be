@@ -1,7 +1,10 @@
-namespace mono_store_be.AuthModule.Interface
+namespace store.AuthModule.Interface
 {
     public interface IAuthService
     {
-         
+
+        public string hashingPassword(string password);
+
+        public bool comparePassword(string inputPassword, string encryptedPassword);
     }
 }

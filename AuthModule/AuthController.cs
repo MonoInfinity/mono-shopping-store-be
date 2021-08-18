@@ -5,33 +5,35 @@ using System.Collections.Generic;
 using FluentValidation.Results;
 
 using Microsoft.AspNetCore.Mvc;
-using mono_store_be.Utils.Interface;
 using store.AuthModule.DTO;
-using store.AuthModule.Interface;
-using store.UserModule.DTO;
 using store.UserModule.Entity;
-using store.UserModule.Interface;
 using store.Utils.Common;
-namespace store.UserModule
+using store.UserModule.Interface;
+using store.AuthModule.Interface;
+
+namespace store.AuthModule
 {
+
+
     [ApiController]
-    [Route("/api/user")]
-    public class UserController : IUserController
+    [Route("/api/auth")]
+    public class AuthController : IAuthController
     {
+
+
         private readonly IUserService userService;
         private readonly IAuthService authService;
         private readonly LoginUserDtoValidator loginUserDtoValidator;
         private readonly RegisterUserDtoValidator registerUserDtoValidator;
-        private readonly UpdateUserDtoValidator updateUserDtoValidator;
-        public UserController(IUserService userService, IAuthService authService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator)
+
+        public AuthController(IUserService userService, IAuthService authService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator)
         {
             this.userService = userService;
-            this.updateUserDtoValidator = updateUserDtoValidator;
             this.loginUserDtoValidator = loginUserDtoValidator;
             this.registerUserDtoValidator = registerUserDtoValidator;
             this.authService = authService;
-        }
 
+        }
 
         [HttpPost("login")]
         public IDictionary<string, Object> loginUser([FromBody] LoginUserDto body)
@@ -55,6 +57,8 @@ namespace store.UserModule
                 res.setErrorMessage("Username or password is wrong");
                 return res.getResponse();
             }
+
+
 
             bool isMatchPassword = this.authService.comparePassword(body.password, user.password);
             if (!isMatchPassword)
@@ -105,45 +109,6 @@ namespace store.UserModule
                 return res.getResponse();
             }
             res.data = insertedUser;
-            return res.getResponse();
-        }
-
-        [HttpPost("update")]
-        public IDictionary<string, Object> updateUser([FromBody] UpdateUserDto body)
-        {
-            ServerResponse<User> res = new ServerResponse<User>();
-            ValidationResult result = this.updateUserDtoValidator.Validate(body);
-            res.mapDetails(result);
-
-            if (!result.IsValid)
-            {
-                return res.getResponse();
-            }
-
-            User user = userService.getUserByUsername(body.username);
-            if (user == null)
-            {
-                res.setErrorMessage("User with the given id was not found");
-                return res.getResponse();
-            }
-            else
-            {
-                user = new User();
-                user.username = body.username;
-                user.name = body.newName;
-                user.email = body.newEmail;
-                user.phone = body.newPhone;
-                user.address = body.newAddress;
-            }
-
-            bool isUpdated = userService.updateUser(user);
-            if (!isUpdated)
-            {
-                res.setErrorMessage("Update fail");
-                return res.getResponse();
-            }
-
-            res.data = user;
             return res.getResponse();
         }
     }

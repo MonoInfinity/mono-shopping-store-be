@@ -28,6 +28,10 @@ using mono_store_be.Utils.Interface;
 
 using mono_store_be.AuthModule;
 using mono_store_be.AuthModule.Interface;
+using store.AuthModule.DTO;
+using store.AuthModule;
+using store.AuthModule.Interface;
+
 
 namespace store
 {
@@ -53,6 +57,8 @@ namespace store
             //User Module
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAuthService, AuthService>();
 
             // Auth Module
             services.AddScoped<IReTokenRepository, ReTokenRepository>();
