@@ -8,8 +8,7 @@ namespace store.UserModule.Interface
 
         public bool saveUser(User user);
 
-        public string hashingPassword(string password);
+        public bool updateUser(User user);
 
-        public bool comparePassword(string inputPassword, string encryptedPasswrod);
     }
 }

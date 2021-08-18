@@ -16,6 +16,48 @@ namespace store.UserModule
             this.dbHelper = dbHelper;
         }
 
+        public User getUserByUserId(string userId)
+        {
+            SqlConnection connection = this.dbHelper.getDBConnection();
+
+            User user = null;
+            string sql = "SELECT * FROM tblUser WHERE userId = @userId";
+            SqlCommand Command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                Command.Parameters.AddWithValue("@userId", userId);
+                SqlDataReader reader = Command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        user = new User();
+                        user.userId = reader.GetString("userId");
+                        user.name = reader.GetString("name");
+                        user.username = reader.GetString("username");
+                        user.password = reader.GetString("password");
+                        user.email = reader.GetString("email");
+                        user.phone = reader.GetString("phone");
+                        user.address = reader.GetString("address");
+                        user.googleId = reader.GetString("googleId");
+                        user.createDate = reader.GetDateTime("createDate");
+                        user.salary = reader.GetDouble("salary");
+                        user.role = (UserRole)reader.GetInt32("role");
+                    }
+
+                }
+
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return user;
+        }
+
         public User getUserByUsername(string username)
         {
             SqlConnection connection = this.dbHelper.getDBConnection();
@@ -89,6 +131,30 @@ namespace store.UserModule
                 Console.WriteLine("This is an error in UserRepository: " + e.Message);
             }
             return res;
+        }
+        public bool updateUser(User user)
+        {
+            SqlConnection connection = this.dbHelper.getDBConnection();
+            string sql = "UPDATE tblUser SET name=@newName, email=@newEmail, phone=@newPhone, address=@newAddress WHERE username=@username";
+            SqlCommand command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = user.username;
+                command.Parameters.Add("@newName", SqlDbType.NVarChar).Value = user.name;
+                command.Parameters.Add("@newEmail", SqlDbType.NVarChar).Value = user.email;
+                command.Parameters.Add("@newPhone", SqlDbType.NVarChar).Value = user.phone;
+                command.Parameters.Add("@newAddress", SqlDbType.NVarChar).Value = user.address;
+                int rowAffected = command.ExecuteNonQuery();
+                Console.WriteLine(rowAffected);
+                connection.Close();
+                return rowAffected > 0;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return false;
         }
     }
 }

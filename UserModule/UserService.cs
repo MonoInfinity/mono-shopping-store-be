@@ -25,14 +25,12 @@ namespace store.UserModule
             return res;
         }
 
-        public string hashingPassword(string password)
+        public bool updateUser(User user)
         {
-            return BCrypt.Net.BCrypt.HashPassword(password, workFactor: 8);
+            bool result = this.userRepository.updateUser(user);
+            return result;
         }
 
-        public bool comparePassword(string inputPassword, string encryptedPassword)
-        {
-            return BCrypt.Net.BCrypt.Verify(inputPassword, encryptedPassword);
-        }
+
     }
 }
