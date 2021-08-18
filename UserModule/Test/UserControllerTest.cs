@@ -17,16 +17,22 @@ using store.Utils.Test;
 
 
 using Microsoft.Extensions.Logging;
+using store.AuthModule.DTO;
+using store.AuthModule.Interface;
+using mono_store_be.AuthModule;
+using mono_store_be.Utils;
+using mono_store_be.Utils.Interface;
+
 namespace store.UserModule.Test
 {
 
 
     public class UserControllerTest : IDisposable
     {
-
         private readonly UserController userController;
         private readonly IUserRepository userRepository;
         private readonly IUserService userService;
+        private readonly IAuthService authService;
         private readonly User user;
 
 
@@ -35,11 +41,15 @@ namespace store.UserModule.Test
         {
 
             UpdateUserDtoValidator updateUserDtoValidator = new UpdateUserDtoValidator();
+            LoginUserDtoValidator loginUserDtoValidator = new LoginUserDtoValidator();
+            RegisterUserDtoValidator registerUserDtoValidation = new RegisterUserDtoValidator();
             ConfigTest config = new ConfigTest();
             IDBHelper dbHelper = new DBHelper(config);
+            IJwtService jwtService = new JwtService(config);
             this.userRepository = new UserRepository(dbHelper);
             this.userService = new UserService(userRepository);
-            this.userController = new UserController(userService, updateUserDtoValidator);
+            this.authService = new AuthService(jwtService);
+            this.userController = new UserController(userService, authService, loginUserDtoValidator, registerUserDtoValidation, updateUserDtoValidator);
 
             this.user = new User();
             this.user.userId = Guid.NewGuid().ToString();

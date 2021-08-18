@@ -20,7 +20,9 @@ using store.AuthModule.DTO;
 using store.AuthModule;
 
 using Microsoft.Extensions.Logging;
-
+using mono_store_be.Utils;
+using mono_store_be.Utils.Interface;
+using mono_store_be.AuthModule;
 
 namespace store.AuthModule.Test
 {
@@ -42,9 +44,10 @@ namespace store.AuthModule.Test
             UpdateUserDtoValidator updateUserDtoValidator = new UpdateUserDtoValidator();
             ConfigTest config = new ConfigTest();
             IDBHelper dbHelper = new DBHelper(config);
+            IJwtService jwtService = new JwtService(config);
             this.userRepository = new UserRepository(dbHelper);
             this.userService = new UserService(userRepository);
-            this.authService = new AuthService();
+            this.authService = new AuthService(jwtService);
             this.authController = new AuthController(userService, authService, loginUserDtoValidator, registerUserDtoValidator);
 
             this.user = new User();

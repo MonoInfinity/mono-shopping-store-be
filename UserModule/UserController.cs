@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using FluentValidation.Results;
 
 using Microsoft.AspNetCore.Mvc;
+using mono_store_be.Utils.Interface;
+using store.AuthModule.DTO;
+using store.AuthModule.Interface;
 using store.UserModule.DTO;
 using store.UserModule.Entity;
 using store.UserModule.Interface;
@@ -15,13 +18,18 @@ namespace store.UserModule
     [Route("/api/user")]
     public class UserController : IUserController
     {
-
         private readonly IUserService userService;
+        private readonly IAuthService authService;
+        private readonly LoginUserDtoValidator loginUserDtoValidator;
+        private readonly RegisterUserDtoValidator registerUserDtoValidator;
         private readonly UpdateUserDtoValidator updateUserDtoValidator;
-        public UserController(IUserService userService, UpdateUserDtoValidator updateUserDtoValidator)
+        public UserController(IUserService userService, IAuthService authService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator)
         {
             this.userService = userService;
             this.updateUserDtoValidator = updateUserDtoValidator;
+            this.loginUserDtoValidator = loginUserDtoValidator;
+            this.registerUserDtoValidator = registerUserDtoValidator;
+            this.authService = authService;
         }
 
         [HttpPost("update")]
