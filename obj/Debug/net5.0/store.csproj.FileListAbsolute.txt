@@ -659,3 +659,4 @@ C:\Users\HaiCao\Desktop\mono_store_be\obj\Debug\net5.0\scopedcss\bundle\store.st
 C:\Users\HaiCao\Desktop\mono_store_be\obj\Debug\net5.0\store.RazorTargetAssemblyInfo.cache
 C:\Users\HaiCao\Desktop\mono_store_be\obj\Debug\net5.0\store.csproj.CopyComplete
 C:\Users\HaiCao\Desktop\mono_store_be\obj\Debug\net5.0\store.genruntimeconfig.cache
+C:\Users\HaiCao\Desktop\mono_store_be\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.Google.dll

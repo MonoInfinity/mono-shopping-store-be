@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "fPCox75dqF/O2MudUlOTRfpb2daoI//UZFUTsDEIHxfgEqeUO+NxZZyrbj9gY7fdpUzg2hP+3as22CeI7ImJNg==",
+  "dgSpecHash": "+VrnVMJr9B1zujCrtK1L2u1FzY+A8VGXi7S4BA+D2+iZrmDt8D50W2WXAOkiDT0paJXYnfAzSBgL6tC/aToqsQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\HaiCao\\Desktop\\mono_store_be\\store.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HaiCao\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\fluentvalidation\\10.3.0\\fluentvalidation.10.3.0.nupkg.sha512",
+    "C:\\Users\\HaiCao\\.nuget\\packages\\microsoft.aspnetcore.authentication.google\\5.0.9\\microsoft.aspnetcore.authentication.google.5.0.9.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\microsoft.codecoverage\\16.11.0\\microsoft.codecoverage.16.11.0.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
