@@ -10,7 +10,5 @@ namespace store.UserModule.Interface
         public IDictionary<string, Object> loginUser(LoginUserDto body);
 
         public IDictionary<string, Object> registerUser(RegisterUserDto body);
-
-        public IDictionary<string, Object> logger();
     }
 }

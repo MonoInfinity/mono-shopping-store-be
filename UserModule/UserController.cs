@@ -8,6 +8,7 @@ using store.UserModule.DTO;
 using store.UserModule.Entity;
 using store.UserModule.Interface;
 using store.Utils.Common;
+using System.Diagnostics;
 
 
 namespace store.UserModule
@@ -16,26 +17,15 @@ namespace store.UserModule
     [Route("/api/user")]
     public class UserController : IUserController
     {
-
-        private readonly ILogger loggerr;
         private readonly IUserService userService;
         private readonly LoginUserDtoValidator loginUserDtoValidator;
         private readonly RegisterUserDtoValidator registerUserDtoValidator;
-        public UserController(IUserService userService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, ILogger<UserController> loggerr)
+        public UserController(IUserService userService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator)
         {
-            this.loggerr = loggerr;
+            // this.loggerr = loggerr;
             this.userService = userService;
             this.loginUserDtoValidator = loginUserDtoValidator;
             this.registerUserDtoValidator = registerUserDtoValidator;
-        }
-
-        [HttpGet("logger")]
-        public IDictionary<string, Object> logger()
-        {
-            ServerResponse<User> res = new ServerResponse<User>();
-            loggerr.LogInformation("Hello from the Get() method!");
-
-            return res.getResponse();
         }
 
         [HttpPost("login")]
@@ -54,13 +44,11 @@ namespace store.UserModule
 
             User user = this.userService.getUserByUsername(body.username);
 
-
             if (user == null)
             {
                 res.setErrorMessage("Username or password is wrong");
                 return res.getResponse();
             }
-
 
 
             bool isMatchPassword = this.userService.comparePassword(body.password, user.password);
@@ -69,7 +57,6 @@ namespace store.UserModule
                 res.setErrorMessage("Username or password is wrong");
                 return res.getResponse();
             }
-
             res.data = user;
             return res.getResponse();
         }
