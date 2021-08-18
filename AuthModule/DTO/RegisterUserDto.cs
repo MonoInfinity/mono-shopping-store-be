@@ -2,7 +2,7 @@
 using FluentValidation;
 using store.Utils.Validator;
 
-namespace store.UserModule.DTO
+namespace store.AuthModule.DTO
 {
     public class RegisterUserDto
     {
@@ -14,7 +14,8 @@ namespace store.UserModule.DTO
         public string phone { get; set; }
         public string address { get; set; }
 
-        public RegisterUserDto(string username, string password, string confirmPassword, string name, string email, string phone, string address){
+        public RegisterUserDto(string username, string password, string confirmPassword, string name, string email, string phone, string address)
+        {
             this.username = username;
             this.password = password;
             this.confirmPassword = confirmPassword;
@@ -25,7 +26,7 @@ namespace store.UserModule.DTO
         }
     }
 
-    public class RegisterUserDtoValidator: AbstractValidator<RegisterUserDto>
+    public class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
     {
         public RegisterUserDtoValidator()
         {
