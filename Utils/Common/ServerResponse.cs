@@ -65,7 +65,6 @@ namespace store.Utils.Common
 
 
             res.Add("details", this.details);
-
             return res;
 
         }

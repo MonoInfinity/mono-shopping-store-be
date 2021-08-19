@@ -1,9 +1,8 @@
-
-
 using System;
 using System.Collections.Generic;
 using FluentValidation.Results;
 
+using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
 using store.Utils.Interface;
 using store.AuthModule.DTO;
@@ -13,6 +12,9 @@ using store.UserModule.Entity;
 using store.UserModule.Interface;
 using store.Utils.Common;
 using store.AuthModule;
+using System.Diagnostics;
+
+
 namespace store.UserModule
 {
     [ApiController]
@@ -27,6 +29,7 @@ namespace store.UserModule
         private readonly UpdateUserDtoValidator updateUserDtoValidator;
         public UserController(IUserService userService, IAuthService authService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator)
         {
+            // this.loggerr = loggerr;
             this.userService = userService;
             this.updateUserDtoValidator = updateUserDtoValidator;
             this.loginUserDtoValidator = loginUserDtoValidator;
@@ -57,7 +60,9 @@ namespace store.UserModule
                 return new BadRequestObjectResult(res.getResponse());
             }
 
-            User user = userService.getUserByUsername(body.username);
+
+            User user = this.userService.getUserByUsername(body.username);
+
             if (user == null)
             {
                 res.setErrorMessage("User with the given id was not found");
