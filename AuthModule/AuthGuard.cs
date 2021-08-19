@@ -71,9 +71,16 @@ namespace store.AuthModule
                 Controller controller = context.Controller as Controller;
                 controller.ViewData["user"] = user;
 
-                // check role's user
+                // check user's role
                 UserRole[] roles = context.ActionArguments["roles"] as UserRole[];
                 if(!roles.Contains(user.role)){
+                    res.setErrorMessage("Action is not allow");
+                    context.Result = new UnauthorizedObjectResult(res);
+                    return;
+                }
+
+                // check user status
+                if(user.status == UserStatus.DISABLE){
                     res.setErrorMessage("Action is not allow");
                     context.Result = new UnauthorizedObjectResult(res);
                     return;

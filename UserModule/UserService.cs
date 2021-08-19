@@ -36,7 +36,5 @@ namespace store.UserModule
             bool result = this.userRepository.updateUser(user);
             return result;
         }
-
-
     }
 }

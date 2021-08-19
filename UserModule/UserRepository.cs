@@ -45,6 +45,7 @@ namespace store.UserModule
                         user.createDate = reader.GetDateTime("createDate");
                         user.salary = reader.GetDouble("salary");
                         user.role = (UserRole)reader.GetInt32("role");
+                        user.status = (UserStatus)reader.GetInt32("status");
                     }
 
                 }
@@ -87,6 +88,7 @@ namespace store.UserModule
                         user.createDate = reader.GetDateTime("createDate");
                         user.salary = reader.GetDouble("salary");
                         user.role = (UserRole)reader.GetInt32("role");
+                        user.status = (UserStatus)reader.GetInt32("status");
                     }
 
                 }
@@ -105,8 +107,8 @@ namespace store.UserModule
             SqlConnection connection = this.dbHelper.getDBConnection();
             bool res = false;
             string sql = "INSERT INTO tblUser " +
-            " (userId, name, username, password, email ,phone, address, googleId, createDate, salary, role) " +
-            " VALUES (@userId, @name, @username, @password, @email, @phone, @address, @googleId, @createDate, @salary, @role) ";
+            " (userId, name, username, password, email ,phone, address, googleId, createDate, salary, role, status) " +
+            " VALUES (@userId, @name, @username, @password, @email, @phone, @address, @googleId, @createDate, @salary, @role, @status) ";
             SqlCommand Command = new SqlCommand(sql, connection);
 
             try
@@ -123,6 +125,7 @@ namespace store.UserModule
                 Command.Parameters.AddWithValue("@createDate", user.createDate);
                 Command.Parameters.AddWithValue("@salary", user.salary);
                 Command.Parameters.AddWithValue("@role", user.role);
+                Command.Parameters.AddWithValue("@status", user.status);
 
                 res = Command.ExecuteNonQuery() > 0;
             }
@@ -146,7 +149,7 @@ namespace store.UserModule
                 command.Parameters.Add("@newPhone", SqlDbType.NVarChar).Value = user.phone;
                 command.Parameters.Add("@newAddress", SqlDbType.NVarChar).Value = user.address;
                 int rowAffected = command.ExecuteNonQuery();
-                Console.WriteLine(rowAffected);
+                
                 connection.Close();
                 return rowAffected > 0;
             }
