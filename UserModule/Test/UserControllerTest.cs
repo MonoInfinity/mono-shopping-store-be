@@ -55,6 +55,7 @@ namespace store.UserModule.Test
             this.user.userId = Guid.NewGuid().ToString();
             this.user.username = TestHelper.randomString(10, RamdomStringType.LETTER_LOWER_CASE);
             this.user.password = "123456";
+            this.userController.ViewData["user"] = user;
             this.userRepository.saveUser(user);
         }
 
@@ -63,28 +64,21 @@ namespace store.UserModule.Test
         [Fact]
         public void passUpdate()
         {
-            UpdateUserDto input = new UpdateUserDto(this.user.username, "helllo123", "hello@gmail.com", "0901212099", "anywhere");
-            var res = this.userController.updateUser(input);
-            Assert.Null(res.StatusCode);
+
+            UpdateUserDto input = new UpdateUserDto("helllo123", "hello@gmail.com", "0901212099", "anywhere");
+            this.userController.updateUser(input);
+            User userUpdate = this.userService.getUserById(this.user.userId);
+            Assert.Equal("helllo123", userUpdate.name);
+            Assert.Equal("hello@gmail.com", userUpdate.email);
+            Assert.Equal("0901212099", userUpdate.phone);
+            Assert.Equal("anywhere", userUpdate.address);
         }
 
         [Fact]
         public void FailedInputUpdate()
         {
-            UpdateUserDto input = new UpdateUserDto(this.user.username, "", this.user.email, this.user.phone, this.user.address);
+            UpdateUserDto input = new UpdateUserDto("", "hello@gmail.com", "0901212099", "anywhere");
             var res = this.userController.updateUser(input);
-
-
-            Assert.Equal(400, res.StatusCode);
-        }
-
-        [Fact]
-        public void FailedNotFoundUserUpdate()
-        {
-            UpdateUserDto input = new UpdateUserDto("abcfdff", this.user.name, this.user.email, this.user.phone, this.user.address);
-            var res = this.userController.updateUser(input);
-
-
             Assert.Equal(400, res.StatusCode);
         }
     }
