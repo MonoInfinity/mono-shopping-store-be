@@ -88,5 +88,15 @@ namespace store.UserModule
             res.data = user;
             return new ObjectResult(res.getResponse());
         }
+
+
+        [HttpPost("role")]
+        [RoleGuardAttribute(new UserRole[]{UserRole.MANAGER})]
+        [ServiceFilter(typeof(AuthGuard))]
+        public ObjectResult role(){
+            var user = this.ViewData["user"] as User;
+
+            return new ObjectResult(user);
+        }
     }
 }

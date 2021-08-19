@@ -16,7 +16,6 @@ namespace store.Utils.Validator
     {
         private readonly LoginUserDtoValidator loginUserDtoValidator;
         private readonly RegisterUserDtoValidator registerUserDtoValidator;
-
         private readonly UpdateUserDtoValidator updateUserDtoValidator;
 
         public ValidateFilter(LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator)

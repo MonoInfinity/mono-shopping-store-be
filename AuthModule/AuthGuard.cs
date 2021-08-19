@@ -9,7 +9,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using store.UserModule.Interface;
 using store.Utils.Common;
-
+using store.UserModule.Entity;
 
 namespace store.AuthModule
 {
@@ -32,7 +32,6 @@ namespace store.AuthModule
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-
 
             var res = new ServerResponse<object>();
 
@@ -71,6 +70,14 @@ namespace store.AuthModule
                 }
                 Controller controller = context.Controller as Controller;
                 controller.ViewData["user"] = user;
+
+                // check role's user
+                UserRole[] roles = context.ActionArguments["roles"] as UserRole[];
+                if(!roles.Contains(user.role)){
+                    res.setErrorMessage("Action is not allow");
+                    context.Result = new UnauthorizedObjectResult(res);
+                    return;
+                }
             }
             catch
             {
