@@ -102,7 +102,6 @@ namespace store.AuthModule
         }
 
         [HttpPost("logout")]
-        // [RoleGuardAttribute(new UserRole[] { UserRole.CUSTOMER })]
         [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult logoutUser()
         {

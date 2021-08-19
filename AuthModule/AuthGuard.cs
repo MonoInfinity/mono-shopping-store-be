@@ -73,8 +73,10 @@ namespace store.AuthModule
                 Controller controller = context.Controller as Controller;
                 controller.ViewData["user"] = user;
 
+                var objOut = new Object();
+
                 // check user's role
-                if (context.ActionArguments["roles"] != null)
+                if (context.ActionArguments.TryGetValue("roles", out objOut))
                 {
                     UserRole[] roles = context.ActionArguments["roles"] as UserRole[];
                     if (!roles.Contains(user.role))
@@ -96,7 +98,7 @@ namespace store.AuthModule
             }
             catch (Exception error)
             {
-
+                Console.WriteLine(error);
 
                 //k du do dai 
                 // can fix sau
