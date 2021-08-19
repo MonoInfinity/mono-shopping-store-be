@@ -8,6 +8,7 @@ using store.AuthModule.DTO;
 using store.UserModule.Entity;
 using store.Utils.Common;
 using Microsoft.AspNetCore.Mvc;
+using store.UserModule.DTO;
 
 namespace store.Utils.Validator
 {
@@ -16,10 +17,13 @@ namespace store.Utils.Validator
         private readonly LoginUserDtoValidator loginUserDtoValidator;
         private readonly RegisterUserDtoValidator registerUserDtoValidator;
 
-        public ValidateFilter(LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator)
+        private readonly UpdateUserDtoValidator updateUserDtoValidator;
+
+        public ValidateFilter(LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator)
         {
             this.loginUserDtoValidator = loginUserDtoValidator;
             this.registerUserDtoValidator = registerUserDtoValidator;
+            this.updateUserDtoValidator = updateUserDtoValidator;
         }
         public void OnActionExecuted(ActionExecutedContext context)
         {
@@ -56,6 +60,12 @@ namespace store.Utils.Validator
             {
                 result = this.registerUserDtoValidator.Validate(assignValue<RegisterUserDto>(bodyStr, dtoType));
             }
+            else if(typeof(UpdateUserDto) == dtoType)
+            {
+                result = this.updateUserDtoValidator.Validate(assignValue<UpdateUserDto>(bodyStr, dtoType));
+            }
+
+
             if (!result.IsValid)
             {
                 res.mapDetails(result);
