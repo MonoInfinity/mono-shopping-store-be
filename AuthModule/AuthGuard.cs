@@ -37,6 +37,8 @@ namespace store.AuthModule
 
             var cookies = new Dictionary<string, string>();
             var values = ((string)context.HttpContext.Request.Headers["Cookie"]).TrimEnd(';').Split(';');
+
+
             foreach (var parts in values)
             {
                 var cookieArray = parts.Trim().Split('=');
@@ -72,22 +74,29 @@ namespace store.AuthModule
                 controller.ViewData["user"] = user;
 
                 // check user's role
-                UserRole[] roles = context.ActionArguments["roles"] as UserRole[];
-                if(!roles.Contains(user.role)){
-                    res.setErrorMessage("Action is not allow");
-                    context.Result = new UnauthorizedObjectResult(res);
-                    return;
+                if (context.ActionArguments["roles"] != null)
+                {
+                    UserRole[] roles = context.ActionArguments["roles"] as UserRole[];
+                    if (!roles.Contains(user.role))
+                    {
+                        res.setErrorMessage("Action is not allow");
+                        context.Result = new ObjectResult(res) { StatusCode = 403 };
+                        return;
+                    }
                 }
 
+
                 // check user status
-                if(user.status == UserStatus.DISABLE){
+                if (user.status == UserStatus.DISABLE)
+                {
                     res.setErrorMessage("Action is not allow");
                     context.Result = new UnauthorizedObjectResult(res);
                     return;
                 }
             }
-            catch
+            catch (Exception error)
             {
+
 
                 //k du do dai 
                 // can fix sau
