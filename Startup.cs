@@ -50,7 +50,7 @@ namespace store
             //Dependency Injection 
             services.AddScoped<IConfig, Config>();
             services.AddScoped<IDBHelper, DBHelper>();
-            services.AddScoped<IRedisHelper, Redis>();
+            services.AddScoped<IRedis, Redis>();
             services.AddScoped<IUploadFileService, UploadFileService>();
             services.AddScoped<IJwtService, JwtService>();
 
@@ -73,7 +73,7 @@ namespace store
             // Google
             services.AddAuthentication().AddGoogle(options =>
             {
-                
+
             });
 
             services.AddControllers();
