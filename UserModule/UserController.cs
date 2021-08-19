@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FluentValidation.Results;
-
+using store.Utils.Validator;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
 using store.Utils.Interface;
@@ -13,7 +13,8 @@ using store.UserModule.Interface;
 using store.Utils.Common;
 using store.AuthModule;
 using System.Diagnostics;
-
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace store.UserModule
 {
@@ -27,13 +28,16 @@ namespace store.UserModule
         private readonly LoginUserDtoValidator loginUserDtoValidator;
         private readonly RegisterUserDtoValidator registerUserDtoValidator;
         private readonly UpdateUserDtoValidator updateUserDtoValidator;
-        public UserController(IUserService userService, IAuthService authService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator)
+        private readonly UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator;
+
+        public UserController(IUserService userService, IAuthService authService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator, UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator)
         {
             // this.loggerr = loggerr;
             this.userService = userService;
             this.updateUserDtoValidator = updateUserDtoValidator;
             this.loginUserDtoValidator = loginUserDtoValidator;
             this.registerUserDtoValidator = registerUserDtoValidator;
+            this.updateUserPasswordDtoValidator = updateUserPasswordDtoValidator;
             this.authService = authService;
         }
 
@@ -87,6 +91,39 @@ namespace store.UserModule
 
             res.data = user;
             return new ObjectResult(res.getResponse());
+        }
+
+        [HttpPut("password")]
+        [ValidateFilterAttribute(typeof(UpdateUserPasswordDto))]
+        [ServiceFilter(typeof(ValidateFilter))]
+        [ServiceFilter(typeof(AuthGuard))]
+        public ObjectResult updateUserPassword([FromBody] UpdateUserPasswordDto body)
+        {
+            ServerResponse<User> res = new ServerResponse<User>();
+            var user = this.ViewData["user"] as User;
+            Console.WriteLine(body.password);
+            Console.WriteLine(user.password);
+            bool isMatchPassword = this.authService.comparePassword(body.password, user.password);
+
+            if (!isMatchPassword)
+            {
+                res.setErrorMessage("Password is wrong");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            user.password = this.authService.hashingPassword(body.newPassword);
+
+            bool isUpdate = this.userService.updateUserPassword(user.userId, user.password);
+
+            if (!isUpdate)
+            {
+                res.setErrorMessage("Fail to update user password");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            res.setMessage("Update User password successfully");
+            return new ObjectResult(res.getResponse());
+
         }
     }
 }

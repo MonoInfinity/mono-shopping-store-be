@@ -39,23 +39,24 @@ namespace store.UserModule.Test
 
         public UserControllerTest()
         {
-
             UpdateUserDtoValidator updateUserDtoValidator = new UpdateUserDtoValidator();
             LoginUserDtoValidator loginUserDtoValidator = new LoginUserDtoValidator();
             RegisterUserDtoValidator registerUserDtoValidation = new RegisterUserDtoValidator();
+            UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator = new UpdateUserPasswordDtoValidator();
             ConfigTest config = new ConfigTest();
             IDBHelper dbHelper = new DBHelper(config);
             IJwtService jwtService = new JwtService(config);
             this.userRepository = new UserRepository(dbHelper);
             this.userService = new UserService(userRepository);
             this.authService = new AuthService();
-            this.userController = new UserController(userService, authService, loginUserDtoValidator, registerUserDtoValidation, updateUserDtoValidator);
+            this.userController = new UserController(userService, authService, loginUserDtoValidator, registerUserDtoValidation, updateUserDtoValidator, updateUserPasswordDtoValidator);
 
             this.user = new User();
             this.user.userId = Guid.NewGuid().ToString();
             this.user.username = TestHelper.randomString(10, RamdomStringType.LETTER_LOWER_CASE);
             this.user.password = "123456";
-            this.userRepository.saveUser(user);
+            this.userController.ViewData["user"] = user;
+            // this.userRepository.saveUser(user);
         }
 
 
@@ -84,6 +85,15 @@ namespace store.UserModule.Test
             UpdateUserDto input = new UpdateUserDto("abcfdff", this.user.name, this.user.email, this.user.phone, this.user.address);
             var res = this.userController.updateUser(input);
 
+
+            Assert.Equal(400, res.StatusCode);
+        }
+
+        [Fact]
+        public void FailedUpdatePassword()
+        {
+            UpdateUserPasswordDto input = new UpdateUserPasswordDto(this.user.password, "thuan456", "thuan123");
+            var res = this.userController.updateUserPassword(input);
 
             Assert.Equal(400, res.StatusCode);
         }
