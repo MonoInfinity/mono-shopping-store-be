@@ -7,5 +7,7 @@ namespace store.ProductModule.Interface
         public bool saveSubCategory(SubCategory subCategory);
 
         public bool updateSubCategory(SubCategory subCategory);
+
+        public SubCategory getSubCategoryBySubCategoryId(string subCategoryId);
     }
 }

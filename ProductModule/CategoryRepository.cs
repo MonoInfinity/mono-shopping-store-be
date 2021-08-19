@@ -1,4 +1,5 @@
 using System;
+using System.Data;
 using System.Data.SqlClient;
 using store.ProductModule.Entity;
 using store.ProductModule.Interface;
@@ -12,6 +13,36 @@ namespace store.ProductModule
         public CategoryRepository(IDBHelper dBHelper){
             this.dBHelper = dBHelper;
         }
+
+        public Category getCategoryByCategoryId(string categoryId)
+        {
+            SqlConnection connection = this.dBHelper.getDBConnection();
+            Category category = null;
+            string sql = "SELECT * FROM tblCategory WHERE categoryId=@categoryId";
+            SqlCommand command = new SqlCommand(sql, connection);
+
+            try{
+                connection.Open();
+                command.Parameters.AddWithValue("@categoryId", categoryId);
+                SqlDataReader reader = command.ExecuteReader();
+
+                if(reader.HasRows){
+                    while(reader.Read()){
+                        category = new Category();
+                        category.categoryId = reader.GetString("categoryId");
+                        category.name = reader.GetString("name");
+                        category.status = (CategoryStatus)reader.GetInt32("status");
+                        category.createDate = reader.GetDateTime("createTime");
+                    }
+                }
+
+                connection.Close();
+            }catch(SqlException e){
+                Console.WriteLine(e.Message);
+            }
+            return category;
+        }
+
         public bool saveCategory(Category category)
         {
             SqlConnection connection = this.dBHelper.getDBConnection();
