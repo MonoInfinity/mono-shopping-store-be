@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 
-namespace mono_shopping_store_be.Utils.Interface
+namespace store.Utils.Interface
 {
     public interface IUploadFileService
     {

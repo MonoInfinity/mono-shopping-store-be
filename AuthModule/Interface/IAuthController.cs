@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using store.AuthModule.DTO;
 
+using Microsoft.AspNetCore.Mvc;
 
 namespace store.AuthModule.Interface
 {
     public interface IAuthController
     {
-        public IDictionary<string, Object> loginUser(LoginUserDto body);
-
-        public IDictionary<string, Object> registerUser(RegisterUserDto body);
+        public ObjectResult loginUser(LoginUserDto body);
+        public ObjectResult registerUser(RegisterUserDto body);
     }
 }

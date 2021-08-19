@@ -13,7 +13,10 @@ namespace store.AuthModule.DTO
         public string email { get; set; }
         public string phone { get; set; }
         public string address { get; set; }
+        public RegisterUserDto()
+        {
 
+        }
         public RegisterUserDto(string username, string password, string confirmPassword, string name, string email, string phone, string address)
         {
             this.username = username;

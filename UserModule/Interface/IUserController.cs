@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
 using store.UserModule.DTO;
-
+using Microsoft.AspNetCore.Mvc;
 
 namespace store.UserModule.Interface
 {
     public interface IUserController
     {
 
-        public IDictionary<string, Object> updateUser(UpdateUserDto body);
+        public ObjectResult updateUser(UpdateUserDto body);
+        public ObjectResult getUser();
 
     }
 }

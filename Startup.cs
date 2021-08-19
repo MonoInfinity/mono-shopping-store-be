@@ -3,25 +3,28 @@ using System.IO;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.FileProviders;
-using store.Utils;
+
 using store.UserModule;
-using store.Utils.Locale;
-using FluentValidation;
-using System.Globalization;
 using store.UserModule.DTO;
 using store.UserModule.Interface;
+
+using store.Utils;
+using store.Utils.Locale;
 using store.Utils.Interface;
-using store.AuthModule.DTO;
+
+using FluentValidation;
+using System.Globalization;
+
 using store.AuthModule;
 using store.AuthModule.Interface;
-
+using store.AuthModule.DTO;
+using store.Utils.Validator;
+using Microsoft.AspNetCore.Http;
 
 namespace store
 {
@@ -37,11 +40,12 @@ namespace store
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             //Dependency Injection 
             services.AddScoped<IConfig, Config>();
             services.AddScoped<IDBHelper, DBHelper>();
-            services.AddScoped<IRedisHelper, Redis>();
+            services.AddScoped<IRedis, Redis>();
+            services.AddScoped<IUploadFileService, UploadFileService>();
+            services.AddScoped<IJwtService, JwtService>();
 
             //User Module
             services.AddScoped<IUserRepository, UserRepository>();
@@ -49,10 +53,23 @@ namespace store
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthService, AuthService>();
 
-            //validator  
+            // Auth Module
+
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<AuthGuard>();
+
+            //Validator  
+            services.AddScoped<ValidateFilter>();
             services.AddScoped<LoginUserDtoValidator, LoginUserDtoValidator>();
             services.AddScoped<RegisterUserDtoValidator, RegisterUserDtoValidator>();
             services.AddScoped<UpdateUserDtoValidator, UpdateUserDtoValidator>();
+
+
+            // Google
+            services.AddAuthentication().AddGoogle(options =>
+            {
+
+            });
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -80,6 +97,12 @@ namespace store
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/document/swagger/v1.json", "Store v1"));
             }
+
+            app.Use(next => context =>
+                        {
+                            context.Request.EnableBuffering();
+                            return next(context);
+                        });
 
             app.UseHttpsRedirection();
 
