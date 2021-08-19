@@ -128,6 +128,7 @@ namespace store.UserModule
                 Command.Parameters.AddWithValue("@status", user.status);
 
                 res = Command.ExecuteNonQuery() > 0;
+                connection.Close();
             }
             catch (SqlException e)
             {
