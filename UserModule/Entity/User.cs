@@ -13,6 +13,12 @@ namespace store.UserModule.Entity
         MANAGER = 4,
         OWNER = 5,
     }
+
+    public enum UserStatus
+    {
+        DISABLE = 0,
+        ENABLE = 1
+    }
     public class User
     {
         public string userId { get; set; }
@@ -26,6 +32,7 @@ namespace store.UserModule.Entity
         public DateTime createDate { get; set; }
         public double salary { get; set; }
         public UserRole role { get; set; }
+        public UserStatus status { get; set; }
 
         public User()
         {
@@ -40,15 +47,14 @@ namespace store.UserModule.Entity
             this.createDate = DateTime.Now;
             this.salary = 0;
             this.role = UserRole.CUSTOMER;
+            this.status = UserStatus.ENABLE;
         }
 
         public override string ToString()
         {
             return "User: \nUserId: " + userId + " \nUsername: " + username + " \nPassword: " + password + " \nName: " +
                             name + " \nEmail: " + email + " \nPhone: " + phone + " \nAddress: " + address + " \nGoogleId: " +
-                            googleId + " \nCreateDate: " + createDate + " \nSalary: " + salary + " \nRole: " + role;
+                            googleId + " \nCreateDate: " + createDate + " \nSalary: " + salary + " \nRole: " + role + " \nStatus: " + status;
         }
     }
-
-
 }
