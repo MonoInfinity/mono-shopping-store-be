@@ -71,5 +71,49 @@ namespace store.AuthModule.Test
 
             Assert.Equal(400, res.StatusCode);
         }
+
+
+        [Fact]
+        public void PassRegister()
+        {
+
+            RegisterUserDto input = new RegisterUserDto()
+            {
+                username = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE),
+                password = "123456789",
+                confirmPassword = "123456789",
+                name = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE),
+                email = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE) + "@gmail.com",
+                phone = "0901212345",
+                address = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE),
+            };
+            var res = this.authController.registerUser(input);
+            var user = this.userRepository.getUserByUsername(input.username);
+
+            Assert.NotNull(user);
+            Assert.Equal(user.username, input.username);
+            Assert.Null(res.StatusCode);
+        }
+
+        [Fact]
+        public void FailedRegisterUsernameTaken()
+        {
+
+            RegisterUserDto input = new RegisterUserDto()
+            {
+                username = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE),
+                password = "123456789",
+                confirmPassword = "123456789",
+                name = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE),
+                email = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE) + "@gmail.com",
+                phone = "0901212345",
+                address = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE),
+            };
+            this.authController.registerUser(input);
+            var res = this.authController.registerUser(input);
+
+            Assert.Equal(400, res.StatusCode);
+        }
+
     }
 }
