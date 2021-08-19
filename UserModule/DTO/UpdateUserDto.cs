@@ -20,6 +20,8 @@ namespace store.UserModule.DTO
             this.newPhone = newPhone;
             this.newAddress = newAddress;
         }
+
+        public UpdateUserDto(){}
     }
     public class UpdateUserDtoValidator : AbstractValidator<UpdateUserDto>
     {

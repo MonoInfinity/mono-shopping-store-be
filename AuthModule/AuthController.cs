@@ -1,8 +1,4 @@
-
-
 using System;
-using FluentValidation.Results;
-
 using Microsoft.AspNetCore.Mvc;
 using store.AuthModule.DTO;
 using store.UserModule.Entity;
@@ -71,8 +67,7 @@ namespace store.AuthModule
         }
 
         [HttpPost("register")]
-
-        [ValidateFilterAttribute(typeof(LoginUserDto))]
+        [ValidateFilterAttribute(typeof(RegisterUserDto))]
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult registerUser(RegisterUserDto body)
         {
