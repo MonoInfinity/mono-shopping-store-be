@@ -13,6 +13,7 @@ namespace store.AuthModule.DTO
             this.username = username;
             this.password = password;
         }
+        public LoginUserDto() { }
 
     }
 

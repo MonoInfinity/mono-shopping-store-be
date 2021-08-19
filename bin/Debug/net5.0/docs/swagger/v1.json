@@ -33,7 +33,43 @@
                         "description": "Development server"
                 }
         ],
-        "paths": {},
+        "paths": {
+                "/api/user/login": {
+                        "post": {
+                                "tags": ["auth"],
+                                "description": "hello",
+                                "requestBody": {
+                                        "content": {
+                                                "form-data": {
+                                                        "schema": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                        "username": {
+                                                                                "type": "string",
+                                                                                "example": "vinhnhan001"
+                                                                        },
+                                                                        "password": {
+                                                                                "type": "string",
+                                                                                "example": "1234567"
+                                                                        }
+                                                                }
+                                                        }
+                                                }
+                                        }
+                                },
+                                "responses": {
+                                        "200": {
+                                                "description": "return cookie",
+                                                "content": {
+                                                        "application/json": {
+                                                                "schema": {}
+                                                        }
+                                                }
+                                        }
+                                }
+                        }
+                }
+        },
         "components": {
                 "schemas": {}
         }

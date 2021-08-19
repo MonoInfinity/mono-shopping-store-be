@@ -12,7 +12,7 @@ using store.AuthModule.Interface;
 using store.Utils.Interface;
 using System.Net.Http;
 using System.Net.Http.Headers;
-
+using store.Utils.Validator;
 namespace store.AuthModule
 {
 
@@ -25,35 +25,25 @@ namespace store.AuthModule
         private readonly IJwtService jwtService;
         private readonly IUserService userService;
         private readonly IAuthService authService;
-        private readonly LoginUserDtoValidator loginUserDtoValidator;
-        private readonly RegisterUserDtoValidator registerUserDtoValidator;
 
-        public AuthController(IUserService userService, IAuthService authService, IJwtService jwtService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator)
+
+        public AuthController(IUserService userService, IAuthService authService, IJwtService jwtService)
         {
             this.userService = userService;
-            this.loginUserDtoValidator = loginUserDtoValidator;
-            this.registerUserDtoValidator = registerUserDtoValidator;
             this.authService = authService;
             this.jwtService = jwtService;
         }
 
         [HttpPost("login")]
-
+        [ValidateFilterAttribute(typeof(LoginUserDto))]
+        [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult loginUser([FromBody] LoginUserDto body)
         {
             ServerResponse<User> res = new ServerResponse<User>();
-            ValidationResult result = this.loginUserDtoValidator.Validate(body);
-            res.mapDetails(result);
 
-            if (!result.IsValid)
-            {
-                return new BadRequestObjectResult(res.getResponse());
-            }
 
 
             User existedUser = this.userService.getUserByUsername(body.username);
-
-
             if (existedUser == null)
             {
                 res.setErrorMessage("Username or password is wrong");
@@ -81,18 +71,12 @@ namespace store.AuthModule
         }
 
         [HttpPost("register")]
+
+        [ValidateFilterAttribute(typeof(LoginUserDto))]
+        [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult registerUser(RegisterUserDto body)
         {
             ServerResponse<User> res = new ServerResponse<User>();
-
-            ValidationResult result = this.registerUserDtoValidator.Validate(body);
-            res.mapDetails(result);
-
-            if (!result.IsValid)
-            {
-                return new BadRequestObjectResult(res.getResponse());
-            }
-
             User user = this.userService.getUserByUsername(body.username);
             if (user != null)
             {

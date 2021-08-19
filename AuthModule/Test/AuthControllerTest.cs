@@ -26,8 +26,6 @@ namespace store.AuthModule.Test
         public AuthControllerTest()
         {
 
-            LoginUserDtoValidator loginUserDtoValidator = new LoginUserDtoValidator();
-            RegisterUserDtoValidator registerUserDtoValidator = new RegisterUserDtoValidator();
             UpdateUserDtoValidator updateUserDtoValidator = new UpdateUserDtoValidator();
             ConfigTest config = new ConfigTest();
             IDBHelper dbHelper = new DBHelper(config);
@@ -35,7 +33,7 @@ namespace store.AuthModule.Test
             this.userRepository = new UserRepository(dbHelper);
             this.userService = new UserService(userRepository);
             this.authService = new AuthService();
-            this.authController = new AuthController(userService, authService, jwtService, loginUserDtoValidator, registerUserDtoValidator);
+            this.authController = new AuthController(userService, authService, jwtService);
 
             this.user = new User();
             this.user.userId = Guid.NewGuid().ToString();

@@ -1,3 +1,4 @@
+using System.Reflection;
 using System;
 using System.ComponentModel;
 
@@ -36,7 +37,6 @@ namespace store.UserModule.Test
         private readonly User user;
 
 
-        public void Dispose() { }
         public UserControllerTest()
         {
 

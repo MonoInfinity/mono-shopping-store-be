@@ -23,7 +23,8 @@ using System.Globalization;
 using store.AuthModule;
 using store.AuthModule.Interface;
 using store.AuthModule.DTO;
-
+using store.Utils.Validator;
+using Microsoft.AspNetCore.Http;
 
 namespace store
 {
@@ -58,6 +59,7 @@ namespace store
             services.AddScoped<AuthGuard>();
 
             //Validator  
+            services.AddScoped<ValidateFilter>();
             services.AddScoped<LoginUserDtoValidator, LoginUserDtoValidator>();
             services.AddScoped<RegisterUserDtoValidator, RegisterUserDtoValidator>();
             services.AddScoped<UpdateUserDtoValidator, UpdateUserDtoValidator>();
@@ -95,6 +97,12 @@ namespace store
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/document/swagger/v1.json", "Store v1"));
             }
+
+            app.Use(next => context =>
+                        {
+                            context.Request.EnableBuffering();
+                            return next(context);
+                        });
 
             app.UseHttpsRedirection();
 
