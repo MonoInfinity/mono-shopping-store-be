@@ -20,17 +20,9 @@ using store.Utils.Interface;
 using FluentValidation;
 using System.Globalization;
 
-using mono_shopping_store_be.Utils.Interface;
-using mono_shopping_store_be.Utils;
-
-using mono_store_be.Utils;
-using mono_store_be.Utils.Interface;
-
-using mono_store_be.AuthModule;
-using mono_store_be.AuthModule.Interface;
-using store.AuthModule.DTO;
 using store.AuthModule;
 using store.AuthModule.Interface;
+using store.AuthModule.DTO;
 
 
 namespace store
@@ -61,8 +53,9 @@ namespace store
             services.AddScoped<IAuthService, AuthService>();
 
             // Auth Module
-            services.AddScoped<IReTokenRepository, ReTokenRepository>();
+
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<AuthGuard>();
 
             //Validator  
             services.AddScoped<LoginUserDtoValidator, LoginUserDtoValidator>();
@@ -73,7 +66,7 @@ namespace store
             // Google
             services.AddAuthentication().AddGoogle(options =>
             {
-                
+
             });
 
             services.AddControllers();

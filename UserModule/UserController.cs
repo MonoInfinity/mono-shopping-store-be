@@ -5,19 +5,21 @@ using System.Collections.Generic;
 using FluentValidation.Results;
 
 using Microsoft.AspNetCore.Mvc;
-using mono_store_be.Utils.Interface;
+using store.Utils.Interface;
 using store.AuthModule.DTO;
 using store.AuthModule.Interface;
 using store.UserModule.DTO;
 using store.UserModule.Entity;
 using store.UserModule.Interface;
 using store.Utils.Common;
+using store.AuthModule;
 namespace store.UserModule
 {
     [ApiController]
     [Route("/api/user")]
-    public class UserController : IUserController
+    public class UserController : Controller, IUserController
     {
+
         private readonly IUserService userService;
         private readonly IAuthService authService;
         private readonly LoginUserDtoValidator loginUserDtoValidator;
@@ -32,8 +34,19 @@ namespace store.UserModule
             this.authService = authService;
         }
 
+
+        [HttpGet("")]
+        [ServiceFilter(typeof(AuthGuard))]
+        public ObjectResult getUser()
+        {
+            var user = this.ViewData["user"] as User;
+            user.password = "";
+            return new ObjectResult(user);
+        }
+
         [HttpPost("update")]
-        public IDictionary<string, Object> updateUser([FromBody] UpdateUserDto body)
+        [ServiceFilter(typeof(AuthGuard))]
+        public ObjectResult updateUser([FromBody] UpdateUserDto body)
         {
             ServerResponse<User> res = new ServerResponse<User>();
             ValidationResult result = this.updateUserDtoValidator.Validate(body);
@@ -41,14 +54,14 @@ namespace store.UserModule
 
             if (!result.IsValid)
             {
-                return res.getResponse();
+                return new BadRequestObjectResult(res.getResponse());
             }
 
             User user = userService.getUserByUsername(body.username);
             if (user == null)
             {
                 res.setErrorMessage("User with the given id was not found");
-                return res.getResponse();
+                return new BadRequestObjectResult(res.getResponse());
             }
             else
             {
@@ -64,11 +77,11 @@ namespace store.UserModule
             if (!isUpdated)
             {
                 res.setErrorMessage("Update fail");
-                return res.getResponse();
+                return new ObjectResult(res.getResponse()) { StatusCode = 500 };
             }
 
             res.data = user;
-            return res.getResponse();
+            return new ObjectResult(res.getResponse());
         }
     }
 }

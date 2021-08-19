@@ -19,15 +19,14 @@ using store.Utils.Test;
 using Microsoft.Extensions.Logging;
 using store.AuthModule.DTO;
 using store.AuthModule.Interface;
-using mono_store_be.AuthModule;
-using mono_store_be.Utils;
-using mono_store_be.Utils.Interface;
+using store.AuthModule;
+
 
 namespace store.UserModule.Test
 {
 
 
-    public class UserControllerTest : IDisposable
+    public class UserControllerTest
     {
         private readonly UserController userController;
         private readonly IUserRepository userRepository;
@@ -48,7 +47,7 @@ namespace store.UserModule.Test
             IJwtService jwtService = new JwtService(config);
             this.userRepository = new UserRepository(dbHelper);
             this.userService = new UserService(userRepository);
-            this.authService = new AuthService(jwtService);
+            this.authService = new AuthService();
             this.userController = new UserController(userService, authService, loginUserDtoValidator, registerUserDtoValidation, updateUserDtoValidator);
 
             this.user = new User();
@@ -65,10 +64,7 @@ namespace store.UserModule.Test
         {
             UpdateUserDto input = new UpdateUserDto(this.user.username, "helllo123", "hello@gmail.com", "0901212099", "anywhere");
             var res = this.userController.updateUser(input);
-            User user = res["data"] as User;
-
-
-            Assert.NotNull(user);
+            Assert.Null(res.StatusCode);
         }
 
         [Fact]
@@ -78,8 +74,7 @@ namespace store.UserModule.Test
             var res = this.userController.updateUser(input);
 
 
-            Assert.Null(res["data"]);
-            Assert.NotNull(res["details"]);
+            Assert.Equal(400, res.StatusCode);
         }
 
         [Fact]
@@ -89,8 +84,7 @@ namespace store.UserModule.Test
             var res = this.userController.updateUser(input);
 
 
-            Assert.Null(res["data"]);
-            Assert.NotNull(res["details"]);
+            Assert.Equal(400, res.StatusCode);
         }
     }
 }

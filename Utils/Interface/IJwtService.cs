@@ -1,6 +1,6 @@
 using store.UserModule.Entity;
 
-namespace mono_store_be.Utils.Interface
+namespace store.Utils.Interface
 {
     public interface IJwtService
     {

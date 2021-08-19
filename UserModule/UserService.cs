@@ -12,6 +12,12 @@ namespace store.UserModule
             this.userRepository = userRepository;
         }
 
+        public User getUserById(string id)
+        {
+            User user = this.userRepository.getUserByUserId(id);
+            return user;
+        }
+
         public User getUserByUsername(string username)
         {
             User user = this.userRepository.getUserByUsername(username);
