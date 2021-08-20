@@ -19,18 +19,21 @@ namespace store.Utils.Validator
         private readonly RegisterUserDtoValidator registerUserDtoValidator;
         private readonly UpdateUserDtoValidator updateUserDtoValidator;
         private readonly AddCategoryDtoValidator addCategoryDtoValidator;
+        private readonly AddSubCategoryDtoValidator addSubCategoryDtoValidator;
 
         public ValidateFilter(
                                 LoginUserDtoValidator loginUserDtoValidator, 
                                 RegisterUserDtoValidator registerUserDtoValidator, 
                                 UpdateUserDtoValidator updateUserDtoValidator,
-                                AddCategoryDtoValidator addCategoryDtoValidator
+                                AddCategoryDtoValidator addCategoryDtoValidator,
+                                AddSubCategoryDtoValidator addSubCategoryDtoValidator
                             )
         {
             this.loginUserDtoValidator = loginUserDtoValidator;
             this.registerUserDtoValidator = registerUserDtoValidator;
             this.updateUserDtoValidator = updateUserDtoValidator;
             this.addCategoryDtoValidator = addCategoryDtoValidator;
+            this.addSubCategoryDtoValidator = addSubCategoryDtoValidator;
         }
         public void OnActionExecuted(ActionExecutedContext context)
         {
@@ -79,6 +82,10 @@ namespace store.Utils.Validator
             if(typeof(AddCategoryDto) == dtoType)
             {
                 result = this.addCategoryDtoValidator.Validate(assignValue<AddCategoryDto>(bodyStr, dtoType));
+            }
+            if(typeof(AddSubCategoryDto) == dtoType)
+            {
+                result = this.addSubCategoryDtoValidator.Validate(assignValue<AddSubCategoryDto>(bodyStr, dtoType));
             }
 
 

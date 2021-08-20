@@ -70,6 +70,7 @@ namespace store
             services.AddScoped<RegisterUserDtoValidator>();
             services.AddScoped<UpdateUserDtoValidator>();
             services.AddScoped<AddCategoryDtoValidator>();
+            services.AddScoped<AddSubCategoryDtoValidator>();
 
             // Google
             services.AddAuthentication().AddGoogle(options =>
