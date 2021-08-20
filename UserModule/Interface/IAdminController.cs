@@ -7,5 +7,7 @@ namespace store.UserModule.Interface
     public interface IAdminController
     {
         public ObjectResult listAllUser(int pageSize, int page);
+        public ObjectResult updateStatusUser(UpdateStatusUserDto body);
+
     }
 }

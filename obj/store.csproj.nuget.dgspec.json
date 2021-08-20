@@ -1,7 +1,43 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj": {}
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+    "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj",
+        "projectName": "store",
+        "projectPath": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj",
+        "packagesPath": "C:\\Users\\HaiCao\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\obj\\",
+=======
+    "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj": {}
+=======
+    "C:\\Users\\ACER\\Desktop\\Mono-Shop-dev\\mono-shopping-store-be\\store.csproj": {}
+>>>>>>> ea3b556a3dd7402d8ce48c4cb99270a694a4cb07
+  },
+  "projects": {
+    "C:\\Users\\ACER\\Desktop\\Mono-Shop-dev\\mono-shopping-store-be\\store.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\ACER\\Desktop\\Mono-Shop-dev\\mono-shopping-store-be\\store.csproj",
+        "projectName": "store",
+<<<<<<< HEAD
+        "projectPath": "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
+        "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Lenovo\\Desktop\\shop\\obj\\",
+>>>>>>> 1dafa0eee022c7e73a2558cc4aa8e905a0b28236
+=======
+    "e:\\server\\mono-shopping-store-be\\store.csproj": {}
+>>>>>>> a5317bbd31e54125c8e8818139286c46de3eb162
   },
   "projects": {
     "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj": {
@@ -9,17 +45,45 @@
       "restore": {
         "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
         "projectName": "store",
+<<<<<<< HEAD
         "projectPath": "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
         "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Lenovo\\Desktop\\shop\\obj\\",
+=======
+        "projectPath": "e:\\server\\mono-shopping-store-be\\store.csproj",
+        "packagesPath": "C:\\Users\\heaty566\\.nuget\\packages\\",
+        "outputPath": "e:\\server\\mono-shopping-store-be\\obj\\",
+>>>>>>> 015d14c8bafdf6fb9cbd9d00ce7374eb3e50ebd8
+=======
+        "projectPath": "C:\\Users\\ACER\\Desktop\\Mono-Shop-dev\\mono-shopping-store-be\\store.csproj",
+        "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ACER\\Desktop\\Mono-Shop-dev\\mono-shopping-store-be\\obj\\",
+>>>>>>> ea3b556a3dd7402d8ce48c4cb99270a694a4cb07
+>>>>>>> a5317bbd31e54125c8e8818139286c46de3eb162
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
+<<<<<<< HEAD
           "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+          "C:\\Users\\HaiCao\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+=======
+          "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+>>>>>>> 1dafa0eee022c7e73a2558cc4aa8e905a0b28236
+=======
+          "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+>>>>>>> ea3b556a3dd7402d8ce48c4cb99270a694a4cb07
+>>>>>>> a5317bbd31e54125c8e8818139286c46de3eb162
         ],
         "originalTargetFrameworks": [
           "net5.0"

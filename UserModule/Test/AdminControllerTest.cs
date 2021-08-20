@@ -37,7 +37,7 @@ namespace store.UserModule.Test
 
         public AdminControllerTest()
         {
-
+            UpdateStatusUserDtoValidator updateStatusUserDtoValidator = new UpdateStatusUserDtoValidator();
             UpdateUserDtoValidator updateUserDtoValidator = new UpdateUserDtoValidator();
             LoginUserDtoValidator loginUserDtoValidator = new LoginUserDtoValidator();
             RegisterUserDtoValidator registerUserDtoValidation = new RegisterUserDtoValidator();
@@ -47,7 +47,7 @@ namespace store.UserModule.Test
             this.userRepository = new UserRepository(dbHelper);
             this.userService = new UserService(userRepository);
             this.adminService = new AdminService(userRepository);
-            this.adminController = new AdminController(userService, adminService);
+            this.adminController = new AdminController(userService, adminService, updateStatusUserDtoValidator);
             this.user = new User();
             this.user.userId = Guid.NewGuid().ToString();
             this.user.username = TestHelper.randomString(10, RamdomStringType.LETTER_LOWER_CASE);
@@ -88,6 +88,20 @@ namespace store.UserModule.Test
 
             Assert.Equal(0, user.Count);
         }
+        [Fact]
+        public void FailUpdateAdminStatus()
+        {
+            UpdateStatusUserDto input = new UpdateStatusUserDto(this.user.userId);
+            var res = this.adminController.updateStatusUser(input);
+            Assert.Equal(406, res.StatusCode);
+        }
 
+        [Fact]
+        public void FailUpdateUserStatus()
+        {
+            UpdateStatusUserDto input = new UpdateStatusUserDto("");
+            var res = this.adminController.updateStatusUser(input);
+            Assert.Equal(400, res.StatusCode);
+        }
     }
 }
