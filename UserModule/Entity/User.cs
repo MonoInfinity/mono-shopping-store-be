@@ -33,6 +33,7 @@ namespace store.UserModule.Entity
         public double salary { get; set; }
         public UserRole role { get; set; }
         public UserStatus status { get; set; }
+        public string avatarUrl { get; set; }
 
         public User()
         {
@@ -48,13 +49,15 @@ namespace store.UserModule.Entity
             this.salary = 0;
             this.role = UserRole.CUSTOMER;
             this.status = UserStatus.ENABLE;
+            this.avatarUrl = "";
         }
 
         public override string ToString()
         {
             return "User: \nUserId: " + userId + " \nUsername: " + username + " \nPassword: " + password + " \nName: " +
                             name + " \nEmail: " + email + " \nPhone: " + phone + " \nAddress: " + address + " \nGoogleId: " +
-                            googleId + " \nCreateDate: " + createDate + " \nSalary: " + salary + " \nRole: " + role + " \nStatus: " + status;
+                            googleId + " \nCreateDate: " + createDate + " \nSalary: " + salary + " \nRole: " + role + " \nStatus: " + status
+                            + " \nAvatarUrl: " + avatarUrl;
         }
     }
 }
