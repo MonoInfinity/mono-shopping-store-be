@@ -27,30 +27,25 @@ namespace store.UserModule
     {
 
         private readonly IUserService userService;
-        private readonly IAuthService authService;
+
         private readonly IAdminService adminService;
-        private readonly LoginUserDtoValidator loginUserDtoValidator;
-        private readonly RegisterUserDtoValidator registerUserDtoValidator;
-        private readonly UpdateUserDtoValidator updateUserDtoValidator;
-        public AdminController(IUserService userService, IAuthService authService, IAdminService adminService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator)
+
+        public AdminController(IUserService userService, IAdminService adminService)
         {
-            // this.loggerr = loggerr;
+
             this.userService = userService;
-            this.updateUserDtoValidator = updateUserDtoValidator;
-            this.loginUserDtoValidator = loginUserDtoValidator;
-            this.registerUserDtoValidator = registerUserDtoValidator;
-            this.authService = authService;
             this.adminService = adminService;
         }
 
 
         [HttpGet("user/all")]
-
         public ObjectResult listAllUser(int pageSize, int page)
         {
+            ServerResponse<List<User>> res = new ServerResponse<List<User>>();
             var users = this.adminService.getAllUser(pageSize, page);
 
-            return new ObjectResult(users);
+            res.data = users;
+            return new ObjectResult(res.getResponse());
         }
     }
 }

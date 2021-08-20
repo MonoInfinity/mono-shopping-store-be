@@ -37,9 +37,11 @@ namespace store.UserModule
         [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult getUser()
         {
+            ServerResponse<User> res = new ServerResponse<User>();
             var user = this.ViewData["user"] as User;
             user.password = "";
-            return new ObjectResult(user);
+            res.data = user;
+            return new ObjectResult(res.getResponse());
         }
 
         [HttpPut("update")]
