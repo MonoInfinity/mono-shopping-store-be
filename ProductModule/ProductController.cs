@@ -12,7 +12,7 @@ namespace store.ProductModule
 {
     [ApiController]
     [Route("/api/product")]
-    public class ProductController : IProductController
+    public class ProductController : Controller, IProductController
     {
         private readonly IProductService productService;
         private readonly AddCategoryDtoValidator addCategoryDtoValidator;
@@ -22,10 +22,10 @@ namespace store.ProductModule
         }
 
         [HttpPost("add")]
-        // [ValidateFilterAttribute(typeof(AddCategoryDto))]
-        // [RoleGuardAttribute(new UserRole[]{UserRole.MANAGER})]
+        [ValidateFilterAttribute(typeof(AddCategoryDto))]
+        [RoleGuardAttribute(new UserRole[]{UserRole.MANAGER})]
         [ServiceFilter(typeof(AuthGuard))]
-        // [ServiceFilter(typeof(ValidateFilter))]
+        [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult AddCategory(AddCategoryDto body)
         {
             ServerResponse<Category> res = new ServerResponse<Category>();

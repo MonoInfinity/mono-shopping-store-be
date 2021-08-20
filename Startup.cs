@@ -50,6 +50,10 @@ namespace store
             services.AddScoped<IUploadFileService, UploadFileService>();
             services.AddScoped<IJwtService, JwtService>();
 
+            // Auth Module
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<AuthGuard>();
+
             //User Module
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
@@ -67,10 +71,6 @@ namespace store
             services.AddScoped<RegisterUserDtoValidator>();
             services.AddScoped<UpdateUserDtoValidator>();
             services.AddScoped<AddCategoryDtoValidator>();
-
-            // Auth Module
-            services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<AuthGuard>();
 
             // Google
             services.AddAuthentication().AddGoogle(options =>

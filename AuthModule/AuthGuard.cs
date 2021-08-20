@@ -32,7 +32,7 @@ namespace store.AuthModule
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            
+
             var res = new ServerResponse<object>();
 
             var cookies = new Dictionary<string, string>();
@@ -63,8 +63,7 @@ namespace store.AuthModule
                     return;
 
                 }
-                var user = this.userService.getUserById(token[0]) as User;
-    
+                var user = this.userService.getUserById(token[0]);
                 if (user == null)
                 {
                     res.setErrorMessage("Action is not allow");
@@ -72,8 +71,6 @@ namespace store.AuthModule
                     return;
                 }
                 Controller controller = context.Controller as Controller;
-                Console.WriteLine(context.Controller == null); // == False
-                Console.WriteLine(controller == null);
                 controller.ViewData["user"] = user;
 
                 var objOut = new Object();
@@ -109,7 +106,6 @@ namespace store.AuthModule
                 context.Result = new UnauthorizedObjectResult(res);
                 return;
             }
-
         }
     }
 }
