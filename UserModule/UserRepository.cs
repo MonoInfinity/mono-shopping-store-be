@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using store.UserModule.Interface;
 using store.Utils.Interface;
 using store.UserModule.Entity;
+using store.UserModule.DTO;
 
 namespace store.UserModule
 {
@@ -197,6 +198,25 @@ namespace store.UserModule
                 Command.Parameters.Add("@newEmail", SqlDbType.NVarChar).Value = user.email;
                 Command.Parameters.Add("@newPhone", SqlDbType.NVarChar).Value = user.phone;
                 Command.Parameters.Add("@newAddress", SqlDbType.NVarChar).Value = user.address;
+                res = Command.ExecuteNonQuery() > 0;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return res;
+        }
+
+        public bool updateStatusUser(UpdateStatusUserDto updateStatusUserDto)
+        {
+            SqlConnection connection = this.dbHelper.getDBConnection();
+            bool res = false;
+            string sql = "UPDATE tblUser SET status=1-status WHERE userId=@userId";
+            SqlCommand Command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                Command.Parameters.Add("@userId", SqlDbType.NVarChar).Value = updateStatusUserDto.userId;
                 res = Command.ExecuteNonQuery() > 0;
             }
             catch (SqlException e)

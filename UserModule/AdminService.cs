@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using store.UserModule.Entity;
 using store.UserModule.Interface;
 using System;
+using store.UserModule.DTO;
 
 namespace store.UserModule
 {
@@ -19,6 +20,12 @@ namespace store.UserModule
         {
             var users = this.userRepository.getAllUsers(pageSize, currentPage);
             return users;
+        }
+
+        public bool updateStatusUser(UpdateStatusUserDto updateStatusUserDto)
+        {
+            bool result = this.userRepository.updateStatusUser(updateStatusUserDto);
+            return result;
         }
     }
 }
