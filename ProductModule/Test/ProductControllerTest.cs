@@ -33,10 +33,11 @@ namespace store.ProductModule.Test
             this.userRepository = new UserRepository(dbHelper);
             AddCategoryDtoValidator addCategoryDtoValidator = new AddCategoryDtoValidator();
             AddSubCategoryDtoValidator addSubCategoryDtoValidator = new AddSubCategoryDtoValidator();
+            AddProductDtoValidator addProductDtoValidator = new AddProductDtoValidator();
 
             this.authService = new AuthService();
             this.productService = new ProductService(categoryRepository, subCategoryRepository, productRepository);
-            this.productController = new ProductController(productService, addCategoryDtoValidator, addSubCategoryDtoValidator);
+            this.productController = new ProductController(productService, addCategoryDtoValidator, addSubCategoryDtoValidator, addProductDtoValidator);
 
             this.loginedUser = new User();
             this.loginedUser.userId = Guid.NewGuid().ToString();
@@ -67,7 +68,7 @@ namespace store.ProductModule.Test
             Category category = new Category();
             category.categoryId = Guid.NewGuid().ToString();
             category.name = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE);
-            category.createDate = DateTime.Now;
+            category.createDate = DateTime.Now.ToShortDateString();
             category.status = CategoryStatus.NOT_SALE;
             this.categoryRepository.saveCategory(category);
 

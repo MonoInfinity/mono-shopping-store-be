@@ -44,7 +44,7 @@ namespace store.UserModule
                         user.phone = reader.GetString("phone");
                         user.address = reader.GetString("address");
                         user.googleId = reader.GetString("googleId");
-                        user.createDate = reader.GetDateTime("createDate");
+                        user.createDate = reader.GetString("createDate");
                         user.salary = reader.GetDouble("salary");
                         user.role = (UserRole)reader.GetInt32("role");
                         user.status = (UserStatus)reader.GetInt32("status");
@@ -88,7 +88,7 @@ namespace store.UserModule
                         user.phone = reader.GetString("phone");
                         user.address = reader.GetString("address");
                         user.googleId = reader.GetString("googleId");
-                        user.createDate = reader.GetDateTime("createDate");
+                        user.createDate = reader.GetString("createDate");
                         user.salary = reader.GetDouble("salary");
                         user.role = (UserRole)reader.GetInt32("role");
                         user.status = (UserStatus)reader.GetInt32("status");
@@ -133,7 +133,7 @@ namespace store.UserModule
                         user.phone = reader.GetString("phone");
                         user.address = reader.GetString("address");
                         user.googleId = reader.GetString("googleId");
-                        user.createDate = reader.GetDateTime("createDate");
+                        user.createDate = reader.GetString("createDate");
                         user.salary = reader.GetDouble("salary");
                         user.role = (UserRole)reader.GetInt32("role");
                         user.status = (UserStatus)reader.GetInt32("status");

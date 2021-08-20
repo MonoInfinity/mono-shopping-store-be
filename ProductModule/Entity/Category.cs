@@ -12,14 +12,14 @@ namespace store.ProductModule.Entity
         public string categoryId { get; set; }
         public string name { get; set; }
         public CategoryStatus status { get; set; }
-        public DateTime createDate { get; set; }
+        public string createDate { get; set; }
 
         public Category()
         {
             this.categoryId = "";
             this.name = "";
             this.status = CategoryStatus.NOT_SALE;
-            this.createDate = DateTime.Now;
+            this.createDate = DateTime.Now.ToShortDateString();
         }
 
         public override string ToString()

@@ -29,7 +29,7 @@ namespace store.UserModule.Entity
         public string phone { get; set; }
         public string address { get; set; }
         public string googleId { get; set; }
-        public DateTime createDate { get; set; }
+        public string createDate { get; set; }
         public double salary { get; set; }
         public UserRole role { get; set; }
         public UserStatus status { get; set; }
@@ -45,7 +45,7 @@ namespace store.UserModule.Entity
             this.phone = "";
             this.address = "";
             this.googleId = "";
-            this.createDate = DateTime.Now;
+            this.createDate = DateTime.Now.ToShortDateString();
             this.salary = 0;
             this.role = UserRole.CUSTOMER;
             this.status = UserStatus.ENABLE;

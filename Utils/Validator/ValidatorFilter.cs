@@ -38,6 +38,63 @@ namespace store.Utils.Validator
             this.addSubCategoryDtoValidator = addSubCategoryDtoValidator;
             this.addProductDtoValidator = addProductDtoValidator;
         }
+
+        private T assignValue<T>(string bodyString, Type type)
+        {
+            bodyString = bodyString.Replace("}", "");
+            bodyString = bodyString.Replace("{", "");
+            bodyString = bodyString.Replace(Environment.NewLine, "");
+            bodyString = bodyString.Trim();
+            bodyString = bodyString.Replace(",", ":");
+
+            string[] pairs = bodyString.Split(":");
+            for (int i = 0; i < pairs.Length; i++) pairs[i] = pairs[i].Trim();
+            // after all of the above code, we have something like ["username","haicao","password","123","age",20]
+
+            // them we assign the value of pairs into obj
+            var obj = (T)Activator.CreateInstance(type);
+            PropertyInfo[] propertys = obj.GetType().GetProperties();
+            for (int i = 0; i < propertys.Length; i++)
+            {
+                string propertyValue = findValueOfProperty(propertys[i].Name, pairs);
+
+                if (propertyValue != "")
+                {
+                    // value is a string
+                    if (propertyValue.Contains("\""))
+                    {
+                        propertyValue = propertyValue.Replace("\"", "");
+                        propertys[i].SetValue(obj, propertyValue);
+                    }
+                    
+                    else
+                    {   
+                        // value is a double
+                        if(propertys[i].PropertyType == typeof(Double)){
+                            propertys[i].SetValue(obj, Double.Parse(propertyValue));
+                        }
+                        // value is a int32
+                        if(propertys[i].PropertyType == typeof(Int32)){
+                            propertys[i].SetValue(obj, Int32.Parse(propertyValue));
+                        } 
+                    }
+                }
+            }
+
+            return obj;
+        }
+
+        private string findValueOfProperty(string propertyName, string[] strArray)
+        {
+            for (int i = 0; i < strArray.Length; i = i + 2)
+            {
+                if (strArray[i].Equals("\""+propertyName+"\""))
+                {
+                    return strArray[i + 1];
+                }
+            }
+            return "";
+        }
         public void OnActionExecuted(ActionExecutedContext context)
         {
 
@@ -90,6 +147,10 @@ namespace store.Utils.Validator
             {
                 result = this.addSubCategoryDtoValidator.Validate(assignValue<AddSubCategoryDto>(bodyStr, dtoType));
             }
+            if (typeof(AddProductDto) == dtoType)
+            {
+                result = this.addProductDtoValidator.Validate(assignValue<AddProductDto>(bodyStr, dtoType));
+            }
 
 
             if (!result.IsValid)
@@ -98,42 +159,6 @@ namespace store.Utils.Validator
                 context.Result = new BadRequestObjectResult(res.getResponse());
                 return;
             }
-        }
-
-        private T assignValue<T>(string bodyString, Type type)
-        {
-            bodyString = bodyString.Replace("}", "");
-            bodyString = bodyString.Replace("{", "");
-            bodyString = bodyString.Replace(" ", "");
-            bodyString = bodyString.Replace("\"", "");
-            bodyString = bodyString.Replace(Environment.NewLine, "");
-            bodyString = bodyString.Trim();
-            bodyString = bodyString.Replace(",", ":");
-
-            string[] pairs = bodyString.Split(":");
-
-            var obj = (T)Activator.CreateInstance(type);
-            PropertyInfo[] propertys = obj.GetType().GetProperties();
-            for (int i = 0; i < propertys.Length; i++)
-            {
-                string propertyValue = findValueOfProperty(propertys[i].Name, pairs);
-                if (propertyValue != "")
-                    propertys[i].SetValue(obj, propertyValue);
-            }
-
-            return obj;
-        }
-
-        private string findValueOfProperty(string propertyName, string[] strArray)
-        {
-            for (int i = 0; i < strArray.Length; i = i + 2)
-            {
-                if (propertyName.Equals(strArray[i]))
-                {
-                    return strArray[i + 1];
-                }
-            }
-            return "";
         }
     }
 }

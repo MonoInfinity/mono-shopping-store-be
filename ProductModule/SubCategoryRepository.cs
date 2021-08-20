@@ -40,7 +40,7 @@ namespace store.ProductModule
                         subCategory.subCategoryId = reader.GetString("subCategoryId");
                         subCategory.name = reader.GetString("name");
                         subCategory.status = (SubCategoryStatus)reader.GetInt32("status");
-                        subCategory.createDate = reader.GetDateTime("createDate");
+                        subCategory.createDate = reader.GetString("createDate");
                         subCategory.category = category;
                     }
                 }
@@ -76,7 +76,7 @@ namespace store.ProductModule
                         subCategory.subCategoryId = reader.GetString("subCategoryId");
                         subCategory.name = reader.GetString("name");
                         subCategory.status = (SubCategoryStatus)reader.GetInt32("status");
-                        subCategory.createDate = reader.GetDateTime("createDate");
+                        subCategory.createDate = reader.GetString("createDate");
                         subCategory.category = category;
                     }
                 }

@@ -8,14 +8,14 @@ namespace store.ProductModule.DTO
         public string name { get; set; }
         public string description { get; set; }
         public string location { get; set; }
-        public DateTime expiryDate { get; set; }
+        public string expiryDate { get; set; }
         public double wholesalePrice { get; set; }
         public double retailPrice { get; set; }
         public int quantity { get; set; }
         public string subCategoryId { get; set; }
 
         public AddProductDto() { }
-        public AddProductDto(string name, string description, string location, DateTime expiryDate, double wholesalePrice, double retailPrice, int quantity, string subCategoryId)
+        public AddProductDto(string name, string description, string location, string expiryDate, double wholesalePrice, double retailPrice, int quantity, string subCategoryId)
         {
             this.name = name;
             this.description = description;
