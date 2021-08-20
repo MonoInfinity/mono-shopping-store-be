@@ -175,6 +175,7 @@ namespace store.UserModule
                 Command.Parameters.AddWithValue("@status", user.status);
 
                 res = Command.ExecuteNonQuery() > 0;
+                connection.Close();
             }
             catch (SqlException e)
             {
@@ -185,26 +186,24 @@ namespace store.UserModule
         public bool updateUser(User user)
         {
             SqlConnection connection = this.dbHelper.getDBConnection();
-            string sql = "UPDATE tblUser SET name=@newName, email=@newEmail, phone=@newPhone, address=@newAddress WHERE username=@username";
-            SqlCommand command = new SqlCommand(sql, connection);
+            bool res = false;
+            string sql = "UPDATE tblUser SET name=@newName, email=@newEmail, phone=@newPhone, address=@newAddress WHERE userId=@userId";
+            SqlCommand Command = new SqlCommand(sql, connection);
             try
             {
                 connection.Open();
-                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = user.username;
-                command.Parameters.Add("@newName", SqlDbType.NVarChar).Value = user.name;
-                command.Parameters.Add("@newEmail", SqlDbType.NVarChar).Value = user.email;
-                command.Parameters.Add("@newPhone", SqlDbType.NVarChar).Value = user.phone;
-                command.Parameters.Add("@newAddress", SqlDbType.NVarChar).Value = user.address;
-                int rowAffected = command.ExecuteNonQuery();
-
-                connection.Close();
-                return rowAffected > 0;
+                Command.Parameters.Add("@userId", SqlDbType.NVarChar).Value = user.userId;
+                Command.Parameters.Add("@newName", SqlDbType.NVarChar).Value = user.name;
+                Command.Parameters.Add("@newEmail", SqlDbType.NVarChar).Value = user.email;
+                Command.Parameters.Add("@newPhone", SqlDbType.NVarChar).Value = user.phone;
+                Command.Parameters.Add("@newAddress", SqlDbType.NVarChar).Value = user.address;
+                res = Command.ExecuteNonQuery() > 0;
             }
             catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
             }
-            return false;
+            return res;
         }
     }
 }

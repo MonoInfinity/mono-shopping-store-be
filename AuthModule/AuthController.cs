@@ -9,7 +9,6 @@ using store.Utils.Interface;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using store.Utils.Validator;
-
 namespace store.AuthModule
 {
 

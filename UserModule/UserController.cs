@@ -7,7 +7,8 @@ using store.UserModule.Entity;
 using store.UserModule.Interface;
 using store.Utils.Common;
 using store.AuthModule;
-
+using System.Diagnostics;
+using store.Utils.Validator;
 
 namespace store.UserModule
 {
@@ -41,11 +42,14 @@ namespace store.UserModule
             return new ObjectResult(user);
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
+        [ValidateFilterAttribute(typeof(UpdateUserDto))]
+        [ServiceFilter(typeof(ValidateFilter))]
         [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult updateUser([FromBody] UpdateUserDto body)
         {
             ServerResponse<User> res = new ServerResponse<User>();
+            var user = this.ViewData["user"] as User;
             ValidationResult result = this.updateUserDtoValidator.Validate(body);
             res.mapDetails(result);
 
@@ -53,34 +57,23 @@ namespace store.UserModule
             {
                 return new BadRequestObjectResult(res.getResponse());
             }
+            User userUpdate = new User();
+            userUpdate.userId = user.userId;
+            userUpdate.name = body.newName;
+            userUpdate.email = body.newEmail;
+            userUpdate.phone = body.newPhone;
+            userUpdate.address = body.newAddress;
 
-
-            User user = this.userService.getUserByUsername(body.username);
-
-            if (user == null)
-            {
-                res.setErrorMessage("User with the given id was not found");
-                return new BadRequestObjectResult(res.getResponse());
-            }
-            else
-            {
-                user = new User();
-                user.username = body.username;
-                user.name = body.newName;
-                user.email = body.newEmail;
-                user.phone = body.newPhone;
-                user.address = body.newAddress;
-            }
-
-            bool isUpdated = userService.updateUser(user);
+            bool isUpdated = userService.updateUser(userUpdate);
             if (!isUpdated)
             {
                 res.setErrorMessage("Update fail");
-                return new ObjectResult(res.getResponse()) { StatusCode = 500 };
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
             }
 
-            res.data = user;
+            res.setMessage("Update User successfully");
             return new ObjectResult(res.getResponse());
         }
+
     }
 }

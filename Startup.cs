@@ -25,6 +25,8 @@ using store.AuthModule.Interface;
 using store.AuthModule.DTO;
 using store.Utils.Validator;
 using Microsoft.AspNetCore.Http;
+using store.ProductModule.Interface;
+using store.ProductModule;
 
 namespace store
 {
@@ -55,6 +57,11 @@ namespace store
             // Auth Module
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<AuthGuard>();
+
+            // Product Module
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
+            services.AddScoped<IProductService, ProductService>();
 
             //Validator  
             services.AddScoped<ValidateFilter>();
