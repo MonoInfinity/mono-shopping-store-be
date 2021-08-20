@@ -1,13 +1,9 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-<<<<<<< HEAD
-      "C:\\Users\\HaiCao\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\HaiCao\\.nuget\\packages"
-=======
-      "C:\\Users\\ACER\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\ACER\\.nuget\\packages"
->>>>>>> ea3b556a3dd7402d8ce48c4cb99270a694a4cb07
+      "C:\\Users\\Lenovo\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Lenovo\\.nuget\\packages",
+      "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet"
     ]
   }
 }

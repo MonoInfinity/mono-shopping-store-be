@@ -20,13 +20,15 @@ namespace store.Utils.Validator
         private readonly UpdateUserDtoValidator updateUserDtoValidator;
         private readonly AddCategoryDtoValidator addCategoryDtoValidator;
         private readonly AddSubCategoryDtoValidator addSubCategoryDtoValidator;
+        private readonly AddProductDtoValidator addProductDtoValidator;
 
         public ValidateFilter(
-                                LoginUserDtoValidator loginUserDtoValidator, 
-                                RegisterUserDtoValidator registerUserDtoValidator, 
+                                LoginUserDtoValidator loginUserDtoValidator,
+                                RegisterUserDtoValidator registerUserDtoValidator,
                                 UpdateUserDtoValidator updateUserDtoValidator,
                                 AddCategoryDtoValidator addCategoryDtoValidator,
-                                AddSubCategoryDtoValidator addSubCategoryDtoValidator
+                                AddSubCategoryDtoValidator addSubCategoryDtoValidator,
+                                AddProductDtoValidator addProductDtoValidator
                             )
         {
             this.loginUserDtoValidator = loginUserDtoValidator;
@@ -34,6 +36,7 @@ namespace store.Utils.Validator
             this.updateUserDtoValidator = updateUserDtoValidator;
             this.addCategoryDtoValidator = addCategoryDtoValidator;
             this.addSubCategoryDtoValidator = addSubCategoryDtoValidator;
+            this.addProductDtoValidator = addProductDtoValidator;
         }
         public void OnActionExecuted(ActionExecutedContext context)
         {
@@ -72,18 +75,18 @@ namespace store.Utils.Validator
             }
 
             // UserModule DTO
-            if(typeof(UpdateUserDto) == dtoType)
+            if (typeof(UpdateUserDto) == dtoType)
             {
                 result = this.updateUserDtoValidator.Validate(assignValue<UpdateUserDto>(bodyStr, dtoType));
             }
 
 
             // ProductModule DTO
-            if(typeof(AddCategoryDto) == dtoType)
+            if (typeof(AddCategoryDto) == dtoType)
             {
                 result = this.addCategoryDtoValidator.Validate(assignValue<AddCategoryDto>(bodyStr, dtoType));
             }
-            if(typeof(AddSubCategoryDto) == dtoType)
+            if (typeof(AddSubCategoryDto) == dtoType)
             {
                 result = this.addSubCategoryDtoValidator.Validate(assignValue<AddSubCategoryDto>(bodyStr, dtoType));
             }

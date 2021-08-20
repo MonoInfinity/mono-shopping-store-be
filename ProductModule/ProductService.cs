@@ -7,9 +7,12 @@ namespace store.ProductModule
     {
         private readonly ICategoryRepository categoryRepository;
         private readonly ISubCategoryRepository subCategoryRepository;
-        public ProductService(ICategoryRepository categoryRepository, ISubCategoryRepository subCategoryRepository){
+        private readonly IProductRepository productRepository;
+        public ProductService(ICategoryRepository categoryRepository, ISubCategoryRepository subCategoryRepository, IProductRepository productRepository)
+        {
             this.categoryRepository = categoryRepository;
             this.subCategoryRepository = subCategoryRepository;
+            this.productRepository = productRepository;
         }
         public Category getCategoryByCategoryId(string categoryId)
         {
@@ -44,6 +47,12 @@ namespace store.ProductModule
         public bool updateSubCategory(SubCategory subCategory)
         {
             bool res = subCategoryRepository.saveSubCategory(subCategory);
+            return res;
+        }
+
+        public bool saveProduct(Product product)
+        {
+            bool res = productRepository.saveProduct(product);
             return res;
         }
     }
