@@ -18,6 +18,7 @@ namespace store.ProductModule.Test
     {
         private readonly IProductController productController;
         private readonly IProductService productService;
+        private readonly IProductRepository productRepository;
         private readonly ICategoryRepository categoryRepository;
         private readonly ISubCategoryRepository subCategoryRepository;
         private readonly IUserRepository userRepository;
@@ -34,7 +35,7 @@ namespace store.ProductModule.Test
             AddSubCategoryDtoValidator addSubCategoryDtoValidator = new AddSubCategoryDtoValidator();
 
             this.authService = new AuthService();
-            this.productService = new ProductService(categoryRepository, subCategoryRepository);
+            this.productService = new ProductService(categoryRepository, subCategoryRepository, productRepository);
             this.productController = new ProductController(productService, addCategoryDtoValidator, addSubCategoryDtoValidator);
 
             this.loginedUser = new User();

@@ -14,7 +14,8 @@ namespace store.ProductModule.Entity
         public CategoryStatus status { get; set; }
         public DateTime createDate { get; set; }
 
-        public Category(){
+        public Category()
+        {
             this.categoryId = "";
             this.name = "";
             this.status = CategoryStatus.NOT_SALE;

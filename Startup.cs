@@ -62,6 +62,7 @@ namespace store
             // Product Module
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
 
             //Validator  
@@ -69,8 +70,10 @@ namespace store
             services.AddScoped<LoginUserDtoValidator>();
             services.AddScoped<RegisterUserDtoValidator>();
             services.AddScoped<UpdateUserDtoValidator>();
+            services.AddScoped<UpdateStatusUserDtoValidator>();
             services.AddScoped<AddCategoryDtoValidator>();
             services.AddScoped<AddSubCategoryDtoValidator>();
+            services.AddScoped<AddProductDtoValidator>();
 
             // Google
             services.AddAuthentication().AddGoogle(options =>

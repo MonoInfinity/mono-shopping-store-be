@@ -15,5 +15,6 @@ namespace store.ProductModule.Interface
         public Category getCategoryByCategoryId(string categoryId);
 
         public SubCategory getSubCategoryBySubCategoryId(string subCategoryId);
+        public bool saveProduct(Product product);
     }
 }

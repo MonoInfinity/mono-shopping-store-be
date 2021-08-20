@@ -8168,20 +8168,42 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\HaiCao\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\Lenovo\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+>>>>>>> 63eeaa5840e811e9849b967fcac2be6954951466
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj",
       "projectName": "store",
       "projectPath": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj",
       "packagesPath": "C:\\Users\\HaiCao\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\obj\\",
+=======
+      "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
+      "projectName": "store",
+      "projectPath": "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
+      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Lenovo\\Desktop\\shop\\obj\\",
+>>>>>>> 63eeaa5840e811e9849b967fcac2be6954951466
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+      ],
       "configFilePaths": [
+<<<<<<< HEAD
         "C:\\Users\\HaiCao\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+=======
+        "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+>>>>>>> 63eeaa5840e811e9849b967fcac2be6954951466
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -8288,7 +8310,11 @@
       "code": "Undefined",
       "level": "Warning",
       "warningLevel": 1,
+<<<<<<< HEAD
       "message": "Problem reading the cache file C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+=======
+      "message": "Problem reading the cache file C:\\Users\\Lenovo\\Desktop\\shop\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+>>>>>>> 63eeaa5840e811e9849b967fcac2be6954951466
     }
   ]
 }

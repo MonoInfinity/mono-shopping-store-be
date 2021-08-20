@@ -7,4 +7,8 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = store
+<<<<<<< HEAD
 build_property.ProjectDir = c:\Users\HaiCao\Desktop\mono_store_be_v2\
+=======
+build_property.ProjectDir = c:\Users\Lenovo\Desktop\shop\
+>>>>>>> 63eeaa5840e811e9849b967fcac2be6954951466
