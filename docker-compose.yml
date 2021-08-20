@@ -5,11 +5,8 @@ services:
         image: tantruong2303/mono-shopping-store-be:latest
         expose:
             - 4000
-        env_file:
-            - ./config/.env.production
-        environment:
-            - DB_URL=Data Source=localhost,1433;Initial Catalog=Mono_Store_Dev;User ID=sa;Password=1234567890
-            - REDIS_URL=localhost:6379
+        volumes:
+            - ./config:/app/config
     redis:
         image: "redis:alpine"
         ports:
