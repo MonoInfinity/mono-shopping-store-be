@@ -8168,78 +8168,25 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
     "C:\\Users\\Lenovo\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "C:\\Users\\HaiCao\\.nuget\\packages\\": {}
-=======
-    "C:\\Users\\Lenovo\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
->>>>>>> 1dafa0eee022c7e73a2558cc4aa8e905a0b28236
-=======
-    "C:\\Users\\ACER\\.nuget\\packages\\": {}
->>>>>>> ea3b556a3dd7402d8ce48c4cb99270a694a4cb07
->>>>>>> a5317bbd31e54125c8e8818139286c46de3eb162
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
       "projectName": "store",
       "projectPath": "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
       "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Lenovo\\Desktop\\shop\\obj\\",
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-      "projectUniqueName": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj",
-      "projectName": "store",
-      "projectPath": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj",
-      "packagesPath": "C:\\Users\\HaiCao\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\obj\\",
-=======
-      "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
-      "projectName": "store",
-      "projectPath": "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
-      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lenovo\\Desktop\\shop\\obj\\",
->>>>>>> 1dafa0eee022c7e73a2558cc4aa8e905a0b28236
-=======
-      "projectUniqueName": "C:\\Users\\ACER\\Desktop\\Mono-Shop-dev\\mono-shopping-store-be\\store.csproj",
-      "projectName": "store",
-      "projectPath": "C:\\Users\\ACER\\Desktop\\Mono-Shop-dev\\mono-shopping-store-be\\store.csproj",
-      "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ACER\\Desktop\\Mono-Shop-dev\\mono-shopping-store-be\\obj\\",
->>>>>>> ea3b556a3dd7402d8ce48c4cb99270a694a4cb07
->>>>>>> a5317bbd31e54125c8e8818139286c46de3eb162
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-<<<<<<< HEAD
         "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-        "C:\\Users\\HaiCao\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-=======
-        "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
->>>>>>> 1dafa0eee022c7e73a2558cc4aa8e905a0b28236
-=======
-        "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
->>>>>>> ea3b556a3dd7402d8ce48c4cb99270a694a4cb07
->>>>>>> a5317bbd31e54125c8e8818139286c46de3eb162
       ],
       "originalTargetFrameworks": [
         "net5.0"
@@ -8346,7 +8293,7 @@
       "code": "Undefined",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\ACER\\Desktop\\Mono-Shop-dev\\mono-shopping-store-be\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+      "message": "Problem reading the cache file C:\\Users\\Lenovo\\Desktop\\shop\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
     }
   ]
 }
