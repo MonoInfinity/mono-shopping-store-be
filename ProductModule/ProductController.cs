@@ -18,10 +18,11 @@ namespace store.ProductModule
         private readonly AddCategoryDtoValidator addCategoryDtoValidator;
         private readonly AddSubCategoryDtoValidator addSubCategoryDtoValidator;
         public ProductController(
-                                IProductService productService, 
-                                AddCategoryDtoValidator addCategoryDtoValidator, 
+                                IProductService productService,
+                                AddCategoryDtoValidator addCategoryDtoValidator,
                                 AddSubCategoryDtoValidator addSubCategoryDtoValidator
-            ){
+            )
+        {
             this.productService = productService;
             this.addCategoryDtoValidator = addCategoryDtoValidator;
             this.addSubCategoryDtoValidator = addSubCategoryDtoValidator;
@@ -29,13 +30,13 @@ namespace store.ProductModule
 
         [HttpPost("category")]
         [ValidateFilterAttribute(typeof(AddCategoryDto))]
-        [RoleGuardAttribute(new UserRole[]{UserRole.MANAGER})]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult AddCategory(AddCategoryDto body)
         {
             ServerResponse<Category> res = new ServerResponse<Category>();
-            
+
             Category newCategory = new Category();
             newCategory.categoryId = Guid.NewGuid().ToString();
             newCategory.name = body.name;
@@ -43,7 +44,8 @@ namespace store.ProductModule
             newCategory.status = CategoryStatus.NOT_SALE;
 
             bool isInserted = this.productService.saveCategory(newCategory);
-            if(!isInserted){
+            if (!isInserted)
+            {
                 res.setErrorMessage("Fail to save new category");
                 return new ObjectResult(res.getResponse()) { StatusCode = 500 };
             }
@@ -53,15 +55,16 @@ namespace store.ProductModule
 
         [HttpPost("subcategory")]
         [ValidateFilterAttribute(typeof(AddSubCategoryDto))]
-        [RoleGuardAttribute(new UserRole[]{UserRole.MANAGER})]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult AddSubCategory(AddSubCategoryDto body)
         {
             ServerResponse<SubCategory> res = new ServerResponse<SubCategory>();
-            
+
             Category category = this.productService.getCategoryByCategoryId(body.categoryId);
-            if(category == null){
+            if (category == null)
+            {
                 res.setErrorMessage("The category with the given id was not found");
                 return new BadRequestObjectResult(res.getResponse());
             }
@@ -74,11 +77,48 @@ namespace store.ProductModule
             newSubCategory.category = category;
 
             bool isInserted = this.productService.saveSubCategory(newSubCategory);
-            if(!isInserted){
+            if (!isInserted)
+            {
                 res.setErrorMessage("Fail to save new category");
                 return new ObjectResult(res.getResponse()) { StatusCode = 500 };
             }
             res.data = newSubCategory;
+            return new ObjectResult(res.getResponse());
+        }
+
+        [HttpPost("product")]
+        [ValidateFilterAttribute(typeof(AddProductDto))]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        [ServiceFilter(typeof(ValidateFilter))]
+        public ObjectResult AddProduct(AddProductDto body)
+        {
+            ServerResponse<Product> res = new ServerResponse<Product>();
+
+            SubCategory subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
+            if (subCategory == null)
+            {
+                res.setErrorMessage("The sub category with the given id was not found");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            Product newProduct = new Product();
+            newProduct.productId = Guid.NewGuid().ToString();
+            newProduct.name = body.name;
+            newProduct.description = body.description;
+            newProduct.location = body.location;
+            newProduct.expiryDate = body.expiryDate;
+            newProduct.wholesalePrice = body.wholesalePrice;
+            newProduct.retailPrice = body.retailPrice;
+            newProduct.subCategory = subCategory;
+
+            bool isInserted = this.productService.saveProduct(newProduct);
+            if (!isInserted)
+            {
+                res.setErrorMessage("Fail to save new product");
+                return new ObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            res.data = newProduct;
             return new ObjectResult(res.getResponse());
         }
     }
