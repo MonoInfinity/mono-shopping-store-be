@@ -125,6 +125,7 @@ namespace store.UserModule
                 Command.Parameters.AddWithValue("@role", user.role);
 
                 res = Command.ExecuteNonQuery() > 0;
+                connection.Close();
             }
             catch (SqlException e)
             {

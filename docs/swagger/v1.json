@@ -34,23 +34,27 @@
                 }
         ],
         "paths": {
-                "/api/user/login": {
-                        "post": {
+                "/api/user/password": {
+                        "put": {
                                 "tags": ["auth"],
-                                "description": "hello",
+                                "description": "Update user password",
                                 "requestBody": {
                                         "content": {
                                                 "form-data": {
                                                         "schema": {
                                                                 "type": "object",
                                                                 "properties": {
-                                                                        "username": {
-                                                                                "type": "string",
-                                                                                "example": "vinhnhan001"
-                                                                        },
                                                                         "password": {
                                                                                 "type": "string",
                                                                                 "example": "1234567"
+                                                                        },
+                                                                        "newPassword":{
+                                                                                "type":"string",
+                                                                                "example":"123456789"
+                                                                        },
+                                                                        "confirmPassword":{
+                                                                                "type":"string",
+                                                                                "example":"123456789"
                                                                         }
                                                                 }
                                                         }
@@ -59,10 +63,34 @@
                                 },
                                 "responses": {
                                         "200": {
-                                                "description": "return cookie",
+                                                "description": "Update success",
                                                 "content": {
                                                         "application/json": {
-                                                                "schema": {}
+                                                                "schema": {
+                                                                        "type": "object",
+                                                                        "properties": {
+                                                                                "message":{
+                                                                                        "type": "string",
+                                                                                        "example":"Update User password successfully"
+                                                                                }
+                                                                        }
+                                                                }
+                                                        }
+                                                }
+                                        },
+                                        "400": {
+                                                "description": "Bad Request",
+                                                "content": {
+                                                        "application/json": {
+                                                                "schema": {
+                                                                        "type": "object",
+                                                                        "properties": {
+                                                                                "errorMessage":{
+                                                                                        "type": "string",
+                                                                                        "example":"Password is wrong"
+                                                                                }
+                                                                        }
+                                                                }
                                                         }
                                                 }
                                         }

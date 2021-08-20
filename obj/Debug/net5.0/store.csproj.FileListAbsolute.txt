@@ -1095,3 +1095,4 @@ E:\MinhThuan\mono-store\mono-shopping-store-be\obj\Debug\net5.0\store.RazorTarge
 E:\MinhThuan\mono-store\mono-shopping-store-be\obj\Debug\net5.0\store.csproj.CopyComplete
 E:\MinhThuan\mono-store\mono-shopping-store-be\obj\Debug\net5.0\store.genruntimeconfig.cache
 E:\MinhThuan\mono-store\mono-shopping-store-be\bin\Debug\net5.0\config\env.development.json
+E:\MinhThuan\mono-store\mono-shopping-store-be\bin\Debug\net5.0\config\env.testing.json

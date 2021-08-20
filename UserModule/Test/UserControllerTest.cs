@@ -56,7 +56,7 @@ namespace store.UserModule.Test
             this.user.username = TestHelper.randomString(10, RamdomStringType.LETTER_LOWER_CASE);
             this.user.password = "123456";
             this.userController.ViewData["user"] = user;
-            // this.userRepository.saveUser(user);
+            this.userRepository.saveUser(user);
         }
 
 
@@ -90,12 +90,12 @@ namespace store.UserModule.Test
         }
 
         [Fact]
-        public void FailedUpdatePassword()
+        public void passUpdatePassword()
         {
-            UpdateUserPasswordDto input = new UpdateUserPasswordDto(this.user.password, "thuan456", "thuan123");
+            UpdateUserPasswordDto input = new UpdateUserPasswordDto(this.user.password, "1", "1");
             var res = this.userController.updateUserPassword(input);
 
-            Assert.Equal(400, res.StatusCode);
+            Assert.Equal(200, res.StatusCode);
         }
     }
 }

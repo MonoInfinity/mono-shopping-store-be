@@ -101,8 +101,7 @@ namespace store.UserModule
         {
             ServerResponse<User> res = new ServerResponse<User>();
             var user = this.ViewData["user"] as User;
-            Console.WriteLine(body.password);
-            Console.WriteLine(user.password);
+
             bool isMatchPassword = this.authService.comparePassword(body.password, user.password);
 
             if (!isMatchPassword)
