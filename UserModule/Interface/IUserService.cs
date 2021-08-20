@@ -11,5 +11,6 @@ namespace store.UserModule.Interface
 
         public bool updateUser(User user);
 
+        public bool updateUserPassword(string userId, string password);
     }
 }

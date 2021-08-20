@@ -60,9 +60,10 @@ namespace store
 
             //Validator  
             services.AddScoped<ValidateFilter>();
-            services.AddScoped<LoginUserDtoValidator, LoginUserDtoValidator>();
-            services.AddScoped<RegisterUserDtoValidator, RegisterUserDtoValidator>();
-            services.AddScoped<UpdateUserDtoValidator, UpdateUserDtoValidator>();
+            services.AddScoped<LoginUserDtoValidator>();
+            services.AddScoped<RegisterUserDtoValidator>();
+            services.AddScoped<UpdateUserDtoValidator>();
+            services.AddScoped<UpdateUserPasswordDtoValidator>();
 
 
             // Google

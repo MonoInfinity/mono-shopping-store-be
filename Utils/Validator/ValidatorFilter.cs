@@ -5,6 +5,7 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Filters;
 using store.AuthModule.DTO;
+using store.UserModule.DTO;
 using store.UserModule.Entity;
 using store.Utils.Common;
 using Microsoft.AspNetCore.Mvc;
@@ -15,11 +16,13 @@ namespace store.Utils.Validator
     {
         private readonly LoginUserDtoValidator loginUserDtoValidator;
         private readonly RegisterUserDtoValidator registerUserDtoValidator;
+        private readonly UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator;
 
-        public ValidateFilter(LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator)
+        public ValidateFilter(LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator)
         {
             this.loginUserDtoValidator = loginUserDtoValidator;
             this.registerUserDtoValidator = registerUserDtoValidator;
+            this.updateUserPasswordDtoValidator = updateUserPasswordDtoValidator;
         }
         public void OnActionExecuted(ActionExecutedContext context)
         {
@@ -56,6 +59,11 @@ namespace store.Utils.Validator
             {
                 result = this.registerUserDtoValidator.Validate(assignValue<RegisterUserDto>(bodyStr, dtoType));
             }
+            else if (typeof(UpdateUserPasswordDto) == dtoType)
+            {
+                result = this.updateUserPasswordDtoValidator.Validate(assignValue<UpdateUserPasswordDto>(bodyStr, dtoType));
+            }
+
             if (!result.IsValid)
             {
                 res.mapDetails(result);
