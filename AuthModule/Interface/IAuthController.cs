@@ -10,5 +10,6 @@ namespace store.AuthModule.Interface
     {
         public ObjectResult loginUser(LoginUserDto body);
         public ObjectResult registerUser(RegisterUserDto body);
+        public ObjectResult logoutUser();
     }
 }

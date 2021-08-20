@@ -52,8 +52,7 @@ namespace store
             //User Module
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IAdminService, AdminService>();
 
             // Auth Module
             services.AddScoped<IAuthService, AuthService>();
@@ -76,7 +75,10 @@ namespace store
             {
 
             });
-
+            services.AddCors(options =>
+                     options.AddPolicy("AllowSpecific", p => p.WithOrigins("http://localhost:3000").AllowCredentials()
+                                                               .WithMethods("GET").WithMethods("POST").WithMethods("PUT")
+                                                               .WithHeaders("*")));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -103,7 +105,7 @@ namespace store
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/document/swagger/v1.json", "Store v1"));
             }
-
+            app.UseCors("AllowSpecific");
             app.Use(next => context =>
                         {
                             context.Request.EnableBuffering();
@@ -111,6 +113,7 @@ namespace store
                         });
 
             app.UseHttpsRedirection();
+
 
             app.UseRouting();
 

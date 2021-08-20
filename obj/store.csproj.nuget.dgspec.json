@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj": {}
   },
   "projects": {
@@ -12,6 +13,19 @@
         "projectPath": "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
         "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\Lenovo\\Desktop\\shop\\obj\\",
+=======
+    "e:\\server\\mono-shopping-store-be\\store.csproj": {}
+  },
+  "projects": {
+    "e:\\server\\mono-shopping-store-be\\store.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "e:\\server\\mono-shopping-store-be\\store.csproj",
+        "projectName": "store",
+        "projectPath": "e:\\server\\mono-shopping-store-be\\store.csproj",
+        "packagesPath": "C:\\Users\\heaty566\\.nuget\\packages\\",
+        "outputPath": "e:\\server\\mono-shopping-store-be\\obj\\",
+>>>>>>> 015d14c8bafdf6fb9cbd9d00ce7374eb3e50ebd8
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"

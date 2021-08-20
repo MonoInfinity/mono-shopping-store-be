@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "DKGlXEnYsK6z9GfCqTplK/iqlldOui/yMg/gNM1EqJgVzo2fAMYrb0bD4TUw7XxqbV3CQRJpxO9EDaEnHUh41g==",
   "success": true,
   "projectFilePath": "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
+=======
+  "dgSpecHash": "jauGEnV+8y6HKbwsZuR0uIMVWbeBsLJ0jf0DHPlsrMjrBykI0ZBkBxxKa0j98mVBRB9DBsH7TnsNn7L1Ly9oeA==",
+  "success": true,
+  "projectFilePath": "e:\\server\\mono-shopping-store-be\\store.csproj",
+>>>>>>> 015d14c8bafdf6fb9cbd9d00ce7374eb3e50ebd8
   "expectedPackageFiles": [
     "C:\\Users\\Lenovo\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",
     "C:\\Users\\Lenovo\\.nuget\\packages\\fluentvalidation\\10.3.0\\fluentvalidation.10.3.0.nupkg.sha512",

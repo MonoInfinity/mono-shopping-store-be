@@ -8,8 +8,8 @@ using store.AuthModule.Interface;
 using store.Utils.Interface;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Http;
 using store.Utils.Validator;
-using store.UserModule.Entity;
 namespace store.AuthModule
 {
 
@@ -57,14 +57,19 @@ namespace store.AuthModule
 
             }
 
-            res.data = existedUser;
+            res.setMessage("Login user successfully");
             var token = this.jwtService.GenerateToken(existedUser.userId);
-            var resp = new HttpResponseMessage();
-            var authCookie = new CookieHeaderValue("auth-token", token);
-            authCookie.Expires = DateTime.Now.AddDays(30);
 
-            resp.Headers.AddCookies(new CookieHeaderValue[] { authCookie });
-            return new ObjectResult(resp);
+
+
+            this.HttpContext.Response.Cookies.Append("auth-token", token, new CookieOptions()
+            {
+                Expires = DateTime.Now.AddDays(30),
+                SameSite = SameSiteMode.None,
+                Secure = true
+
+            });
+            return new ObjectResult(res.getResponse());
         }
 
         [HttpPost("register")]
@@ -105,9 +110,11 @@ namespace store.AuthModule
         [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult logoutUser()
         {
-            ServerResponse<User> res = new ServerResponse<User>();
-            Console.WriteLine(this.HttpContext.Request.Headers["Cookie"]);
-            return new ObjectResult("132");
+            var resp = new HttpResponseMessage();
+            var authCookie = new CookieHeaderValue("auth-token", "");
+            authCookie.Expires = DateTime.Now.AddDays(-1);
+            resp.Headers.AddCookies(new CookieHeaderValue[] { authCookie });
+            return new ObjectResult(resp);
         }
     }
 }
