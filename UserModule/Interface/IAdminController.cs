@@ -6,6 +6,6 @@ namespace store.UserModule.Interface
 {
     public interface IAdminController
     {
-        // public ObjectResult listAllUser();
+        public ObjectResult listAllUser(int pageSize, int page);
     }
 }
