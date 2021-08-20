@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using store.UserModule.Entity;
+using store.UserModule.DTO;
 
 namespace store.UserModule.Interface
 {
@@ -13,5 +14,7 @@ namespace store.UserModule.Interface
         public bool saveUser(User user);
 
         public bool updateUser(User user);
+        public bool updateStatusUser(UpdateStatusUserDto updateStatusUserDto);
+
     }
 }
