@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -102,6 +103,52 @@ namespace store.UserModule
             return user;
         }
 
+        public List<User> getAllUsers(int pageSize, int currentPage)
+        {
+            SqlConnection connection = this.dbHelper.getDBConnection();
+
+            var users = new List<User>();
+            string sql = "SELECT TOP (@limit) * FROM tblUser EXCEPT SELECT TOP (@skip) * FROM tblUser";
+            SqlCommand Command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                Command.Parameters.AddWithValue("@limit ", (pageSize + 1) * currentPage);
+                Command.Parameters.AddWithValue("@skip ", currentPage * pageSize);
+                SqlDataReader reader = Command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        User user = new User();
+                        user.userId = reader.GetString("userId");
+                        user.name = reader.GetString("name");
+                        user.username = reader.GetString("username");
+                        user.password = "";
+                        user.email = reader.GetString("email");
+                        user.phone = reader.GetString("phone");
+                        user.address = reader.GetString("address");
+                        user.googleId = reader.GetString("googleId");
+                        user.createDate = reader.GetDateTime("createDate");
+                        user.salary = reader.GetDouble("salary");
+                        user.role = (UserRole)reader.GetInt32("role");
+                        user.status = (UserStatus)reader.GetInt32("status");
+
+                        users.Add(user);
+                    }
+
+                }
+
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return users;
+        }
+
         public bool saveUser(User user)
         {
             SqlConnection connection = this.dbHelper.getDBConnection();
@@ -139,26 +186,24 @@ namespace store.UserModule
         public bool updateUser(User user)
         {
             SqlConnection connection = this.dbHelper.getDBConnection();
-            string sql = "UPDATE tblUser SET name=@newName, email=@newEmail, phone=@newPhone, address=@newAddress WHERE username=@username";
-            SqlCommand command = new SqlCommand(sql, connection);
+            bool res = false;
+            string sql = "UPDATE tblUser SET name=@newName, email=@newEmail, phone=@newPhone, address=@newAddress WHERE userId=@userId";
+            SqlCommand Command = new SqlCommand(sql, connection);
             try
             {
                 connection.Open();
-                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = user.username;
-                command.Parameters.Add("@newName", SqlDbType.NVarChar).Value = user.name;
-                command.Parameters.Add("@newEmail", SqlDbType.NVarChar).Value = user.email;
-                command.Parameters.Add("@newPhone", SqlDbType.NVarChar).Value = user.phone;
-                command.Parameters.Add("@newAddress", SqlDbType.NVarChar).Value = user.address;
-                int rowAffected = command.ExecuteNonQuery();
-                
-                connection.Close();
-                return rowAffected > 0;
+                Command.Parameters.Add("@userId", SqlDbType.NVarChar).Value = user.userId;
+                Command.Parameters.Add("@newName", SqlDbType.NVarChar).Value = user.name;
+                Command.Parameters.Add("@newEmail", SqlDbType.NVarChar).Value = user.email;
+                Command.Parameters.Add("@newPhone", SqlDbType.NVarChar).Value = user.phone;
+                Command.Parameters.Add("@newAddress", SqlDbType.NVarChar).Value = user.address;
+                res = Command.ExecuteNonQuery() > 0;
             }
             catch (SqlException e)
             {
                 Console.WriteLine(e.Message);
             }
-            return false;
+            return res;
         }
     }
 }
