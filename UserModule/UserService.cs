@@ -37,10 +37,6 @@ namespace store.UserModule
             return result;
         }
 
-        public bool updateUserPassword(string userId, string password)
-        {
-            bool res = this.userRepository.updateUserPassword(userId, password);
-            return res;
-        }
+
     }
 }
