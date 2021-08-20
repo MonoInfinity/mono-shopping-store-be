@@ -27,6 +27,7 @@ using store.Utils.Validator;
 using Microsoft.AspNetCore.Http;
 using store.ProductModule.Interface;
 using store.ProductModule;
+using store.ProductModule.DTO;
 
 namespace store
 {
@@ -55,10 +56,6 @@ namespace store
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthService, AuthService>();
 
-            // Auth Module
-            services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<AuthGuard>();
-
             // Product Module
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
@@ -66,10 +63,14 @@ namespace store
 
             //Validator  
             services.AddScoped<ValidateFilter>();
-            services.AddScoped<LoginUserDtoValidator, LoginUserDtoValidator>();
-            services.AddScoped<RegisterUserDtoValidator, RegisterUserDtoValidator>();
-            services.AddScoped<UpdateUserDtoValidator, UpdateUserDtoValidator>();
+            services.AddScoped<LoginUserDtoValidator>();
+            services.AddScoped<RegisterUserDtoValidator>();
+            services.AddScoped<UpdateUserDtoValidator>();
+            services.AddScoped<AddCategoryDtoValidator>();
 
+            // Auth Module
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<AuthGuard>();
 
             // Google
             services.AddAuthentication().AddGoogle(options =>
