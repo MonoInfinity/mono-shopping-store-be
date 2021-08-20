@@ -32,7 +32,7 @@ namespace store.ProductModule
                         category.categoryId = reader.GetString("categoryId");
                         category.name = reader.GetString("name");
                         category.status = (CategoryStatus)reader.GetInt32("status");
-                        category.createDate = reader.GetDateTime("createTime");
+                        category.createDate = reader.GetDateTime("createDate");
                     }
                 }
 

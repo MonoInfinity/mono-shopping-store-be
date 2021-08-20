@@ -7,8 +7,7 @@ namespace store.ProductModule
     {
         private readonly ICategoryRepository categoryRepository;
         private readonly ISubCategoryRepository subCategoryRepository;
-        public ProductService(ICategoryRepository categoryRepository, ISubCategoryRepository subCategoryRepository)
-        {
+        public ProductService(ICategoryRepository categoryRepository, ISubCategoryRepository subCategoryRepository){
             this.categoryRepository = categoryRepository;
             this.subCategoryRepository = subCategoryRepository;
         }

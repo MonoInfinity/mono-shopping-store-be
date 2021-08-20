@@ -9,6 +9,7 @@ using store.UserModule.Entity;
 using store.Utils.Common;
 using Microsoft.AspNetCore.Mvc;
 using store.UserModule.DTO;
+using store.ProductModule.DTO;
 
 namespace store.Utils.Validator
 {
@@ -17,12 +18,22 @@ namespace store.Utils.Validator
         private readonly LoginUserDtoValidator loginUserDtoValidator;
         private readonly RegisterUserDtoValidator registerUserDtoValidator;
         private readonly UpdateUserDtoValidator updateUserDtoValidator;
+        private readonly AddCategoryDtoValidator addCategoryDtoValidator;
+        private readonly AddSubCategoryDtoValidator addSubCategoryDtoValidator;
 
-        public ValidateFilter(LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator)
+        public ValidateFilter(
+                                LoginUserDtoValidator loginUserDtoValidator, 
+                                RegisterUserDtoValidator registerUserDtoValidator, 
+                                UpdateUserDtoValidator updateUserDtoValidator,
+                                AddCategoryDtoValidator addCategoryDtoValidator,
+                                AddSubCategoryDtoValidator addSubCategoryDtoValidator
+                            )
         {
             this.loginUserDtoValidator = loginUserDtoValidator;
             this.registerUserDtoValidator = registerUserDtoValidator;
             this.updateUserDtoValidator = updateUserDtoValidator;
+            this.addCategoryDtoValidator = addCategoryDtoValidator;
+            this.addSubCategoryDtoValidator = addSubCategoryDtoValidator;
         }
         public void OnActionExecuted(ActionExecutedContext context)
         {
@@ -50,18 +61,31 @@ namespace store.Utils.Validator
             ServerResponse<User> res = new ServerResponse<User>();
             ValidationResult result = null;
 
-
+            // AuthModule DTO
             if (typeof(LoginUserDto) == dtoType)
             {
                 result = this.loginUserDtoValidator.Validate(assignValue<LoginUserDto>(bodyStr, dtoType));
             }
-            else if (typeof(RegisterUserDto) == dtoType)
+            if (typeof(RegisterUserDto) == dtoType)
             {
                 result = this.registerUserDtoValidator.Validate(assignValue<RegisterUserDto>(bodyStr, dtoType));
             }
-            else if(typeof(UpdateUserDto) == dtoType)
+
+            // UserModule DTO
+            if(typeof(UpdateUserDto) == dtoType)
             {
                 result = this.updateUserDtoValidator.Validate(assignValue<UpdateUserDto>(bodyStr, dtoType));
+            }
+
+
+            // ProductModule DTO
+            if(typeof(AddCategoryDto) == dtoType)
+            {
+                result = this.addCategoryDtoValidator.Validate(assignValue<AddCategoryDto>(bodyStr, dtoType));
+            }
+            if(typeof(AddSubCategoryDto) == dtoType)
+            {
+                result = this.addSubCategoryDtoValidator.Validate(assignValue<AddSubCategoryDto>(bodyStr, dtoType));
             }
 
 
