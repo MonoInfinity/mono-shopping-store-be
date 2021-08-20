@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System;
 using System.Data;
 using System.Data.SqlClient;
@@ -100,6 +101,52 @@ namespace store.UserModule
                 Console.WriteLine(e.Message);
             }
             return user;
+        }
+
+        public List<User> getAllUsers(int pageSize, int currentPage)
+        {
+            SqlConnection connection = this.dbHelper.getDBConnection();
+
+            var users = new List<User>();
+            string sql = "SELECT TOP (@limit) * FROM tblUser EXCEPT SELECT TOP (@skip) * FROM tblUser";
+            SqlCommand Command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                Command.Parameters.AddWithValue("@limit ", (pageSize + 1) * currentPage);
+                Command.Parameters.AddWithValue("@skip ", currentPage * pageSize);
+                SqlDataReader reader = Command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        User user = new User();
+                        user.userId = reader.GetString("userId");
+                        user.name = reader.GetString("name");
+                        user.username = reader.GetString("username");
+                        user.password = "";
+                        user.email = reader.GetString("email");
+                        user.phone = reader.GetString("phone");
+                        user.address = reader.GetString("address");
+                        user.googleId = reader.GetString("googleId");
+                        user.createDate = reader.GetDateTime("createDate");
+                        user.salary = reader.GetDouble("salary");
+                        user.role = (UserRole)reader.GetInt32("role");
+                        user.status = (UserStatus)reader.GetInt32("status");
+
+                        users.Add(user);
+                    }
+
+                }
+
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return users;
         }
 
         public bool saveUser(User user)

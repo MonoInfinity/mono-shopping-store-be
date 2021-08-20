@@ -52,8 +52,7 @@ namespace store
             //User Module
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IAdminService, AdminService>();
 
             // Auth Module
             services.AddScoped<IAuthService, AuthService>();

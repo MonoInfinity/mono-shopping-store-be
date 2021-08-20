@@ -1,10 +1,5 @@
-using System;
-using System.Collections.Generic;
 using FluentValidation.Results;
-
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
-using store.Utils.Interface;
 using store.AuthModule.DTO;
 using store.AuthModule.Interface;
 using store.UserModule.DTO;
@@ -14,7 +9,6 @@ using store.Utils.Common;
 using store.AuthModule;
 using System.Diagnostics;
 using store.Utils.Validator;
-
 
 namespace store.UserModule
 {

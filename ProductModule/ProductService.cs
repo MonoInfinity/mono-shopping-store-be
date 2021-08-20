@@ -5,9 +5,10 @@ namespace store.ProductModule
 {
     public class ProductService : IProductService
     {
-        private readonly CategoryRepository categoryRepository;
-        private readonly SubCategoryRepository subCategoryRepository;
-        public ProductService(CategoryRepository categoryRepository, SubCategoryRepository subCategoryRepository){
+        private readonly ICategoryRepository categoryRepository;
+        private readonly ISubCategoryRepository subCategoryRepository;
+        public ProductService(ICategoryRepository categoryRepository, ISubCategoryRepository subCategoryRepository)
+        {
             this.categoryRepository = categoryRepository;
             this.subCategoryRepository = subCategoryRepository;
         }

@@ -104,9 +104,11 @@ namespace store.AuthModule
         [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult logoutUser()
         {
-            ServerResponse<User> res = new ServerResponse<User>();
-            Console.WriteLine(this.HttpContext.Request.Headers["Cookie"]);
-            return new ObjectResult("132");
+            var resp = new HttpResponseMessage();
+            var authCookie = new CookieHeaderValue("auth-token", "");
+            authCookie.Expires = DateTime.Now.AddDays(-1);
+            resp.Headers.AddCookies(new CookieHeaderValue[] { authCookie });
+            return new ObjectResult(resp);
         }
     }
 }
