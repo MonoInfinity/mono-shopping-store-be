@@ -1109,3 +1109,4 @@ C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\Seri
 C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\Serilog.Sinks.File.dll
 C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\Serilog.Sinks.RollingFile.dll
 C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+c:\Users\HaiCao\Desktop\mono_store_be_v2\bin\Debug\net5.0\config\env.testing.json

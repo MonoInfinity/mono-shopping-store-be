@@ -9,5 +9,7 @@ namespace store.ProductModule.Interface
         public bool updateCategory(Category category);
 
         public Category getCategoryByCategoryId(string categoryId);
+
+        public Category getCategoryByName(string name);
     }
 }
