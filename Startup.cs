@@ -68,6 +68,7 @@ namespace store
             services.AddScoped<LoginUserDtoValidator, LoginUserDtoValidator>();
             services.AddScoped<RegisterUserDtoValidator, RegisterUserDtoValidator>();
             services.AddScoped<UpdateUserDtoValidator, UpdateUserDtoValidator>();
+            services.AddScoped<UpdateStatusUserDtoValidator, UpdateStatusUserDtoValidator>();
 
 
             // Google
