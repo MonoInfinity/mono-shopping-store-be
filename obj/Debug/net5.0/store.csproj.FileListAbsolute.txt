@@ -1109,6 +1109,7 @@ C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\Seri
 C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\Serilog.Sinks.File.dll
 C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\Serilog.Sinks.RollingFile.dll
 C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+c:\Users\HaiCao\Desktop\mono_store_be_v2\bin\Debug\net5.0\config\env.testing.json
 C:\Users\Lenovo\Desktop\shop\bin\Debug\net5.0\System.Net.Http.Formatting.dll
 C:\Users\Lenovo\Desktop\shop\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.Google.dll
 C:\Users\Lenovo\Desktop\shop\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
@@ -1116,3 +1117,4 @@ C:\Users\Lenovo\Desktop\shop\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dl
 C:\Users\Lenovo\Desktop\shop\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\Lenovo\Desktop\shop\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
 C:\Users\Lenovo\Desktop\shop\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+>>>>>>> 63eeaa5840e811e9849b967fcac2be6954951466

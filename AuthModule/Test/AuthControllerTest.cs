@@ -86,6 +86,7 @@ namespace store.AuthModule.Test
                 email = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE) + "@gmail.com",
                 phone = "0901212345",
                 address = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE),
+                avatarUrl = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE),
             };
             var res = this.authController.registerUser(input);
             var user = this.userRepository.getUserByUsername(input.username);
@@ -108,6 +109,7 @@ namespace store.AuthModule.Test
                 email = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE) + "@gmail.com",
                 phone = "0901212345",
                 address = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE),
+                avatarUrl = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE),
             };
             this.authController.registerUser(input);
             var res = this.authController.registerUser(input);

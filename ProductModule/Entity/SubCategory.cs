@@ -12,14 +12,14 @@ namespace store.ProductModule.Entity
         public string subCategoryId { get; set; }
         public string name { get; set; }
         public SubCategoryStatus status { get; set; }
-        public DateTime createDate { get; set; }
+        public string createDate { get; set; }
         public Category category { get; set; }
 
         public SubCategory(){
             this.subCategoryId = "";
             this.name = "";
             this.status = SubCategoryStatus.NOT_SALE;
-            this.createDate = DateTime.Now;
+            this.createDate = DateTime.Now.ToShortDateString();
             this.category = new Category();
         }
 

@@ -16,11 +16,12 @@ namespace store.AuthModule.DTO
         public string email { get; set; }
         public string phone { get; set; }
         public string address { get; set; }
+        public string avatarUrl { get; set; }
         public RegisterUserDto()
         {
 
         }
-        public RegisterUserDto(string username, string password, string confirmPassword, string name, string email, string phone, string address)
+        public RegisterUserDto(string username, string password, string confirmPassword, string name, string email, string phone, string address, string avatarUrl)
         {
             this.username = username;
             this.password = password;
@@ -29,6 +30,7 @@ namespace store.AuthModule.DTO
             this.email = email;
             this.phone = phone;
             this.address = address;
+            this.avatarUrl = avatarUrl;
         }
     }
 
@@ -49,6 +51,7 @@ namespace store.AuthModule.DTO
                 else return;
             });
             RuleFor(x => x.address).NotEmpty().Length(UserValidator.ADDRESS_MIN, UserValidator.ADDRESS_MAX);
+            RuleFor(x => x.avatarUrl).NotEmpty().Length(1, 50);
         }
     }
 }

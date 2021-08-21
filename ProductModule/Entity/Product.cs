@@ -17,10 +17,10 @@ namespace store.ProductModule.Entity
         public string description { get; set; }
         public string location { get; set; }
         public ProductStatus status { get; set; }
-        public DateTime expiryDate { get; set; }
+        public string expiryDate { get; set; }
         public double wholesalePrice { get; set; }
         public double retailPrice { get; set; }
-        public DateTime createDate { get; set; }
+        public string createDate { get; set; }
         public int quantity { get; set; }
         public SubCategory subCategory { get; set; }
 
@@ -31,10 +31,10 @@ namespace store.ProductModule.Entity
             this.description = "";
             this.location = "";
             this.status = ProductStatus.NOT_SALE;
-            this.expiryDate = DateTime.Now;
+            this.expiryDate = DateTime.Now.ToShortDateString();
             this.wholesalePrice = 0;
             this.retailPrice = 0;
-            this.createDate = DateTime.Now;
+            this.createDate = DateTime.Now.ToShortDateString();
             this.quantity = 0;
             this.subCategory = new SubCategory();
         }

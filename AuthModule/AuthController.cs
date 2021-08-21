@@ -93,7 +93,7 @@ namespace store.AuthModule
             insertedUser.email = body.email;
             insertedUser.phone = body.phone;
             insertedUser.address = body.address;
-            insertedUser.createDate = DateTime.Now;
+            insertedUser.createDate = DateTime.Now.ToShortDateString();
             insertedUser.role = UserRole.CUSTOMER;
 
             bool isInserted = this.userService.saveUser(insertedUser);

@@ -32,7 +32,36 @@ namespace store.ProductModule
                         category.categoryId = reader.GetString("categoryId");
                         category.name = reader.GetString("name");
                         category.status = (CategoryStatus)reader.GetInt32("status");
-                        category.createDate = reader.GetDateTime("createDate");
+                        category.createDate = reader.GetString("createDate");
+                    }
+                }
+
+                connection.Close();
+            }catch(SqlException e){
+                Console.WriteLine(e.Message);
+            }
+            return category;
+        }
+
+        public Category getCategoryByName(string name)
+        {
+            SqlConnection connection = this.dBHelper.getDBConnection();
+            Category category = null;
+            string sql = "SELECT * FROM tblCategory WHERE name=@name";
+            SqlCommand command = new SqlCommand(sql, connection);
+
+            try{
+                connection.Open();
+                command.Parameters.AddWithValue("@name", name);
+                SqlDataReader reader = command.ExecuteReader();
+
+                if(reader.HasRows){
+                    while(reader.Read()){
+                        category = new Category();
+                        category.categoryId = reader.GetString("categoryId");
+                        category.name = reader.GetString("name");
+                        category.status = (CategoryStatus)reader.GetInt32("status");
+                        category.createDate = reader.GetString("createDate");
                     }
                 }
 

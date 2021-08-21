@@ -17,15 +17,18 @@ namespace store.ProductModule
         private readonly IProductService productService;
         private readonly AddCategoryDtoValidator addCategoryDtoValidator;
         private readonly AddSubCategoryDtoValidator addSubCategoryDtoValidator;
+        private readonly AddProductDtoValidator addProductValidator;
         public ProductController(
                                 IProductService productService,
                                 AddCategoryDtoValidator addCategoryDtoValidator,
-                                AddSubCategoryDtoValidator addSubCategoryDtoValidator
+                                AddSubCategoryDtoValidator addSubCategoryDtoValidator,
+                                AddProductDtoValidator addProductValidator
             )
         {
             this.productService = productService;
             this.addCategoryDtoValidator = addCategoryDtoValidator;
             this.addSubCategoryDtoValidator = addSubCategoryDtoValidator;
+            this.addProductValidator = addProductValidator;
         }
 
         [HttpPost("category")]
@@ -40,7 +43,7 @@ namespace store.ProductModule
             Category newCategory = new Category();
             newCategory.categoryId = Guid.NewGuid().ToString();
             newCategory.name = body.name;
-            newCategory.createDate = DateTime.Now;
+            newCategory.createDate = DateTime.Now.ToShortDateString();
             newCategory.status = CategoryStatus.NOT_SALE;
 
             bool isInserted = this.productService.saveCategory(newCategory);
@@ -72,7 +75,7 @@ namespace store.ProductModule
             SubCategory newSubCategory = new SubCategory();
             newSubCategory.subCategoryId = Guid.NewGuid().ToString();
             newSubCategory.name = body.name;
-            newSubCategory.createDate = DateTime.Now;
+            newSubCategory.createDate = DateTime.Now.ToShortDateString();
             newSubCategory.status = SubCategoryStatus.NOT_SALE;
             newSubCategory.category = category;
 

@@ -67,13 +67,13 @@ namespace store
 
             //Validator  
             services.AddScoped<ValidateFilter>();
-            services.AddScoped<LoginUserDtoValidator, LoginUserDtoValidator>();
-            services.AddScoped<RegisterUserDtoValidator, RegisterUserDtoValidator>();
-            services.AddScoped<UpdateUserDtoValidator, UpdateUserDtoValidator>();
-            services.AddScoped<UpdateStatusUserDtoValidator, UpdateStatusUserDtoValidator>();
-            services.AddScoped<AddCategoryDtoValidator, AddCategoryDtoValidator>();
-            services.AddScoped<AddSubCategoryDtoValidator, AddSubCategoryDtoValidator>();
-            services.AddScoped<AddProductDtoValidator, AddProductDtoValidator>();
+            services.AddScoped<LoginUserDtoValidator>();
+            services.AddScoped<RegisterUserDtoValidator>();
+            services.AddScoped<UpdateUserDtoValidator>();
+            services.AddScoped<UpdateStatusUserDtoValidator>();
+            services.AddScoped<AddCategoryDtoValidator>();
+            services.AddScoped<AddSubCategoryDtoValidator>();
+            services.AddScoped<AddProductDtoValidator>();
 
             // Google
             services.AddAuthentication().AddGoogle(options =>
