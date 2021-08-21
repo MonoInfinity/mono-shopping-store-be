@@ -41,7 +41,7 @@ namespace store.Src.ProductModule
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
-        public ObjectResult AddCategory(AddCategoryDto body)
+        public ObjectResult AddCategory([FromBody] AddCategoryDto body)
         {
             ServerResponse<Category> res = new ServerResponse<Category>();
 
@@ -66,7 +66,7 @@ namespace store.Src.ProductModule
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
-        public ObjectResult AddSubCategory(AddSubCategoryDto body)
+        public ObjectResult AddSubCategory([FromBody] AddSubCategoryDto body)
         {
             ServerResponse<SubCategory> res = new ServerResponse<SubCategory>();
 
@@ -99,7 +99,7 @@ namespace store.Src.ProductModule
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
-        public ObjectResult AddProduct(AddProductDto body)
+        public ObjectResult AddProduct([FromBody] AddProductDto body)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
 
@@ -134,7 +134,7 @@ namespace store.Src.ProductModule
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
-        public ObjectResult DeleteProduct(DeleteProductDto body)
+        public ObjectResult DeleteProduct([FromBody] DeleteProductDto body)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
             Product product = this.productService.getProductByProductId(body.productId);

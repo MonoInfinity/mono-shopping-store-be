@@ -141,10 +141,6 @@ namespace store.Src.Utils.Validator
             }
 
             // UserModule DTO
-            if (typeof(UpdateUserDto) == dtoType)
-            {
-                result = this.updateUserDtoValidator.Validate(assignValue<UpdateUserDto>(bodyStr, dtoType));
-            }
             if (typeof(UpdateUserPasswordDto) == dtoType)
             {
                 result = this.updateUserPasswordDtoValidator.Validate(assignValue<UpdateUserPasswordDto>(bodyStr, dtoType));
