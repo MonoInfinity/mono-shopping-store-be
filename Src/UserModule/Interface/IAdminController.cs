@@ -8,6 +8,7 @@ namespace store.Src.UserModule.Interface
     {
         public ObjectResult listAllUser(int pageSize, int page, string name);
         public ObjectResult updateStatusUser(UpdateStatusUserDto body);
+        public ObjectResult getOneUser(string userId);
 
     }
 }
