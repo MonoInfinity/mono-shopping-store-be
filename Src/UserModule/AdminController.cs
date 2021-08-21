@@ -91,5 +91,14 @@ namespace store.Src.UserModule
             }
 
         }
+
+        [HttpGet("user")]
+        public ObjectResult getOneUser(string userId)
+        {
+            ServerResponse<User> res = new ServerResponse<User>();
+            User user = this.adminService.getOneUser(userId);
+            res.data = user;
+            return new ObjectResult(res.getResponse());
+        }
     }
 }

@@ -552,8 +552,6 @@ C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\xuni
 C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\xunit.runner.reporters.netcoreapp10.dll
 C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\xunit.runner.utility.netcoreapp10.dll
 C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\Microsoft.TestPlatform.PlatformAbstractions.dll
-C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\config\env.development.json
-C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\config\env.testing.json
 C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\docs\swagger\v1.json
 C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\store.exe
 C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\store.deps.json
@@ -1118,3 +1116,5 @@ C:\Users\Lenovo\Desktop\shop\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\Lenovo\Desktop\shop\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
 C:\Users\Lenovo\Desktop\shop\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
 >>>>>>> 63eeaa5840e811e9849b967fcac2be6954951466
+C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\config\env.development.json
+C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\config\env.testing.json

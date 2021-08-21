@@ -7,6 +7,7 @@ using store.Src.ProductModule.Interface;
 using store.Src.UserModule.Entity;
 using store.Src.Utils.Common;
 using store.Src.Utils.Validator;
+using System.Collections.Generic;
 
 namespace store.Src.ProductModule
 {
@@ -18,17 +19,21 @@ namespace store.Src.ProductModule
         private readonly AddCategoryDtoValidator addCategoryDtoValidator;
         private readonly AddSubCategoryDtoValidator addSubCategoryDtoValidator;
         private readonly AddProductDtoValidator addProductValidator;
+        private readonly DeleteProductDtoValidator deleteProductDtoValidator;
+
         public ProductController(
                                 IProductService productService,
                                 AddCategoryDtoValidator addCategoryDtoValidator,
                                 AddSubCategoryDtoValidator addSubCategoryDtoValidator,
-                                AddProductDtoValidator addProductValidator
+                                AddProductDtoValidator addProductValidator,
+                                DeleteProductDtoValidator deleteProductDtoValidator
             )
         {
             this.productService = productService;
             this.addCategoryDtoValidator = addCategoryDtoValidator;
             this.addSubCategoryDtoValidator = addSubCategoryDtoValidator;
             this.addProductValidator = addProductValidator;
+            this.deleteProductDtoValidator = deleteProductDtoValidator;
         }
 
         [HttpPost("category")]
@@ -122,6 +127,45 @@ namespace store.Src.ProductModule
                 return new ObjectResult(res.getResponse()) { StatusCode = 500 };
             }
             res.data = newProduct;
+            return new ObjectResult(res.getResponse());
+        }
+        [HttpDelete("product")]
+        [ValidateFilterAttribute(typeof(DeleteProductDto))]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        [ServiceFilter(typeof(ValidateFilter))]
+        public ObjectResult DeleteProduct(DeleteProductDto body)
+        {
+            ServerResponse<Product> res = new ServerResponse<Product>();
+            Product product = this.productService.getProductByProductId(body.productId);
+            if (product == null)
+            {
+                res.setErrorMessage("product with given productId not exist");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            bool isDelete = this.productService.deleteProduct(body.productId);
+            if (!isDelete)
+            {
+                res.setErrorMessage("Fail to delete product");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+
+            res.setMessage("Delete Product successfully");
+            return new ObjectResult(res.getResponse());
+
+        }
+
+        [HttpGet("product/all")]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        public ObjectResult listAllProduct(int pageSize, int page, string name)
+        {
+            IDictionary<string, object> dataRes = new Dictionary<string, object>();
+            ServerResponse<IDictionary<string, object>> res = new ServerResponse<IDictionary<string, object>>();
+            var products = this.productService.getAllProduct(pageSize, page, name);
+            var count = this.productService.getAllProductCount(name);
+            dataRes.Add("products", products);
+            dataRes.Add("count", count); res.data = dataRes;
             return new ObjectResult(res.getResponse());
         }
     }

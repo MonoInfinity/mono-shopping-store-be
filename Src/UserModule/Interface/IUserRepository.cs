@@ -16,6 +16,7 @@ namespace store.Src.UserModule.Interface
 
         public bool updateUser(User user);
         public bool updateStatusUser(UpdateStatusUserDto updateStatusUserDto);
+        public User getOneUser(string userId);
 
     }
 }
