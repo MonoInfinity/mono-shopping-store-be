@@ -213,7 +213,7 @@ namespace store.UserModule
         {
             SqlConnection connection = this.dbHelper.getDBConnection();
             bool res = false;
-            string sql = "UPDATE tblUser SET name=@newName, email=@newEmail, phone=@newPhone, address=@newAddress, avatarUrl=@avatarUrl WHERE userId=@userId";
+            string sql = "UPDATE tblUser SET name=@newName, email=@newEmail, phone=@newPhone, address=@newAddress WHERE userId=@userId";
             SqlCommand Command = new SqlCommand(sql, connection);
             try
             {
@@ -223,7 +223,6 @@ namespace store.UserModule
                 Command.Parameters.Add("@newEmail", SqlDbType.NVarChar).Value = user.email;
                 Command.Parameters.Add("@newPhone", SqlDbType.NVarChar).Value = user.phone;
                 Command.Parameters.Add("@newAddress", SqlDbType.NVarChar).Value = user.address;
-                Command.Parameters.Add("@avatarUrl", SqlDbType.NVarChar).Value = user.avatarUrl;
                 res = Command.ExecuteNonQuery() > 0;
             }
             catch (SqlException e)

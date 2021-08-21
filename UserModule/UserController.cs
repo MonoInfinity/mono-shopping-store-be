@@ -61,10 +61,10 @@ namespace store.UserModule
             }
             User userUpdate = new User();
             userUpdate.userId = user.userId;
-            userUpdate.name = body.newName;
-            userUpdate.email = body.newEmail;
-            userUpdate.phone = body.newPhone;
-            userUpdate.address = body.newAddress;
+            userUpdate.name = body.name;
+            userUpdate.email = body.email;
+            userUpdate.phone = body.phone;
+            userUpdate.address = body.address;
 
             bool isUpdated = userService.updateUser(userUpdate);
             if (!isUpdated)
