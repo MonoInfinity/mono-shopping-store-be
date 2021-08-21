@@ -97,13 +97,9 @@ namespace store.AuthModule
             insertedUser.address = body.address;
             insertedUser.createDate = DateTime.Now.ToShortDateString();
             insertedUser.role = UserRole.CUSTOMER;
+            insertedUser.avatarUrl = Helper.randomUserAvatar();
+          
 
-            if (body.avatarUrl == null)
-            {
-                insertedUser.avatarUrl = Helper.randomUserAvatar();
-            }
-            else insertedUser.avatarUrl = body.avatarUrl;
-            
             bool isInserted = this.userService.saveUser(insertedUser);
             if (!isInserted)
             {

@@ -8,6 +8,7 @@ namespace store.Utils
     public class UploadFileService : IUploadFileService
     {
         readonly string folderUrl = "/public/image/";
+        public static string[] imageExtension = { "png", "jpg", "jpeg" };
         public bool checkFileExtension(IFormFile file, string[] extensions)
         {
             bool result = false;
@@ -30,7 +31,8 @@ namespace store.Utils
         public string upload(IFormFile file)
         {
             string formatFolderUrl = "." + folderUrl;
-            string fortmatFileName = System.Guid.NewGuid() + file.FileName;
+            string fileExtension = file.FileName.ToLower().Split(".")[file.FileName.ToLower().Split(".").Length - 1];
+            string fortmatFileName = System.Guid.NewGuid().ToString() + "." + fileExtension;
 
             try
             {

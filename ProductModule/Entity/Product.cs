@@ -23,6 +23,7 @@ namespace store.ProductModule.Entity
         public string createDate { get; set; }
         public int quantity { get; set; }
         public SubCategory subCategory { get; set; }
+        public string imageUrl { get; set; }
 
         public Product()
         {
@@ -30,6 +31,7 @@ namespace store.ProductModule.Entity
             this.name = "";
             this.description = "";
             this.location = "";
+            this.imageUrl = "";
             this.status = ProductStatus.NOT_SALE;
             this.expiryDate = DateTime.Now.ToShortDateString();
             this.wholesalePrice = 0;
@@ -41,7 +43,7 @@ namespace store.ProductModule.Entity
 
         public override string ToString()
         {
-            return "Product: \nProductId: " + productId + " \nName: " + name + " \nDescription: " + description + " \nLocation: " +
+            return "Product: \nProductId: " + productId + " \nName: "+ name + " \nImageUrl" + imageUrl + " \nDescription: " + description + " \nLocation: " +
                             location + " \nStatus: " + status + " \nExpiry Date: " + expiryDate + " \nWholesale Price: " + wholesalePrice + " \nRetail Price: " +
                             retailPrice + " \nCreateDate: " + createDate + " \nQuantity: " + quantity + " \nSubCategogyId: " + subCategory.status;
         }
