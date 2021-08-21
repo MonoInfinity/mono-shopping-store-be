@@ -9,25 +9,25 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.FileProviders;
 
-using store.UserModule;
-using store.UserModule.DTO;
-using store.UserModule.Interface;
+using store.Src.UserModule;
+using store.Src.UserModule.DTO;
+using store.Src.UserModule.Interface;
 
-using store.Utils;
-using store.Utils.Locale;
-using store.Utils.Interface;
+using store.Src.Utils;
+using store.Src.Utils.Locale;
+using store.Src.Utils.Interface;
 
 using FluentValidation;
 using System.Globalization;
 
-using store.AuthModule;
-using store.AuthModule.Interface;
-using store.AuthModule.DTO;
-using store.Utils.Validator;
+using store.Src.AuthModule;
+using store.Src.AuthModule.Interface;
+using store.Src.AuthModule.DTO;
+using store.Src.Utils.Validator;
 using Microsoft.AspNetCore.Http;
-using store.ProductModule.Interface;
-using store.ProductModule;
-using store.ProductModule.DTO;
+using store.Src.ProductModule.Interface;
+using store.Src.ProductModule;
+using store.Src.ProductModule.DTO;
 
 namespace store
 {
@@ -106,7 +106,8 @@ namespace store
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/document/swagger/v1.json", "Store v1"));
             }
             app.UseStaticFiles();
-            app.UseStaticFiles(new StaticFileOptions{
+            app.UseStaticFiles(new StaticFileOptions
+            {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "public")),
                 RequestPath = "/public"
             });
