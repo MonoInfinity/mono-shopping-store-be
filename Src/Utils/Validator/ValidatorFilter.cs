@@ -157,15 +157,6 @@ namespace store.Src.Utils.Validator
             {
                 result = this.addSubCategoryDtoValidator.Validate(assignValue<AddSubCategoryDto>(bodyStr, dtoType));
             }
-            if (typeof(AddProductDto) == dtoType)
-            {
-                result = this.addProductDtoValidator.Validate(assignValue<AddProductDto>(bodyStr, dtoType));
-            }
-            if (typeof(UpdateProductDto) == dtoType)
-            {
-                result = this.updateProductDtoValidator.Validate(assignValue<UpdateProductDto>(bodyStr, dtoType));
-            }
-
             if (typeof(DeleteProductDto) == dtoType)
             {
                 result = this.deleteProductDtoValidator.Validate(assignValue<DeleteProductDto>(bodyStr, dtoType));

@@ -184,7 +184,7 @@ namespace store.Src.ProductModule
             SqlConnection connection = this.dBHelper.getDBConnection();
             bool res = false;
             string sql = "UPDATE tblProduct SET name=@name, description=@description, location=@location, status=@status, wholesalePrice=@wholesalePrice, retailPrice=@retailPrice" +
-            ", quantity=@quantity, subCategoryId=@subCategoryId WHERE productId=@productId";
+            ", quantity=@quantity, imageUrl=@imageUrl, subCategoryId=@subCategoryId WHERE productId=@productId";
             SqlCommand command = new SqlCommand(sql, connection);
 
             try
@@ -197,6 +197,7 @@ namespace store.Src.ProductModule
                 command.Parameters.AddWithValue("@wholesalePrice", product.wholesalePrice);
                 command.Parameters.AddWithValue("@retailPrice", product.retailPrice);
                 command.Parameters.AddWithValue("@quantity", product.quantity);
+                command.Parameters.AddWithValue("@imageUrl", product.imageUrl);
                 command.Parameters.AddWithValue("@subCategoryId", product.subCategory.subCategoryId);
                 command.Parameters.AddWithValue("@productId", product.productId);
                 res = command.ExecuteNonQuery() > 0;
