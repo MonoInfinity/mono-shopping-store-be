@@ -8,5 +8,6 @@ namespace store.ProductModule.Interface
         public ObjectResult AddCategory(AddCategoryDto body);
 
         public ObjectResult AddSubCategory(AddSubCategoryDto body);
+        public ObjectResult DeleteProduct(DeleteProductDto body);
     }
 }

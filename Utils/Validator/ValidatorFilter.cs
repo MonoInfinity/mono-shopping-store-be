@@ -21,6 +21,7 @@ namespace store.Utils.Validator
         private readonly AddCategoryDtoValidator addCategoryDtoValidator;
         private readonly AddSubCategoryDtoValidator addSubCategoryDtoValidator;
         private readonly AddProductDtoValidator addProductDtoValidator;
+        private readonly DeleteProductDtoValidator deleteProductDtoValidator;
 
         public ValidateFilter(
                                 LoginUserDtoValidator loginUserDtoValidator,
@@ -28,7 +29,9 @@ namespace store.Utils.Validator
                                 UpdateUserDtoValidator updateUserDtoValidator,
                                 AddCategoryDtoValidator addCategoryDtoValidator,
                                 AddSubCategoryDtoValidator addSubCategoryDtoValidator,
-                                AddProductDtoValidator addProductDtoValidator
+                                AddProductDtoValidator addProductDtoValidator,
+                                DeleteProductDtoValidator deleteProductDtoValidator
+
                             )
         {
             this.loginUserDtoValidator = loginUserDtoValidator;
@@ -37,6 +40,7 @@ namespace store.Utils.Validator
             this.addCategoryDtoValidator = addCategoryDtoValidator;
             this.addSubCategoryDtoValidator = addSubCategoryDtoValidator;
             this.addProductDtoValidator = addProductDtoValidator;
+            this.deleteProductDtoValidator = deleteProductDtoValidator;
         }
 
         private T assignValue<T>(string bodyString, Type type)
@@ -66,17 +70,19 @@ namespace store.Utils.Validator
                         propertyValue = propertyValue.Replace("\"", "");
                         propertys[i].SetValue(obj, propertyValue);
                     }
-                    
+
                     else
-                    {   
+                    {
                         // value is a double
-                        if(propertys[i].PropertyType == typeof(Double)){
+                        if (propertys[i].PropertyType == typeof(Double))
+                        {
                             propertys[i].SetValue(obj, Double.Parse(propertyValue));
                         }
                         // value is a int32
-                        if(propertys[i].PropertyType == typeof(Int32)){
+                        if (propertys[i].PropertyType == typeof(Int32))
+                        {
                             propertys[i].SetValue(obj, Int32.Parse(propertyValue));
-                        } 
+                        }
                     }
                 }
             }
@@ -88,7 +94,7 @@ namespace store.Utils.Validator
         {
             for (int i = 0; i < strArray.Length; i = i + 2)
             {
-                if (strArray[i].Equals("\""+propertyName+"\""))
+                if (strArray[i].Equals("\"" + propertyName + "\""))
                 {
                     return strArray[i + 1];
                 }
@@ -150,6 +156,10 @@ namespace store.Utils.Validator
             if (typeof(AddProductDto) == dtoType)
             {
                 result = this.addProductDtoValidator.Validate(assignValue<AddProductDto>(bodyStr, dtoType));
+            }
+            if (typeof(DeleteProductDto) == dtoType)
+            {
+                result = this.deleteProductDtoValidator.Validate(assignValue<DeleteProductDto>(bodyStr, dtoType));
             }
 
 

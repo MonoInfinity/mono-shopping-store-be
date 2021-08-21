@@ -1,4 +1,5 @@
 using store.ProductModule.Entity;
+using System.Collections.Generic;
 
 namespace store.ProductModule.Interface
 {
@@ -16,5 +17,9 @@ namespace store.ProductModule.Interface
 
         public SubCategory getSubCategoryBySubCategoryId(string subCategoryId);
         public bool saveProduct(Product product);
+        public bool deleteProduct(string productId);
+        public List<Product> getAllProduct(int currentPage, int pageSize, string name);
+        public int getAllProductCount(string name);
+        public Product getProductByProductId(string productId);
     }
 }

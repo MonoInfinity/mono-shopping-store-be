@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using store.ProductModule.Entity;
 using store.ProductModule.Interface;
 using store.Utils.Interface;
+using System.Collections.Generic;
 
 namespace store.ProductModule
 {
@@ -49,6 +50,134 @@ namespace store.ProductModule
             }
 
             return res;
+        }
+
+        public bool deleteProduct(string productId)
+        {
+            SqlConnection connection = this.dBHelper.getDBConnection();
+            bool res = false;
+            string sql = "DELETE FROM tblProduct WHERE productId=@productId";
+            SqlCommand command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@productId", productId);
+                res = command.ExecuteNonQuery() > 0;
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return res;
+        }
+
+        public List<Product> getAllProducts(int pageSize, int currentPage, string name)
+        {
+            SqlConnection connection = this.dBHelper.getDBConnection();
+
+            var products = new List<Product>();
+            string sql = "SELECT TOP (@limit) * FROM tblProduct WHERE name Like  @name EXCEPT SELECT TOP (@skip) * FROM tblProduct";
+            SqlCommand Command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                Command.Parameters.AddWithValue("@name ", "%" + name + "%");
+                Command.Parameters.AddWithValue("@limit ", (pageSize + 1) * currentPage);
+                Command.Parameters.AddWithValue("@skip ", currentPage * pageSize);
+                SqlDataReader reader = Command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Product product = new Product();
+                        product.productId = reader.GetString("productId");
+                        product.name = reader.GetString("name");
+                        product.description = reader.GetString("description");
+                        product.location = reader.GetString("location");
+                        product.status = (ProductStatus)reader.GetInt32("status");
+                        product.expiryDate = reader.GetString("expiryDate");
+                        product.wholesalePrice = reader.GetDouble("wholesalePrice");
+                        product.retailPrice = reader.GetDouble("retailPrice");
+                        product.createDate = reader.GetString("createDate");
+                        product.quantity = reader.GetInt32("quantity");
+                        product.subCategory.subCategoryId = reader.GetString("subCategoryId");
+
+                        products.Add(product);
+                    }
+
+                }
+
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return products;
+        }
+        public int getAllProductsCount(string name)
+        {
+            SqlConnection connection = this.dBHelper.getDBConnection();
+            int count = 0;
+
+            string sql = "SELECT COUNT(*) FROM tblProduct where name Like @name";
+            SqlCommand Command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                Command.Parameters.AddWithValue("@name ", "%" + name + "%");
+                count = (Int32)Command.ExecuteScalar();
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return count;
+        }
+
+        public Product getProductByProductId(string productId)
+        {
+            SqlConnection connection = this.dBHelper.getDBConnection();
+
+            Product product = null;
+            string sql = "SELECT * FROM tblProduct WHERE productId = @productId";
+            SqlCommand Command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                Command.Parameters.AddWithValue("@productId", productId);
+                SqlDataReader reader = Command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        product = new Product();
+                        product.productId = reader.GetString("productId");
+                        product.name = reader.GetString("name");
+                        product.description = reader.GetString("description");
+                        product.location = reader.GetString("location");
+                        product.status = (ProductStatus)reader.GetInt32("status");
+                        product.expiryDate = reader.GetString("expiryDate");
+                        product.wholesalePrice = reader.GetDouble("wholesalePrice");
+                        product.retailPrice = reader.GetDouble("retailPrice");
+                        product.createDate = reader.GetString("createDate");
+                        product.quantity = reader.GetInt32("quantity");
+                        product.subCategory.subCategoryId = reader.GetString("subCategoryId");
+                    }
+
+                }
+
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return product;
         }
     }
 }

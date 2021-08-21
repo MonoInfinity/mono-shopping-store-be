@@ -7,6 +7,7 @@ using store.ProductModule.Interface;
 using store.UserModule.Entity;
 using store.Utils.Common;
 using store.Utils.Validator;
+using System.Collections.Generic;
 
 namespace store.ProductModule
 {
@@ -122,6 +123,45 @@ namespace store.ProductModule
                 return new ObjectResult(res.getResponse()) { StatusCode = 500 };
             }
             res.data = newProduct;
+            return new ObjectResult(res.getResponse());
+        }
+        [HttpDelete("product")]
+        [ValidateFilterAttribute(typeof(DeleteProductDto))]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        [ServiceFilter(typeof(ValidateFilter))]
+        public ObjectResult DeleteProduct(DeleteProductDto body)
+        {
+            ServerResponse<Product> res = new ServerResponse<Product>();
+            Product product = this.productService.getProductByProductId(body.productId);
+            if (product == null)
+            {
+                res.setErrorMessage("product with given productId not exist");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            bool isDelete = this.productService.deleteProduct(body.productId);
+            if (!isDelete)
+            {
+                res.setErrorMessage("Fail to delete product");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+
+            res.setMessage("Delete Product successfully");
+            return new ObjectResult(res.getResponse());
+
+        }
+
+        [HttpGet("product/all")]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        public ObjectResult listAllProduct(int pageSize, int page, string name)
+        {
+            IDictionary<string, object> dataRes = new Dictionary<string, object>();
+            ServerResponse<IDictionary<string, object>> res = new ServerResponse<IDictionary<string, object>>();
+            var products = this.productService.getAllProduct(pageSize, page, name);
+            var count = this.productService.getAllProductCount(name);
+            dataRes.Add("products", products);
+            dataRes.Add("count", count); res.data = dataRes;
             return new ObjectResult(res.getResponse());
         }
     }

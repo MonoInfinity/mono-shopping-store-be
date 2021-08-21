@@ -1,5 +1,6 @@
 using store.ProductModule.Entity;
 using store.ProductModule.Interface;
+using System.Collections.Generic;
 
 namespace store.ProductModule
 {
@@ -54,6 +55,28 @@ namespace store.ProductModule
         {
             bool res = productRepository.saveProduct(product);
             return res;
+        }
+        public bool deleteProduct(string productId)
+        {
+            bool res = productRepository.deleteProduct(productId);
+            return res;
+        }
+
+        public List<Product> getAllProduct(int currentPage, int pageSize, string name)
+        {
+            var products = this.productRepository.getAllProducts(pageSize, currentPage, name);
+            return products;
+        }
+        public int getAllProductCount(string name)
+        {
+            var count = this.productRepository.getAllProductsCount(name);
+            return count;
+        }
+
+        public Product getProductByProductId(string productId)
+        {
+            var product = this.productRepository.getProductByProductId(productId);
+            return product;
         }
     }
 }

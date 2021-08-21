@@ -250,5 +250,47 @@ namespace store.UserModule
             }
             return res;
         }
+        public User getOneUser(string userId)
+        {
+            SqlConnection connection = this.dbHelper.getDBConnection();
+
+            User user = null;
+            string sql = "SELECT * FROM tblUser WHERE userId = @userId";
+            SqlCommand Command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                Command.Parameters.AddWithValue("@userId", userId);
+                SqlDataReader reader = Command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        user = new User();
+                        user.userId = reader.GetString("userId");
+                        user.name = reader.GetString("name");
+                        user.username = reader.GetString("username");
+                        user.password = "";
+                        user.email = reader.GetString("email");
+                        user.phone = reader.GetString("phone");
+                        user.address = reader.GetString("address");
+                        user.googleId = reader.GetString("googleId");
+                        user.createDate = reader.GetString("createDate");
+                        user.salary = reader.GetDouble("salary");
+                        user.role = (UserRole)reader.GetInt32("role");
+                        user.status = (UserStatus)reader.GetInt32("status");
+                        user.avatarUrl = reader.GetString("avatarUrl");
+                    }
+                }
+
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return user;
+        }
     }
 }
