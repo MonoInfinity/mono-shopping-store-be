@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using store.UserModule.Interface;
 using store.Utils.Interface;
 using store.UserModule.Entity;
+using store.UserModule.DTO;
 
 namespace store.UserModule
 {
@@ -43,10 +44,11 @@ namespace store.UserModule
                         user.phone = reader.GetString("phone");
                         user.address = reader.GetString("address");
                         user.googleId = reader.GetString("googleId");
-                        user.createDate = reader.GetDateTime("createDate");
+                        user.createDate = reader.GetString("createDate");
                         user.salary = reader.GetDouble("salary");
                         user.role = (UserRole)reader.GetInt32("role");
                         user.status = (UserStatus)reader.GetInt32("status");
+                        user.avatarUrl = reader.GetString("avatarUrl");
                     }
 
                 }
@@ -86,10 +88,11 @@ namespace store.UserModule
                         user.phone = reader.GetString("phone");
                         user.address = reader.GetString("address");
                         user.googleId = reader.GetString("googleId");
-                        user.createDate = reader.GetDateTime("createDate");
+                        user.createDate = reader.GetString("createDate");
                         user.salary = reader.GetDouble("salary");
                         user.role = (UserRole)reader.GetInt32("role");
                         user.status = (UserStatus)reader.GetInt32("status");
+                        user.avatarUrl = reader.GetString("avatarUrl");
                     }
 
                 }
@@ -130,10 +133,11 @@ namespace store.UserModule
                         user.phone = reader.GetString("phone");
                         user.address = reader.GetString("address");
                         user.googleId = reader.GetString("googleId");
-                        user.createDate = reader.GetDateTime("createDate");
+                        user.createDate = reader.GetString("createDate");
                         user.salary = reader.GetDouble("salary");
                         user.role = (UserRole)reader.GetInt32("role");
                         user.status = (UserStatus)reader.GetInt32("status");
+                        user.avatarUrl = reader.GetString("avatarUrl");
 
                         users.Add(user);
                     }
@@ -154,8 +158,8 @@ namespace store.UserModule
             SqlConnection connection = this.dbHelper.getDBConnection();
             bool res = false;
             string sql = "INSERT INTO tblUser " +
-            " (userId, name, username, password, email ,phone, address, googleId, createDate, salary, role, status) " +
-            " VALUES (@userId, @name, @username, @password, @email, @phone, @address, @googleId, @createDate, @salary, @role, @status) ";
+            " (userId, name, username, password, email ,phone, address, googleId, createDate, salary, role, status, avatarUrl) " +
+            " VALUES (@userId, @name, @username, @password, @email, @phone, @address, @googleId, @createDate, @salary, @role, @status, @avatarUrl) ";
             SqlCommand Command = new SqlCommand(sql, connection);
 
             try
@@ -173,6 +177,7 @@ namespace store.UserModule
                 Command.Parameters.AddWithValue("@salary", user.salary);
                 Command.Parameters.AddWithValue("@role", user.role);
                 Command.Parameters.AddWithValue("@status", user.status);
+                Command.Parameters.AddWithValue("@avatarUrl", user.avatarUrl);
 
                 res = Command.ExecuteNonQuery() > 0;
                 connection.Close();
@@ -187,7 +192,7 @@ namespace store.UserModule
         {
             SqlConnection connection = this.dbHelper.getDBConnection();
             bool res = false;
-            string sql = "UPDATE tblUser SET name=@newName, email=@newEmail, phone=@newPhone, address=@newAddress WHERE userId=@userId";
+            string sql = "UPDATE tblUser SET name=@newName, email=@newEmail, phone=@newPhone, address=@newAddress, avatarUrl=@avatarUrl WHERE userId=@userId";
             SqlCommand Command = new SqlCommand(sql, connection);
             try
             {
@@ -197,6 +202,26 @@ namespace store.UserModule
                 Command.Parameters.Add("@newEmail", SqlDbType.NVarChar).Value = user.email;
                 Command.Parameters.Add("@newPhone", SqlDbType.NVarChar).Value = user.phone;
                 Command.Parameters.Add("@newAddress", SqlDbType.NVarChar).Value = user.address;
+                Command.Parameters.Add("@avatarUrl", SqlDbType.NVarChar).Value = user.avatarUrl;
+                res = Command.ExecuteNonQuery() > 0;
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return res;
+        }
+
+        public bool updateStatusUser(UpdateStatusUserDto updateStatusUserDto)
+        {
+            SqlConnection connection = this.dbHelper.getDBConnection();
+            bool res = false;
+            string sql = "UPDATE tblUser SET status=1-status WHERE userId=@userId";
+            SqlCommand Command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                Command.Parameters.Add("@userId", SqlDbType.NVarChar).Value = updateStatusUserDto.userId;
                 res = Command.ExecuteNonQuery() > 0;
             }
             catch (SqlException e)

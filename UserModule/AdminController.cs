@@ -29,12 +29,15 @@ namespace store.UserModule
         private readonly IUserService userService;
 
         private readonly IAdminService adminService;
+        private readonly UpdateStatusUserDtoValidator updateStatusUserDtoValidator;
 
-        public AdminController(IUserService userService, IAdminService adminService)
+        public AdminController(IUserService userService, IAdminService adminService, UpdateStatusUserDtoValidator updateStatusUserDtoValidator)
         {
 
             this.userService = userService;
             this.adminService = adminService;
+            this.updateStatusUserDtoValidator = updateStatusUserDtoValidator;
+
         }
 
 
@@ -46,6 +49,43 @@ namespace store.UserModule
 
             res.data = users;
             return new ObjectResult(res.getResponse());
+        }
+
+        [HttpPut("user/status")]
+        public ObjectResult updateStatusUser([FromBody] UpdateStatusUserDto body)
+        {
+            ServerResponse<User> res = new ServerResponse<User>();
+            ValidationResult result = this.updateStatusUserDtoValidator.Validate(body);
+            res.mapDetails(result);
+
+            if (!result.IsValid)
+            {
+                return new BadRequestObjectResult(res.getResponse());
+            }
+            UpdateStatusUserDto userUpdate = new UpdateStatusUserDto();
+            userUpdate.userId = body.userId;
+            User user = this.userService.getUserById(userUpdate.userId);
+
+            if (user.role.ToString().Equals("MANAGER") || user.role.ToString().Equals("OWNER"))
+            {
+                res.setErrorMessage("You can't update admin status");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 406 };
+            }
+            else
+            {
+                bool isUpdateStatus = this.adminService.updateStatusUser(userUpdate);
+                if (!isUpdateStatus)
+                {
+                    res.setErrorMessage("Update status user fail");
+                    return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+                }
+                else
+                {
+                    res.setMessage("Update Status User successfully");
+                    return new ObjectResult(res.getResponse());
+                }
+            }
+
         }
     }
 }

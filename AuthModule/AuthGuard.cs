@@ -106,7 +106,6 @@ namespace store.AuthModule
                 context.Result = new UnauthorizedObjectResult(res);
                 return;
             }
-
         }
     }
 }

@@ -27,6 +27,7 @@ using store.Utils.Validator;
 using Microsoft.AspNetCore.Http;
 using store.ProductModule.Interface;
 using store.ProductModule;
+using store.ProductModule.DTO;
 
 namespace store
 {
@@ -49,26 +50,30 @@ namespace store
             services.AddScoped<IUploadFileService, UploadFileService>();
             services.AddScoped<IJwtService, JwtService>();
 
+            // Auth Module
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<AuthGuard>();
+
             //User Module
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAdminService, AdminService>();
 
-            // Auth Module
-            services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<AuthGuard>();
-
             // Product Module
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
 
             //Validator  
             services.AddScoped<ValidateFilter>();
-            services.AddScoped<LoginUserDtoValidator, LoginUserDtoValidator>();
-            services.AddScoped<RegisterUserDtoValidator, RegisterUserDtoValidator>();
-            services.AddScoped<UpdateUserDtoValidator, UpdateUserDtoValidator>();
-
+            services.AddScoped<LoginUserDtoValidator>();
+            services.AddScoped<RegisterUserDtoValidator>();
+            services.AddScoped<UpdateUserDtoValidator>();
+            services.AddScoped<UpdateStatusUserDtoValidator>();
+            services.AddScoped<AddCategoryDtoValidator>();
+            services.AddScoped<AddSubCategoryDtoValidator>();
+            services.AddScoped<AddProductDtoValidator>();
 
             // Google
             // services.AddAuthentication().AddGoogle(options =>
