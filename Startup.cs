@@ -70,7 +70,7 @@ namespace store
             services.AddScoped<LoginUserDtoValidator>();
             services.AddScoped<RegisterUserDtoValidator>();
             services.AddScoped<UpdateUserDtoValidator>();
-            services.AddScoped<UpdateStatusUserDtoValidator>();
+            services.AddScoped<UpdateEmployeeDtoValidator>();
             services.AddScoped<UpdateUserPasswordDtoValidator>();
             services.AddScoped<AddCategoryDtoValidator>();
             services.AddScoped<AddSubCategoryDtoValidator>();

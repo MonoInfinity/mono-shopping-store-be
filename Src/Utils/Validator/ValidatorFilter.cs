@@ -24,6 +24,7 @@ namespace store.Src.Utils.Validator
         private readonly UpdateProductDtoValidator updateProductDtoValidator;
         private readonly DeleteProductDtoValidator deleteProductDtoValidator;
         private readonly UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator;
+        private readonly UpdateEmployeeDtoValidator updateEmployeeDtoValidator;
 
         public ValidateFilter(
                                 LoginUserDtoValidator loginUserDtoValidator,
@@ -34,7 +35,9 @@ namespace store.Src.Utils.Validator
                                 AddSubCategoryDtoValidator addSubCategoryDtoValidator,
                                 AddProductDtoValidator addProductDtoValidator,
                                 UpdateProductDtoValidator updateProductDtoValidator,
-                                DeleteProductDtoValidator deleteProductDtoValidator
+                                DeleteProductDtoValidator deleteProductDtoValidator,
+                                UpdateEmployeeDtoValidator updateEmployeeDtoValidator
+
                             )
         {
             this.loginUserDtoValidator = loginUserDtoValidator;
@@ -46,6 +49,7 @@ namespace store.Src.Utils.Validator
             this.addProductDtoValidator = addProductDtoValidator;
             this.updateProductDtoValidator = updateProductDtoValidator;
             this.deleteProductDtoValidator = deleteProductDtoValidator;
+            this.updateEmployeeDtoValidator = updateEmployeeDtoValidator;
         }
 
         private T assignValue<T>(string bodyString, Type type)
@@ -173,6 +177,10 @@ namespace store.Src.Utils.Validator
             if (typeof(DeleteProductDto) == dtoType)
             {
                 result = this.deleteProductDtoValidator.Validate(assignValue<DeleteProductDto>(bodyStr, dtoType));
+            }
+            if (typeof(UpdateEmployeeDto) == dtoType)
+            {
+                result = this.updateEmployeeDtoValidator.Validate(assignValue<UpdateEmployeeDto>(bodyStr, dtoType));
             }
 
             if (!result.IsValid)
