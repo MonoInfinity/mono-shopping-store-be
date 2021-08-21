@@ -51,15 +51,39 @@ namespace store.Src.UserModule
             return new ObjectResult(res.getResponse());
         }
 
-        [HttpPut("update")]
-        [ValidateFilterAttribute(typeof(UpdateUserDto))]
-        [ServiceFilter(typeof(ValidateFilter))]
+        [HttpPut("")]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult updateUser([FromBody] UpdateUserDto body)
+        public ObjectResult updateUser([FromForm] UpdateUserDto body)
         {
             ServerResponse<User> res = new ServerResponse<User>();
             var user = this.ViewData["user"] as User;
+            var updateAvatarUrl = user.avatarUrl;
 
+            ValidationResult result = this.updateUserDtoValidator.Validate(body);
+            if(!result.IsValid){
+                res.mapDetails(result);
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            if(body.file != null){
+                if (!this.uploadFileService.checkFileExtension(body.file, UploadFileService.imageExtension))
+                {
+                    res.setErrorMessage("Not support this extension file. Please select png, jpg, jpeg");
+                    return new BadRequestObjectResult(res.getResponse());
+                }
+                if (!this.uploadFileService.checkFileSize(body.file, 1))
+                {
+                    res.setErrorMessage("File is too big");
+                    return new BadRequestObjectResult(res.getResponse());
+                }
+
+                updateAvatarUrl = this.uploadFileService.upload(body.file);
+                if (updateAvatarUrl == null)
+                {
+                    res.setErrorMessage("Fail to upload file");
+                    return new BadRequestObjectResult(res.getResponse());
+                }
+            }
 
             User userUpdate = new User();
             userUpdate.userId = user.userId;
@@ -67,6 +91,7 @@ namespace store.Src.UserModule
             userUpdate.email = body.email;
             userUpdate.phone = body.phone;
             userUpdate.address = body.address;
+            userUpdate.avatarUrl = updateAvatarUrl;
 
             bool isUpdated = userService.updateUser(userUpdate);
             if (!isUpdated)
@@ -76,43 +101,6 @@ namespace store.Src.UserModule
             }
 
             res.setMessage("Update User successfully");
-            return new ObjectResult(res.getResponse());
-        }
-
-        [HttpPost("avatar")]
-        [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult updateAvatar(IFormFile file)
-        {
-            ServerResponse<User> res = new ServerResponse<User>();
-            var user = this.ViewData["user"] as User;
-
-            if (file == null)
-            {
-                res.setErrorMessage("Not found");
-                return new BadRequestObjectResult(res.getResponse());
-            }
-
-            if (!this.uploadFileService.checkFileExtension(file, UploadFileService.imageExtension))
-            {
-                res.setErrorMessage("Not support this extension file. Please select png, jpg, jpeg");
-                return new BadRequestObjectResult(res.getResponse());
-            }
-            if (!this.uploadFileService.checkFileSize(file, 1))
-            {
-                res.setErrorMessage("File is too big");
-                return new BadRequestObjectResult(res.getResponse());
-            }
-
-            var avatarUrl = this.uploadFileService.upload(file);
-            if (avatarUrl == null)
-            {
-                res.setErrorMessage("Fail to upload file");
-                return new BadRequestObjectResult(res.getResponse());
-            }
-
-            user.avatarUrl = avatarUrl;
-            this.userService.updateUser(user);
-            res.setMessage("Update avatar successfully");
             return new ObjectResult(res.getResponse());
         }
 

@@ -77,7 +77,7 @@ namespace store.Src.AuthModule
         [HttpPost("register")]
         [ValidateFilterAttribute(typeof(RegisterUserDto))]
         [ServiceFilter(typeof(ValidateFilter))]
-        public ObjectResult registerUser(RegisterUserDto body)
+        public ObjectResult registerUser([FromBody] RegisterUserDto body)
         {
             ServerResponse<User> res = new ServerResponse<User>();
             User user = this.userService.getUserByUsername(body.username);
