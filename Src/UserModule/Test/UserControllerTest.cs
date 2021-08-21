@@ -69,7 +69,7 @@ namespace store.Src.UserModule.Test
         [Fact]
         public void passUpdate()
         {
-            var stream = File.OpenRead("./../../../Src/Utils/Test/vit01.jpg");
+            FileStream stream = File.OpenRead("./../../../Src/Utils/Test/vit01.jpg");
             FormFile file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
             UpdateUserDto input = new UpdateUserDto("helllo123", "hello@gmail.com", "0901212099", "anywhere", file);
             this.userController.updateUser(input);
@@ -87,7 +87,6 @@ namespace store.Src.UserModule.Test
             FormFile file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
             UpdateUserDto input = new UpdateUserDto("helllo123", "hello@gmail.com", "0901212099", "anywhere", file);
             var res = this.userController.updateUser(input);
-            User userUpdate = this.userService.getUserById(this.user.userId);
             Assert.Equal(400, res.StatusCode);
         }
 

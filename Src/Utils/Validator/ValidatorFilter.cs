@@ -153,10 +153,6 @@ namespace store.Src.Utils.Validator
             }
 
             // ProductModule DTO
-            if (typeof(AddCategoryDto) == dtoType)
-            {
-                result = this.addCategoryDtoValidator.Validate(assignValue<AddCategoryDto>(bodyStr, dtoType));
-            }
             if (typeof(AddSubCategoryDto) == dtoType)
             {
                 result = this.addSubCategoryDtoValidator.Validate(assignValue<AddSubCategoryDto>(bodyStr, dtoType));

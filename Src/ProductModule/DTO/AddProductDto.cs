@@ -1,4 +1,5 @@
 using FluentValidation;
+using Microsoft.AspNetCore.Http;
 
 namespace store.Src.ProductModule.DTO
 {
@@ -11,10 +12,11 @@ namespace store.Src.ProductModule.DTO
         public double wholesalePrice { get; set; }
         public double retailPrice { get; set; }
         public int quantity { get; set; }
+        public IFormFile file { get; set; }
         public string subCategoryId { get; set; }
 
         public AddProductDto() { }
-        public AddProductDto(string name, string description, string location, string expiryDate, double wholesalePrice, double retailPrice, int quantity, string subCategoryId)
+        public AddProductDto(string name, string description, string location, string expiryDate, double wholesalePrice, double retailPrice, int quantity, IFormFile file, string subCategoryId)
         {
             this.name = name;
             this.description = description;
@@ -24,6 +26,7 @@ namespace store.Src.ProductModule.DTO
             this.retailPrice = retailPrice;
             this.quantity = quantity;
             this.subCategoryId = subCategoryId;
+            this.file = file;
         }
     }
 
@@ -39,6 +42,7 @@ namespace store.Src.ProductModule.DTO
             RuleFor(x => x.retailPrice).NotEmpty().NotNull().GreaterThan(0);
             RuleFor(x => x.quantity).NotEmpty().NotNull().GreaterThan(1);
             RuleFor(x => x.subCategoryId).NotEmpty().NotNull();
+            RuleFor(x => x.file).NotEmpty().NotNull();
         }
     }
 }
