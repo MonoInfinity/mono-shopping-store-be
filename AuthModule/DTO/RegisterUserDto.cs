@@ -51,7 +51,6 @@ namespace store.AuthModule.DTO
                 else return;
             });
             RuleFor(x => x.address).NotEmpty().Length(UserValidator.ADDRESS_MIN, UserValidator.ADDRESS_MAX);
-            RuleFor(x => x.avatarUrl).NotEmpty().Length(1, 50);
         }
     }
 }

@@ -10,6 +10,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Http;
 using store.Utils.Validator;
+using store.Utils;
+
 namespace store.AuthModule
 {
 
@@ -96,6 +98,12 @@ namespace store.AuthModule
             insertedUser.createDate = DateTime.Now.ToShortDateString();
             insertedUser.role = UserRole.CUSTOMER;
 
+            if (body.avatarUrl == null)
+            {
+                insertedUser.avatarUrl = Helper.randomUserAvatar();
+            }
+            else insertedUser.avatarUrl = body.avatarUrl;
+            
             bool isInserted = this.userService.saveUser(insertedUser);
             if (!isInserted)
             {
