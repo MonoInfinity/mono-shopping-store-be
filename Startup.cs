@@ -74,6 +74,7 @@ namespace store
             services.AddScoped<AddCategoryDtoValidator>();
             services.AddScoped<AddSubCategoryDtoValidator>();
             services.AddScoped<AddProductDtoValidator>();
+            services.AddScoped<UpdateProductDtoValidator>();
 
             services.AddCors(options =>
                      options.AddPolicy("AllowSpecific", p => p.WithOrigins("http://localhost:3000").AllowCredentials()
@@ -106,7 +107,8 @@ namespace store
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/document/swagger/v1.json", "Store v1"));
             }
             app.UseStaticFiles();
-            app.UseStaticFiles(new StaticFileOptions{
+            app.UseStaticFiles(new StaticFileOptions
+            {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "public")),
                 RequestPath = "/public"
             });

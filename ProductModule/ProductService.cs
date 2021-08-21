@@ -46,7 +46,7 @@ namespace store.ProductModule
 
         public bool updateSubCategory(SubCategory subCategory)
         {
-            bool res = subCategoryRepository.saveSubCategory(subCategory);
+            bool res = subCategoryRepository.updateSubCategory(subCategory);
             return res;
         }
 
@@ -54,6 +54,24 @@ namespace store.ProductModule
         {
             bool res = productRepository.saveProduct(product);
             return res;
+        }
+
+        public bool updateProduct(Product product)
+        {
+            bool res = productRepository.updateProduct(product);
+            return res;
+        }
+
+        public Product getProductByProductId(string productId)
+        {
+            Product product = this.productRepository.getProductByProductId(productId);
+            return product;
+        }
+
+        public Product getProductByName(string name)
+        {
+            Product product = this.productRepository.getProductByname(name);
+            return product;
         }
     }
 }

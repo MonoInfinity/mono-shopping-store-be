@@ -25,7 +25,8 @@ namespace store.ProductModule.Test
         private readonly IAuthService authService;
         private readonly User loginedUser;
 
-        public ProductControllerTest(){
+        public ProductControllerTest()
+        {
             ConfigTest config = new ConfigTest();
             IDBHelper dbHelper = new DBHelper(config);
             this.categoryRepository = new CategoryRepository(dbHelper);
@@ -80,9 +81,57 @@ namespace store.ProductModule.Test
 
             var res = this.productController.AddSubCategory(input);
             SubCategory subCategory = this.subCategoryRepository.getSubCategoryByname(input.name);
-    
+
             Assert.NotNull(res);
             Assert.Equal(subCategory.name, input.name);
+        }
+
+        [Fact]
+        public void passAddProduct()
+        {
+            SubCategory subCategory = new SubCategory();
+            subCategory.subCategoryId = Guid.NewGuid().ToString();
+
+            AddProductDto input = new AddProductDto()
+            {
+                name = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE),
+                description = TestHelper.randomString(100, RamdomStringType.LETTER),
+                location = TestHelper.randomString(100, RamdomStringType.LETTER),
+                expiryDate = DateTime.Now.ToShortDateString(),
+                wholesalePrice = 1000,
+                retailPrice = 1000,
+                quantity = 100,
+                subCategoryId = subCategory.subCategoryId,
+            };
+
+            var res = this.productController.AddProduct(input);
+            Product product = this.productService.getProductByName(input.name);
+
+            Assert.NotNull(res);
+            Assert.Equal(product.name, input.name);
+        }
+
+        [Fact]
+        public void passUpdateProduct()
+        {
+            SubCategory subCategory = new SubCategory();
+            subCategory.subCategoryId = Guid.NewGuid().ToString();
+            UpdateProductDto input = new UpdateProductDto()
+            {
+                name = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE),
+                description = TestHelper.randomString(100, RamdomStringType.LETTER),
+                location = TestHelper.randomString(100, RamdomStringType.LETTER),
+                status = ProductStatus.SOLD_OUT,
+                wholesalePrice = 1000,
+                retailPrice = 1000,
+                quantity = 100,
+                subCategoryId = subCategory.subCategoryId,
+            };
+
+            var res = this.productController.UpdateProduct(input);
+            Product product = this.productService.getProductByName(input.name);
+            Assert.NotNull(res);
+            Assert.Equal(product.name, input.name);
         }
     }
 }

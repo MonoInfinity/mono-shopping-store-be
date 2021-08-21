@@ -124,5 +124,41 @@ namespace store.ProductModule
             res.data = newProduct;
             return new ObjectResult(res.getResponse());
         }
+
+        [HttpPost("product")]
+        [ValidateFilterAttribute(typeof(UpdateProductDto))]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        [ServiceFilter(typeof(ValidateFilter))]
+        public ObjectResult UpdateProduct(UpdateProductDto body)
+        {
+            ServerResponse<Product> res = new ServerResponse<Product>();
+
+            SubCategory subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
+            if (subCategory == null)
+            {
+                res.setErrorMessage("The sub category with the given id was not found");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            Product newProduct = new Product();
+            newProduct.productId = Guid.NewGuid().ToString();
+            newProduct.name = body.name;
+            newProduct.description = body.description;
+            newProduct.location = body.location;
+            newProduct.status = body.status;
+            newProduct.wholesalePrice = body.wholesalePrice;
+            newProduct.retailPrice = body.retailPrice;
+            newProduct.subCategory = subCategory;
+
+            bool isInserted = this.productService.updateProduct(newProduct);
+            if (!isInserted)
+            {
+                res.setErrorMessage("Fail to update product");
+                return new ObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            res.data = newProduct;
+            return new ObjectResult(res.getResponse());
+        }
     }
 }
