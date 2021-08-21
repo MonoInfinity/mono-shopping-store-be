@@ -34,10 +34,5 @@ namespace store.Src.UserModule
             bool result = this.userRepository.updateStatusUser(updateStatusUserDto);
             return result;
         }
-        public User getOneUser(string userId)
-        {
-            User user = this.userRepository.getOneUser(userId);
-            return user;
-        }
     }
 }

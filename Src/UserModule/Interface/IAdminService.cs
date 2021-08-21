@@ -9,6 +9,5 @@ namespace store.Src.UserModule.Interface
         public List<User> getAllUser(int currentPage, int pageSize, string name);
         public int getAllUserCount(string name);
         public bool updateStatusUser(UpdateStatusUserDto updateStatusUserDto);
-        public User getOneUser(string userId);
     }
 }
