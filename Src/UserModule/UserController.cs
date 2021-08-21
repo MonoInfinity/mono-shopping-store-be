@@ -26,12 +26,14 @@ namespace store.Src.UserModule
         private readonly LoginUserDtoValidator loginUserDtoValidator;
         private readonly RegisterUserDtoValidator registerUserDtoValidator;
         private readonly UpdateUserDtoValidator updateUserDtoValidator;
-        public UserController(IUploadFileService uploadFileService, IUserService userService, IAuthService authService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator)
+        private readonly UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator;
+        public UserController(IUploadFileService uploadFileService, IUserService userService, IAuthService authService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator, UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator)
         {
             // this.loggerr = loggerr;
             this.uploadFileService = uploadFileService;
             this.userService = userService;
             this.updateUserDtoValidator = updateUserDtoValidator;
+            this.updateUserPasswordDtoValidator = updateUserPasswordDtoValidator;
             this.loginUserDtoValidator = loginUserDtoValidator;
             this.registerUserDtoValidator = registerUserDtoValidator;
             this.authService = authService;
@@ -111,6 +113,37 @@ namespace store.Src.UserModule
             user.avatarUrl = avatarUrl;
             this.userService.updateUser(user);
             res.setMessage("Update avatar successfully");
+            return new ObjectResult(res.getResponse());
+        }
+
+        [HttpPut("password")]
+        [ValidateFilterAttribute(typeof(UpdateUserPasswordDto))]
+        [ServiceFilter(typeof(ValidateFilter))]
+        [ServiceFilter(typeof(AuthGuard))]
+        public ObjectResult updateUserPassword([FromBody] UpdateUserPasswordDto body)
+        {
+            ServerResponse<User> res = new ServerResponse<User>();
+            var user = this.ViewData["user"] as User;
+
+            bool isMatchPassword = this.authService.comparePassword(body.password, user.password);
+
+            if (!isMatchPassword)
+            {
+                res.setErrorMessage("Password is wrong");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            user.password = this.authService.hashingPassword(body.newPassword);
+
+            bool isUpdate = this.userService.updateUserPassword(user.userId, user.password);
+
+            if (!isUpdate)
+            {
+                res.setErrorMessage("Fail to update user password");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            res.setMessage("Update User password successfully");
             return new ObjectResult(res.getResponse());
         }
     }

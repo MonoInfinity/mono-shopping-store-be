@@ -8168,25 +8168,42 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\Lenovo\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+=======
+    "C:\\Users\\heaty566\\.nuget\\packages\\": {}
+>>>>>>> ba5af0b2c25fbfd1b2f6a7332c635bbe30518479
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
       "projectName": "store",
       "projectPath": "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
       "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\Lenovo\\Desktop\\shop\\obj\\",
+=======
+      "projectUniqueName": "E:\\server\\mono-shopping-store-be\\store.csproj",
+      "projectName": "store",
+      "projectPath": "E:\\server\\mono-shopping-store-be\\store.csproj",
+      "packagesPath": "C:\\Users\\heaty566\\.nuget\\packages\\",
+      "outputPath": "E:\\server\\mono-shopping-store-be\\obj\\",
+>>>>>>> ba5af0b2c25fbfd1b2f6a7332c635bbe30518479
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
+<<<<<<< HEAD
         "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+=======
+        "C:\\Users\\heaty566\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+>>>>>>> ba5af0b2c25fbfd1b2f6a7332c635bbe30518479
       ],
       "originalTargetFrameworks": [
         "net5.0"
