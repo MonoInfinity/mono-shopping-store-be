@@ -34,6 +34,7 @@ namespace store.UserModule.Test
         private readonly IUserRepository userRepository;
         private readonly IUserService userService;
         private readonly IAuthService authService;
+        private readonly IUploadFileService uploadFileService;
         private readonly User user;
 
 
@@ -49,7 +50,8 @@ namespace store.UserModule.Test
             this.userRepository = new UserRepository(dbHelper);
             this.userService = new UserService(userRepository);
             this.authService = new AuthService();
-            this.userController = new UserController(userService, authService, loginUserDtoValidator, registerUserDtoValidation, updateUserDtoValidator);
+            this.uploadFileService = new UploadFileService();
+            this.userController = new UserController(uploadFileService, userService, authService, loginUserDtoValidator, registerUserDtoValidation, updateUserDtoValidator);
 
             this.user = new User();
             this.user.userId = Guid.NewGuid().ToString();

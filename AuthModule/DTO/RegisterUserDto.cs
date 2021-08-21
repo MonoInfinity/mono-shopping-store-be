@@ -16,7 +16,6 @@ namespace store.AuthModule.DTO
         public string email { get; set; }
         public string phone { get; set; }
         public string address { get; set; }
-        public string avatarUrl { get; set; }
         public RegisterUserDto()
         {
 
@@ -30,7 +29,6 @@ namespace store.AuthModule.DTO
             this.email = email;
             this.phone = phone;
             this.address = address;
-            this.avatarUrl = avatarUrl;
         }
     }
 
