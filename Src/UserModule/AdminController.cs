@@ -96,7 +96,13 @@ namespace store.Src.UserModule
         public ObjectResult getOneUser(string userId)
         {
             ServerResponse<User> res = new ServerResponse<User>();
-            User user = this.adminService.getOneUser(userId);
+            User user = this.userService.getUserById(userId);
+            if (user == null)
+            {
+                res.setErrorMessage("the user with given Id is not exist");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 404 };
+            }
+            user.password = "";
             res.data = user;
             return new ObjectResult(res.getResponse());
         }
