@@ -22,7 +22,7 @@ namespace store
                 .ConfigureLogging(logging =>
                 {
                     logging.ClearProviders();
-                    logging.AddFile("Logger.log");
+                    // logging.AddFile("Logger.log");
                     logging.AddConsole();
                 })
                 .ConfigureWebHostDefaults(webBuilder =>
