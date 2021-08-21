@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "format": 1,
   "restore": {
     "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj": {}
@@ -109,116 +108,14 @@
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
-=======
-    "format": 1,
-    "restore": {
-        "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj": {}
-    },
-    "projects": {
-        "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj": {
-            "version": "1.0.0",
-            "restore": {
-                "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
-                "projectName": "store",
-                "projectPath": "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
-                "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-                "outputPath": "C:\\Users\\Lenovo\\Desktop\\shop\\obj\\",
-                "projectStyle": "PackageReference",
-                "fallbackFolders": ["C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"],
-                "configFilePaths": [
-                    "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-                    "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-                    "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
-                ],
-                "originalTargetFrameworks": ["net5.0"],
-                "sources": {
-                    "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-                    "https://api.nuget.org/v3/index.json": {}
-                },
-                "frameworks": {
-                    "net5.0": {
-                        "targetAlias": "net5.0",
-                        "projectReferences": {}
-                    }
-                },
-                "warningProperties": {
-                    "warnAsError": ["NU1605"]
-                }
->>>>>>> 5b124674da706ec746d9b5932ca90a3f87ab7d57
             },
-            "frameworks": {
-                "net5.0": {
-                    "targetAlias": "net5.0",
-                    "dependencies": {
-                        "BCrypt.Net-Next": {
-                            "target": "Package",
-                            "version": "[4.0.2, )"
-                        },
-                        "FluentValidation": {
-                            "target": "Package",
-                            "version": "[10.3.0, )"
-                        },
-                        "Microsoft.AspNet.WebApi.Client": {
-                            "target": "Package",
-                            "version": "[5.2.7, )"
-                        },
-                        "Microsoft.AspNetCore.Authentication.Google": {
-                            "target": "Package",
-                            "version": "[5.0.9, )"
-                        },
-                        "Microsoft.NET.Test.Sdk": {
-                            "target": "Package",
-                            "version": "[16.11.0, )"
-                        },
-                        "Serilog.Extensions.Logging.File": {
-                            "target": "Package",
-                            "version": "[2.0.0, )"
-                        },
-                        "StackExchange.Redis": {
-                            "target": "Package",
-                            "version": "[2.2.62, )"
-                        },
-                        "Swashbuckle.AspNetCore": {
-                            "target": "Package",
-                            "version": "[5.6.3, )"
-                        },
-                        "System.Data.SqlClient": {
-                            "target": "Package",
-                            "version": "[4.8.2, )"
-                        },
-                        "System.IdentityModel.Tokens.Jwt": {
-                            "target": "Package",
-                            "version": "[6.12.1, )"
-                        },
-                        "Uma.Uuid": {
-                            "target": "Package",
-                            "version": "[0.1.0, )"
-                        },
-                        "xunit": {
-                            "target": "Package",
-                            "version": "[2.4.1, )"
-                        },
-                        "xunit.runner.visualstudio": {
-                            "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
-                            "suppressParent": "All",
-                            "target": "Package",
-                            "version": "[2.4.3, )"
-                        }
-                    },
-                    "imports": ["net461", "net462", "net47", "net471", "net472", "net48"],
-                    "assetTargetFallback": true,
-                    "warn": true,
-                    "frameworkReferences": {
-                        "Microsoft.AspNetCore.App": {
-                            "privateAssets": "none"
-                        },
-                        "Microsoft.NETCore.App": {
-                            "privateAssets": "all"
-                        }
-                    },
-                    "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
-                }
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
             }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
         }
+      }
     }
+  }
 }

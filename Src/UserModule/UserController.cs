@@ -51,36 +51,40 @@ namespace store.Src.UserModule
             return new ObjectResult(res.getResponse());
         }
 
-        [HttpPut("update")]
+        [HttpPut("")]
         [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult updateUser([FromForm] UpdateUserDto body)
         {
             ServerResponse<User> res = new ServerResponse<User>();
+            var user = this.ViewData["user"] as User;
+            var updateAvatarUrl = user.avatarUrl;
+
             ValidationResult result = this.updateUserDtoValidator.Validate(body);
             if(!result.IsValid){
                 res.mapDetails(result);
                 return new BadRequestObjectResult(res.getResponse());
             }
-            
-            if (!this.uploadFileService.checkFileExtension(body.file, UploadFileService.imageExtension))
-            {
-                res.setErrorMessage("Not support this extension file. Please select png, jpg, jpeg");
-                return new BadRequestObjectResult(res.getResponse());
-            }
-            if (!this.uploadFileService.checkFileSize(body.file, 1))
-            {
-                res.setErrorMessage("File is too big");
-                return new BadRequestObjectResult(res.getResponse());
+
+            if(body.file != null){
+                if (!this.uploadFileService.checkFileExtension(body.file, UploadFileService.imageExtension))
+                {
+                    res.setErrorMessage("Not support this extension file. Please select png, jpg, jpeg");
+                    return new BadRequestObjectResult(res.getResponse());
+                }
+                if (!this.uploadFileService.checkFileSize(body.file, 1))
+                {
+                    res.setErrorMessage("File is too big");
+                    return new BadRequestObjectResult(res.getResponse());
+                }
+
+                updateAvatarUrl = this.uploadFileService.upload(body.file);
+                if (updateAvatarUrl == null)
+                {
+                    res.setErrorMessage("Fail to upload file");
+                    return new BadRequestObjectResult(res.getResponse());
+                }
             }
 
-            var updateAvatarUrl = this.uploadFileService.upload(body.file);
-             if (updateAvatarUrl == null)
-            {
-                res.setErrorMessage("Fail to upload file");
-                return new BadRequestObjectResult(res.getResponse());
-            }
-
-            var user = this.ViewData["user"] as User;
             User userUpdate = new User();
             userUpdate.userId = user.userId;
             userUpdate.name = body.name;
