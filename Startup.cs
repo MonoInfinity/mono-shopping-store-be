@@ -71,6 +71,7 @@ namespace store
             services.AddScoped<RegisterUserDtoValidator>();
             services.AddScoped<UpdateUserDtoValidator>();
             services.AddScoped<UpdateStatusUserDtoValidator>();
+            services.AddScoped<UpdateUserPasswordDtoValidator>();
             services.AddScoped<AddCategoryDtoValidator>();
             services.AddScoped<AddSubCategoryDtoValidator>();
             services.AddScoped<AddProductDtoValidator>();
