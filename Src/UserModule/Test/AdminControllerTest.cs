@@ -37,7 +37,7 @@ namespace store.Src.UserModule.Test
 
         public AdminControllerTest()
         {
-            UpdateStatusUserDtoValidator updateStatusUserDtoValidator = new UpdateStatusUserDtoValidator();
+            UpdateEmployeeDtoValidator updateEmployeeDtoValidator = new UpdateEmployeeDtoValidator();
             UpdateUserDtoValidator updateUserDtoValidator = new UpdateUserDtoValidator();
             LoginUserDtoValidator loginUserDtoValidator = new LoginUserDtoValidator();
             RegisterUserDtoValidator registerUserDtoValidation = new RegisterUserDtoValidator();
@@ -47,7 +47,7 @@ namespace store.Src.UserModule.Test
             this.userRepository = new UserRepository(dbHelper);
             this.userService = new UserService(userRepository);
             this.adminService = new AdminService(userRepository);
-            this.adminController = new AdminController(userService, adminService, updateStatusUserDtoValidator);
+            this.adminController = new AdminController(userService, adminService, updateEmployeeDtoValidator);
             this.user = new User();
             this.user.userId = Guid.NewGuid().ToString();
             this.user.username = TestHelper.randomString(10, RamdomStringType.LETTER_LOWER_CASE);
@@ -88,20 +88,21 @@ namespace store.Src.UserModule.Test
 
             Assert.Equal(0, user.Count);
         }
+
         [Fact]
-        public void FailUpdateAdminStatus()
+        public void FailUpdateAdmin()
         {
-            UpdateStatusUserDto input = new UpdateStatusUserDto(this.user.userId);
-            var res = this.adminController.updateStatusUser(input);
+            UpdateEmployeeDto input = new UpdateEmployeeDto(this.user.userId, 4, 112, 1);
+            var res = this.adminController.updateEmployee(input);
             Assert.Equal(406, res.StatusCode);
         }
 
         [Fact]
-        public void FailUpdateUserStatus()
+        public void FailUpdateUser()
         {
-            UpdateStatusUserDto input = new UpdateStatusUserDto("");
-            var res = this.adminController.updateStatusUser(input);
-            Assert.Equal(400, res.StatusCode);
+            UpdateEmployeeDto input = new UpdateEmployeeDto("08df8c88-49e0-4888-9cab-15aff6ea547", 1, 1, 1);
+            var res = this.adminController.updateEmployee(input);
+            Assert.Equal(404, res.StatusCode);
         }
     }
 }

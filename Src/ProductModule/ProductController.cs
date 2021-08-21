@@ -8,6 +8,9 @@ using store.Src.UserModule.Entity;
 using store.Src.Utils.Common;
 using store.Src.Utils.Validator;
 using System.Collections.Generic;
+using FluentValidation.Results;
+using store.Src.Utils;
+using store.Src.Utils.Interface;
 
 namespace store.Src.ProductModule
 {
@@ -20,13 +23,17 @@ namespace store.Src.ProductModule
         private readonly AddSubCategoryDtoValidator addSubCategoryDtoValidator;
         private readonly AddProductDtoValidator addProductValidator;
         private readonly DeleteProductDtoValidator deleteProductDtoValidator;
+        private readonly UpdateProductDtoValidator updateProductDtoValidator;
+        private readonly IUploadFileService uploadFileService;
 
         public ProductController(
                                 IProductService productService,
                                 AddCategoryDtoValidator addCategoryDtoValidator,
                                 AddSubCategoryDtoValidator addSubCategoryDtoValidator,
                                 AddProductDtoValidator addProductValidator,
-                                DeleteProductDtoValidator deleteProductDtoValidator
+                                DeleteProductDtoValidator deleteProductDtoValidator,
+                                UpdateProductDtoValidator updateProductDtoValidator,
+                                IUploadFileService uploadFileService
             )
         {
             this.productService = productService;
@@ -34,6 +41,8 @@ namespace store.Src.ProductModule
             this.addSubCategoryDtoValidator = addSubCategoryDtoValidator;
             this.addProductValidator = addProductValidator;
             this.deleteProductDtoValidator = deleteProductDtoValidator;
+            this.updateProductDtoValidator = updateProductDtoValidator;
+            this.uploadFileService = uploadFileService;
         }
 
         [HttpPost("category")]
@@ -41,7 +50,7 @@ namespace store.Src.ProductModule
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
-        public ObjectResult AddCategory(AddCategoryDto body)
+        public ObjectResult AddCategory([FromBody] AddCategoryDto body)
         {
             ServerResponse<Category> res = new ServerResponse<Category>();
 
@@ -66,7 +75,7 @@ namespace store.Src.ProductModule
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
-        public ObjectResult AddSubCategory(AddSubCategoryDto body)
+        public ObjectResult AddSubCategory([FromBody] AddSubCategoryDto body)
         {
             ServerResponse<SubCategory> res = new ServerResponse<SubCategory>();
 
@@ -94,19 +103,41 @@ namespace store.Src.ProductModule
             return new ObjectResult(res.getResponse());
         }
 
-        [HttpPost("product")]
-        [ValidateFilterAttribute(typeof(AddProductDto))]
+        [HttpPost("")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
-        [ServiceFilter(typeof(ValidateFilter))]
-        public ObjectResult AddProduct(AddProductDto body)
+        public ObjectResult AddProduct([FromForm] AddProductDto body)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
+
+            ValidationResult result = this.addProductValidator.Validate(body);
+            if(!result.IsValid){
+                res.mapDetails(result);
+                return new BadRequestObjectResult(res.getResponse());
+            }
 
             SubCategory subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
             if (subCategory == null)
             {
                 res.setErrorMessage("The sub category with the given id was not found");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            if (!this.uploadFileService.checkFileExtension(body.file, UploadFileService.imageExtension))
+            {
+                res.setErrorMessage("Not support this extension file. Please select png, jpg, jpeg");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+            if (!this.uploadFileService.checkFileSize(body.file, 1))
+            {
+                res.setErrorMessage("File is too big");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            var imageUrl = this.uploadFileService.upload(body.file);
+            if (imageUrl == null)
+            {
+                res.setErrorMessage("Fail to upload file");
                 return new BadRequestObjectResult(res.getResponse());
             }
 
@@ -118,6 +149,7 @@ namespace store.Src.ProductModule
             newProduct.expiryDate = body.expiryDate;
             newProduct.wholesalePrice = body.wholesalePrice;
             newProduct.retailPrice = body.retailPrice;
+            newProduct.imageUrl = imageUrl;
             newProduct.subCategory = subCategory;
 
             bool isInserted = this.productService.saveProduct(newProduct);
@@ -129,12 +161,79 @@ namespace store.Src.ProductModule
             res.data = newProduct;
             return new ObjectResult(res.getResponse());
         }
-        [HttpDelete("product")]
+
+        [HttpPut("")]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        public ObjectResult UpdateProduct([FromForm]UpdateProductDto body)
+        {
+            ServerResponse<Product> res = new ServerResponse<Product>();
+
+            ValidationResult result = this.updateProductDtoValidator.Validate(body);
+            if(!result.IsValid){
+                res.mapDetails(result);
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            SubCategory subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
+            if (subCategory == null)
+            {
+                res.setErrorMessage("The sub category with the given id was not found");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            Product updateProduct = this.productService.getProductByProductId(body.productId);
+            if(updateProduct == null){
+                res.setErrorMessage("The product with the given id was not found");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            var imageUrl = updateProduct.imageUrl;
+            if(body.file != null){
+                if (!this.uploadFileService.checkFileExtension(body.file, UploadFileService.imageExtension))
+                {
+                    res.setErrorMessage("Not support this extension file. Please select png, jpg, jpeg");
+                    return new BadRequestObjectResult(res.getResponse());
+                }
+                if (!this.uploadFileService.checkFileSize(body.file, 1))
+                {
+                    res.setErrorMessage("File is too big");
+                    return new BadRequestObjectResult(res.getResponse());
+                }
+
+                imageUrl = this.uploadFileService.upload(body.file);
+                if (imageUrl == null)
+                {
+                    res.setErrorMessage("Fail to upload file");
+                    return new BadRequestObjectResult(res.getResponse());
+                }
+            }
+
+            updateProduct.name = body.name;
+            updateProduct.description = body.description;
+            updateProduct.location = body.location;
+            updateProduct.status = body.status;
+            updateProduct.wholesalePrice = body.wholesalePrice;
+            updateProduct.retailPrice = body.retailPrice;
+            updateProduct.imageUrl = imageUrl;
+            updateProduct.subCategory = subCategory;
+
+            bool isInserted = this.productService.updateProduct(updateProduct);
+            if (!isInserted)
+            {
+                res.setErrorMessage("Fail to update product");
+                return new ObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            res.data = updateProduct;
+            return new ObjectResult(res.getResponse());
+        }
+
+        [HttpDelete("")]
         [ValidateFilterAttribute(typeof(DeleteProductDto))]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
-        public ObjectResult DeleteProduct(DeleteProductDto body)
+        public ObjectResult DeleteProduct([FromBody] DeleteProductDto body)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
             Product product = this.productService.getProductByProductId(body.productId);
@@ -155,7 +254,7 @@ namespace store.Src.ProductModule
 
         }
 
-        [HttpGet("product/all")]
+        [HttpGet("")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult listAllProduct(int pageSize, int page, string name)
