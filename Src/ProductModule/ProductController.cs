@@ -20,13 +20,15 @@ namespace store.Src.ProductModule
         private readonly AddSubCategoryDtoValidator addSubCategoryDtoValidator;
         private readonly AddProductDtoValidator addProductValidator;
         private readonly DeleteProductDtoValidator deleteProductDtoValidator;
+        private readonly UpdateProductDtoValidator updateProductDtoValidator;
 
         public ProductController(
                                 IProductService productService,
                                 AddCategoryDtoValidator addCategoryDtoValidator,
                                 AddSubCategoryDtoValidator addSubCategoryDtoValidator,
                                 AddProductDtoValidator addProductValidator,
-                                DeleteProductDtoValidator deleteProductDtoValidator
+                                DeleteProductDtoValidator deleteProductDtoValidator,
+                                UpdateProductDtoValidator updateProductDtoValidator
             )
         {
             this.productService = productService;
@@ -34,6 +36,7 @@ namespace store.Src.ProductModule
             this.addSubCategoryDtoValidator = addSubCategoryDtoValidator;
             this.addProductValidator = addProductValidator;
             this.deleteProductDtoValidator = deleteProductDtoValidator;
+            this.updateProductDtoValidator = updateProductDtoValidator;
         }
 
         [HttpPost("category")]
@@ -94,13 +97,14 @@ namespace store.Src.ProductModule
             return new ObjectResult(res.getResponse());
         }
 
-        [HttpPost("product")]
+        [HttpPost("")]
         [ValidateFilterAttribute(typeof(AddProductDto))]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult AddProduct(AddProductDto body)
         {
+            Console.WriteLine("ahihi");
             ServerResponse<Product> res = new ServerResponse<Product>();
 
             SubCategory subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
@@ -109,7 +113,6 @@ namespace store.Src.ProductModule
                 res.setErrorMessage("The sub category with the given id was not found");
                 return new BadRequestObjectResult(res.getResponse());
             }
-
             Product newProduct = new Product();
             newProduct.productId = Guid.NewGuid().ToString();
             newProduct.name = body.name;
@@ -129,7 +132,43 @@ namespace store.Src.ProductModule
             res.data = newProduct;
             return new ObjectResult(res.getResponse());
         }
-        [HttpDelete("product")]
+
+        [HttpPut("")]
+        [ValidateFilterAttribute(typeof(UpdateProductDto))]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        [ServiceFilter(typeof(ValidateFilter))]
+        public ObjectResult UpdateProduct(UpdateProductDto body)
+        {
+            ServerResponse<Product> res = new ServerResponse<Product>();
+
+            SubCategory subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
+            if (subCategory == null)
+            {
+                res.setErrorMessage("The sub category with the given id was not found");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            Product updateProduct = this.productService.getProductByProductId(body.productId);
+            updateProduct.name = body.name;
+            updateProduct.description = body.description;
+            updateProduct.location = body.location;
+            updateProduct.status = body.status;
+            updateProduct.wholesalePrice = body.wholesalePrice;
+            updateProduct.retailPrice = body.retailPrice;
+            updateProduct.subCategory = subCategory;
+
+            bool isInserted = this.productService.updateProduct(updateProduct);
+            if (!isInserted)
+            {
+                res.setErrorMessage("Fail to update product");
+                return new ObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            res.data = updateProduct;
+            return new ObjectResult(res.getResponse());
+        }
+
+        [HttpDelete("")]
         [ValidateFilterAttribute(typeof(DeleteProductDto))]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
@@ -155,7 +194,7 @@ namespace store.Src.ProductModule
 
         }
 
-        [HttpGet("product/all")]
+        [HttpGet("")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult listAllProduct(int pageSize, int page, string name)

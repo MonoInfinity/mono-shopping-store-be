@@ -21,6 +21,7 @@ namespace store.Src.Utils.Validator
         private readonly AddCategoryDtoValidator addCategoryDtoValidator;
         private readonly AddSubCategoryDtoValidator addSubCategoryDtoValidator;
         private readonly AddProductDtoValidator addProductDtoValidator;
+        private readonly UpdateProductDtoValidator updateProductDtoValidator;
         private readonly DeleteProductDtoValidator deleteProductDtoValidator;
         private readonly UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator;
         private readonly UpdateEmployeeDtoValidator updateEmployeeDtoValidator;
@@ -33,6 +34,7 @@ namespace store.Src.Utils.Validator
                                 AddCategoryDtoValidator addCategoryDtoValidator,
                                 AddSubCategoryDtoValidator addSubCategoryDtoValidator,
                                 AddProductDtoValidator addProductDtoValidator,
+                                UpdateProductDtoValidator updateProductDtoValidator,
                                 DeleteProductDtoValidator deleteProductDtoValidator,
                                 UpdateEmployeeDtoValidator updateEmployeeDtoValidator
 
@@ -45,6 +47,7 @@ namespace store.Src.Utils.Validator
             this.addCategoryDtoValidator = addCategoryDtoValidator;
             this.addSubCategoryDtoValidator = addSubCategoryDtoValidator;
             this.addProductDtoValidator = addProductDtoValidator;
+            this.updateProductDtoValidator = updateProductDtoValidator;
             this.deleteProductDtoValidator = deleteProductDtoValidator;
             this.updateEmployeeDtoValidator = updateEmployeeDtoValidator;
         }
@@ -166,6 +169,11 @@ namespace store.Src.Utils.Validator
             {
                 result = this.addProductDtoValidator.Validate(assignValue<AddProductDto>(bodyStr, dtoType));
             }
+            if (typeof(UpdateProductDto) == dtoType)
+            {
+                result = this.updateProductDtoValidator.Validate(assignValue<UpdateProductDto>(bodyStr, dtoType));
+            }
+
             if (typeof(DeleteProductDto) == dtoType)
             {
                 result = this.deleteProductDtoValidator.Validate(assignValue<DeleteProductDto>(bodyStr, dtoType));
