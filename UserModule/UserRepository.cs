@@ -106,16 +106,17 @@ namespace store.UserModule
             return user;
         }
 
-        public List<User> getAllUsers(int pageSize, int currentPage)
+        public List<User> getAllUsers(int pageSize, int currentPage, string name)
         {
             SqlConnection connection = this.dbHelper.getDBConnection();
 
             var users = new List<User>();
-            string sql = "SELECT TOP (@limit) * FROM tblUser EXCEPT SELECT TOP (@skip) * FROM tblUser";
+            string sql = "SELECT TOP (@limit) * FROM tblUser  WHERE name Like  @name EXCEPT SELECT TOP (@skip) * FROM tblUser";
             SqlCommand Command = new SqlCommand(sql, connection);
             try
             {
                 connection.Open();
+                Command.Parameters.AddWithValue("@name ", "%" + name + "%");
                 Command.Parameters.AddWithValue("@limit ", (pageSize + 1) * currentPage);
                 Command.Parameters.AddWithValue("@skip ", currentPage * pageSize);
                 SqlDataReader reader = Command.ExecuteReader();
@@ -151,6 +152,26 @@ namespace store.UserModule
                 Console.WriteLine(e.Message);
             }
             return users;
+        }
+        public int getAllUsersCount(string name)
+        {
+            SqlConnection connection = this.dbHelper.getDBConnection();
+            int count = 0;
+
+            string sql = "SELECT COUNT(*) FROM tblUser where name Like @name";
+            SqlCommand Command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                Command.Parameters.AddWithValue("@name ", "%" + name + "%");
+                count = (Int32)Command.ExecuteScalar();
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return count;
         }
 
         public bool saveUser(User user)
