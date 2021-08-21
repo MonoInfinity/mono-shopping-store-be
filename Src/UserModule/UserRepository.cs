@@ -232,16 +232,19 @@ namespace store.Src.UserModule
             return res;
         }
 
-        public bool updateStatusUser(UpdateStatusUserDto updateStatusUserDto)
+        public bool updateEmployee(UpdateEmployeeDto updateEmployeeDto)
         {
             SqlConnection connection = this.dbHelper.getDBConnection();
             bool res = false;
-            string sql = "UPDATE tblUser SET status=1-status WHERE userId=@userId";
+            string sql = "UPDATE tblUser SET role=@role, salary=@salary, status=@status WHERE userId=@userId";
             SqlCommand Command = new SqlCommand(sql, connection);
             try
             {
                 connection.Open();
-                Command.Parameters.Add("@userId", SqlDbType.NVarChar).Value = updateStatusUserDto.userId;
+                Command.Parameters.Add("@userId", SqlDbType.NVarChar).Value = updateEmployeeDto.userId;
+                Command.Parameters.Add("@role", SqlDbType.NVarChar).Value = updateEmployeeDto.role;
+                Command.Parameters.Add("@salary", SqlDbType.NVarChar).Value = updateEmployeeDto.salary;
+                Command.Parameters.Add("@status", SqlDbType.NVarChar).Value = updateEmployeeDto.status;
                 res = Command.ExecuteNonQuery() > 0;
             }
             catch (SqlException e)

@@ -23,6 +23,7 @@ namespace store.Src.Utils.Validator
         private readonly AddProductDtoValidator addProductDtoValidator;
         private readonly DeleteProductDtoValidator deleteProductDtoValidator;
         private readonly UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator;
+        private readonly UpdateEmployeeDtoValidator updateEmployeeDtoValidator;
 
         public ValidateFilter(
                                 LoginUserDtoValidator loginUserDtoValidator,
@@ -32,7 +33,8 @@ namespace store.Src.Utils.Validator
                                 AddCategoryDtoValidator addCategoryDtoValidator,
                                 AddSubCategoryDtoValidator addSubCategoryDtoValidator,
                                 AddProductDtoValidator addProductDtoValidator,
-                                DeleteProductDtoValidator deleteProductDtoValidator
+                                DeleteProductDtoValidator deleteProductDtoValidator,
+                                UpdateEmployeeDtoValidator updateEmployeeDtoValidator
 
                             )
         {
@@ -44,6 +46,7 @@ namespace store.Src.Utils.Validator
             this.addSubCategoryDtoValidator = addSubCategoryDtoValidator;
             this.addProductDtoValidator = addProductDtoValidator;
             this.deleteProductDtoValidator = deleteProductDtoValidator;
+            this.updateEmployeeDtoValidator = updateEmployeeDtoValidator;
         }
 
         private T assignValue<T>(string bodyString, Type type)
@@ -166,6 +169,10 @@ namespace store.Src.Utils.Validator
             if (typeof(DeleteProductDto) == dtoType)
             {
                 result = this.deleteProductDtoValidator.Validate(assignValue<DeleteProductDto>(bodyStr, dtoType));
+            }
+            if (typeof(UpdateEmployeeDto) == dtoType)
+            {
+                result = this.updateEmployeeDtoValidator.Validate(assignValue<UpdateEmployeeDto>(bodyStr, dtoType));
             }
 
             if (!result.IsValid)
