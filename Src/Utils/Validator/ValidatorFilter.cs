@@ -22,11 +22,13 @@ namespace store.Src.Utils.Validator
         private readonly AddSubCategoryDtoValidator addSubCategoryDtoValidator;
         private readonly AddProductDtoValidator addProductDtoValidator;
         private readonly DeleteProductDtoValidator deleteProductDtoValidator;
+        private readonly UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator;
 
         public ValidateFilter(
                                 LoginUserDtoValidator loginUserDtoValidator,
                                 RegisterUserDtoValidator registerUserDtoValidator,
                                 UpdateUserDtoValidator updateUserDtoValidator,
+                                UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator,
                                 AddCategoryDtoValidator addCategoryDtoValidator,
                                 AddSubCategoryDtoValidator addSubCategoryDtoValidator,
                                 AddProductDtoValidator addProductDtoValidator,
@@ -37,6 +39,7 @@ namespace store.Src.Utils.Validator
             this.loginUserDtoValidator = loginUserDtoValidator;
             this.registerUserDtoValidator = registerUserDtoValidator;
             this.updateUserDtoValidator = updateUserDtoValidator;
+            this.updateUserPasswordDtoValidator = updateUserPasswordDtoValidator;
             this.addCategoryDtoValidator = addCategoryDtoValidator;
             this.addSubCategoryDtoValidator = addSubCategoryDtoValidator;
             this.addProductDtoValidator = addProductDtoValidator;
@@ -142,7 +145,10 @@ namespace store.Src.Utils.Validator
             {
                 result = this.updateUserDtoValidator.Validate(assignValue<UpdateUserDto>(bodyStr, dtoType));
             }
-
+            if (typeof(UpdateUserPasswordDto) == dtoType)
+            {
+                result = this.updateUserPasswordDtoValidator.Validate(assignValue<UpdateUserPasswordDto>(bodyStr, dtoType));
+            }
 
             // ProductModule DTO
             if (typeof(AddCategoryDto) == dtoType)

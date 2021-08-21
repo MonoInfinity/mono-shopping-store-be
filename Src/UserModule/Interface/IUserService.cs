@@ -10,6 +10,6 @@ namespace store.Src.UserModule.Interface
         public bool saveUser(User user);
 
         public bool updateUser(User user);
-
+         public bool updateUserPassword(string userId, string password);
     }
 }
