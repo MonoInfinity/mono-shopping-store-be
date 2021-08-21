@@ -12,6 +12,8 @@ using store.Src.Utils.Interface;
 using store.Src.Utils.Test;
 using Xunit;
 using System.Collections.Generic;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace store.Src.ProductModule.Test
 {
@@ -19,6 +21,7 @@ namespace store.Src.ProductModule.Test
     {
         private readonly IProductController productController;
         private readonly IProductService productService;
+        private readonly IUploadFileService uploadFileService;
         private readonly IProductRepository productRepository;
         private readonly ICategoryRepository categoryRepository;
         private readonly ISubCategoryRepository subCategoryRepository;
@@ -40,8 +43,11 @@ namespace store.Src.ProductModule.Test
             UpdateProductDtoValidator updateProductDtoValidator = new UpdateProductDtoValidator();
 
             this.authService = new AuthService();
+            this.uploadFileService = new UploadFileService();
             this.productService = new ProductService(categoryRepository, subCategoryRepository, productRepository);
-            this.productController = new ProductController(productService, addCategoryDtoValidator, addSubCategoryDtoValidator, addProductDtoValidator, deleteProductDtoValidator, updateProductDtoValidator);
+            this.productController = new ProductController(productService, addCategoryDtoValidator, 
+                                                        addSubCategoryDtoValidator, addProductDtoValidator, 
+                                                        deleteProductDtoValidator, updateProductDtoValidator, uploadFileService);
 
             this.loginedUser = new User();
             this.loginedUser.userId = Guid.NewGuid().ToString();
@@ -94,6 +100,8 @@ namespace store.Src.ProductModule.Test
         {
             SubCategory subCategory = new SubCategory();
             subCategory.subCategoryId = Guid.NewGuid().ToString();
+            FileStream stream = File.OpenRead("./../../../Src/Utils/Test/vit01.jpg");
+            FormFile file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
 
             AddProductDto input = new AddProductDto()
             {
@@ -104,14 +112,40 @@ namespace store.Src.ProductModule.Test
                 wholesalePrice = 1000,
                 retailPrice = 1000,
                 quantity = 100,
+                file = file,
                 subCategoryId = subCategory.subCategoryId,
             };
 
             var res = this.productController.AddProduct(input);
             Product product = this.productService.getProductByName(input.name);
-
+            
             Assert.NotNull(res);
             Assert.Equal(product.name, input.name);
+        }
+
+        [Fact]
+        public void faildAddProductWrongFileExtension()
+        {
+            SubCategory subCategory = new SubCategory();
+            subCategory.subCategoryId = Guid.NewGuid().ToString();
+            FileStream stream = File.OpenRead("./../../../Src/Utils/Test/vit01.txt");
+            FormFile file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
+
+            AddProductDto input = new AddProductDto()
+            {
+                name = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE),
+                description = TestHelper.randomString(100, RamdomStringType.LETTER),
+                location = TestHelper.randomString(100, RamdomStringType.LETTER),
+                expiryDate = DateTime.Now.ToShortDateString(),
+                wholesalePrice = 1000,
+                retailPrice = 1000,
+                quantity = 100,
+                file = file,
+                subCategoryId = subCategory.subCategoryId,
+            };
+
+            var res = this.productController.AddProduct(input);
+            Assert.Equal(400, res.StatusCode);
         }
 
         [Fact]

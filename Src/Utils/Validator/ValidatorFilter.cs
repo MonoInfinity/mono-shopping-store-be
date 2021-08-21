@@ -153,23 +153,10 @@ namespace store.Src.Utils.Validator
             }
 
             // ProductModule DTO
-            if (typeof(AddCategoryDto) == dtoType)
-            {
-                result = this.addCategoryDtoValidator.Validate(assignValue<AddCategoryDto>(bodyStr, dtoType));
-            }
             if (typeof(AddSubCategoryDto) == dtoType)
             {
                 result = this.addSubCategoryDtoValidator.Validate(assignValue<AddSubCategoryDto>(bodyStr, dtoType));
             }
-            if (typeof(AddProductDto) == dtoType)
-            {
-                result = this.addProductDtoValidator.Validate(assignValue<AddProductDto>(bodyStr, dtoType));
-            }
-            if (typeof(UpdateProductDto) == dtoType)
-            {
-                result = this.updateProductDtoValidator.Validate(assignValue<UpdateProductDto>(bodyStr, dtoType));
-            }
-
             if (typeof(DeleteProductDto) == dtoType)
             {
                 result = this.deleteProductDtoValidator.Validate(assignValue<DeleteProductDto>(bodyStr, dtoType));
