@@ -42,12 +42,16 @@ namespace store.UserModule
 
 
         [HttpGet("user/all")]
-        public ObjectResult listAllUser(int pageSize, int page)
+        public ObjectResult listAllUser(int pageSize, int page, string name)
         {
-            ServerResponse<List<User>> res = new ServerResponse<List<User>>();
-            var users = this.adminService.getAllUser(pageSize, page);
 
-            res.data = users;
+            IDictionary<string, object> dataRes = new Dictionary<string, object>();
+            ServerResponse<IDictionary<string, object>> res = new ServerResponse<IDictionary<string, object>>();
+            var users = this.adminService.getAllUser(pageSize, page, name);
+            var count = this.adminService.getAllUserCount(name);
+            dataRes.Add("users", users);
+            dataRes.Add("count", count);
+            res.data = dataRes;
             return new ObjectResult(res.getResponse());
         }
 
