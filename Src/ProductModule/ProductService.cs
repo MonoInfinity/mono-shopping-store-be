@@ -1,6 +1,7 @@
 using store.Src.ProductModule.Entity;
 using store.Src.ProductModule.Interface;
 using System.Collections.Generic;
+using System;
 
 namespace store.Src.ProductModule
 {
@@ -47,7 +48,7 @@ namespace store.Src.ProductModule
 
         public bool updateSubCategory(SubCategory subCategory)
         {
-            bool res = subCategoryRepository.saveSubCategory(subCategory);
+            bool res = subCategoryRepository.updateSubCategory(subCategory);
             return res;
         }
 
@@ -55,6 +56,24 @@ namespace store.Src.ProductModule
         {
             bool res = productRepository.saveProduct(product);
             return res;
+        }
+
+        public bool updateProduct(Product product)
+        {
+            bool res = productRepository.updateProduct(product);
+            return res;
+        }
+
+        public Product getProductByProductId(string productId)
+        {
+            Product product = this.productRepository.getProductByProductId(productId);
+            return product;
+        }
+
+        public Product getProductByName(string name)
+        {
+            Product product = this.productRepository.getProductByname(name);
+            return product;
         }
         public bool deleteProduct(string productId)
         {
@@ -64,19 +83,13 @@ namespace store.Src.ProductModule
 
         public List<Product> getAllProduct(int currentPage, int pageSize, string name)
         {
-            var products = this.productRepository.getAllProducts(pageSize, currentPage, name);
+            List<Product> products = this.productRepository.getAllProducts(pageSize, currentPage, name);
             return products;
         }
         public int getAllProductCount(string name)
         {
             var count = this.productRepository.getAllProductsCount(name);
             return count;
-        }
-
-        public Product getProductByProductId(string productId)
-        {
-            var product = this.productRepository.getProductByProductId(productId);
-            return product;
         }
     }
 }

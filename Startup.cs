@@ -70,12 +70,13 @@ namespace store
             services.AddScoped<LoginUserDtoValidator>();
             services.AddScoped<RegisterUserDtoValidator>();
             services.AddScoped<UpdateUserDtoValidator>();
-            services.AddScoped<UpdateStatusUserDtoValidator>();
+            services.AddScoped<UpdateEmployeeDtoValidator>();
             services.AddScoped<UpdateUserPasswordDtoValidator>();
             services.AddScoped<AddCategoryDtoValidator>();
             services.AddScoped<AddSubCategoryDtoValidator>();
             services.AddScoped<AddProductDtoValidator>();
-            services.AddScoped<DeleteProductDtoValidator, DeleteProductDtoValidator>();
+            services.AddScoped<UpdateProductDtoValidator>();
+            services.AddScoped<DeleteProductDtoValidator>();
 
             services.AddCors(options =>
                      options.AddPolicy("AllowSpecific", p => p.WithOrigins("http://localhost:3000").AllowCredentials()

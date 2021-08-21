@@ -29,14 +29,14 @@ namespace store.Src.UserModule
         private readonly IUserService userService;
 
         private readonly IAdminService adminService;
-        private readonly UpdateStatusUserDtoValidator updateStatusUserDtoValidator;
+        private readonly UpdateEmployeeDtoValidator updateEmployeeDtoValidator;
 
-        public AdminController(IUserService userService, IAdminService adminService, UpdateStatusUserDtoValidator updateStatusUserDtoValidator)
+        public AdminController(IUserService userService, IAdminService adminService, UpdateEmployeeDtoValidator updateEmployeeDtoValidator)
         {
 
             this.userService = userService;
             this.adminService = adminService;
-            this.updateStatusUserDtoValidator = updateStatusUserDtoValidator;
+            this.updateEmployeeDtoValidator = updateEmployeeDtoValidator;
 
         }
 
@@ -55,40 +55,51 @@ namespace store.Src.UserModule
             return new ObjectResult(res.getResponse());
         }
 
-        [HttpPut("user/status")]
-        public ObjectResult updateStatusUser([FromBody] UpdateStatusUserDto body)
+        [HttpPut("user/employee")]
+        public ObjectResult updateEmployee([FromBody] UpdateEmployeeDto body)
         {
             ServerResponse<User> res = new ServerResponse<User>();
-            ValidationResult result = this.updateStatusUserDtoValidator.Validate(body);
+            ValidationResult result = this.updateEmployeeDtoValidator.Validate(body);
             res.mapDetails(result);
 
             if (!result.IsValid)
             {
                 return new BadRequestObjectResult(res.getResponse());
             }
-            UpdateStatusUserDto userUpdate = new UpdateStatusUserDto();
+            UpdateEmployeeDto userUpdate = new UpdateEmployeeDto();
             userUpdate.userId = body.userId;
+            userUpdate.role = body.role;
+            userUpdate.status = body.status;
+            userUpdate.salary = body.salary;
+
+
             User user = this.userService.getUserById(userUpdate.userId);
+            if (user == null)
+            {
+                res.setErrorMessage("User with given Id not found");
+                return new NotFoundObjectResult(res.getResponse());
+            }
 
             if (user.role.ToString().Equals("MANAGER") || user.role.ToString().Equals("OWNER"))
             {
                 res.setErrorMessage("You can't update admin status");
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 406 };
             }
-            else
+            if (userUpdate.role == 1 && userUpdate.salary != 0)
             {
-                bool isUpdateStatus = this.adminService.updateStatusUser(userUpdate);
-                if (!isUpdateStatus)
-                {
-                    res.setErrorMessage("Update status user fail");
-                    return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
-                }
-                else
-                {
-                    res.setMessage("Update Status User successfully");
-                    return new ObjectResult(res.getResponse());
-                }
+                res.setErrorMessage("You can't update customer salary");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 406 };
             }
+
+            bool isUpdate = this.adminService.updateEmployee(userUpdate);
+            if (!isUpdate)
+            {
+                res.setErrorMessage("Update status user fail");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+
+            res.setMessage("Update Status User successfully");
+            return new ObjectResult(res.getResponse());
 
         }
 
@@ -99,8 +110,8 @@ namespace store.Src.UserModule
             User user = this.userService.getUserById(userId);
             if (user == null)
             {
-                res.setErrorMessage("the user with given Id is not exist");
-                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 404 };
+                res.setErrorMessage("User with given Id was not found");
+                return new NotFoundObjectResult(res.getResponse());
             }
             user.password = "";
             res.data = user;

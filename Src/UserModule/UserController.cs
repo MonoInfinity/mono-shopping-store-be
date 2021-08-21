@@ -27,13 +27,13 @@ namespace store.Src.UserModule
         private readonly RegisterUserDtoValidator registerUserDtoValidator;
         private readonly UpdateUserDtoValidator updateUserDtoValidator;
         private readonly UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator;
-        public UserController(IUploadFileService uploadFileService, IUserService userService, IAuthService authService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator,UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator)
+        public UserController(IUploadFileService uploadFileService, IUserService userService, IAuthService authService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator, UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator)
         {
             // this.loggerr = loggerr;
             this.uploadFileService = uploadFileService;
             this.userService = userService;
             this.updateUserDtoValidator = updateUserDtoValidator;
-            this.updateUserPasswordDtoValidator= updateUserPasswordDtoValidator;
+            this.updateUserPasswordDtoValidator = updateUserPasswordDtoValidator;
             this.loginUserDtoValidator = loginUserDtoValidator;
             this.registerUserDtoValidator = registerUserDtoValidator;
             this.authService = authService;
