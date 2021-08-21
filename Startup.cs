@@ -76,10 +76,10 @@ namespace store
             services.AddScoped<AddProductDtoValidator>();
 
             // Google
-            services.AddAuthentication().AddGoogle(options =>
-            {
+            // services.AddAuthentication().AddGoogle(options =>
+            // {
 
-            });
+            // });
             services.AddCors(options =>
                      options.AddPolicy("AllowSpecific", p => p.WithOrigins("http://localhost:3000").AllowCredentials()
                                                                .WithMethods("GET").WithMethods("POST").WithMethods("PUT")
