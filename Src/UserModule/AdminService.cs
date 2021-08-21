@@ -29,9 +29,9 @@ namespace store.Src.UserModule
             return count;
         }
 
-        public bool updateStatusUser(UpdateStatusUserDto updateStatusUserDto)
+        public bool updateEmployee(UpdateEmployeeDto updateEmployeeDto)
         {
-            bool result = this.userRepository.updateStatusUser(updateStatusUserDto);
+            bool result = this.userRepository.updateEmployee(updateEmployeeDto);
             return result;
         }
     }
