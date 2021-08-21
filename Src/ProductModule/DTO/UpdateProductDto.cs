@@ -39,7 +39,7 @@ namespace store.Src.ProductModule.DTO
             RuleFor(x => x.name).NotEmpty().Length(1, 40).NotNull();
             RuleFor(x => x.description).NotEmpty().Length(1, 500).NotNull();
             RuleFor(x => x.location).NotEmpty().Length(1, 500).NotNull();
-            RuleFor(x => x.status).NotEmpty().NotNull();
+            RuleFor(x => x.status).NotNull();
             RuleFor(x => x.wholesalePrice).NotEmpty().NotNull().GreaterThan(0);
             RuleFor(x => x.retailPrice).NotEmpty().NotNull().GreaterThan(0);
             RuleFor(x => x.quantity).NotEmpty().NotNull().GreaterThan(1);

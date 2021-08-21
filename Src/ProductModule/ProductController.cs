@@ -97,13 +97,14 @@ namespace store.Src.ProductModule
             return new ObjectResult(res.getResponse());
         }
 
-        [HttpPost("product")]
+        [HttpPost("")]
         [ValidateFilterAttribute(typeof(AddProductDto))]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult AddProduct(AddProductDto body)
         {
+            Console.WriteLine("ahihi");
             ServerResponse<Product> res = new ServerResponse<Product>();
 
             SubCategory subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
@@ -112,7 +113,6 @@ namespace store.Src.ProductModule
                 res.setErrorMessage("The sub category with the given id was not found");
                 return new BadRequestObjectResult(res.getResponse());
             }
-
             Product newProduct = new Product();
             newProduct.productId = Guid.NewGuid().ToString();
             newProduct.name = body.name;
@@ -133,7 +133,7 @@ namespace store.Src.ProductModule
             return new ObjectResult(res.getResponse());
         }
 
-        [HttpPost("product")]
+        [HttpPut("")]
         [ValidateFilterAttribute(typeof(UpdateProductDto))]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
@@ -168,7 +168,7 @@ namespace store.Src.ProductModule
             return new ObjectResult(res.getResponse());
         }
 
-        [HttpDelete("product")]
+        [HttpDelete("")]
         [ValidateFilterAttribute(typeof(DeleteProductDto))]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
@@ -194,7 +194,7 @@ namespace store.Src.ProductModule
 
         }
 
-        [HttpGet("product/all")]
+        [HttpGet("")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult listAllProduct(int pageSize, int page, string name)
