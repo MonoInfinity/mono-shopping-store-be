@@ -5,20 +5,20 @@ namespace store.UserModule.DTO
 {
     public class UpdateUserDto
     {
-        public string newName { get; set; }
-        public string newEmail { get; set; }
-        public string newPhone { get; set; }
-        public string newAddress { get; set; }
-        public string newAvatarUrl { get; set; }
+        public string name { get; set; }
+        public string email { get; set; }
+        public string phone { get; set; }
+        public string address { get; set; }
 
-        public UpdateUserDto(string newName, string newEmail, string newPhone, string newAddress, string newAvatarUrl
+
+        public UpdateUserDto(string name, string email, string phone, string address
         )
         {
-            this.newName = newName;
-            this.newEmail = newEmail;
-            this.newPhone = newPhone;
-            this.newAddress = newAddress;
-            this.newAvatarUrl = newAvatarUrl;
+            this.name = name;
+            this.email = email;
+            this.phone = phone;
+            this.address = address;
+
         }
 
         public UpdateUserDto() { }
@@ -27,11 +27,11 @@ namespace store.UserModule.DTO
     {
         public UpdateUserDtoValidator()
         {
-            RuleFor(x => x.newName).NotEmpty().Length(UserValidator.NAME_MIN, UserValidator.NAME_MAX);
-            RuleFor(x => x.newEmail).NotEmpty().EmailAddress();
-            RuleFor(x => x.newPhone).NotEmpty().Length(7, 11).NotNull();
-            RuleFor(x => x.newAddress).NotEmpty().Length(UserValidator.ADDRESS_MIN, UserValidator.ADDRESS_MAX);
-            RuleFor(x => x.newAvatarUrl).NotEmpty().Length(1, 50).NotNull();
+            RuleFor(x => x.name).NotEmpty().Length(UserValidator.NAME_MIN, UserValidator.NAME_MAX);
+            RuleFor(x => x.email).NotEmpty().EmailAddress();
+            RuleFor(x => x.phone).NotEmpty().Length(7, 11).NotNull();
+            RuleFor(x => x.address).NotEmpty().Length(UserValidator.ADDRESS_MIN, UserValidator.ADDRESS_MAX);
+
         }
     }
 }

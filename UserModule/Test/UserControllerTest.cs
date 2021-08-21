@@ -67,7 +67,7 @@ namespace store.UserModule.Test
         public void passUpdate()
         {
 
-            UpdateUserDto input = new UpdateUserDto("helllo123", "hello@gmail.com", "0901212099", "anywhere", "/xyz");
+            UpdateUserDto input = new UpdateUserDto("helllo123", "hello@gmail.com", "0901212099", "anywhere");
             this.userController.updateUser(input);
             User userUpdate = this.userService.getUserById(this.user.userId);
             Assert.Equal("helllo123", userUpdate.name);
@@ -79,7 +79,7 @@ namespace store.UserModule.Test
         [Fact]
         public void FailedInputUpdate()
         {
-            UpdateUserDto input = new UpdateUserDto("", "hello@gmail.com", "0901212099", "anywhere", "xyz");
+            UpdateUserDto input = new UpdateUserDto("", "hello@gmail.com", "0901212099", "anywhere");
             var res = this.userController.updateUser(input);
             Assert.Equal(400, res.StatusCode);
         }

@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
+  "dgSpecHash": "sx9gUKpFhyQ8TLToGSQLyplqt0xQFAXwqAQhni+7CMiDuPTZIz787CDqIK7vAHBTo6YXvNMlsCHgdHtW6EeCNg==",
+  "success": true,
+  "projectFilePath": "E:\\server\\mono-shopping-store-be\\store.csproj",
+=======
   "dgSpecHash": "iGg7d8sgXl7XRDwezk6/9PpiEOBx9a8oxSGtkrNiBDuH98TbFL1ENLDJfIBAdJXW+RQvgxNRQaukPUIL7WwqsQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj",
+>>>>>>> origin/development
   "expectedPackageFiles": [
     "C:\\Users\\HaiCao\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\fluentvalidation\\10.3.0\\fluentvalidation.10.3.0.nupkg.sha512",
