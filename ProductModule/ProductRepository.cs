@@ -21,8 +21,8 @@ namespace store.ProductModule
         {
             SqlConnection connection = this.dBHelper.getDBConnection();
             bool res = false;
-            string sql = "INSERT INTO tblProduct(productId,name,description,location,status,expiryDate,wholesalePrice,retailPrice,createDate,quantity,subCategoryId) " +
-            " VALUES(@productId, @name, @description, @location, @status, @expiryDate, @wholesalePrice, @retailPrice, @createDate, @quantity, @subCategoryId)";
+            string sql = "INSERT INTO tblProduct(productId,name,description,location,status,expiryDate,wholesalePrice,retailPrice,createDate,quantity,imageUrl,subCategoryId) " +
+            " VALUES(@productId, @name, @description, @location, @status, @expiryDate, @wholesalePrice, @retailPrice, @createDate, @quantity, @imageUrl, @subCategoryId)";
             SqlCommand command = new SqlCommand(sql, connection);
 
             try
@@ -38,6 +38,7 @@ namespace store.ProductModule
                 command.Parameters.AddWithValue("@retailPrice", product.retailPrice);
                 command.Parameters.AddWithValue("@createDate", product.createDate);
                 command.Parameters.AddWithValue("@quantity", product.quantity);
+                command.Parameters.AddWithValue("@imageUrl", product.imageUrl);
                 command.Parameters.AddWithValue("@subCategoryId", product.subCategory.subCategoryId);
                 res = command.ExecuteNonQuery() > 0;
                 connection.Close();
