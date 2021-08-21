@@ -44,6 +44,8 @@ namespace store.Src.UserModule.Test
             UpdateUserDtoValidator updateUserDtoValidator = new UpdateUserDtoValidator();
             LoginUserDtoValidator loginUserDtoValidator = new LoginUserDtoValidator();
             RegisterUserDtoValidator registerUserDtoValidation = new RegisterUserDtoValidator();
+            UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator = new UpdateUserPasswordDtoValidator();
+
             ConfigTest config = new ConfigTest();
             IDBHelper dbHelper = new DBHelper(config);
             IJwtService jwtService = new JwtService(config);
@@ -51,7 +53,7 @@ namespace store.Src.UserModule.Test
             this.userService = new UserService(userRepository);
             this.authService = new AuthService();
             this.uploadFileService = new UploadFileService();
-            this.userController = new UserController(uploadFileService, userService, authService, loginUserDtoValidator, registerUserDtoValidation, updateUserDtoValidator);
+            this.userController = new UserController(uploadFileService, userService, authService, loginUserDtoValidator, registerUserDtoValidation, updateUserDtoValidator, updateUserPasswordDtoValidator);
 
             this.user = new User();
             this.user.userId = Guid.NewGuid().ToString();
@@ -82,6 +84,13 @@ namespace store.Src.UserModule.Test
             UpdateUserDto input = new UpdateUserDto("", "hello@gmail.com", "0901212099", "anywhere");
             var res = this.userController.updateUser(input);
             Assert.Equal(400, res.StatusCode);
+        }
+        [Fact]
+        public void passUpdatePassword()
+        {
+            UpdateUserPasswordDto input = new UpdateUserPasswordDto("123456789", "123", "123");
+            var res = this.userController.updateUserPassword(input);
+            Assert.Null(res.StatusCode);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace store.Src.UserModule.Interface
         public int getAllUsersCount(string name);
 
         public bool saveUser(User user);
-
+         public bool updateUserPassword(string userId, string password);
         public bool updateUser(User user);
         public bool updateStatusUser(UpdateStatusUserDto updateStatusUserDto);
     }

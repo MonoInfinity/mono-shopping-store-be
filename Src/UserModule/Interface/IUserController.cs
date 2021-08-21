@@ -10,7 +10,7 @@ namespace store.Src.UserModule.Interface
 
         public ObjectResult updateUser(UpdateUserDto body);
         public ObjectResult getUser();
-
+        public ObjectResult updateUserPassword(UpdateUserPasswordDto body);
         public ObjectResult updateAvatar(IFormFile file);
     }
 }
