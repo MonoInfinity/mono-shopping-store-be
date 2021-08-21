@@ -99,8 +99,8 @@ namespace store.Src.UserModule
             User user = this.userService.getUserById(userId);
             if (user == null)
             {
-                res.setErrorMessage("the user with given Id is not exist");
-                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 404 };
+                res.setErrorMessage("User with given Id was not found");
+                return new NotFoundObjectResult(res.getResponse());
             }
             user.password = "";
             res.data = user;
