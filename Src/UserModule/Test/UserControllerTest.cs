@@ -76,12 +76,6 @@ namespace store.Src.UserModule.Test
             Assert.Equal("anywhere", userUpdate.address);
         }
 
-        [Fact]
-        public void FailedInputUpdate()
-        {
-            UpdateUserDto input = new UpdateUserDto("", "hello@gmail.com", "0901212099", "anywhere");
-            var res = this.userController.updateUser(input);
-            Assert.Equal(400, res.StatusCode);
-        }
+
     }
 }
