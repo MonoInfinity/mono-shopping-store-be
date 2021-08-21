@@ -75,11 +75,6 @@ namespace store
             services.AddScoped<AddSubCategoryDtoValidator>();
             services.AddScoped<AddProductDtoValidator>();
 
-            // Google
-            // services.AddAuthentication().AddGoogle(options =>
-            // {
-
-            // });
             services.AddCors(options =>
                      options.AddPolicy("AllowSpecific", p => p.WithOrigins("http://localhost:3000").AllowCredentials()
                                                                .WithMethods("GET").WithMethods("POST").WithMethods("PUT")
@@ -110,6 +105,12 @@ namespace store
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/document/swagger/v1.json", "Store v1"));
             }
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions{
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "public")),
+                RequestPath = "/public"
+            });
+
             app.UseCors("AllowSpecific");
             app.Use(next => context =>
                         {

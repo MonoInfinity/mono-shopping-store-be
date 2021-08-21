@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
+  "FilePath": "c:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj",
+=======
   "FilePath": "e:\\server\\mono-shopping-store-be\\store.csproj",
+>>>>>>> a2ed8c9de0ab7eb01cf7b771c225b2f7ee83600d
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "5.0",
