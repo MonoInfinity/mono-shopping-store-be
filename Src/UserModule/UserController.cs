@@ -53,19 +53,24 @@ namespace store.Src.UserModule
 
         [HttpPut("")]
         [ServiceFilter(typeof(AuthGuard))]
+        // [Produces("multipart/form-data")]
         public ObjectResult updateUser([FromForm] UpdateUserDto body)
         {
+            Console.WriteLine(this.HttpContext.Request.Headers["Content-Type"]);
+            Console.WriteLine(body.address);
             ServerResponse<User> res = new ServerResponse<User>();
             var user = this.ViewData["user"] as User;
             var updateAvatarUrl = user.avatarUrl;
 
             ValidationResult result = this.updateUserDtoValidator.Validate(body);
-            if(!result.IsValid){
+            if (!result.IsValid)
+            {
                 res.mapDetails(result);
                 return new BadRequestObjectResult(res.getResponse());
             }
 
-            if(body.file != null){
+            if (body.file != null)
+            {
                 if (!this.uploadFileService.checkFileExtension(body.file, UploadFileService.imageExtension))
                 {
                     res.setErrorMessage("Not support this extension file. Please select png, jpg, jpeg");
