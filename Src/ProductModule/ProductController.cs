@@ -25,6 +25,8 @@ namespace store.Src.ProductModule
         private readonly DeleteProductDtoValidator deleteProductDtoValidator;
         private readonly UpdateProductDtoValidator updateProductDtoValidator;
         private readonly IUploadFileService uploadFileService;
+        private readonly UpdateCategoryDtoValidator updateCategoryDtoValidator;
+        private readonly UpdateSubCategoryDtoValidator updateSubCategoryDtoValidator;
 
         public ProductController(
                                 IProductService productService,
@@ -33,7 +35,9 @@ namespace store.Src.ProductModule
                                 AddProductDtoValidator addProductValidator,
                                 DeleteProductDtoValidator deleteProductDtoValidator,
                                 UpdateProductDtoValidator updateProductDtoValidator,
-                                IUploadFileService uploadFileService
+                                IUploadFileService uploadFileService,
+                                UpdateCategoryDtoValidator updateCategoryDtoValidator,
+                                UpdateSubCategoryDtoValidator updateSubCategoryDtoValidator
             )
         {
             this.productService = productService;
@@ -43,6 +47,8 @@ namespace store.Src.ProductModule
             this.deleteProductDtoValidator = deleteProductDtoValidator;
             this.updateProductDtoValidator = updateProductDtoValidator;
             this.uploadFileService = uploadFileService;
+            this.updateCategoryDtoValidator = updateCategoryDtoValidator;
+            this.updateSubCategoryDtoValidator = updateSubCategoryDtoValidator;
         }
 
         [HttpPost("category")]
@@ -288,6 +294,59 @@ namespace store.Src.ProductModule
             var count = this.productService.getAllProductCount(name);
             dataRes.Add("products", products);
             dataRes.Add("count", count); res.data = dataRes;
+            return new ObjectResult(res.getResponse());
+        }
+
+        [HttpPut("category/update")]
+        [ValidateFilterAttribute(typeof(UpdateCategoryDto))]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        [ServiceFilter(typeof(ValidateFilter))]
+        public ObjectResult updateCategory(UpdateCategoryDto body)
+        {
+            ServerResponse<Category> res = new ServerResponse<Category>();
+            var category = this.productService.getCategoryByCategoryId(body.categoryId);
+            if (category == null)
+            {
+                res.setErrorMessage("Category with given categoryId not exist");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            category.name = body.name;
+            category.status = body.status;
+            bool isUpdate = this.productService.updateCategory(category);
+            if (!isUpdate)
+            {
+                res.setErrorMessage("Fail to update category");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            res.setMessage("Update category success!");
+            return new ObjectResult(res.getResponse());
+        }
+
+        [HttpPut("subCategory/update")]
+        [ValidateFilterAttribute(typeof(UpdateSubCategoryDto))]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        [ServiceFilter(typeof(ValidateFilter))]
+        public ObjectResult updateSubCategory(UpdateSubCategoryDto body)
+        {
+            ServerResponse<SubCategory> res = new ServerResponse<SubCategory>();
+            var subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
+            if (subCategory == null)
+            {
+                res.setErrorMessage("SubCategory with given subCategoryId not exist");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            subCategory.name = body.name;
+            subCategory.status = body.status;
+            bool isUpdate = this.productService.updateSubCategory(subCategory);
+            if (!isUpdate)
+            {
+                Console.WriteLine(subCategory);
+                res.setErrorMessage("Fail to update subCategory");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            res.setMessage("Update subcategory success!");
             return new ObjectResult(res.getResponse());
         }
     }

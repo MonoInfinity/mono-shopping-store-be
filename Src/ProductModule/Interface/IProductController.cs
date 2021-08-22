@@ -12,5 +12,7 @@ namespace store.Src.ProductModule.Interface
         public ObjectResult DeleteProduct(DeleteProductDto body);
         public ObjectResult GetAProduct(string productId);
         public ObjectResult ListAllProduct(int pageSize, int page, string name);
+        public ObjectResult updateCategory(UpdateCategoryDto body);
+        public ObjectResult updateSubCategory(UpdateSubCategoryDto body);
     }
 }

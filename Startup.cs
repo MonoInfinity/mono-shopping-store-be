@@ -77,6 +77,8 @@ namespace store
             services.AddScoped<AddProductDtoValidator>();
             services.AddScoped<UpdateProductDtoValidator>();
             services.AddScoped<DeleteProductDtoValidator>();
+            services.AddScoped<UpdateCategoryDtoValidator>();
+            services.AddScoped<UpdateSubCategoryDtoValidator>();
 
             services.AddCors(options =>
                      options.AddPolicy("AllowSpecific", p => p.WithOrigins("http://localhost:3000").AllowCredentials()

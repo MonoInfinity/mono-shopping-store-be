@@ -257,5 +257,55 @@ namespace store.Src.ProductModule
             }
             return product;
         }
+
+        public bool updateCategory(Category category)
+        {
+            SqlConnection connection = this.dBHelper.getDBConnection();
+            bool res = false;
+            string sql = "UPDATE tblCategory " +
+            " SET name = @name, status = @status " +
+            "WHERE categoryId = @categoryId";
+            SqlCommand Command = new SqlCommand(sql, connection);
+
+            try
+            {
+                connection.Open();
+                Command.Parameters.AddWithValue("@categoryId", category.categoryId);
+                Command.Parameters.AddWithValue("@name", category.name);
+                Command.Parameters.AddWithValue("@status", category.status);
+                res = Command.ExecuteNonQuery() > 0;
+
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine("This is an error in CategoryRepository: " + e.Message);
+            };
+            return res;
+        }
+
+        public bool updateSubCategory(SubCategory subCategory)
+        {
+            SqlConnection connection = this.dBHelper.getDBConnection();
+            bool res = false;
+            string sql = "UPDATE tblSubCategory " +
+            " SET name = @name, status = @status " +
+            "WHERE subCategoryId = @subCategoryId";
+            SqlCommand Command = new SqlCommand(sql, connection);
+
+            try
+            {
+                connection.Open();
+                Command.Parameters.AddWithValue("@subCategoryId", subCategory.subCategoryId);
+                Command.Parameters.AddWithValue("@name", subCategory.name);
+                Command.Parameters.AddWithValue("@status", subCategory.status);
+                res = Command.ExecuteNonQuery() > 0;
+
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine("This is an error in SubCategoryRepository: " + e.Message);
+            };
+            return res;
+        }
     }
 }
