@@ -111,7 +111,8 @@ namespace store.Src.ProductModule
             ServerResponse<Product> res = new ServerResponse<Product>();
 
             ValidationResult result = this.addProductValidator.Validate(body);
-            if(!result.IsValid){
+            if (!result.IsValid)
+            {
                 res.mapDetails(result);
                 return new BadRequestObjectResult(res.getResponse());
             }
@@ -123,11 +124,13 @@ namespace store.Src.ProductModule
                 return new BadRequestObjectResult(res.getResponse());
             }
 
+
             if (!this.uploadFileService.checkFileExtension(body.file, UploadFileService.imageExtension))
             {
                 res.setErrorMessage("Not support this extension file. Please select png, jpg, jpeg");
                 return new BadRequestObjectResult(res.getResponse());
             }
+
             if (!this.uploadFileService.checkFileSize(body.file, 1))
             {
                 res.setErrorMessage("File is too big");
@@ -165,12 +168,13 @@ namespace store.Src.ProductModule
         [HttpPut("")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult UpdateProduct([FromForm]UpdateProductDto body)
+        public ObjectResult UpdateProduct([FromForm] UpdateProductDto body)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
 
             ValidationResult result = this.updateProductDtoValidator.Validate(body);
-            if(!result.IsValid){
+            if (!result.IsValid)
+            {
                 res.mapDetails(result);
                 return new BadRequestObjectResult(res.getResponse());
             }
@@ -181,15 +185,16 @@ namespace store.Src.ProductModule
                 res.setErrorMessage("The sub category with the given id was not found");
                 return new BadRequestObjectResult(res.getResponse());
             }
-
             Product updateProduct = this.productService.getProductByProductId(body.productId);
-            if(updateProduct == null){
+            if (updateProduct == null)
+            {
                 res.setErrorMessage("The product with the given id was not found");
                 return new BadRequestObjectResult(res.getResponse());
             }
 
             var imageUrl = updateProduct.imageUrl;
-            if(body.file != null){
+            if (body.file != null)
+            {
                 if (!this.uploadFileService.checkFileExtension(body.file, UploadFileService.imageExtension))
                 {
                     res.setErrorMessage("Not support this extension file. Please select png, jpg, jpeg");
@@ -215,6 +220,7 @@ namespace store.Src.ProductModule
             updateProduct.status = body.status;
             updateProduct.wholesalePrice = body.wholesalePrice;
             updateProduct.retailPrice = body.retailPrice;
+            updateProduct.quantity = body.quantity;
             updateProduct.imageUrl = imageUrl;
             updateProduct.subCategory = subCategory;
 
@@ -240,13 +246,13 @@ namespace store.Src.ProductModule
             if (product == null)
             {
                 res.setErrorMessage("product with given productId not exist");
-                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+                return new BadRequestObjectResult(res.getResponse());
             }
             bool isDelete = this.productService.deleteProduct(body.productId);
             if (!isDelete)
             {
                 res.setErrorMessage("Fail to delete product");
-                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+                return new ObjectResult(res.getResponse()) { StatusCode = 500 };
             }
 
             res.setMessage("Delete Product successfully");
@@ -257,7 +263,24 @@ namespace store.Src.ProductModule
         [HttpGet("")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult listAllProduct(int pageSize, int page, string name)
+        public ObjectResult GetAProduct(string productId)
+        {
+            ServerResponse<Product> res = new ServerResponse<Product>();
+            Product product = this.productService.getProductByProductId(productId);
+            if (product == null)
+            {
+                res.setErrorMessage("product with given productId not exist");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            res.data = product;
+            return new ObjectResult(res.getResponse());
+        }
+
+        [HttpGet("")]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        public ObjectResult ListAllProduct(int pageSize, int page, string name)
         {
             IDictionary<string, object> dataRes = new Dictionary<string, object>();
             ServerResponse<IDictionary<string, object>> res = new ServerResponse<IDictionary<string, object>>();

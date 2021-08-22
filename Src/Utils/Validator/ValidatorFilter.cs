@@ -165,6 +165,14 @@ namespace store.Src.Utils.Validator
             {
                 result = this.updateEmployeeDtoValidator.Validate(assignValue<UpdateEmployeeDto>(bodyStr, dtoType));
             }
+            if (typeof(AddProductDto) == dtoType)
+            {
+                result = this.addProductDtoValidator.Validate(assignValue<AddProductDto>(bodyStr, dtoType));
+            }
+            if (typeof(UpdateProductDto) == dtoType)
+            {
+                result = this.updateProductDtoValidator.Validate(assignValue<UpdateProductDto>(bodyStr, dtoType));
+            }
 
             if (!result.IsValid)
             {
