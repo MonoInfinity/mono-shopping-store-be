@@ -25,7 +25,8 @@ namespace store.Src.Utils.Validator
         private readonly DeleteProductDtoValidator deleteProductDtoValidator;
         private readonly UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator;
         private readonly UpdateEmployeeDtoValidator updateEmployeeDtoValidator;
-
+        private readonly UpdateCategoryDtoValidator updateCategoryDtoValidator;
+        private readonly UpdateSubCategoryDtoValidator updateSubCategoryDtoValidator;
         public ValidateFilter(
                                 LoginUserDtoValidator loginUserDtoValidator,
                                 RegisterUserDtoValidator registerUserDtoValidator,
@@ -36,8 +37,9 @@ namespace store.Src.Utils.Validator
                                 AddProductDtoValidator addProductDtoValidator,
                                 UpdateProductDtoValidator updateProductDtoValidator,
                                 DeleteProductDtoValidator deleteProductDtoValidator,
-                                UpdateEmployeeDtoValidator updateEmployeeDtoValidator
-
+                                UpdateEmployeeDtoValidator updateEmployeeDtoValidator,
+                                UpdateCategoryDtoValidator updateCategoryDtoValidator,
+                                UpdateSubCategoryDtoValidator updateSubCategoryDtoValidator
                             )
         {
             this.loginUserDtoValidator = loginUserDtoValidator;
@@ -50,6 +52,8 @@ namespace store.Src.Utils.Validator
             this.updateProductDtoValidator = updateProductDtoValidator;
             this.deleteProductDtoValidator = deleteProductDtoValidator;
             this.updateEmployeeDtoValidator = updateEmployeeDtoValidator;
+            this.updateCategoryDtoValidator = updateCategoryDtoValidator;
+            this.updateSubCategoryDtoValidator = updateSubCategoryDtoValidator;
         }
 
         private T assignValue<T>(string bodyString, Type type)
@@ -151,6 +155,10 @@ namespace store.Src.Utils.Validator
             {
                 result = this.updateUserPasswordDtoValidator.Validate(assignValue<UpdateUserPasswordDto>(bodyStr, dtoType));
             }
+            if (typeof(UpdateUserDto) == dtoType)
+            {
+                result = this.updateUserDtoValidator.Validate(assignValue<UpdateUserDto>(bodyStr, dtoType));
+            }
 
             // ProductModule DTO
             if (typeof(AddSubCategoryDto) == dtoType)
@@ -164,6 +172,22 @@ namespace store.Src.Utils.Validator
             if (typeof(UpdateEmployeeDto) == dtoType)
             {
                 result = this.updateEmployeeDtoValidator.Validate(assignValue<UpdateEmployeeDto>(bodyStr, dtoType));
+            }
+            if (typeof(AddProductDto) == dtoType)
+            {
+                result = this.addProductDtoValidator.Validate(assignValue<AddProductDto>(bodyStr, dtoType));
+            }
+            if (typeof(UpdateProductDto) == dtoType)
+            {
+                result = this.updateProductDtoValidator.Validate(assignValue<UpdateProductDto>(bodyStr, dtoType));
+            }
+            if (typeof(UpdateCategoryDto) == dtoType)
+            {
+                result = this.updateCategoryDtoValidator.Validate(assignValue<UpdateCategoryDto>(bodyStr, dtoType));
+            }
+            if (typeof(UpdateSubCategoryDto) == dtoType)
+            {
+                result = this.updateSubCategoryDtoValidator.Validate(assignValue<UpdateSubCategoryDto>(bodyStr, dtoType));
             }
 
             if (!result.IsValid)
