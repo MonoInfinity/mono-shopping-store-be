@@ -104,5 +104,12 @@ namespace store.Src.UserModule.Test
             var res = this.adminController.updateEmployee(input);
             Assert.Equal(404, res.StatusCode);
         }
+        [Fact]
+        public void failUpdateCustomerSalary()
+        {
+            UpdateEmployeeDto input = new UpdateEmployeeDto(this.user.userId, 1, 1000, 1);
+            var res = this.adminController.updateEmployee(input);
+            Assert.Equal(403, res.StatusCode);
+        }
     }
 }
