@@ -155,6 +155,10 @@ namespace store.Src.Utils.Validator
             {
                 result = this.updateUserPasswordDtoValidator.Validate(assignValue<UpdateUserPasswordDto>(bodyStr, dtoType));
             }
+            if (typeof(UpdateUserDto) == dtoType)
+            {
+                result = this.updateUserDtoValidator.Validate(assignValue<UpdateUserDto>(bodyStr, dtoType));
+            }
 
             // ProductModule DTO
             if (typeof(AddSubCategoryDto) == dtoType)

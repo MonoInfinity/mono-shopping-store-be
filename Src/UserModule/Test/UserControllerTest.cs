@@ -66,45 +66,45 @@ namespace store.Src.UserModule.Test
 
 
 
-        [Fact]
-        public void passUpdate()
-        {
-            FileStream stream = File.OpenRead("./../../../Src/Utils/Test/vit01.jpg");
-            FormFile file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
-            UpdateUserDto input = new UpdateUserDto("helllo123", "hello@gmail.com", "0901212099", "anywhere", file);
-            this.userController.updateUser(input);
-            User userUpdate = this.userService.getUserById(this.user.userId);
-            Assert.Equal("helllo123", userUpdate.name);
-            Assert.Equal("hello@gmail.com", userUpdate.email);
-            Assert.Equal("0901212099", userUpdate.phone);
-            Assert.Equal("anywhere", userUpdate.address);
-        }
+        // [Fact]
+        // public void passUpdate()
+        // {
+        //     FileStream stream = File.OpenRead("./../../../Src/Utils/Test/vit01.jpg");
+        //     FormFile file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
+        //     UpdateUserDto input = new UpdateUserDto("helllo123", "hello@gmail.com", "0901212099", "anywhere", file);
+        //     this.userController.updateUser(input);
+        //     User userUpdate = this.userService.getUserById(this.user.userId);
+        //     Assert.Equal("helllo123", userUpdate.name);
+        //     Assert.Equal("hello@gmail.com", userUpdate.email);
+        //     Assert.Equal("0901212099", userUpdate.phone);
+        //     Assert.Equal("anywhere", userUpdate.address);
+        // }
 
-        [Fact]
-        public void faildUpdateWrongFileExtension()
-        {
-            var stream = File.OpenRead("./../../../Src/Utils/Test/vit01.txt");
-            FormFile file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
-            UpdateUserDto input = new UpdateUserDto("helllo123", "hello@gmail.com", "0901212099", "anywhere", file);
-            var res = this.userController.updateUser(input);
-            Assert.Equal(400, res.StatusCode);
-        }
+        // [Fact]
+        // public void faildUpdateWrongFileExtension()
+        // {
+        //     var stream = File.OpenRead("./../../../Src/Utils/Test/vit01.txt");
+        //     FormFile file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
+        //     UpdateUserDto input = new UpdateUserDto("helllo123", "hello@gmail.com", "0901212099", "anywhere", file);
+        //     var res = this.userController.updateUser(input);
+        //     Assert.Equal(400, res.StatusCode);
+        // }
 
-        [Fact]
-        public void FailedInputUpdate()
-        {
-            var stream = File.OpenRead("./../../../Src/Utils/Test/vit01.jpg");
-            FormFile file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
-            UpdateUserDto input = new UpdateUserDto("", "hello@gmail.com", "0901212099", "anywhere", file);
-            var res = this.userController.updateUser(input);
-            Assert.Equal(400, res.StatusCode);
-        }
-        [Fact]
-        public void passUpdatePassword()
-        {
-            UpdateUserPasswordDto input = new UpdateUserPasswordDto("123456789", "123", "123");
-            var res = this.userController.updateUserPassword(input);
-            Assert.Null(res.StatusCode);
-        }
+        // [Fact]
+        // public void FailedInputUpdate()
+        // {
+        //     var stream = File.OpenRead("./../../../Src/Utils/Test/vit01.jpg");
+        //     FormFile file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
+        //     UpdateUserDto input = new UpdateUserDto("", "hello@gmail.com", "0901212099", "anywhere", file);
+        //     var res = this.userController.updateUser(input);
+        //     Assert.Equal(400, res.StatusCode);
+        // }
+        // [Fact]
+        // public void passUpdatePassword()
+        // {
+        //     UpdateUserPasswordDto input = new UpdateUserPasswordDto("123456789", "123", "123");
+        //     var res = this.userController.updateUserPassword(input);
+        //     Assert.Null(res.StatusCode);
+        // }
     }
 }

@@ -52,46 +52,26 @@ namespace store.Src.UserModule
         }
 
         [HttpPut("")]
+        [ValidateFilterAttribute(typeof(UpdateUserDto))]
+        [ServiceFilter(typeof(ValidateFilter))]
         [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult updateUser([FromForm] UpdateUserDto body)
         {
             ServerResponse<User> res = new ServerResponse<User>();
             var user = this.ViewData["user"] as User;
-            var updateAvatarUrl = user.avatarUrl;
 
-            ValidationResult result = this.updateUserDtoValidator.Validate(body);
-            if(!result.IsValid){
-                res.mapDetails(result);
-                return new BadRequestObjectResult(res.getResponse());
-            }
-
-            if(body.file != null){
-                if (!this.uploadFileService.checkFileExtension(body.file, UploadFileService.imageExtension))
-                {
-                    res.setErrorMessage("Not support this extension file. Please select png, jpg, jpeg");
-                    return new BadRequestObjectResult(res.getResponse());
-                }
-                if (!this.uploadFileService.checkFileSize(body.file, 1))
-                {
-                    res.setErrorMessage("File is too big");
-                    return new BadRequestObjectResult(res.getResponse());
-                }
-
-                updateAvatarUrl = this.uploadFileService.upload(body.file);
-                if (updateAvatarUrl == null)
-                {
-                    res.setErrorMessage("Fail to upload file");
-                    return new BadRequestObjectResult(res.getResponse());
-                }
-            }
-
+            Console.WriteLine(body.name);
             User userUpdate = new User();
             userUpdate.userId = user.userId;
             userUpdate.name = body.name;
             userUpdate.email = body.email;
             userUpdate.phone = body.phone;
             userUpdate.address = body.address;
-            userUpdate.avatarUrl = updateAvatarUrl;
+            if (body.avatarUrl != null)
+            {
+                userUpdate.avatarUrl = body.avatarUrl;
+            }
+
 
             bool isUpdated = userService.updateUser(userUpdate);
             if (!isUpdated)
