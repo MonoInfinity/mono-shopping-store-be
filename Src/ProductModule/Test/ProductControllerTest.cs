@@ -28,6 +28,11 @@ namespace store.Src.ProductModule.Test
         private readonly IUserRepository userRepository;
         private readonly IAuthService authService;
         private readonly User loginedUser;
+        private readonly Category categoryDB;
+        private readonly SubCategory subCategoryDB;
+        private readonly Product productDB;
+        private readonly FileStream stream;
+        private readonly FormFile file;
 
         public ProductControllerTest()
         {
@@ -36,6 +41,8 @@ namespace store.Src.ProductModule.Test
             this.categoryRepository = new CategoryRepository(dbHelper);
             this.subCategoryRepository = new SubCategoryRepository(dbHelper, categoryRepository);
             this.userRepository = new UserRepository(dbHelper);
+            this.productRepository = new ProductRepository(dbHelper, subCategoryRepository);
+
             AddCategoryDtoValidator addCategoryDtoValidator = new AddCategoryDtoValidator();
             AddSubCategoryDtoValidator addSubCategoryDtoValidator = new AddSubCategoryDtoValidator();
             AddProductDtoValidator addProductDtoValidator = new AddProductDtoValidator();
@@ -45,8 +52,8 @@ namespace store.Src.ProductModule.Test
             this.authService = new AuthService();
             this.uploadFileService = new UploadFileService();
             this.productService = new ProductService(categoryRepository, subCategoryRepository, productRepository);
-            this.productController = new ProductController(productService, addCategoryDtoValidator, 
-                                                        addSubCategoryDtoValidator, addProductDtoValidator, 
+            this.productController = new ProductController(productService, addCategoryDtoValidator,
+                                                        addSubCategoryDtoValidator, addProductDtoValidator,
                                                         deleteProductDtoValidator, updateProductDtoValidator, uploadFileService);
 
             this.loginedUser = new User();
@@ -54,8 +61,37 @@ namespace store.Src.ProductModule.Test
             this.loginedUser.username = TestHelper.randomString(10, RamdomStringType.LETTER_LOWER_CASE);
             this.loginedUser.password = this.authService.hashingPassword("123456789");
             this.loginedUser.role = UserRole.MANAGER;
-
             this.userRepository.saveUser(loginedUser);
+
+            this.categoryDB = new Category();
+            this.categoryDB.categoryId = Guid.NewGuid().ToString();
+            this.categoryDB.name = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE);
+            this.categoryDB.createDate = DateTime.Now.ToShortDateString();
+            this.categoryDB.status = CategoryStatus.NOT_SALE;
+            this.categoryRepository.saveCategory(categoryDB);
+
+            this.subCategoryDB = new SubCategory();
+            this.subCategoryDB.subCategoryId = Guid.NewGuid().ToString();
+            this.subCategoryDB.name = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE);
+            this.subCategoryDB.createDate = DateTime.Now.ToShortDateString();
+            this.subCategoryDB.status = SubCategoryStatus.NOT_SALE;
+            this.subCategoryDB.category = this.categoryDB;
+            this.subCategoryRepository.saveSubCategory(subCategoryDB);
+
+            this.stream = File.OpenRead("./../../../Src/Utils/Test/vit01.jpg");
+            this.file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
+
+            this.productDB = new Product();
+            this.productDB.productId = Guid.NewGuid().ToString();
+            this.productDB.name = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE);
+            this.productDB.description = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE);
+            this.productDB.location = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE);
+            this.productDB.expiryDate = DateTime.Now.ToShortDateString();
+            this.productDB.wholesalePrice = 1000;
+            this.productDB.retailPrice = 1000;
+            this.productDB.imageUrl = this.uploadFileService.upload(file);
+            this.productDB.subCategory = subCategoryDB;
+            this.productRepository.saveProduct(productDB);
         }
 
         [Fact]
@@ -67,7 +103,7 @@ namespace store.Src.ProductModule.Test
             };
             var res = this.productController.AddCategory(input);
             Category category = this.categoryRepository.getCategoryByName(input.name);
-
+            Console.WriteLine(category);
             Assert.NotNull(res);
             Assert.Equal(category.name, input.name);
         }
@@ -75,22 +111,14 @@ namespace store.Src.ProductModule.Test
         [Fact]
         public void passAddSubCategory()
         {
-            Category category = new Category();
-            category.categoryId = Guid.NewGuid().ToString();
-            category.name = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE);
-            category.createDate = DateTime.Now.ToShortDateString();
-            category.status = CategoryStatus.NOT_SALE;
-            this.categoryRepository.saveCategory(category);
-
             AddSubCategoryDto input = new AddSubCategoryDto()
             {
                 name = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE),
-                categoryId = category.categoryId
+                categoryId = this.categoryDB.categoryId
             };
 
             var res = this.productController.AddSubCategory(input);
             SubCategory subCategory = this.subCategoryRepository.getSubCategoryByname(input.name);
-
             Assert.NotNull(res);
             Assert.Equal(subCategory.name, input.name);
         }
@@ -98,11 +126,6 @@ namespace store.Src.ProductModule.Test
         [Fact]
         public void passAddProduct()
         {
-            SubCategory subCategory = new SubCategory();
-            subCategory.subCategoryId = Guid.NewGuid().ToString();
-            FileStream stream = File.OpenRead("./../../../Src/Utils/Test/vit01.jpg");
-            FormFile file = new FormFile(stream, 0, stream.Length, null, Path.GetFileName(stream.Name));
-
             AddProductDto input = new AddProductDto()
             {
                 name = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE),
@@ -112,13 +135,13 @@ namespace store.Src.ProductModule.Test
                 wholesalePrice = 1000,
                 retailPrice = 1000,
                 quantity = 100,
-                file = file,
-                subCategoryId = subCategory.subCategoryId,
+                file = this.file,
+                subCategoryId = this.subCategoryDB.subCategoryId,
             };
 
             var res = this.productController.AddProduct(input);
-            Product product = this.productService.getProductByName(input.name);
-            
+            Product product = this.productRepository.getProductByname(input.name);
+
             Assert.NotNull(res);
             Assert.Equal(product.name, input.name);
         }
@@ -151,28 +174,9 @@ namespace store.Src.ProductModule.Test
         [Fact]
         public void passUpdateProduct()
         {
-            SubCategory subCategory = new SubCategory();
-            subCategory.subCategoryId = Guid.NewGuid().ToString();
-
-            AddProductDto newProduct = new AddProductDto()
-            {
-                name = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE),
-                description = TestHelper.randomString(100, RamdomStringType.LETTER),
-                location = TestHelper.randomString(100, RamdomStringType.LETTER),
-                expiryDate = DateTime.Now.ToShortDateString(),
-                wholesalePrice = 1000,
-                retailPrice = 1000,
-                quantity = 100,
-                subCategoryId = subCategory.subCategoryId,
-            };
-
-            var result = this.productController.AddProduct(newProduct);
-            var res = (Dictionary<string, object>)result.Value;
-            Product updateProduct = res["data"] as Product;
-
             UpdateProductDto input = new UpdateProductDto()
             {
-                productId = updateProduct.productId,
+                productId = productDB.productId,
                 name = TestHelper.randomString(8, RamdomStringType.LETTER_LOWER_CASE),
                 description = TestHelper.randomString(100, RamdomStringType.LETTER),
                 location = TestHelper.randomString(100, RamdomStringType.LETTER),
@@ -180,12 +184,13 @@ namespace store.Src.ProductModule.Test
                 wholesalePrice = 1000,
                 retailPrice = 1000,
                 quantity = 100,
-                subCategoryId = subCategory.subCategoryId,
+                file = this.file,
+                subCategoryId = subCategoryDB.subCategoryId,
             };
 
-            result = this.productController.UpdateProduct(input);
+            var res = this.productController.UpdateProduct(input);
             Product product = this.productService.getProductByName(input.name);
-            Assert.NotNull(result);
+            Assert.NotNull(res);
             Assert.Equal(product.name, input.name);
         }
     }

@@ -111,7 +111,8 @@ namespace store.Src.ProductModule
             ServerResponse<Product> res = new ServerResponse<Product>();
 
             ValidationResult result = this.addProductValidator.Validate(body);
-            if(!result.IsValid){
+            if (!result.IsValid)
+            {
                 res.mapDetails(result);
                 return new BadRequestObjectResult(res.getResponse());
             }
@@ -123,11 +124,13 @@ namespace store.Src.ProductModule
                 return new BadRequestObjectResult(res.getResponse());
             }
 
+
             if (!this.uploadFileService.checkFileExtension(body.file, UploadFileService.imageExtension))
             {
                 res.setErrorMessage("Not support this extension file. Please select png, jpg, jpeg");
                 return new BadRequestObjectResult(res.getResponse());
             }
+
             if (!this.uploadFileService.checkFileSize(body.file, 1))
             {
                 res.setErrorMessage("File is too big");
@@ -165,12 +168,13 @@ namespace store.Src.ProductModule
         [HttpPut("")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult UpdateProduct([FromForm]UpdateProductDto body)
+        public ObjectResult UpdateProduct([FromForm] UpdateProductDto body)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
 
             ValidationResult result = this.updateProductDtoValidator.Validate(body);
-            if(!result.IsValid){
+            if (!result.IsValid)
+            {
                 res.mapDetails(result);
                 return new BadRequestObjectResult(res.getResponse());
             }
@@ -181,15 +185,16 @@ namespace store.Src.ProductModule
                 res.setErrorMessage("The sub category with the given id was not found");
                 return new BadRequestObjectResult(res.getResponse());
             }
-
             Product updateProduct = this.productService.getProductByProductId(body.productId);
-            if(updateProduct == null){
+            if (updateProduct == null)
+            {
                 res.setErrorMessage("The product with the given id was not found");
                 return new BadRequestObjectResult(res.getResponse());
             }
 
             var imageUrl = updateProduct.imageUrl;
-            if(body.file != null){
+            if (body.file != null)
+            {
                 if (!this.uploadFileService.checkFileExtension(body.file, UploadFileService.imageExtension))
                 {
                     res.setErrorMessage("Not support this extension file. Please select png, jpg, jpeg");
@@ -215,6 +220,7 @@ namespace store.Src.ProductModule
             updateProduct.status = body.status;
             updateProduct.wholesalePrice = body.wholesalePrice;
             updateProduct.retailPrice = body.retailPrice;
+            updateProduct.quantity = body.quantity;
             updateProduct.imageUrl = imageUrl;
             updateProduct.subCategory = subCategory;
 

@@ -15,7 +15,6 @@ namespace store.Src.ProductModule.DTO
         public double wholesalePrice { get; set; }
         public double retailPrice { get; set; }
         public int quantity { get; set; }
-
         public IFormFile file { get; set; }
         public string subCategoryId { get; set; }
 
