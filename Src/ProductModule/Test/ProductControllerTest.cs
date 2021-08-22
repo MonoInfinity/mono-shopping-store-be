@@ -103,7 +103,7 @@ namespace store.Src.ProductModule.Test
             };
             var res = this.productController.AddCategory(input);
             Category category = this.categoryRepository.getCategoryByName(input.name);
-            Console.WriteLine(category);
+
             Assert.NotNull(res);
             Assert.Equal(category.name, input.name);
         }
@@ -168,6 +168,7 @@ namespace store.Src.ProductModule.Test
             };
 
             var res = this.productController.AddProduct(input);
+
             Assert.Equal(400, res.StatusCode);
         }
 
@@ -192,6 +193,16 @@ namespace store.Src.ProductModule.Test
             Product product = this.productService.getProductByName(input.name);
             Assert.NotNull(res);
             Assert.Equal(product.name, input.name);
+        }
+
+        [Fact]
+        public void passGetAProduct()
+        {
+            var result = this.productController.GetAProduct(productDB.productId);
+            var res = (Dictionary<string, object>)result.Value;
+            var product = res["data"] as Product;
+            Assert.NotNull(result);
+            Assert.Equal(product.productId, productDB.productId);
         }
     }
 }
