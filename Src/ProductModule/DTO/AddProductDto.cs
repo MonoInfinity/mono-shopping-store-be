@@ -15,9 +15,10 @@ namespace store.Src.ProductModule.DTO
         public int quantity { get; set; }
         public string imageUrl { get; set; }
         public string subCategoryId { get; set; }
+        public string importInfoId { get; set; }
 
         public AddProductDto() { }
-        public AddProductDto(string name, string description, string location, string expiryDate, double wholesalePrice, double retailPrice, int quantity, string imageUrl, string subCategoryId)
+        public AddProductDto(string name, string description, string location, string expiryDate, double wholesalePrice, double retailPrice, int quantity, string imageUrl, string subCategoryId, string importInfoId)
         {
             this.name = name;
             this.description = description;
@@ -27,6 +28,7 @@ namespace store.Src.ProductModule.DTO
             this.retailPrice = retailPrice;
             this.quantity = quantity;
             this.subCategoryId = subCategoryId;
+            this.importInfoId = importInfoId;
             this.imageUrl = imageUrl;
         }
     }
@@ -50,6 +52,7 @@ namespace store.Src.ProductModule.DTO
             RuleFor(x => x.retailPrice).NotEmpty().NotNull().GreaterThan(0);
             RuleFor(x => x.quantity).NotEmpty().NotNull().GreaterThan(1);
             RuleFor(x => x.subCategoryId).NotEmpty().NotNull();
+            RuleFor(x => x.importInfoId).NotEmpty().NotNull();
             RuleFor(x => x.imageUrl).NotEmpty().NotNull();
         }
     }

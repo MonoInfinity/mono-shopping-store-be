@@ -99,5 +99,11 @@ namespace store.Src.ProductModule
             bool res = this.importInfoRepository.saveImportInfo(importInfo);
             return res;
         }
+
+        public ImportInfo getImportInfoByImportInfoId(string importInfoId)
+        {
+            ImportInfo importInfo = this.importInfoRepository.getImportInfoByImportInfoId(importInfoId);
+            return importInfo;
+        }
     }
 }

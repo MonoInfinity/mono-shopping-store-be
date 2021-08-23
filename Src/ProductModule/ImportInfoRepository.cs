@@ -1,7 +1,10 @@
 using System;
+using System.Data;
 using System.Data.SqlClient;
 using store.Src.ProductModule.Entity;
 using store.Src.ProductModule.Interface;
+using store.Src.UserModule.Entity;
+using store.Src.UserModule.Interface;
 using store.Src.Utils.Interface;
 
 namespace store.Src.ProductModule
@@ -9,8 +12,10 @@ namespace store.Src.ProductModule
     public class ImportInfoRepository : IImportInfoRepository
     {
         private readonly IDBHelper dBHelper;
-        public ImportInfoRepository(IDBHelper dBHelper){
+        private readonly IUserRepository userRepository;
+        public ImportInfoRepository(IDBHelper dBHelper, IUserRepository userRepository){
             this.dBHelper = dBHelper;
+            this.userRepository = userRepository;
         }
         public bool deleteImportInfo(string importInfoId)
         {
@@ -19,7 +24,41 @@ namespace store.Src.ProductModule
 
         public ImportInfo getImportInfoByImportInfoId(string importInfoId)
         {
-            throw new System.NotImplementedException();
+            SqlConnection connection = this.dBHelper.getDBConnection();
+            ImportInfo importInfo = null;
+            string sql = "SELECT * FROM tblImportInfo WHERE importInfoId=@importInfoId";
+            SqlCommand Command = new SqlCommand(sql, connection);
+
+            try{
+                connection.Open();
+                Command.Parameters.AddWithValue("@importInfoId", importInfoId);
+                SqlDataReader reader = Command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var managerId = reader.GetString("managerId");
+                        User manager = this.userRepository.getUserByUserId(managerId);
+                        if(manager == null) break;
+
+                        importInfo = new ImportInfo();
+                        importInfo.importInfoId = reader.GetString("importInfoId");
+                        importInfo.importDate = reader.GetString("importDate");
+                        importInfo.importPrice = reader.GetDouble("importPrice");
+                        importInfo.importQuantity = reader.GetInt32("importQuantity");
+                        importInfo.expiryDate = reader.GetString("expiryDate");
+                        importInfo.note = reader.GetString("note");
+                        importInfo.note = reader.GetString("brand");
+                        importInfo.manager = manager;
+                    }
+                }
+                connection.Close();
+            }
+            catch(SqlException e){
+                Console.WriteLine(e.Message);
+            }
+            return importInfo;
         }
 
         public bool saveImportInfo(ImportInfo importInfo)
