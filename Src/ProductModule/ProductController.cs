@@ -175,9 +175,11 @@ namespace store.Src.ProductModule
             updateProduct.wholesalePrice = body.wholesalePrice;
             updateProduct.retailPrice = body.retailPrice;
             updateProduct.quantity = body.quantity;
-            updateProduct.imageUrl = body.imageUrl;
             updateProduct.subCategory = subCategory;
-
+            if (body.imageUrl != null)
+            {
+                updateProduct.imageUrl = body.imageUrl;
+            }
             bool isInserted = this.productService.updateProduct(updateProduct);
             if (!isInserted)
             {
