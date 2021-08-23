@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using FluentValidation.Results;
 using store.Src.Utils;
 using store.Src.Utils.Interface;
+using store.Src.UserModule.Interface;
 
 namespace store.Src.ProductModule
 {
@@ -19,6 +20,7 @@ namespace store.Src.ProductModule
     public class ProductController : Controller, IProductController
     {
         private readonly IProductService productService;
+        private readonly IUserService userService;
         private readonly AddCategoryDtoValidator addCategoryDtoValidator;
         private readonly AddSubCategoryDtoValidator addSubCategoryDtoValidator;
         private readonly AddProductDtoValidator addProductValidator;
@@ -30,6 +32,7 @@ namespace store.Src.ProductModule
 
         public ProductController(
                                 IProductService productService,
+                                IUserService userService,
                                 AddCategoryDtoValidator addCategoryDtoValidator,
                                 AddSubCategoryDtoValidator addSubCategoryDtoValidator,
                                 AddProductDtoValidator addProductValidator,
@@ -41,6 +44,7 @@ namespace store.Src.ProductModule
             )
         {
             this.productService = productService;
+            this.userService = userService;
             this.addCategoryDtoValidator = addCategoryDtoValidator;
             this.addSubCategoryDtoValidator = addSubCategoryDtoValidator;
             this.addProductValidator = addProductValidator;
@@ -56,7 +60,7 @@ namespace store.Src.ProductModule
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
-        public ObjectResult AddCategory([FromBody] AddCategoryDto body)
+        public ObjectResult addCategory([FromBody] AddCategoryDto body)
         {
             ServerResponse<Category> res = new ServerResponse<Category>();
 
@@ -81,7 +85,7 @@ namespace store.Src.ProductModule
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
-        public ObjectResult AddSubCategory([FromBody] AddSubCategoryDto body)
+        public ObjectResult addSubCategory([FromBody] AddSubCategoryDto body)
         {
             ServerResponse<SubCategory> res = new ServerResponse<SubCategory>();
 
@@ -114,7 +118,7 @@ namespace store.Src.ProductModule
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(ValidateFilter))]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult AddProduct([FromBody] AddProductDto body)
+        public ObjectResult addProduct([FromBody] AddProductDto body)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
 
@@ -122,6 +126,12 @@ namespace store.Src.ProductModule
             if (subCategory == null)
             {
                 res.setErrorMessage("The sub category with the given id was not found");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            ImportInfo importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
+            if(importInfo == null){
+                res.setErrorMessage("The import infomation with the given id was not found");
                 return new BadRequestObjectResult(res.getResponse());
             }
 
@@ -135,6 +145,7 @@ namespace store.Src.ProductModule
             newProduct.retailPrice = body.retailPrice;
             newProduct.imageUrl = body.imageUrl;
             newProduct.subCategory = subCategory;
+            newProduct.importInfo = importInfo;
 
             bool isInserted = this.productService.saveProduct(newProduct);
             if (!isInserted)
@@ -151,7 +162,7 @@ namespace store.Src.ProductModule
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(ValidateFilter))]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult UpdateProduct([FromBody] UpdateProductDto body)
+        public ObjectResult updateProduct([FromBody] UpdateProductDto body)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
 
@@ -175,9 +186,11 @@ namespace store.Src.ProductModule
             updateProduct.wholesalePrice = body.wholesalePrice;
             updateProduct.retailPrice = body.retailPrice;
             updateProduct.quantity = body.quantity;
-            updateProduct.imageUrl = body.imageUrl;
             updateProduct.subCategory = subCategory;
-
+            if (body.imageUrl != null)
+            {
+                updateProduct.imageUrl = body.imageUrl;
+            }
             bool isInserted = this.productService.updateProduct(updateProduct);
             if (!isInserted)
             {
@@ -193,7 +206,7 @@ namespace store.Src.ProductModule
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
-        public ObjectResult DeleteProduct([FromBody] DeleteProductDto body)
+        public ObjectResult deleteProduct([FromBody] DeleteProductDto body)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
             Product product = this.productService.getProductByProductId(body.productId);
@@ -217,7 +230,7 @@ namespace store.Src.ProductModule
         [HttpGet("all")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult ListAllProduct(int pageSize, int page, string name)
+        public ObjectResult listAllProduct(int pageSize, int page, string name)
         {
             IDictionary<string, object> dataRes = new Dictionary<string, object>();
             ServerResponse<IDictionary<string, object>> res = new ServerResponse<IDictionary<string, object>>();
@@ -231,7 +244,7 @@ namespace store.Src.ProductModule
         [HttpGet("")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult GetAProduct(string productId)
+        public ObjectResult getAProduct(string productId)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
             Product product = this.productService.getProductByProductId(productId);
@@ -247,12 +260,12 @@ namespace store.Src.ProductModule
 
 
 
-        [HttpPut("category/update")]
+        [HttpPut("category")]
         [ValidateFilterAttribute(typeof(UpdateCategoryDto))]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
-        public ObjectResult updateCategory(UpdateCategoryDto body)
+        public ObjectResult updateCategory([FromBody] UpdateCategoryDto body)
         {
             ServerResponse<Category> res = new ServerResponse<Category>();
             var category = this.productService.getCategoryByCategoryId(body.categoryId);
@@ -273,12 +286,12 @@ namespace store.Src.ProductModule
             return new ObjectResult(res.getResponse());
         }
 
-        [HttpPut("subCategory/update")]
+        [HttpPut("subCategory")]
         [ValidateFilterAttribute(typeof(UpdateSubCategoryDto))]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
-        public ObjectResult updateSubCategory(UpdateSubCategoryDto body)
+        public ObjectResult updateSubCategory([FromBody] UpdateSubCategoryDto body)
         {
             ServerResponse<SubCategory> res = new ServerResponse<SubCategory>();
             var subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
@@ -297,6 +310,40 @@ namespace store.Src.ProductModule
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
             }
             res.setMessage("Update subcategory success!");
+            return new ObjectResult(res.getResponse());
+        }
+
+        [HttpPost("importInfo")]
+        [ValidateFilterAttribute(typeof(AddImportInfoDto))]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        [ServiceFilter(typeof(ValidateFilter))]
+        public ObjectResult addImportInfo([FromBody] AddImportInfoDto body){
+            ServerResponse<Product> res = new ServerResponse<Product>();
+
+            User manager = this.userService.getUserById(body.managerId);
+            if(manager == null){
+                res.setErrorMessage("The manager with the give id was not found");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            ImportInfo importInfo = new ImportInfo();
+            importInfo.importInfoId = Guid.NewGuid().ToString();
+            importInfo.importDate = body.importDate;
+            importInfo.importPrice = body.importPrice;
+            importInfo.importQuantity = body.importQuantity;
+            importInfo.expiryDate = body.expiryDate;
+            importInfo.note = body.note;
+            importInfo.brand = body.brand;
+            importInfo.manager = manager;
+
+            bool isInserted = this.productService.saveImportInfo(importInfo);
+            if(!isInserted){
+                res.setErrorMessage("Fail to save import infomation");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+
+            res.setMessage("Add import information success");
             return new ObjectResult(res.getResponse());
         }
     }

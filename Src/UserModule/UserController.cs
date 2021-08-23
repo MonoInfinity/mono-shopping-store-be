@@ -60,7 +60,6 @@ namespace store.Src.UserModule
             ServerResponse<User> res = new ServerResponse<User>();
             var user = this.ViewData["user"] as User;
 
-            Console.WriteLine(body.name);
             User userUpdate = new User();
             userUpdate.userId = user.userId;
             userUpdate.name = body.name;
