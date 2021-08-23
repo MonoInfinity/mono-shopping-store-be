@@ -79,7 +79,9 @@ namespace store.Src.ProductModule
             SqlConnection connection = this.dBHelper.getDBConnection();
 
             var products = new List<Product>();
-            string sql = "SELECT TOP (@limit) * FROM tblProduct WHERE name Like  @name EXCEPT SELECT TOP (@skip) * FROM tblProduct";
+            string sql = "SELECT TOP (@limit) * FROM tblProduct WHERE name Like @name "+
+                         " EXCEPT " + 
+                         " SELECT TOP (@skip) * FROM tblProduct WHERE name Like @name ";
             SqlCommand Command = new SqlCommand(sql, connection);
             try
             {
@@ -104,9 +106,13 @@ namespace store.Src.ProductModule
                         product.retailPrice = reader.GetDouble("retailPrice");
                         product.createDate = reader.GetString("createDate");
                         product.quantity = reader.GetInt32("quantity");
-                        product.subCategory.subCategoryId = reader.GetString("subCategoryId");
-                        product.importInfo.importInfoId = reader.GetString("importInfoId");
-
+                        var subCategoryId = reader.GetString("subCategoryId");
+                        SubCategory subCategory = this.subCategoryRepository.getSubCategoryBySubCategoryId(subCategoryId);
+                        var importInfoId = reader.GetString("importInfoId");
+                        ImportInfo importInfo = this.importInfoRepository.getImportInfoByImportInfoId(importInfoId);
+                        product.subCategory = subCategory;
+                        product.importInfo = importInfo;
+                        
                         products.Add(product);
                     }
 

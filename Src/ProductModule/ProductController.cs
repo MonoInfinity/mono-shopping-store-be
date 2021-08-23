@@ -227,17 +227,17 @@ namespace store.Src.ProductModule
 
         }
 
-        [HttpGet("all")]
+        [HttpGet("all/{pageSize}/{page}/{name}")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult listAllProduct(int pageSize, int page, string name)
+        public ObjectResult listAllProduct([FromRoute]int pageSize, [FromRoute]int page, [FromRoute]string name)
         {
             IDictionary<string, object> dataRes = new Dictionary<string, object>();
             ServerResponse<IDictionary<string, object>> res = new ServerResponse<IDictionary<string, object>>();
             var products = this.productService.getAllProduct(pageSize, page, name);
-            var count = this.productService.getAllProductCount(name);
             dataRes.Add("products", products);
-            dataRes.Add("count", count); res.data = dataRes;
+            dataRes.Add("count", products.Count); 
+            res.data = dataRes;
             return new ObjectResult(res.getResponse());
         }
 
@@ -257,8 +257,6 @@ namespace store.Src.ProductModule
             res.data = product;
             return new ObjectResult(res.getResponse());
         }
-
-
 
         [HttpPut("category")]
         [ValidateFilterAttribute(typeof(UpdateCategoryDto))]
