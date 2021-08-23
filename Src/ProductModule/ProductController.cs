@@ -110,43 +110,18 @@ namespace store.Src.ProductModule
         }
 
         [HttpPost("")]
+        [ValidateFilterAttribute(typeof(AddProductDto))]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(ValidateFilter))]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult AddProduct([FromForm] AddProductDto body)
+        public ObjectResult AddProduct([FromBody] AddProductDto body)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
-
-            ValidationResult result = this.addProductValidator.Validate(body);
-            if (!result.IsValid)
-            {
-                res.mapDetails(result);
-                return new BadRequestObjectResult(res.getResponse());
-            }
 
             SubCategory subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
             if (subCategory == null)
             {
                 res.setErrorMessage("The sub category with the given id was not found");
-                return new BadRequestObjectResult(res.getResponse());
-            }
-
-
-            if (!this.uploadFileService.checkFileExtension(body.file, UploadFileService.imageExtension))
-            {
-                res.setErrorMessage("Not support this extension file. Please select png, jpg, jpeg");
-                return new BadRequestObjectResult(res.getResponse());
-            }
-
-            if (!this.uploadFileService.checkFileSize(body.file, 1))
-            {
-                res.setErrorMessage("File is too big");
-                return new BadRequestObjectResult(res.getResponse());
-            }
-
-            var imageUrl = this.uploadFileService.upload(body.file);
-            if (imageUrl == null)
-            {
-                res.setErrorMessage("Fail to upload file");
                 return new BadRequestObjectResult(res.getResponse());
             }
 
@@ -158,7 +133,7 @@ namespace store.Src.ProductModule
             newProduct.expiryDate = body.expiryDate;
             newProduct.wholesalePrice = body.wholesalePrice;
             newProduct.retailPrice = body.retailPrice;
-            newProduct.imageUrl = imageUrl;
+            newProduct.imageUrl = body.imageUrl;
             newProduct.subCategory = subCategory;
 
             bool isInserted = this.productService.saveProduct(newProduct);
@@ -172,18 +147,13 @@ namespace store.Src.ProductModule
         }
 
         [HttpPut("")]
+        [ValidateFilterAttribute(typeof(UpdateProductDto))]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(ValidateFilter))]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult UpdateProduct([FromForm] UpdateProductDto body)
+        public ObjectResult UpdateProduct([FromBody] UpdateProductDto body)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
-
-            ValidationResult result = this.updateProductDtoValidator.Validate(body);
-            if (!result.IsValid)
-            {
-                res.mapDetails(result);
-                return new BadRequestObjectResult(res.getResponse());
-            }
 
             SubCategory subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
             if (subCategory == null)
@@ -198,28 +168,6 @@ namespace store.Src.ProductModule
                 return new BadRequestObjectResult(res.getResponse());
             }
 
-            var imageUrl = updateProduct.imageUrl;
-            if (body.file != null)
-            {
-                if (!this.uploadFileService.checkFileExtension(body.file, UploadFileService.imageExtension))
-                {
-                    res.setErrorMessage("Not support this extension file. Please select png, jpg, jpeg");
-                    return new BadRequestObjectResult(res.getResponse());
-                }
-                if (!this.uploadFileService.checkFileSize(body.file, 1))
-                {
-                    res.setErrorMessage("File is too big");
-                    return new BadRequestObjectResult(res.getResponse());
-                }
-
-                imageUrl = this.uploadFileService.upload(body.file);
-                if (imageUrl == null)
-                {
-                    res.setErrorMessage("Fail to upload file");
-                    return new BadRequestObjectResult(res.getResponse());
-                }
-            }
-
             updateProduct.name = body.name;
             updateProduct.description = body.description;
             updateProduct.location = body.location;
@@ -227,7 +175,7 @@ namespace store.Src.ProductModule
             updateProduct.wholesalePrice = body.wholesalePrice;
             updateProduct.retailPrice = body.retailPrice;
             updateProduct.quantity = body.quantity;
-            updateProduct.imageUrl = imageUrl;
+            updateProduct.imageUrl = body.imageUrl;
             updateProduct.subCategory = subCategory;
 
             bool isInserted = this.productService.updateProduct(updateProduct);
