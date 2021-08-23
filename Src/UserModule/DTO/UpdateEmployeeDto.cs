@@ -1,6 +1,4 @@
 using FluentValidation;
-using store.Src.Utils.Validator;
-using store.Src.UserModule.Entity;
 
 namespace store.Src.UserModule.DTO
 {
