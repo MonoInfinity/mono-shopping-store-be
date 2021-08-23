@@ -12,7 +12,5 @@ namespace store.Src.ProductModule.Interface
         public int getAllProductsCount(string name);
         public Product getProductByProductId(string productId);
         public Product getProductByname(string name);
-        public bool updateCategory(Category category);
-        public bool updateSubCategory(SubCategory subCategory);
     }
 }

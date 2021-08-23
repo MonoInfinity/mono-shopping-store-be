@@ -166,12 +166,6 @@ namespace store.Src.ProductModule
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
 
-            SubCategory subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
-            if (subCategory == null)
-            {
-                res.setErrorMessage("The sub category with the given id was not found");
-                return new BadRequestObjectResult(res.getResponse());
-            }
             Product updateProduct = this.productService.getProductByProductId(body.productId);
             if (updateProduct == null)
             {
@@ -186,7 +180,6 @@ namespace store.Src.ProductModule
             updateProduct.wholesalePrice = body.wholesalePrice;
             updateProduct.retailPrice = body.retailPrice;
             updateProduct.quantity = body.quantity;
-            updateProduct.subCategory = subCategory;
             if (body.imageUrl != null)
             {
                 updateProduct.imageUrl = body.imageUrl;
@@ -247,6 +240,7 @@ namespace store.Src.ProductModule
         public ObjectResult getAProduct([FromRoute]string productId)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
+            
             Product product = this.productService.getProductByProductId(productId);
             if (product == null)
             {
