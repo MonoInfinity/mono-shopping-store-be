@@ -105,5 +105,29 @@ namespace store.Src.ProductModule
             ImportInfo importInfo = this.importInfoRepository.getImportInfoByImportInfoId(importInfoId);
             return importInfo;
         }
+
+        public List<Category> getAllCategory()
+        {
+            List<Category> categories = this.categoryRepository.getAllCategories();
+            return categories;
+        }
+
+        public List<SubCategory> getAllSubCategory(int currentPage, int pageSize, string name)
+        {
+            List<SubCategory> subCategories = this.subCategoryRepository.getAllSubCategories(pageSize, currentPage, name);
+            return subCategories;
+        }
+        public int getAllSubCategoryCount(string name)
+        {
+            var count = this.subCategoryRepository.getAllSubCategoriesCount(name);
+            return count;
+        }
+
+        public List<SubCategory> getSubCategoryByCategoryId(string categoryId)
+        {
+            List<SubCategory> subCategories = this.subCategoryRepository.getSubCategoriesByCategoryId(categoryId);
+            return subCategories;
+        }
+
     }
 }

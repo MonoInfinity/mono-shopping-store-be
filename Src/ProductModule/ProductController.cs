@@ -130,7 +130,8 @@ namespace store.Src.ProductModule
             }
 
             ImportInfo importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
-            if(importInfo == null){
+            if (importInfo == null)
+            {
                 res.setErrorMessage("The import infomation with the given id was not found");
                 return new BadRequestObjectResult(res.getResponse());
             }
@@ -223,13 +224,13 @@ namespace store.Src.ProductModule
         [HttpGet("all/{pageSize}/{page}/{name}")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult listAllProduct([FromRoute]int pageSize, [FromRoute]int page, [FromRoute]string name)
+        public ObjectResult listAllProduct([FromRoute] int pageSize, [FromRoute] int page, [FromRoute] string name)
         {
             IDictionary<string, object> dataRes = new Dictionary<string, object>();
             ServerResponse<IDictionary<string, object>> res = new ServerResponse<IDictionary<string, object>>();
             var products = this.productService.getAllProduct(pageSize, page, name);
             dataRes.Add("products", products);
-            dataRes.Add("count", products.Count); 
+            dataRes.Add("count", products.Count);
             res.data = dataRes;
             return new ObjectResult(res.getResponse());
         }
@@ -237,10 +238,10 @@ namespace store.Src.ProductModule
         [HttpGet("{productId}")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult getAProduct([FromRoute]string productId)
+        public ObjectResult getAProduct([FromRoute] string productId)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
-            
+
             Product product = this.productService.getProductByProductId(productId);
             if (product == null)
             {
@@ -310,11 +311,13 @@ namespace store.Src.ProductModule
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
-        public ObjectResult addImportInfo([FromBody] AddImportInfoDto body){
+        public ObjectResult addImportInfo([FromBody] AddImportInfoDto body)
+        {
             ServerResponse<Product> res = new ServerResponse<Product>();
 
             User manager = this.userService.getUserById(body.managerId);
-            if(manager == null){
+            if (manager == null)
+            {
                 res.setErrorMessage("The manager with the give id was not found");
                 return new BadRequestObjectResult(res.getResponse());
             }
@@ -330,12 +333,66 @@ namespace store.Src.ProductModule
             importInfo.manager = manager;
 
             bool isInserted = this.productService.saveImportInfo(importInfo);
-            if(!isInserted){
+            if (!isInserted)
+            {
                 res.setErrorMessage("Fail to save import infomation");
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
             }
 
             res.setMessage("Add import information success");
+            return new ObjectResult(res.getResponse());
+        }
+        [HttpGet("category/all")]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        public ObjectResult listAllCategory()
+        {
+            ServerResponse<List<Category>> res = new ServerResponse<List<Category>>();
+            var categories = this.productService.getAllCategory();
+            if (categories == null)
+            {
+                res.setErrorMessage("Empty Category");
+                return new NotFoundObjectResult(res.getResponse());
+            }
+            res.data = categories;
+            return new ObjectResult(res.getResponse());
+        }
+
+        [HttpGet("subcategory/all/{pageSize}/{page}/{name}")]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        public ObjectResult listAllSubCategory([FromRoute] int pageSize, [FromRoute] int page, [FromRoute] string name)
+        {
+            IDictionary<string, object> dataRes = new Dictionary<string, object>();
+            ServerResponse<IDictionary<string, object>> res = new ServerResponse<IDictionary<string, object>>();
+            var subCategories = this.productService.getAllSubCategory(pageSize, page, name);
+            var count = this.productService.getAllSubCategoryCount(name);
+            dataRes.Add("users", subCategories);
+            dataRes.Add("count", count);
+            res.data = dataRes;
+            return new ObjectResult(res.getResponse());
+        }
+
+        [HttpGet("subcategory/categoryId/{categoryId}")]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        public ObjectResult listSubCategoryByCategoryId([FromRoute] string categoryId)
+        {
+            ServerResponse<List<SubCategory>> res = new ServerResponse<List<SubCategory>>();
+            var isValidCategoryId = productService.getCategoryByCategoryId(categoryId);
+            if (isValidCategoryId == null)
+            {
+                res.setErrorMessage("CategoryId not found");
+                return new NotFoundObjectResult(res.getResponse());
+            }
+
+            var subCategories = this.productService.getSubCategoryByCategoryId(categoryId);
+            if (subCategories == null)
+            {
+                res.setErrorMessage("Empty SubCategory");
+                return new NotFoundObjectResult(res.getResponse());
+            }
+            res.data = subCategories;
             return new ObjectResult(res.getResponse());
         }
     }
