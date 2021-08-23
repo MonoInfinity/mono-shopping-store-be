@@ -55,7 +55,7 @@ namespace store.Src.UserModule
         [ValidateFilterAttribute(typeof(UpdateUserDto))]
         [ServiceFilter(typeof(ValidateFilter))]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult updateUser([FromForm] UpdateUserDto body)
+        public ObjectResult updateUser([FromBody] UpdateUserDto body)
         {
             ServerResponse<User> res = new ServerResponse<User>();
             var user = this.ViewData["user"] as User;

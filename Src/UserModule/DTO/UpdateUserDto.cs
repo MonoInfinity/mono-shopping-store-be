@@ -33,7 +33,7 @@ namespace store.Src.UserModule.DTO
             RuleFor(x => x.email).NotEmpty().EmailAddress().NotNull();
             RuleFor(x => x.phone).NotEmpty().Length(7, 11).NotNull().NotNull();
             RuleFor(x => x.address).NotEmpty().Length(UserValidator.ADDRESS_MIN, UserValidator.ADDRESS_MAX).NotNull();
-            RuleFor(x => x.avatarUrl).NotNull();
+            RuleFor(x => x.avatarUrl).NotEmpty().NotNull();
         }
     }
 }
