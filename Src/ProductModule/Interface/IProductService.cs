@@ -18,5 +18,6 @@ namespace store.Src.ProductModule.Interface
         public List<Product> getAllProduct(int currentPage, int pageSize, string name);
         public int getAllProductCount(string name);
         public Product getProductByProductId(string productId);
+        public bool saveImportInfo(ImportInfo importInfo);
     }
 }

@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 
@@ -37,7 +38,14 @@ namespace store.Src.ProductModule.DTO
             RuleFor(x => x.name).NotEmpty().Length(1, 40).NotNull();
             RuleFor(x => x.description).NotEmpty().Length(1, 500).NotNull();
             RuleFor(x => x.location).NotEmpty().Length(1, 500).NotNull();
-            RuleFor(x => x.expiryDate).NotEmpty().NotNull();
+            RuleFor(x => x.expiryDate).NotEmpty().NotNull().Custom((value,context)=>{
+                Regex defaultFormat = new Regex(@"^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$");
+                if (value == null || !defaultFormat.IsMatch(value))
+                {
+                    context.AddFailure("Invalid date");
+                }
+                else return;
+            });;
             RuleFor(x => x.wholesalePrice).NotEmpty().NotNull().GreaterThan(0);
             RuleFor(x => x.retailPrice).NotEmpty().NotNull().GreaterThan(0);
             RuleFor(x => x.quantity).NotEmpty().NotNull().GreaterThan(1);

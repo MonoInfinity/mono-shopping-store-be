@@ -10,11 +10,13 @@ namespace store.Src.ProductModule
         private readonly ICategoryRepository categoryRepository;
         private readonly ISubCategoryRepository subCategoryRepository;
         private readonly IProductRepository productRepository;
-        public ProductService(ICategoryRepository categoryRepository, ISubCategoryRepository subCategoryRepository, IProductRepository productRepository)
+        private readonly IImportInfoRepository importInfoRepository;
+        public ProductService(ICategoryRepository categoryRepository, ISubCategoryRepository subCategoryRepository, IProductRepository productRepository, IImportInfoRepository importInfoRepository)
         {
             this.categoryRepository = categoryRepository;
             this.subCategoryRepository = subCategoryRepository;
             this.productRepository = productRepository;
+            this.importInfoRepository = importInfoRepository;
         }
         public Category getCategoryByCategoryId(string categoryId)
         {
@@ -90,6 +92,12 @@ namespace store.Src.ProductModule
         {
             var count = this.productRepository.getAllProductsCount(name);
             return count;
+        }
+
+        public bool saveImportInfo(ImportInfo importInfo)
+        {
+            bool res = this.importInfoRepository.saveImportInfo(importInfo);
+            return res;
         }
     }
 }

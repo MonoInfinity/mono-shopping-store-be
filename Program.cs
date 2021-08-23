@@ -14,6 +14,7 @@ namespace store
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine(DateTime.Now.AddDays(15).ToShortDateString());
             CreateHostBuilder(args).Build().Run();
         }
 

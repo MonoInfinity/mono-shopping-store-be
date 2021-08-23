@@ -8,7 +8,7 @@ namespace store.Src.ProductModule.Entity
         public string importInfoId { get; set; }
         public string importDate { get; set; }
         public double importPrice { get; set; }
-        public string expriryDate { get; set; }
+        public string expiryDate { get; set; }
         public int importQuantity { get; set; }
         public string createDate { get; set; }
         public string note { get; set; }
@@ -19,7 +19,7 @@ namespace store.Src.ProductModule.Entity
             this.importInfoId = "";
             this.importDate = DateTime.Now.ToShortDateString();
             this.importPrice = 0;
-            this.expriryDate = DateTime.Now.ToShortDateString();
+            this.expiryDate = DateTime.Now.ToShortDateString();
             this.importQuantity = 0;
             this.createDate = DateTime.Now.ToShortDateString();
             this.note = "";
@@ -30,7 +30,7 @@ namespace store.Src.ProductModule.Entity
         public override string ToString()
         {
             return "ImportInfo:\nImportInfo Id: " + importInfoId + "\nImportDate: " + importDate + "\n ImportPrice: " + importPrice +
-            "\nImportQuantity: " + importQuantity + "\nExprixyDate: " + expriryDate + "\nCreateDate: " + createDate + "\nNote: " + note +
+            "\nImportQuantity: " + importQuantity + "\nExprixyDate: " + expiryDate + "\nCreateDate: " + createDate + "\nNote: " + note +
             "\nBrand: " + brand + "\nUserId: " + manager.userId;
         }
     }
