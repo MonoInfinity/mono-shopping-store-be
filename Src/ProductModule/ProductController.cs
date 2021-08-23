@@ -241,10 +241,10 @@ namespace store.Src.ProductModule
             return new ObjectResult(res.getResponse());
         }
 
-        [HttpGet("")]
+        [HttpGet("{productId}")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult getAProduct(string productId)
+        public ObjectResult getAProduct([FromRoute]string productId)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
             Product product = this.productService.getProductByProductId(productId);
