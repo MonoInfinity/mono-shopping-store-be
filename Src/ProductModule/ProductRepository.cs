@@ -79,7 +79,9 @@ namespace store.Src.ProductModule
             SqlConnection connection = this.dBHelper.getDBConnection();
 
             var products = new List<Product>();
-            string sql = "SELECT TOP (@limit) * FROM tblProduct WHERE name Like  @name EXCEPT SELECT TOP (@skip) * FROM tblProduct";
+            string sql = "SELECT TOP (@limit) * FROM tblProduct WHERE name Like @name "+
+                         " EXCEPT " + 
+                         " SELECT TOP (@skip) * FROM tblProduct WHERE name Like @name ";
             SqlCommand Command = new SqlCommand(sql, connection);
             try
             {
@@ -104,9 +106,13 @@ namespace store.Src.ProductModule
                         product.retailPrice = reader.GetDouble("retailPrice");
                         product.createDate = reader.GetString("createDate");
                         product.quantity = reader.GetInt32("quantity");
-                        product.subCategory.subCategoryId = reader.GetString("subCategoryId");
-                        product.importInfo.importInfoId = reader.GetString("importInfoId");
-
+                        var subCategoryId = reader.GetString("subCategoryId");
+                        SubCategory subCategory = this.subCategoryRepository.getSubCategoryBySubCategoryId(subCategoryId);
+                        var importInfoId = reader.GetString("importInfoId");
+                        ImportInfo importInfo = this.importInfoRepository.getImportInfoByImportInfoId(importInfoId);
+                        product.subCategory = subCategory;
+                        product.importInfo = importInfo;
+                        
                         products.Add(product);
                     }
 
@@ -178,6 +184,7 @@ namespace store.Src.ProductModule
                         product.retailPrice = reader.GetDouble("retailPrice");
                         product.createDate = reader.GetString("createDate");
                         product.quantity = reader.GetInt32("quantity");
+                        product.imageUrl = reader.GetString("imageUrl");
                         product.subCategory = subCategory;
                         product.importInfo = importInfo;
                     }
@@ -276,56 +283,6 @@ namespace store.Src.ProductModule
                 Console.WriteLine(e.Message);
             }
             return product;
-        }
-
-        public bool updateCategory(Category category)
-        {
-            SqlConnection connection = this.dBHelper.getDBConnection();
-            bool res = false;
-            string sql = "UPDATE tblCategory " +
-            " SET name = @name, status = @status " +
-            "WHERE categoryId = @categoryId";
-            SqlCommand Command = new SqlCommand(sql, connection);
-
-            try
-            {
-                connection.Open();
-                Command.Parameters.AddWithValue("@categoryId", category.categoryId);
-                Command.Parameters.AddWithValue("@name", category.name);
-                Command.Parameters.AddWithValue("@status", category.status);
-                res = Command.ExecuteNonQuery() > 0;
-
-            }
-            catch (SqlException e)
-            {
-                Console.WriteLine("This is an error in CategoryRepository: " + e.Message);
-            };
-            return res;
-        }
-
-        public bool updateSubCategory(SubCategory subCategory)
-        {
-            SqlConnection connection = this.dBHelper.getDBConnection();
-            bool res = false;
-            string sql = "UPDATE tblSubCategory " +
-            " SET name = @name, status = @status " +
-            "WHERE subCategoryId = @subCategoryId";
-            SqlCommand Command = new SqlCommand(sql, connection);
-
-            try
-            {
-                connection.Open();
-                Command.Parameters.AddWithValue("@subCategoryId", subCategory.subCategoryId);
-                Command.Parameters.AddWithValue("@name", subCategory.name);
-                Command.Parameters.AddWithValue("@status", subCategory.status);
-                res = Command.ExecuteNonQuery() > 0;
-
-            }
-            catch (SqlException e)
-            {
-                Console.WriteLine("This is an error in SubCategoryRepository: " + e.Message);
-            };
-            return res;
         }
     }
 }

@@ -166,12 +166,6 @@ namespace store.Src.ProductModule
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
 
-            SubCategory subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
-            if (subCategory == null)
-            {
-                res.setErrorMessage("The sub category with the given id was not found");
-                return new BadRequestObjectResult(res.getResponse());
-            }
             Product updateProduct = this.productService.getProductByProductId(body.productId);
             if (updateProduct == null)
             {
@@ -186,7 +180,6 @@ namespace store.Src.ProductModule
             updateProduct.wholesalePrice = body.wholesalePrice;
             updateProduct.retailPrice = body.retailPrice;
             updateProduct.quantity = body.quantity;
-            updateProduct.subCategory = subCategory;
             if (body.imageUrl != null)
             {
                 updateProduct.imageUrl = body.imageUrl;
@@ -227,26 +220,27 @@ namespace store.Src.ProductModule
 
         }
 
-        [HttpGet("all")]
+        [HttpGet("all/{pageSize}/{page}/{name}")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult listAllProduct(int pageSize, int page, string name)
+        public ObjectResult listAllProduct([FromRoute]int pageSize, [FromRoute]int page, [FromRoute]string name)
         {
             IDictionary<string, object> dataRes = new Dictionary<string, object>();
             ServerResponse<IDictionary<string, object>> res = new ServerResponse<IDictionary<string, object>>();
             var products = this.productService.getAllProduct(pageSize, page, name);
-            var count = this.productService.getAllProductCount(name);
             dataRes.Add("products", products);
-            dataRes.Add("count", count); res.data = dataRes;
+            dataRes.Add("count", products.Count); 
+            res.data = dataRes;
             return new ObjectResult(res.getResponse());
         }
 
-        [HttpGet("")]
+        [HttpGet("{productId}")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult getAProduct(string productId)
+        public ObjectResult getAProduct([FromRoute]string productId)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
+            
             Product product = this.productService.getProductByProductId(productId);
             if (product == null)
             {
@@ -257,8 +251,6 @@ namespace store.Src.ProductModule
             res.data = product;
             return new ObjectResult(res.getResponse());
         }
-
-
 
         [HttpPut("category")]
         [ValidateFilterAttribute(typeof(UpdateCategoryDto))]
