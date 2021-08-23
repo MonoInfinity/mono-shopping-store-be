@@ -47,7 +47,6 @@ namespace store.Src.ProductModule.DTO
             RuleFor(x => x.retailPrice).NotEmpty().NotNull().GreaterThan(0);
             RuleFor(x => x.quantity).NotEmpty().NotNull().GreaterThan(1);
             RuleFor(x => x.subCategoryId).NotEmpty().NotNull();
-            RuleFor(x => x.imageUrl).NotEmpty().NotNull();
         }
     }
 }
