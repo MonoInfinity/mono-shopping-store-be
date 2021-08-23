@@ -113,12 +113,12 @@ namespace store
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/document/swagger/v1.json", "Store v1"));
             }
-            app.UseStaticFiles();
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "public")),
-                RequestPath = "/public"
-            });
+            // app.UseStaticFiles();
+            // app.UseStaticFiles(new StaticFileOptions
+            // {
+            //     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "public")),
+            //     RequestPath = "/public"
+            // });
 
             app.UseCors("AllowSpecific");
             app.Use(next => context =>

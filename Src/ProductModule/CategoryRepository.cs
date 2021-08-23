@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using store.Src.ProductModule.Entity;
 using store.Src.ProductModule.Interface;
 using store.Src.Utils.Interface;
+using System.Collections.Generic;
 
 namespace store.Src.ProductModule
 {
@@ -132,6 +133,41 @@ namespace store.Src.ProductModule
             }
 
             return res;
+        }
+
+        public List<Category> getAllCategories()
+        {
+            SqlConnection connection = this.dBHelper.getDBConnection();
+
+            var categories = new List<Category>();
+            string sql = "SELECT * FROM tblCategory";
+            SqlCommand Command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                SqlDataReader reader = Command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Category category = new Category();
+                        category.categoryId = reader.GetString("categoryId");
+                        category.name = reader.GetString("name");
+                        category.status = (CategoryStatus)reader.GetInt32("status");
+                        category.createDate = reader.GetString("createDate");
+                        categories.Add(category);
+                    }
+
+                }
+
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return categories;
         }
     }
 }

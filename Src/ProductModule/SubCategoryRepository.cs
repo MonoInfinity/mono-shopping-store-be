@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using store.Src.ProductModule.Entity;
 using store.Src.ProductModule.Interface;
 using store.Src.Utils.Interface;
+using System.Collections.Generic;
 
 namespace store.Src.ProductModule
 {
@@ -146,6 +147,113 @@ namespace store.Src.ProductModule
             }
 
             return res;
+        }
+
+        public List<SubCategory> getAllSubCategories(int pageSize, int currentPage, string name)
+        {
+            SqlConnection connection = this.dBHelper.getDBConnection();
+
+            var subCategories = new List<SubCategory>();
+            string sql = "SELECT TOP (@limit) * FROM tblSubCategory  WHERE name Like  @name EXCEPT SELECT TOP (@skip) * FROM tblSubCategory";
+            SqlCommand Command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                Command.Parameters.AddWithValue("@name ", "%" + name + "%");
+                Command.Parameters.AddWithValue("@limit ", (pageSize + 1) * currentPage);
+                Command.Parameters.AddWithValue("@skip ", currentPage * pageSize);
+                SqlDataReader reader = Command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        SubCategory subCategory = new SubCategory();
+                        string categoryId = reader.GetString("categoryId");
+                        Category category = this.categoryRepository.getCategoryByCategoryId(categoryId);
+                        if (category == null) break;
+                        subCategory = new SubCategory();
+                        subCategory.subCategoryId = reader.GetString("subCategoryId");
+                        subCategory.name = reader.GetString("name");
+                        subCategory.status = (SubCategoryStatus)reader.GetInt32("status");
+                        subCategory.createDate = reader.GetString("createDate");
+                        subCategory.category = category;
+
+                        subCategories.Add(subCategory);
+                    }
+
+                }
+
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return subCategories;
+        }
+
+        public int getAllSubCategoriesCount(string name)
+        {
+            SqlConnection connection = this.dBHelper.getDBConnection();
+            int count = 0;
+
+            string sql = "SELECT COUNT(*) FROM tblSubCategory where name Like @name";
+            SqlCommand Command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                Command.Parameters.AddWithValue("@name ", "%" + name + "%");
+                count = (Int32)Command.ExecuteScalar();
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return count;
+        }
+
+        public List<SubCategory> getSubCategoriesByCategoryId(String categoryId)
+        {
+            SqlConnection connection = this.dBHelper.getDBConnection();
+
+            var subCategories = new List<SubCategory>();
+            string sql = "SELECT * FROM tblSubCategory WHERE categoryId=@categoryId";
+            SqlCommand Command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                Command.Parameters.AddWithValue("@categoryId", categoryId);
+                SqlDataReader reader = Command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        SubCategory subCategory = new SubCategory();
+                        categoryId = reader.GetString("categoryId");
+                        Category category = this.categoryRepository.getCategoryByCategoryId(categoryId);
+                        if (category == null) break;
+                        subCategory = new SubCategory();
+                        subCategory.subCategoryId = reader.GetString("subCategoryId");
+                        subCategory.name = reader.GetString("name");
+                        subCategory.status = (SubCategoryStatus)reader.GetInt32("status");
+                        subCategory.createDate = reader.GetString("createDate");
+                        subCategory.category = category;
+
+                        subCategories.Add(subCategory);
+                    }
+
+                }
+
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return subCategories;
         }
     }
 }
