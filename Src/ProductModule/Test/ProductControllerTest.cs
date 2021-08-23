@@ -204,5 +204,15 @@ namespace store.Src.ProductModule.Test
             Assert.NotNull(result);
             Assert.Equal(product.productId, productDB.productId);
         }
+
+        [Fact]
+        public void passListAllProduct()
+        {
+            var result = this.productController.GetAProduct(productDB.productId);
+            var res = (Dictionary<string, object>)result.Value;
+            var product = res["data"] as Product;
+            Assert.NotNull(result);
+            Assert.Equal(product.productId, productDB.productId);
+        }
     }
 }
