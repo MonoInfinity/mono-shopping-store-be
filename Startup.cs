@@ -64,6 +64,8 @@ namespace store
             services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IImportInfoRepository, ImportInfoRepository>();
+            services.AddScoped<IImportInfoService, ImportInfoService>();
 
             //Validator  
             services.AddScoped<ValidateFilter>();
@@ -75,8 +77,11 @@ namespace store
             services.AddScoped<AddCategoryDtoValidator>();
             services.AddScoped<AddSubCategoryDtoValidator>();
             services.AddScoped<AddProductDtoValidator>();
+            services.AddScoped<AddImportInfoDtoValidator>();
             services.AddScoped<UpdateProductDtoValidator>();
             services.AddScoped<DeleteProductDtoValidator>();
+            services.AddScoped<UpdateCategoryDtoValidator>();
+            services.AddScoped<UpdateSubCategoryDtoValidator>();
 
             services.AddCors(options =>
                      options.AddPolicy("AllowSpecific", p => p.WithOrigins("http://localhost:3000").AllowCredentials()
@@ -108,12 +113,12 @@ namespace store
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/document/swagger/v1.json", "Store v1"));
             }
-            app.UseStaticFiles();
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "public")),
-                RequestPath = "/public"
-            });
+            // app.UseStaticFiles();
+            // app.UseStaticFiles(new StaticFileOptions
+            // {
+            //     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "public")),
+            //     RequestPath = "/public"
+            // });
 
             app.UseCors("AllowSpecific");
             app.Use(next => context =>

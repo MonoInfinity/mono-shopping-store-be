@@ -10,11 +10,13 @@ namespace store.Src.ProductModule
         private readonly ICategoryRepository categoryRepository;
         private readonly ISubCategoryRepository subCategoryRepository;
         private readonly IProductRepository productRepository;
-        public ProductService(ICategoryRepository categoryRepository, ISubCategoryRepository subCategoryRepository, IProductRepository productRepository)
+        private readonly IImportInfoRepository importInfoRepository;
+        public ProductService(ICategoryRepository categoryRepository, ISubCategoryRepository subCategoryRepository, IProductRepository productRepository, IImportInfoRepository importInfoRepository)
         {
             this.categoryRepository = categoryRepository;
             this.subCategoryRepository = subCategoryRepository;
             this.productRepository = productRepository;
+            this.importInfoRepository = importInfoRepository;
         }
         public Category getCategoryByCategoryId(string categoryId)
         {
@@ -91,5 +93,41 @@ namespace store.Src.ProductModule
             var count = this.productRepository.getAllProductsCount(name);
             return count;
         }
+
+        public bool saveImportInfo(ImportInfo importInfo)
+        {
+            bool res = this.importInfoRepository.saveImportInfo(importInfo);
+            return res;
+        }
+
+        public ImportInfo getImportInfoByImportInfoId(string importInfoId)
+        {
+            ImportInfo importInfo = this.importInfoRepository.getImportInfoByImportInfoId(importInfoId);
+            return importInfo;
+        }
+
+        public List<Category> getAllCategory()
+        {
+            List<Category> categories = this.categoryRepository.getAllCategories();
+            return categories;
+        }
+
+        public List<SubCategory> getAllSubCategory(int currentPage, int pageSize, string name)
+        {
+            List<SubCategory> subCategories = this.subCategoryRepository.getAllSubCategories(pageSize, currentPage, name);
+            return subCategories;
+        }
+        public int getAllSubCategoryCount(string name)
+        {
+            var count = this.subCategoryRepository.getAllSubCategoriesCount(name);
+            return count;
+        }
+
+        public List<SubCategory> getSubCategoryByCategoryId(string categoryId)
+        {
+            List<SubCategory> subCategories = this.subCategoryRepository.getSubCategoriesByCategoryId(categoryId);
+            return subCategories;
+        }
+
     }
 }

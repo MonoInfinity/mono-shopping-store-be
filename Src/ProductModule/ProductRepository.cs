@@ -12,9 +12,11 @@ namespace store.Src.ProductModule
     {
         private readonly IDBHelper dBHelper;
         private readonly ISubCategoryRepository subCategoryRepository;
-        public ProductRepository(IDBHelper dBHelper, ISubCategoryRepository subCategoryRepository)
+        private readonly IImportInfoRepository importInfoRepository;
+        public ProductRepository(IDBHelper dBHelper, ISubCategoryRepository subCategoryRepository, IImportInfoRepository importInfoRepository)
         {
             this.dBHelper = dBHelper;
+            this.importInfoRepository = importInfoRepository;
             this.subCategoryRepository = subCategoryRepository;
         }
 
@@ -22,8 +24,8 @@ namespace store.Src.ProductModule
         {
             SqlConnection connection = this.dBHelper.getDBConnection();
             bool res = false;
-            string sql = "INSERT INTO tblProduct(productId,name,description,location,status,expiryDate,wholesalePrice,retailPrice,createDate,quantity,imageUrl,subCategoryId) " +
-            " VALUES(@productId, @name, @description, @location, @status, @expiryDate, @wholesalePrice, @retailPrice, @createDate, @quantity, @imageUrl, @subCategoryId)";
+            string sql = "INSERT INTO tblProduct(productId,name,description,location,status,expiryDate,wholesalePrice,retailPrice,createDate,quantity,imageUrl,subCategoryId,importInfoId) " +
+            " VALUES(@productId, @name, @description, @location, @status, @expiryDate, @wholesalePrice, @retailPrice, @createDate, @quantity, @imageUrl, @subCategoryId, @importInfoId)";
             SqlCommand command = new SqlCommand(sql, connection);
 
             try
@@ -41,6 +43,7 @@ namespace store.Src.ProductModule
                 command.Parameters.AddWithValue("@quantity", product.quantity);
                 command.Parameters.AddWithValue("@imageUrl", product.imageUrl);
                 command.Parameters.AddWithValue("@subCategoryId", product.subCategory.subCategoryId);
+                command.Parameters.AddWithValue("@importInfoId", product.importInfo.importInfoId);
                 res = command.ExecuteNonQuery() > 0;
                 connection.Close();
             }
@@ -76,7 +79,9 @@ namespace store.Src.ProductModule
             SqlConnection connection = this.dBHelper.getDBConnection();
 
             var products = new List<Product>();
-            string sql = "SELECT TOP (@limit) * FROM tblProduct WHERE name Like  @name EXCEPT SELECT TOP (@skip) * FROM tblProduct";
+            string sql = "SELECT TOP (@limit) * FROM tblProduct WHERE name Like @name "+
+                         " EXCEPT " + 
+                         " SELECT TOP (@skip) * FROM tblProduct WHERE name Like @name ";
             SqlCommand Command = new SqlCommand(sql, connection);
             try
             {
@@ -101,8 +106,13 @@ namespace store.Src.ProductModule
                         product.retailPrice = reader.GetDouble("retailPrice");
                         product.createDate = reader.GetString("createDate");
                         product.quantity = reader.GetInt32("quantity");
-                        product.subCategory.subCategoryId = reader.GetString("subCategoryId");
-
+                        var subCategoryId = reader.GetString("subCategoryId");
+                        SubCategory subCategory = this.subCategoryRepository.getSubCategoryBySubCategoryId(subCategoryId);
+                        var importInfoId = reader.GetString("importInfoId");
+                        ImportInfo importInfo = this.importInfoRepository.getImportInfoByImportInfoId(importInfoId);
+                        product.subCategory = subCategory;
+                        product.importInfo = importInfo;
+                        
                         products.Add(product);
                     }
 
@@ -154,6 +164,15 @@ namespace store.Src.ProductModule
                 {
                     while (reader.Read())
                     {
+                        var subCategoryId = reader.GetString("subCategoryId");
+                        SubCategory subCategory = this.subCategoryRepository.getSubCategoryBySubCategoryId(subCategoryId);
+                        if(subCategory == null) break;
+
+                        var importInfoId = reader.GetString("importInfoId");
+                        ImportInfo importInfo = this.importInfoRepository.getImportInfoByImportInfoId(importInfoId);
+                        if(importInfo == null) break;
+
+
                         product = new Product();
                         product.productId = reader.GetString("productId");
                         product.name = reader.GetString("name");
@@ -165,7 +184,9 @@ namespace store.Src.ProductModule
                         product.retailPrice = reader.GetDouble("retailPrice");
                         product.createDate = reader.GetString("createDate");
                         product.quantity = reader.GetInt32("quantity");
-                        product.subCategory.subCategoryId = reader.GetString("subCategoryId");
+                        product.imageUrl = reader.GetString("imageUrl");
+                        product.subCategory = subCategory;
+                        product.importInfo = importInfo;
                     }
 
                 }
@@ -184,7 +205,7 @@ namespace store.Src.ProductModule
             SqlConnection connection = this.dBHelper.getDBConnection();
             bool res = false;
             string sql = "UPDATE tblProduct SET name=@name, description=@description, location=@location, status=@status, wholesalePrice=@wholesalePrice, retailPrice=@retailPrice" +
-            ", quantity=@quantity, imageUrl=@imageUrl, subCategoryId=@subCategoryId WHERE productId=@productId";
+            ", quantity=@quantity, imageUrl=@imageUrl, subCategoryId=@subCategoryId, importInfoId=@importInfoId WHERE productId=@productId";
             SqlCommand command = new SqlCommand(sql, connection);
 
             try
@@ -199,6 +220,7 @@ namespace store.Src.ProductModule
                 command.Parameters.AddWithValue("@quantity", product.quantity);
                 command.Parameters.AddWithValue("@imageUrl", product.imageUrl);
                 command.Parameters.AddWithValue("@subCategoryId", product.subCategory.subCategoryId);
+                command.Parameters.AddWithValue("@importInfoId", product.importInfo.importInfoId);
                 command.Parameters.AddWithValue("@productId", product.productId);
                 res = command.ExecuteNonQuery() > 0;
                 connection.Close();
@@ -232,6 +254,10 @@ namespace store.Src.ProductModule
                         SubCategory subCategory = this.subCategoryRepository.getSubCategoryBySubCategoryId(subCategoryId);
                         if (subCategory == null) break;
 
+                        string importInfoId = reader.GetString("importInfoId");
+                        ImportInfo importInfo = this.importInfoRepository.getImportInfoByImportInfoId(importInfoId);
+                        if(importInfo == null) break;
+
                         product = new Product();
                         product.productId = reader.GetString("productId");
                         product.name = reader.GetString("name");
@@ -244,6 +270,7 @@ namespace store.Src.ProductModule
                         product.createDate = reader.GetString("createDate");
                         product.quantity = reader.GetInt32("quantity");
                         product.subCategory = subCategory;
+                        product.importInfo = importInfo;
                         product.imageUrl = reader.GetString("imageUrl");
                     }
 

@@ -15,11 +15,10 @@ namespace store.Src.ProductModule.DTO
         public double wholesalePrice { get; set; }
         public double retailPrice { get; set; }
         public int quantity { get; set; }
-        public IFormFile file { get; set; }
-        public string subCategoryId { get; set; }
+        public string imageUrl { get; set; }
 
         public UpdateProductDto() { }
-        public UpdateProductDto(string productId, string name, string description, string location, ProductStatus status, double wholesalePrice, double retailPrice, int quantity, IFormFile file, string subCategoryId)
+        public UpdateProductDto(string productId, string name, string description, string location, ProductStatus status, double wholesalePrice, double retailPrice, int quantity, string imageUrl)
         {
             this.productId = productId;
             this.name = name;
@@ -29,8 +28,7 @@ namespace store.Src.ProductModule.DTO
             this.wholesalePrice = wholesalePrice;
             this.retailPrice = retailPrice;
             this.quantity = quantity;
-            this.file = file;
-            this.subCategoryId = subCategoryId;
+            this.imageUrl = imageUrl;
         }
     }
 
@@ -46,7 +44,6 @@ namespace store.Src.ProductModule.DTO
             RuleFor(x => x.wholesalePrice).NotEmpty().NotNull().GreaterThan(0);
             RuleFor(x => x.retailPrice).NotEmpty().NotNull().GreaterThan(0);
             RuleFor(x => x.quantity).NotEmpty().NotNull().GreaterThan(1);
-            RuleFor(x => x.subCategoryId).NotEmpty().NotNull();
         }
     }
 }

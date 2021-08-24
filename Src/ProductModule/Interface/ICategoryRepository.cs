@@ -1,4 +1,5 @@
 using store.Src.ProductModule.Entity;
+using System.Collections.Generic;
 
 namespace store.Src.ProductModule.Interface
 {
@@ -11,5 +12,6 @@ namespace store.Src.ProductModule.Interface
         public Category getCategoryByCategoryId(string categoryId);
 
         public Category getCategoryByName(string name);
+        public List<Category> getAllCategories();
     }
 }
