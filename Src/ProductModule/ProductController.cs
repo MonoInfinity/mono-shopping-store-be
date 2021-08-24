@@ -62,7 +62,15 @@ namespace store.Src.ProductModule
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult addCategory([FromBody] AddCategoryDto body)
         {
-            ServerResponse<Category> res = new ServerResponse<Category>();
+            ServerResponse<Dictionary<string, string>> res = new ServerResponse<Dictionary<string, string>>();
+            Dictionary<string, string> dataRes = new Dictionary<string, string>();
+            Category category = this.productService.getCategoryByCategoryName(body.name);
+            if(category != null){
+                dataRes.Add("categoryId", category.categoryId);
+                res.data = dataRes;
+                res.setErrorMessage("This category name is existed");
+                return new BadRequestObjectResult(res.getResponse());
+            }
 
             Category newCategory = new Category();
             newCategory.categoryId = Guid.NewGuid().ToString();
@@ -76,7 +84,9 @@ namespace store.Src.ProductModule
                 res.setErrorMessage("Fail to save new category");
                 return new ObjectResult(res.getResponse()) { StatusCode = 500 };
             }
-            res.data = newCategory;
+
+            dataRes.Add("categoryId", newCategory.categoryId);
+            res.data = dataRes;
             return new ObjectResult(res.getResponse());
         }
 
@@ -87,12 +97,21 @@ namespace store.Src.ProductModule
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult addSubCategory([FromBody] AddSubCategoryDto body)
         {
-            ServerResponse<SubCategory> res = new ServerResponse<SubCategory>();
+            ServerResponse<Dictionary<string, string>> res = new ServerResponse<Dictionary<string, string>>();
+            Dictionary<string, string> dataRes = new Dictionary<string, string>();
 
             Category category = this.productService.getCategoryByCategoryId(body.categoryId);
             if (category == null)
             {
                 res.setErrorMessage("The category with the given id was not found");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            SubCategory subCategory = this.productService.getSubCategoryBySubCategoryName(body.name);
+            if(subCategory != null){
+                dataRes.Add("subCategoryId", subCategory.subCategoryId);
+                res.setErrorMessage("This subcategory name is existed");
+                res.data = dataRes;
                 return new BadRequestObjectResult(res.getResponse());
             }
 
@@ -109,7 +128,48 @@ namespace store.Src.ProductModule
                 res.setErrorMessage("Fail to save new category");
                 return new ObjectResult(res.getResponse()) { StatusCode = 500 };
             }
-            res.data = newSubCategory;
+            dataRes.Add("subCategoryId", newSubCategory.subCategoryId);
+            res.data = dataRes;
+            return new ObjectResult(res.getResponse());
+        }
+
+        [HttpPost("importInfo")]
+        [ValidateFilterAttribute(typeof(AddImportInfoDto))]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        [ServiceFilter(typeof(ValidateFilter))]
+        public ObjectResult addImportInfo([FromBody] AddImportInfoDto body)
+        {
+            ServerResponse<Dictionary<string, string>> res = new ServerResponse<Dictionary<string, string>>();
+
+            User manager = this.userService.getUserById(body.managerId);
+            if (manager == null)
+            {
+                res.setErrorMessage("The manager with the give id was not found");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            ImportInfo importInfo = new ImportInfo();
+            importInfo.importInfoId = Guid.NewGuid().ToString();
+            importInfo.importDate = body.importDate;
+            importInfo.importPrice = body.importPrice;
+            importInfo.importQuantity = body.importQuantity;
+            importInfo.expiryDate = body.expiryDate;
+            importInfo.note = body.note;
+            importInfo.brand = body.brand;
+            importInfo.manager = manager;
+
+            bool isInserted = this.productService.saveImportInfo(importInfo);
+            if (!isInserted)
+            {
+                res.setErrorMessage("Fail to save import infomation");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+
+            Dictionary<string, string> dataRes = new Dictionary<string, string>();
+            dataRes.Add("importInfoId", importInfo.importInfoId);
+            res.data = dataRes;
+            res.setMessage("Add import information success");
             return new ObjectResult(res.getResponse());
         }
 
@@ -120,7 +180,7 @@ namespace store.Src.ProductModule
         [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult addProduct([FromBody] AddProductDto body)
         {
-            ServerResponse<Product> res = new ServerResponse<Product>();
+            ServerResponse<Dictionary<string, string>> res = new ServerResponse<Dictionary<string, string>>();
 
             SubCategory subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
             if (subCategory == null)
@@ -154,7 +214,9 @@ namespace store.Src.ProductModule
                 res.setErrorMessage("Fail to save new product");
                 return new ObjectResult(res.getResponse()) { StatusCode = 500 };
             }
-            res.data = newProduct;
+            Dictionary<string, string> dataRes = new Dictionary<string, string>();
+            dataRes.Add("productId", newProduct.productId);
+            res.data = dataRes;
             return new ObjectResult(res.getResponse());
         }
 
@@ -306,42 +368,6 @@ namespace store.Src.ProductModule
             return new ObjectResult(res.getResponse());
         }
 
-        [HttpPost("importInfo")]
-        [ValidateFilterAttribute(typeof(AddImportInfoDto))]
-        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        [ServiceFilter(typeof(AuthGuard))]
-        [ServiceFilter(typeof(ValidateFilter))]
-        public ObjectResult addImportInfo([FromBody] AddImportInfoDto body)
-        {
-            ServerResponse<Product> res = new ServerResponse<Product>();
-
-            User manager = this.userService.getUserById(body.managerId);
-            if (manager == null)
-            {
-                res.setErrorMessage("The manager with the give id was not found");
-                return new BadRequestObjectResult(res.getResponse());
-            }
-
-            ImportInfo importInfo = new ImportInfo();
-            importInfo.importInfoId = Guid.NewGuid().ToString();
-            importInfo.importDate = body.importDate;
-            importInfo.importPrice = body.importPrice;
-            importInfo.importQuantity = body.importQuantity;
-            importInfo.expiryDate = body.expiryDate;
-            importInfo.note = body.note;
-            importInfo.brand = body.brand;
-            importInfo.manager = manager;
-
-            bool isInserted = this.productService.saveImportInfo(importInfo);
-            if (!isInserted)
-            {
-                res.setErrorMessage("Fail to save import infomation");
-                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
-            }
-
-            res.setMessage("Add import information success");
-            return new ObjectResult(res.getResponse());
-        }
         [HttpGet("category/all")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
