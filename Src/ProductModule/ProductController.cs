@@ -229,8 +229,9 @@ namespace store.Src.ProductModule
             IDictionary<string, object> dataRes = new Dictionary<string, object>();
             ServerResponse<IDictionary<string, object>> res = new ServerResponse<IDictionary<string, object>>();
             var products = this.productService.getAllProduct(pageSize, page, name);
+            var count = this.productService.getAllProductCount(name);
             dataRes.Add("products", products);
-            dataRes.Add("count", products.Count);
+            dataRes.Add("count", count);
             res.data = dataRes;
             return new ObjectResult(res.getResponse());
         }
