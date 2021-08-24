@@ -29,7 +29,8 @@ namespace store.Src.ProductModule
         private readonly IUploadFileService uploadFileService;
         private readonly UpdateCategoryDtoValidator updateCategoryDtoValidator;
         private readonly UpdateSubCategoryDtoValidator updateSubCategoryDtoValidator;
-
+        private readonly UpdateImportInfoDtoValidator updateImportInfoDtoValidator;
+        private readonly DeleteImportInfoDtoValidator deleteImportInfoDtoValidator;
         public ProductController(
                                 IProductService productService,
                                 IUserService userService,
@@ -40,7 +41,9 @@ namespace store.Src.ProductModule
                                 UpdateProductDtoValidator updateProductDtoValidator,
                                 IUploadFileService uploadFileService,
                                 UpdateCategoryDtoValidator updateCategoryDtoValidator,
-                                UpdateSubCategoryDtoValidator updateSubCategoryDtoValidator
+                                UpdateSubCategoryDtoValidator updateSubCategoryDtoValidator,
+                                UpdateImportInfoDtoValidator updateImportInfoDtoValidator,
+                                DeleteImportInfoDtoValidator deleteImportInfoDtoValidator
             )
         {
             this.productService = productService;
@@ -53,6 +56,8 @@ namespace store.Src.ProductModule
             this.uploadFileService = uploadFileService;
             this.updateCategoryDtoValidator = updateCategoryDtoValidator;
             this.updateSubCategoryDtoValidator = updateSubCategoryDtoValidator;
+            this.updateImportInfoDtoValidator = updateImportInfoDtoValidator;
+            this.deleteImportInfoDtoValidator = deleteImportInfoDtoValidator;
         }
 
         [HttpPost("category")]
@@ -393,6 +398,59 @@ namespace store.Src.ProductModule
                 return new NotFoundObjectResult(res.getResponse());
             }
             res.data = subCategories;
+            return new ObjectResult(res.getResponse());
+        }
+
+        [HttpPut("importInfo")]
+        [ValidateFilterAttribute(typeof(UpdateImportInfoDto))]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        [ServiceFilter(typeof(ValidateFilter))]
+        public ObjectResult updateImportInfo([FromBody] UpdateImportInfoDto body)
+        {
+            ServerResponse<ImportInfo> res = new ServerResponse<ImportInfo>();
+            var importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
+            if (importInfo == null)
+            {
+                res.setErrorMessage("ImportInfo with given importInfoId not exist");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            importInfo.importDate = body.importDate;
+            importInfo.importPrice = body.importPrice;
+            importInfo.importQuantity = body.importQuantity;
+            importInfo.expiryDate = body.expiryDate;
+            importInfo.brand = body.brand;
+            importInfo.note = body.note;
+            bool isUpdate = this.productService.updateImportInfo(importInfo);
+            if (!isUpdate)
+            {
+                res.setErrorMessage("Fail to update importInfo");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            res.setMessage("Update import-information success!");
+            return new ObjectResult(res.getResponse());
+        }
+        [HttpDelete("importInfo")]
+        [ValidateFilterAttribute(typeof(DeleteImportInfoDto))]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        [ServiceFilter(typeof(ValidateFilter))]
+        public ObjectResult deleteImportInfo([FromBody] DeleteImportInfoDto body)
+        {
+            ServerResponse<ImportInfo> res = new ServerResponse<ImportInfo>();
+            var importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
+            if (importInfo == null)
+            {
+                res.setErrorMessage("ImportInfo with given importInfoId not exist");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            bool isDelete = this.productService.deleteImportInfo(importInfo.importInfoId);
+            if (!isDelete)
+            {
+                res.setErrorMessage("Fail to delete importInfo");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            res.setMessage("Delete import-information success!");
             return new ObjectResult(res.getResponse());
         }
     }
