@@ -73,13 +73,8 @@ namespace store.Src.ProductModule
             {
                 dataRes.Add("categoryId", category.categoryId);
                 res.data = dataRes;
-<<<<<<< HEAD
                 res.setErrorMessage(ErrorMessageKey.Error_Existed, "categoryName");
                 return new BadRequestObjectResult(res.getResponse());
-=======
-                res.setErrorMessage("This category name is existed");
-                return new NotFoundObjectResult(res.getResponse());
->>>>>>> ca44c7fe2d40720e1a378d4ff322d862cbb3c792
             }
 
             Category newCategory = new Category();
@@ -156,13 +151,8 @@ namespace store.Src.ProductModule
             User manager = this.userService.getUserById(body.managerId);
             if (manager == null)
             {
-<<<<<<< HEAD
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "managerId");
                 return new BadRequestObjectResult(res.getResponse());
-=======
-                res.setErrorMessage("The manager with the give id was not found");
-                return new NotFoundObjectResult(res.getResponse());
->>>>>>> ca44c7fe2d40720e1a378d4ff322d862cbb3c792
             }
 
             ImportInfo importInfo = new ImportInfo();
@@ -201,25 +191,15 @@ namespace store.Src.ProductModule
             SubCategory subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
             if (subCategory == null)
             {
-<<<<<<< HEAD
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "subCategoryId");
                 return new BadRequestObjectResult(res.getResponse());
-=======
-                res.setErrorMessage("The sub category with the given id was not found");
-                return new NotFoundObjectResult(res.getResponse());
->>>>>>> ca44c7fe2d40720e1a378d4ff322d862cbb3c792
             }
 
             ImportInfo importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
             if (importInfo == null)
             {
-<<<<<<< HEAD
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "importInfoId");
                 return new BadRequestObjectResult(res.getResponse());
-=======
-                res.setErrorMessage("The import infomation with the given id was not found");
-                return new NotFoundObjectResult(res.getResponse());
->>>>>>> ca44c7fe2d40720e1a378d4ff322d862cbb3c792
             }
 
             Product newProduct = new Product();
@@ -258,13 +238,8 @@ namespace store.Src.ProductModule
             Product updateProduct = this.productService.getProductByProductId(body.productId);
             if (updateProduct == null)
             {
-<<<<<<< HEAD
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "productId");
                 return new BadRequestObjectResult(res.getResponse());
-=======
-                res.setErrorMessage("The product with the given id was not found");
-                return new NotFoundObjectResult(res.getResponse());
->>>>>>> ca44c7fe2d40720e1a378d4ff322d862cbb3c792
             }
 
             updateProduct.name = body.name;
@@ -300,13 +275,8 @@ namespace store.Src.ProductModule
             Product product = this.productService.getProductByProductId(body.productId);
             if (product == null)
             {
-<<<<<<< HEAD
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "productId");
                 return new BadRequestObjectResult(res.getResponse());
-=======
-                res.setErrorMessage("product with given productId not exist");
-                return new NotFoundObjectResult(res.getResponse());
->>>>>>> ca44c7fe2d40720e1a378d4ff322d862cbb3c792
             }
             bool isDelete = this.productService.deleteProduct(body.productId);
             if (!isDelete)
@@ -345,13 +315,8 @@ namespace store.Src.ProductModule
             Product product = this.productService.getProductByProductId(productId);
             if (product == null)
             {
-<<<<<<< HEAD
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "productId");
                 return new BadRequestObjectResult(res.getResponse());
-=======
-                res.setErrorMessage("product with given productId not found");
-                return new NotFoundObjectResult(res.getResponse());
->>>>>>> ca44c7fe2d40720e1a378d4ff322d862cbb3c792
             }
 
             res.data = product;
@@ -369,13 +334,8 @@ namespace store.Src.ProductModule
             var category = this.productService.getCategoryByCategoryId(body.categoryId);
             if (category == null)
             {
-<<<<<<< HEAD
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "categoryId");
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
-=======
-                res.setErrorMessage("Category with given categoryId not found");
-                return new NotFoundObjectResult(res.getResponse()) { StatusCode = 500 };
->>>>>>> ca44c7fe2d40720e1a378d4ff322d862cbb3c792
             }
             category.name = body.name;
             category.status = body.status;
@@ -400,13 +360,8 @@ namespace store.Src.ProductModule
             var subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
             if (subCategory == null)
             {
-<<<<<<< HEAD
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "subCategory");
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
-=======
-                res.setErrorMessage("SubCategory with given subCategoryId not found");
-                return new NotFoundObjectResult(res.getResponse()) { StatusCode = 500 };
->>>>>>> ca44c7fe2d40720e1a378d4ff322d862cbb3c792
             }
             subCategory.name = body.name;
             subCategory.status = body.status;
@@ -486,13 +441,8 @@ namespace store.Src.ProductModule
             var importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
             if (importInfo == null)
             {
-<<<<<<< HEAD
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "importInfoId");
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
-=======
-                res.setErrorMessage("ImportInfo with given importInfoId not exist");
-                return new NotFoundObjectResult(res.getResponse()) { StatusCode = 500 };
->>>>>>> ca44c7fe2d40720e1a378d4ff322d862cbb3c792
             }
             importInfo.importDate = body.importDate;
             importInfo.importPrice = body.importPrice;
@@ -521,13 +471,8 @@ namespace store.Src.ProductModule
             var importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
             if (importInfo == null)
             {
-<<<<<<< HEAD
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "importInfoId");
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
-=======
-                res.setErrorMessage("ImportInfo with given importInfoId not exist");
-                return new NotFoundObjectResult(res.getResponse()) { StatusCode = 500 };
->>>>>>> ca44c7fe2d40720e1a378d4ff322d862cbb3c792
             }
             bool isDelete = this.productService.deleteImportInfo(importInfo.importInfoId);
             if (!isDelete)
