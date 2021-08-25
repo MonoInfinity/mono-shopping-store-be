@@ -4,38 +4,74 @@ namespace store.Src.Utils.Locale
     {
         public static class ErrorMessageKey {
             public const string Error_LoginFail = "Error_LoginFail";
-            public const string Error_UsernameExist = "Error_UsernameExist";
-            public const string Error_FailToSaveUser = "Error_FailToSaveUser";
+            public const string Error_Existed = "Error_Existed";
+            public const string Error_FailToSave = "Error_FailToSave";
+            public const string Error_UpdateFail = "Error_UpdateFail";
+            public const string Error_DeleteFail = "Error_DeleteFail";
+            public const string Error_Wrong = "Error_Wrong";
+            public const string Error_NotFound = "Error_NotFound";
+            public const string Error_NotAllow = "Error_NotAllow";
         }
 
         public static class MessageKey {
             public const string Message_LoginSuccess = "Message_LoginSuccess";
             public const string Message_RegisterSuccess = "Message_RegisterSuccess";
             public const string Message_LogoutSuccess = "Message_LogoutSuccess";
+            public const string Message_UpdateSuccess = "Message_UpdateSuccess";
+            public const string Message_AddSuccess = "Message_AddSuccess";
+            public const string Message_DeleteSuccess = "Message_DeleteSuccess";
         }
         public CustomLanguageValidator()
         {
-            // Enlish
+            
+            // Success message
+            // EN
             AddTranslation("en", "Message_LoginSuccess", "login success");
             AddTranslation("en", "Message_RegisterSuccess", "register success");
             AddTranslation("en", "Message_LogoutSuccess", "logout success");
-            
-            AddTranslation("en", "Error_LoginFail", "username or password is wrong");
-            AddTranslation("en", "Error_UsernameExist", "is already exist");
-            AddTranslation("en", "Error_FailToSaveUser", "fail to save user");
+            AddTranslation("en", "Message_UpdateSuccess", "update success");
+            AddTranslation("en", "Message_AddSuccess", "add success");
+            AddTranslation("en", "Message_DeleteSuccess", "delete success");
 
-
-            // Vietnamese
+            // VI
             AddTranslation("vi", "Message_LoginSuccess", "đăng nhập thành công");
             AddTranslation("vi", "Message_RegisterSuccess", "đăng kí thành công");
             AddTranslation("vi", "Message_LogoutSuccess", "đăng xuất thành công");
-            
+            AddTranslation("vi", "Message_UpdateSuccess", "cập nhật thành công");
+            AddTranslation("vi", "Message_AddSuccess", "thêm mới thành công");
+            AddTranslation("en", "Message_DeleteSuccess", "xóa thành công");
+
+            // Error message
+            // EN
+            AddTranslation("en", "Error_LoginFail", "username or password is wrong");
+            AddTranslation("en", "Error_Existed", "is already exist");
+            AddTranslation("en", "Error_FailToSave", "database error");
+            AddTranslation("en", "Error_UpdateFail", "update fail");
+            AddTranslation("en", "Error_DeleteFail", "delete fail");
+            AddTranslation("en", "Error_Wrong", "is wrong");
+            AddTranslation("en", "Error_NotFound", "is not found");
+            AddTranslation("en", "Error_NotAllow", "not allow");
+
+            // VI
             AddTranslation("vi", "Error_LoginFail", "username hoặc password không đúng");
-            AddTranslation("vi", "Error_UsernameExist", "đã tồn tại");
-            AddTranslation("vi", "Error_FailToSaveUser", "lưu user thất bại");
+            AddTranslation("vi", "Error_Existed", "đã tồn tại");
+            AddTranslation("vi", "Error_FailToSaveUser", "lỗi cơ sở dữ liệu");
+            AddTranslation("vi", "Error_UpdateFail", "cập nhật không thành công");
+            AddTranslation("en", "Error_DeleteFail", "xóa không thành công");
+            AddTranslation("vi", "Error_Wrong", "không đúng");
+            AddTranslation("vi", "Error_NotFound", "không tìm thấy");
+            AddTranslation("vi", "Error_NotAllow", "không có quyền");
 
 
 
+
+
+
+
+
+
+
+            // Don't touch me please
             AddTranslation("en", "EmailValidator", "is not a valid email address");
             AddTranslation("en", "GreaterThanOrEqualValidator", "should be greater than or equal to {ComparisonValue}");
             AddTranslation("en", "GreaterThanValidator", "should be greater than {ComparisonValue}");

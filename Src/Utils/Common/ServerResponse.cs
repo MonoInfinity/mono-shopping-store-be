@@ -38,6 +38,31 @@ namespace store.Src.Utils.Common
             mapDetails(result);
         }
 
+        // Set error message with context, default field is "errorMessage"
+        public void setErrorMessage(string errorKey, Dictionary<string, object> context)
+        {
+            ValidationResult result = new ValidationResult();
+            string errorMessage = ValidatorOptions.Global.LanguageManager.GetString(errorKey);
+            var failure = new ValidationFailure("errorMessage", errorMessage);
+            failure.FormattedMessagePlaceholderValues = context;
+
+            result.Errors.Add(failure);
+            mapDetails(result);
+        }
+
+        //Set errorMessage with full option :)
+        public void setErrorMessage(string errorKey, Dictionary<string, object> context, string field = "errorMessage")
+        {
+            ValidationResult result = new ValidationResult();
+            string errorMessage = ValidatorOptions.Global.LanguageManager.GetString(errorKey);
+            var failure = new ValidationFailure(field, errorMessage);
+            failure.FormattedMessagePlaceholderValues = context;
+            failure.FormattedMessagePlaceholderValues.Add("field", field);
+
+            result.Errors.Add(failure);
+            mapDetails(result);
+        }
+
         public void mapDetails(ValidationResult result)
         {
             IDictionary<string, string> details = new Dictionary<string, string>();
@@ -50,7 +75,7 @@ namespace store.Src.Utils.Common
                 if (!isExisted)
                 {
                     string field = failure.PropertyName;
-                    string message = Helper.StringFormat(failure.ErrorMessage,failure.FormattedMessagePlaceholderValues);
+                    string message = Helper.StringFormat(failure.ErrorMessage,failure.FormattedMessagePlaceholderValues);         
                     details.Add(field, message);
                 }
             }

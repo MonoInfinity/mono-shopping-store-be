@@ -12,6 +12,7 @@ using FluentValidation.Results;
 using store.Src.Utils;
 using store.Src.Utils.Interface;
 using store.Src.UserModule.Interface;
+using static store.Src.Utils.Locale.CustomLanguageValidator;
 
 namespace store.Src.ProductModule
 {
@@ -74,7 +75,7 @@ namespace store.Src.ProductModule
             {
                 dataRes.Add("categoryId", category.categoryId);
                 res.data = dataRes;
-                res.setErrorMessage("This category name is existed");
+                res.setErrorMessage(ErrorMessageKey.Error_Existed, "categoryName");
                 return new BadRequestObjectResult(res.getResponse());
             }
 
@@ -87,7 +88,7 @@ namespace store.Src.ProductModule
             bool isInserted = this.productService.saveCategory(newCategory);
             if (!isInserted)
             {
-                res.setErrorMessage("Fail to save new category");
+                res.setErrorMessage(ErrorMessageKey.Error_FailToSave);
                 return new ObjectResult(res.getResponse()) { StatusCode = 500 };
             }
 
@@ -117,7 +118,7 @@ namespace store.Src.ProductModule
             if (subCategory != null)
             {
                 dataRes.Add("subCategoryId", subCategory.subCategoryId);
-                res.setErrorMessage("This subcategory name is existed");
+                res.setErrorMessage(ErrorMessageKey.Error_Existed, "subCategoryName");
                 res.data = dataRes;
                 return new BadRequestObjectResult(res.getResponse());
             }
@@ -132,7 +133,7 @@ namespace store.Src.ProductModule
             bool isInserted = this.productService.saveSubCategory(newSubCategory);
             if (!isInserted)
             {
-                res.setErrorMessage("Fail to save new category");
+                res.setErrorMessage(ErrorMessageKey.Error_FailToSave);
                 return new ObjectResult(res.getResponse()) { StatusCode = 500 };
             }
             dataRes.Add("subCategoryId", newSubCategory.subCategoryId);
@@ -152,7 +153,7 @@ namespace store.Src.ProductModule
             User manager = this.userService.getUserById(body.managerId);
             if (manager == null)
             {
-                res.setErrorMessage("The manager with the give id was not found");
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "managerId");
                 return new BadRequestObjectResult(res.getResponse());
             }
 
@@ -169,14 +170,14 @@ namespace store.Src.ProductModule
             bool isInserted = this.productService.saveImportInfo(importInfo);
             if (!isInserted)
             {
-                res.setErrorMessage("Fail to save import infomation");
+                res.setErrorMessage(ErrorMessageKey.Error_FailToSave);
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
             }
 
             Dictionary<string, string> dataRes = new Dictionary<string, string>();
             dataRes.Add("importInfoId", importInfo.importInfoId);
             res.data = dataRes;
-            res.setMessage("Add import information success");
+            res.setMessage(MessageKey.Message_AddSuccess);
             return new ObjectResult(res.getResponse());
         }
 
@@ -192,14 +193,14 @@ namespace store.Src.ProductModule
             SubCategory subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
             if (subCategory == null)
             {
-                res.setErrorMessage("The sub category with the given id was not found");
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "subCategoryId");
                 return new BadRequestObjectResult(res.getResponse());
             }
 
             ImportInfo importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
             if (importInfo == null)
             {
-                res.setErrorMessage("The import infomation with the given id was not found");
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "importInfoId");
                 return new BadRequestObjectResult(res.getResponse());
             }
 
@@ -218,7 +219,7 @@ namespace store.Src.ProductModule
             bool isInserted = this.productService.saveProduct(newProduct);
             if (!isInserted)
             {
-                res.setErrorMessage("Fail to save new product");
+                res.setErrorMessage(ErrorMessageKey.Error_FailToSave);
                 return new ObjectResult(res.getResponse()) { StatusCode = 500 };
             }
             Dictionary<string, string> dataRes = new Dictionary<string, string>();
@@ -239,7 +240,7 @@ namespace store.Src.ProductModule
             Product updateProduct = this.productService.getProductByProductId(body.productId);
             if (updateProduct == null)
             {
-                res.setErrorMessage("The product with the given id was not found");
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "productId");
                 return new BadRequestObjectResult(res.getResponse());
             }
 
@@ -257,10 +258,11 @@ namespace store.Src.ProductModule
             bool isInserted = this.productService.updateProduct(updateProduct);
             if (!isInserted)
             {
-                res.setErrorMessage("Fail to update product");
+                res.setErrorMessage(ErrorMessageKey.Error_FailToSave);
                 return new ObjectResult(res.getResponse()) { StatusCode = 500 };
             }
             res.data = updateProduct;
+            res.setMessage(MessageKey.Message_UpdateSuccess);
             return new ObjectResult(res.getResponse());
         }
 
@@ -275,17 +277,17 @@ namespace store.Src.ProductModule
             Product product = this.productService.getProductByProductId(body.productId);
             if (product == null)
             {
-                res.setErrorMessage("product with given productId not exist");
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "productId");
                 return new BadRequestObjectResult(res.getResponse());
             }
             bool isDelete = this.productService.deleteProduct(body.productId);
             if (!isDelete)
             {
-                res.setErrorMessage("Fail to delete product");
+                res.setErrorMessage(ErrorMessageKey.Error_DeleteFail);
                 return new ObjectResult(res.getResponse()) { StatusCode = 500 };
             }
 
-            res.setMessage("Delete Product successfully");
+            res.setMessage(MessageKey.Message_DeleteSuccess);
             return new ObjectResult(res.getResponse());
 
         }
@@ -314,7 +316,7 @@ namespace store.Src.ProductModule
             Product product = this.productService.getProductByProductId(productId);
             if (product == null)
             {
-                res.setErrorMessage("product with given productId not exist");
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "productId");
                 return new BadRequestObjectResult(res.getResponse());
             }
 
@@ -333,7 +335,7 @@ namespace store.Src.ProductModule
             var category = this.productService.getCategoryByCategoryId(body.categoryId);
             if (category == null)
             {
-                res.setErrorMessage("Category with given categoryId not exist");
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "categoryId");
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
             }
             category.name = body.name;
@@ -341,10 +343,10 @@ namespace store.Src.ProductModule
             bool isUpdate = this.productService.updateCategory(category);
             if (!isUpdate)
             {
-                res.setErrorMessage("Fail to update category");
+                res.setErrorMessage(ErrorMessageKey.Error_UpdateFail);
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
             }
-            res.setMessage("Update category success!");
+            res.setMessage(MessageKey.Message_UpdateSuccess);
             return new ObjectResult(res.getResponse());
         }
 
@@ -359,7 +361,7 @@ namespace store.Src.ProductModule
             var subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
             if (subCategory == null)
             {
-                res.setErrorMessage("SubCategory with given subCategoryId not exist");
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "subCategory");
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
             }
             subCategory.name = body.name;
@@ -368,10 +370,10 @@ namespace store.Src.ProductModule
             if (!isUpdate)
             {
                 Console.WriteLine(subCategory);
-                res.setErrorMessage("Fail to update subCategory");
+                res.setErrorMessage(ErrorMessageKey.Error_UpdateFail);
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
             }
-            res.setMessage("Update subcategory success!");
+            res.setMessage(MessageKey.Message_UpdateSuccess);
             return new ObjectResult(res.getResponse());
         }
 
@@ -384,7 +386,7 @@ namespace store.Src.ProductModule
             var categories = this.productService.getAllCategory();
             if (categories == null)
             {
-                res.setErrorMessage("Empty Category");
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "categories");
                 return new NotFoundObjectResult(res.getResponse());
             }
             res.data = categories;
@@ -415,14 +417,14 @@ namespace store.Src.ProductModule
             var isValidCategoryId = productService.getCategoryByCategoryId(categoryId);
             if (isValidCategoryId == null)
             {
-                res.setErrorMessage("CategoryId not found");
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "categoryId");
                 return new NotFoundObjectResult(res.getResponse());
             }
 
             var subCategories = this.productService.getSubCategoryByCategoryId(categoryId);
             if (subCategories == null)
             {
-                res.setErrorMessage("Empty SubCategory");
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "subCategories");
                 return new NotFoundObjectResult(res.getResponse());
             }
             res.data = subCategories;
@@ -440,7 +442,7 @@ namespace store.Src.ProductModule
             var importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
             if (importInfo == null)
             {
-                res.setErrorMessage("ImportInfo with given importInfoId not exist");
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "importInfoId");
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
             }
             importInfo.importDate = body.importDate;
@@ -452,10 +454,10 @@ namespace store.Src.ProductModule
             bool isUpdate = this.productService.updateImportInfo(importInfo);
             if (!isUpdate)
             {
-                res.setErrorMessage("Fail to update importInfo");
+                res.setErrorMessage(ErrorMessageKey.Error_UpdateFail);
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
             }
-            res.setMessage("Update import-information success!");
+            res.setMessage(MessageKey.Message_UpdateSuccess);
             return new ObjectResult(res.getResponse());
         }
 
@@ -470,16 +472,16 @@ namespace store.Src.ProductModule
             var importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
             if (importInfo == null)
             {
-                res.setErrorMessage("ImportInfo with given importInfoId not exist");
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "importInfoId");
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
             }
             bool isDelete = this.productService.deleteImportInfo(importInfo.importInfoId);
             if (!isDelete)
             {
-                res.setErrorMessage("Fail to delete importInfo");
+                res.setErrorMessage(ErrorMessageKey.Error_DeleteFail);
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
             }
-            res.setMessage("Delete import-information success!");
+            res.setMessage(MessageKey.Message_DeleteSuccess);
             return new ObjectResult(res.getResponse());
         }
     }

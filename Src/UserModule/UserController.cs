@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using store.Src.Utils.Interface;
 using store.Src.Utils;
 using System;
+using static store.Src.Utils.Locale.CustomLanguageValidator;
 
 namespace store.Src.UserModule
 {
@@ -75,11 +76,11 @@ namespace store.Src.UserModule
             bool isUpdated = userService.updateUser(userUpdate);
             if (!isUpdated)
             {
-                res.setErrorMessage("Update fail");
+                res.setErrorMessage(ErrorMessageKey.Error_UpdateFail);
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
             }
 
-            res.setMessage("Update User successfully");
+            res.setMessage(MessageKey.Message_UpdateSuccess);
             return new ObjectResult(res.getResponse());
         }
 
@@ -96,7 +97,7 @@ namespace store.Src.UserModule
 
             if (!isMatchPassword)
             {
-                res.setErrorMessage("Password is wrong");
+                res.setErrorMessage(ErrorMessageKey.Error_Wrong, "password");
                 return new BadRequestObjectResult(res.getResponse());
             }
 
@@ -106,11 +107,11 @@ namespace store.Src.UserModule
 
             if (!isUpdate)
             {
-                res.setErrorMessage("Fail to update user password");
+                res.setErrorMessage(ErrorMessageKey.Error_UpdateFail);
                 return new BadRequestObjectResult(res.getResponse());
             }
 
-            res.setMessage("Update User password successfully");
+            res.setMessage(MessageKey.Message_UpdateSuccess);
             return new ObjectResult(res.getResponse());
         }
     }
