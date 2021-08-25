@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using FluentValidation;
 using FluentValidation.Results;
 
 namespace store.Src.Utils.Common
@@ -19,15 +20,23 @@ namespace store.Src.Utils.Common
         }
 
 
-        public void setMessage(string message)
+        public void setMessage(string key, string field = "message")
         {
-            this.details.Add("message", message);
-        }
-        public void setErrorMessage(string message)
-        {
-            this.details.Add("errorMessage", message);
+            string value = ValidatorOptions.Global.LanguageManager.GetString(key);
+            this.details.Add("message", value);
         }
 
+        public void setErrorMessage(string errorKey, string field = "errorMessage")
+        {
+            ValidationResult result = new ValidationResult();
+            string errorMessage = ValidatorOptions.Global.LanguageManager.GetString(errorKey);
+            var failure = new ValidationFailure(field, errorMessage);
+            failure.FormattedMessagePlaceholderValues = new Dictionary<string, object>();
+            failure.FormattedMessagePlaceholderValues.Add("field", field);
+
+            result.Errors.Add(failure);
+            mapDetails(result);
+        }
 
         public void mapDetails(ValidationResult result)
         {
@@ -40,9 +49,10 @@ namespace store.Src.Utils.Common
                 bool isExisted = details.TryGetValue(failure.PropertyName, out value);
                 if (!isExisted)
                 {
-                    details.Add(failure.PropertyName, failure.ErrorMessage);
+                    string field = failure.PropertyName;
+                    string message = Helper.StringFormat(failure.ErrorMessage,failure.FormattedMessagePlaceholderValues);
+                    details.Add(field, message);
                 }
-
             }
 
             this.details = details;

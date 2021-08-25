@@ -28,6 +28,8 @@ using Microsoft.AspNetCore.Http;
 using store.Src.ProductModule.Interface;
 using store.Src.ProductModule;
 using store.Src.ProductModule.DTO;
+using System.Collections.Generic;
+using System;
 
 namespace store
 {
@@ -99,10 +101,9 @@ namespace store
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-
-
+            
             ValidatorOptions.Global.LanguageManager = new CustomLanguageValidator();
-            ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo("en");
+
             if (env.IsDevelopment())
             {
                 app.UseStaticFiles();
@@ -121,6 +122,27 @@ namespace store
             //     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "public")),
             //     RequestPath = "/public"
             // });
+
+            app.Use(next => context =>
+            {
+                var cookies = new Dictionary<string, string>();
+                var values = ((string)context.Request.Headers["Cookie"]).TrimEnd(';').Split(';');
+
+                foreach (var parts in values)
+                {
+                    var cookieArray = parts.Trim().Split('=');
+                    cookies.Add(cookieArray[0], cookieArray[1]);
+                }
+
+                var lang = "en";
+                var outValue = "";
+                if (cookies.TryGetValue("lang", out outValue))
+                {
+                    lang = outValue;
+                }
+                ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo(lang);
+                return next(context);
+            });
 
             app.UseCors("AllowSpecific");
             app.Use(next => context =>
