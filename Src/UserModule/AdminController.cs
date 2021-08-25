@@ -1,18 +1,10 @@
-using System;
 using System.Collections.Generic;
-using FluentValidation.Results;
-
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
-using store.Src.Utils.Interface;
-using store.Src.AuthModule.DTO;
-using store.Src.AuthModule.Interface;
 using store.Src.UserModule.DTO;
 using store.Src.UserModule.Entity;
 using store.Src.UserModule.Interface;
 using store.Src.Utils.Common;
 using store.Src.AuthModule;
-using System.Diagnostics;
 using static store.Src.Utils.Locale.CustomLanguageValidator;
 using store.Src.Utils.Validator;
 

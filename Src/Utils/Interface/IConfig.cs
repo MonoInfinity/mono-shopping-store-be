@@ -1,5 +1,3 @@
-
-
 namespace store.Src.Utils.Interface
 {
     public interface IConfig

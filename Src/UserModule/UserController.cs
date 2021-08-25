@@ -1,4 +1,3 @@
-using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using store.Src.AuthModule.DTO;
 using store.Src.AuthModule.Interface;
@@ -7,12 +6,8 @@ using store.Src.UserModule.Entity;
 using store.Src.UserModule.Interface;
 using store.Src.Utils.Common;
 using store.Src.AuthModule;
-using System.Diagnostics;
 using store.Src.Utils.Validator;
-using Microsoft.AspNetCore.Http;
 using store.Src.Utils.Interface;
-using store.Src.Utils;
-using System;
 using static store.Src.Utils.Locale.CustomLanguageValidator;
 
 namespace store.Src.UserModule

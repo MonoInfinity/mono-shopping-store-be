@@ -1,7 +1,5 @@
 using FluentValidation;
 using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.Http;
-using store.Src.ProductModule.Entity;
 
 namespace store.Src.ProductModule.DTO
 {

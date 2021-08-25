@@ -29,7 +29,6 @@ using store.Src.ProductModule.Interface;
 using store.Src.ProductModule;
 using store.Src.ProductModule.DTO;
 using System.Collections.Generic;
-using System;
 
 namespace store
 {
@@ -67,7 +66,6 @@ namespace store
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IImportInfoRepository, ImportInfoRepository>();
-            services.AddScoped<IImportInfoService, ImportInfoService>();
 
             //Validator  
             services.AddScoped<ValidateFilter>();

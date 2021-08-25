@@ -1,8 +1,5 @@
 using store.Src.ProductModule.Entity;
 using FluentValidation;
-using store.Src.Utils.Validator;
-using System;
-
 
 namespace store.Src.ProductModule.DTO
 {

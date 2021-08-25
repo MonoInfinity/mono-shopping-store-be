@@ -1,4 +1,3 @@
-using System.IO;
 using FluentValidation;
 using store.Src.Utils.Validator;
 

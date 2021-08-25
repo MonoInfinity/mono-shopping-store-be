@@ -1,22 +1,16 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using store.Src.AuthModule.DTO;
+using store.Src.AuthModule.Interface;
 using store.Src.UserModule.Entity;
 using store.Src.Utils.Common;
 using store.Src.UserModule.Interface;
-using store.Src.AuthModule.Interface;
-using store.Src.Utils.Interface;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Http;
 using store.Src.Utils.Validator;
 using store.Src.Utils;
-using FluentValidation.Results;
-using FluentValidation.Resources;
-using System.Globalization;
-using FluentValidation;
+using store.Src.Utils.Interface;
 using static store.Src.Utils.Locale.CustomLanguageValidator;
-using System.Collections.Generic;
+
 
 namespace store.Src.AuthModule
 {

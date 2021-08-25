@@ -1,6 +1,5 @@
 using store.Src.UserModule.Entity;
 using store.Src.UserModule.Interface;
-using System;
 
 namespace store.Src.UserModule
 {

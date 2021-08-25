@@ -8,8 +8,6 @@ using store.Src.UserModule.Entity;
 using store.Src.Utils.Common;
 using store.Src.Utils.Validator;
 using System.Collections.Generic;
-using FluentValidation.Results;
-using store.Src.Utils;
 using store.Src.Utils.Interface;
 using store.Src.UserModule.Interface;
 using static store.Src.Utils.Locale.CustomLanguageValidator;
