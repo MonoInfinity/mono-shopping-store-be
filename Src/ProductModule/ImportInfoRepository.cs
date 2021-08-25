@@ -13,13 +13,10 @@ namespace store.Src.ProductModule
     {
         private readonly IDBHelper dBHelper;
         private readonly IUserRepository userRepository;
-        public ImportInfoRepository(IDBHelper dBHelper, IUserRepository userRepository){
+        public ImportInfoRepository(IDBHelper dBHelper, IUserRepository userRepository)
+        {
             this.dBHelper = dBHelper;
             this.userRepository = userRepository;
-        }
-        public bool deleteImportInfo(string importInfoId)
-        {
-            throw new System.NotImplementedException();
         }
 
         public ImportInfo getImportInfoByImportInfoId(string importInfoId)
@@ -29,7 +26,8 @@ namespace store.Src.ProductModule
             string sql = "SELECT * FROM tblImportInfo WHERE importInfoId=@importInfoId";
             SqlCommand Command = new SqlCommand(sql, connection);
 
-            try{
+            try
+            {
                 connection.Open();
                 Command.Parameters.AddWithValue("@importInfoId", importInfoId);
                 SqlDataReader reader = Command.ExecuteReader();
@@ -40,7 +38,7 @@ namespace store.Src.ProductModule
                     {
                         var managerId = reader.GetString("managerId");
                         User manager = this.userRepository.getUserByUserId(managerId);
-                        if(manager == null) break;
+                        if (manager == null) break;
 
                         importInfo = new ImportInfo();
                         importInfo.importInfoId = reader.GetString("importInfoId");
@@ -55,7 +53,8 @@ namespace store.Src.ProductModule
                 }
                 connection.Close();
             }
-            catch(SqlException e){
+            catch (SqlException e)
+            {
                 Console.WriteLine(e.Message);
             }
             return importInfo;
@@ -65,11 +64,12 @@ namespace store.Src.ProductModule
         {
             SqlConnection connection = this.dBHelper.getDBConnection();
             bool res = false;
-            string sql = "INSERT INTO tblImportInfo(importInfoId, importDate, importPrice, importQuantity, expiryDate, note, brand, createDate, managerId) " + 
+            string sql = "INSERT INTO tblImportInfo(importInfoId, importDate, importPrice, importQuantity, expiryDate, note, brand, createDate, managerId) " +
             " VALUES(@importInfoId, @importDate, @importPrice, @importQuantity, @expiryDate, @note, @brand, @createDate, @managerId)";
             SqlCommand command = new SqlCommand(sql, connection);
 
-            try{
+            try
+            {
                 connection.Open();
                 command.Parameters.AddWithValue("@importInfoId", importInfo.importInfoId);
                 command.Parameters.AddWithValue("@importDate", importInfo.importDate);
@@ -84,7 +84,8 @@ namespace store.Src.ProductModule
                 res = command.ExecuteNonQuery() > 0;
                 connection.Close();
             }
-            catch(SqlException e){
+            catch (SqlException e)
+            {
                 Console.WriteLine(e.Message);
             }
             return res;
@@ -92,7 +93,53 @@ namespace store.Src.ProductModule
 
         public bool updateImportInfo(ImportInfo importInfo)
         {
-            throw new System.NotImplementedException();
+            SqlConnection connection = this.dBHelper.getDBConnection();
+            bool res = false;
+            string sql = "UPDATE tblImportInfo SET importDate = @importDate, importPrice = @importPrice, importQuantity = @importQuantity, expiryDate = @expiryDate, note = @note, brand = @brand" +
+            " WHERE  importInfoId = @importInfoId";
+            SqlCommand command = new SqlCommand(sql, connection);
+
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@importInfoId", importInfo.importInfoId);
+                command.Parameters.AddWithValue("@importDate", importInfo.importDate);
+                command.Parameters.AddWithValue("@importPrice", importInfo.importPrice);
+                command.Parameters.AddWithValue("@importQuantity", importInfo.importQuantity);
+                command.Parameters.AddWithValue("@expiryDate", importInfo.expiryDate);
+                command.Parameters.AddWithValue("@note", importInfo.note);
+                command.Parameters.AddWithValue("@brand", importInfo.brand);
+
+                res = command.ExecuteNonQuery() > 0;
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return res;
+        }
+
+        public bool deleteImportInfo(string importInfoId)
+        {
+            SqlConnection connection = this.dBHelper.getDBConnection();
+            bool res = false;
+            string sql = "DELETE FROM tblImportInfo" +
+            " WHERE  importInfoId = @importInfoId";
+            SqlCommand command = new SqlCommand(sql, connection);
+
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@importInfoId", importInfoId);
+                res = command.ExecuteNonQuery() > 0;
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return res;
         }
     }
 }

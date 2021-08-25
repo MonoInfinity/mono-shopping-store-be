@@ -26,5 +26,7 @@ namespace store.Src.ProductModule.Interface
         public List<SubCategory> getAllSubCategory(int currentPage, int pageSize, string name);
         public int getAllSubCategoryCount(string name);
         public List<SubCategory> getSubCategoryByCategoryId(string categoryId);
+        public bool updateImportInfo(ImportInfo importInfo);
+        public bool deleteImportInfo(string importInfoId);
     }
 }

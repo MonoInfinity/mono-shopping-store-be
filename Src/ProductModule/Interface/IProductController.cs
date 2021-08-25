@@ -15,5 +15,7 @@ namespace store.Src.ProductModule.Interface
         public ObjectResult listAllProduct(int pageSize, int page, string name);
         public ObjectResult updateCategory(UpdateCategoryDto body);
         public ObjectResult updateSubCategory(UpdateSubCategoryDto body);
+        public ObjectResult updateImportInfo(UpdateImportInfoDto body);
+        public ObjectResult deleteImportInfo(DeleteImportInfoDto body);
     }
 }
