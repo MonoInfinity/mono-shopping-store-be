@@ -8168,19 +8168,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HaiCao\\.nuget\\packages\\": {}
+    "C:\\Users\\USER\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj",
+      "projectUniqueName": "E:\\MinhThuan\\mono-store\\thuan-v3\\mono-shopping-store-be\\store.csproj",
       "projectName": "store",
-      "projectPath": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj",
-      "packagesPath": "C:\\Users\\HaiCao\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\obj\\",
+      "projectPath": "E:\\MinhThuan\\mono-store\\thuan-v3\\mono-shopping-store-be\\store.csproj",
+      "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+      "outputPath": "E:\\MinhThuan\\mono-store\\thuan-v3\\mono-shopping-store-be\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\HaiCao\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
