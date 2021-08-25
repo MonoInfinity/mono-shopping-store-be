@@ -28,6 +28,8 @@ namespace store.Src.Utils.Validator
         private readonly UpdateCategoryDtoValidator updateCategoryDtoValidator;
         private readonly UpdateSubCategoryDtoValidator updateSubCategoryDtoValidator;
         private readonly AddImportInfoDtoValidator addImportInfoValidator;
+        private readonly UpdateImportInfoDtoValidator updateImportInfoDtoValidator;
+        private readonly DeleteImportInfoDtoValidator deleteImportInfoDtoValidator;
         public ValidateFilter(
                                 LoginUserDtoValidator loginUserDtoValidator,
                                 RegisterUserDtoValidator registerUserDtoValidator,
@@ -41,7 +43,9 @@ namespace store.Src.Utils.Validator
                                 UpdateEmployeeDtoValidator updateEmployeeDtoValidator,
                                 UpdateCategoryDtoValidator updateCategoryDtoValidator,
                                 UpdateSubCategoryDtoValidator updateSubCategoryDtoValidator,
-                                AddImportInfoDtoValidator addImportInfoValidator
+                                AddImportInfoDtoValidator addImportInfoValidator,
+                                UpdateImportInfoDtoValidator updateImportInfoDtoValidator,
+                                DeleteImportInfoDtoValidator deleteImportInfoDtoValidator
                             )
         {
             this.loginUserDtoValidator = loginUserDtoValidator;
@@ -57,6 +61,8 @@ namespace store.Src.Utils.Validator
             this.updateCategoryDtoValidator = updateCategoryDtoValidator;
             this.updateSubCategoryDtoValidator = updateSubCategoryDtoValidator;
             this.addImportInfoValidator = addImportInfoValidator;
+            this.updateImportInfoDtoValidator = updateImportInfoDtoValidator;
+            this.deleteImportInfoDtoValidator = deleteImportInfoDtoValidator;
         }
 
         private T assignValue<T>(string bodyString, Type type)
@@ -200,6 +206,14 @@ namespace store.Src.Utils.Validator
             if (typeof(DeleteProductDto) == dtoType)
             {
                 result = this.deleteProductDtoValidator.Validate(assignValue<DeleteProductDto>(bodyStr, dtoType));
+            }
+            if (typeof(UpdateImportInfoDto) == dtoType)
+            {
+                result = this.updateImportInfoDtoValidator.Validate(assignValue<UpdateImportInfoDto>(bodyStr, dtoType));
+            }
+            if (typeof(DeleteImportInfoDto) == dtoType)
+            {
+                result = this.deleteImportInfoDtoValidator.Validate(assignValue<DeleteImportInfoDto>(bodyStr, dtoType));
             }
 
             if (!result.IsValid)

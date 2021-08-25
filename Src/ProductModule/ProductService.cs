@@ -140,5 +140,16 @@ namespace store.Src.ProductModule
             SubCategory subCategory = this.subCategoryRepository.getSubCategoryByname(name);
             return subCategory;
         }
+        public bool updateImportInfo(ImportInfo importInfo)
+        {
+            bool res = this.importInfoRepository.updateImportInfo(importInfo);
+            return res;
+        }
+
+        public bool deleteImportInfo(string importInfoId)
+        {
+            bool res = this.importInfoRepository.deleteImportInfo(importInfoId);
+            return res;
+        }
     }
 }
