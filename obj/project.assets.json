@@ -8168,11 +8168,16 @@
     ]
   },
   "packageFolders": {
+<<<<<<< HEAD
     "C:\\Users\\HaiCao\\.nuget\\packages\\": {}
+=======
+    "C:\\Users\\ACER\\.nuget\\packages\\": {}
+>>>>>>> ca44c7fe2d40720e1a378d4ff322d862cbb3c792
   },
   "project": {
     "version": "1.0.0",
     "restore": {
+<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj",
       "projectName": "store",
       "projectPath": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj",
@@ -8181,6 +8186,16 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\HaiCao\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+      "projectUniqueName": "C:\\Users\\ACER\\Desktop\\Mono-Shop-dev\\mono-shopping-store-be\\store.csproj",
+      "projectName": "store",
+      "projectPath": "C:\\Users\\ACER\\Desktop\\Mono-Shop-dev\\mono-shopping-store-be\\store.csproj",
+      "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ACER\\Desktop\\Mono-Shop-dev\\mono-shopping-store-be\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> ca44c7fe2d40720e1a378d4ff322d862cbb3c792
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
