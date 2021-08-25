@@ -6,7 +6,7 @@ namespace store.Src.UserModule.Interface
 {
     public interface IAdminService
     {
-        public List<User> getAllUser(int currentPage, int pageSize, string name);
+        public List<User> getAllUser(int currentPage, int pageSize, string name, string role);
         public int getAllUserCount(string name);
         public bool updateEmployee(UpdateEmployeeDto updateEmployeeDto);
     }

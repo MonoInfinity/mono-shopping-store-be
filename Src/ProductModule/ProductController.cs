@@ -75,7 +75,7 @@ namespace store.Src.ProductModule
                 dataRes.Add("categoryId", category.categoryId);
                 res.data = dataRes;
                 res.setErrorMessage("This category name is existed");
-                return new BadRequestObjectResult(res.getResponse());
+                return new NotFoundObjectResult(res.getResponse());
             }
 
             Category newCategory = new Category();
@@ -110,7 +110,7 @@ namespace store.Src.ProductModule
             if (category == null)
             {
                 res.setErrorMessage("The category with the given id was not found");
-                return new BadRequestObjectResult(res.getResponse());
+                return new NotFoundObjectResult(res.getResponse());
             }
 
             SubCategory subCategory = this.productService.getSubCategoryBySubCategoryName(body.name);
@@ -153,7 +153,7 @@ namespace store.Src.ProductModule
             if (manager == null)
             {
                 res.setErrorMessage("The manager with the give id was not found");
-                return new BadRequestObjectResult(res.getResponse());
+                return new NotFoundObjectResult(res.getResponse());
             }
 
             ImportInfo importInfo = new ImportInfo();
@@ -193,14 +193,14 @@ namespace store.Src.ProductModule
             if (subCategory == null)
             {
                 res.setErrorMessage("The sub category with the given id was not found");
-                return new BadRequestObjectResult(res.getResponse());
+                return new NotFoundObjectResult(res.getResponse());
             }
 
             ImportInfo importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
             if (importInfo == null)
             {
                 res.setErrorMessage("The import infomation with the given id was not found");
-                return new BadRequestObjectResult(res.getResponse());
+                return new NotFoundObjectResult(res.getResponse());
             }
 
             Product newProduct = new Product();
@@ -240,7 +240,7 @@ namespace store.Src.ProductModule
             if (updateProduct == null)
             {
                 res.setErrorMessage("The product with the given id was not found");
-                return new BadRequestObjectResult(res.getResponse());
+                return new NotFoundObjectResult(res.getResponse());
             }
 
             updateProduct.name = body.name;
@@ -276,7 +276,7 @@ namespace store.Src.ProductModule
             if (product == null)
             {
                 res.setErrorMessage("product with given productId not exist");
-                return new BadRequestObjectResult(res.getResponse());
+                return new NotFoundObjectResult(res.getResponse());
             }
             bool isDelete = this.productService.deleteProduct(body.productId);
             if (!isDelete)
@@ -290,32 +290,33 @@ namespace store.Src.ProductModule
 
         }
 
-        [HttpGet("all/{pageSize}/{page}/{name}")]
+        [HttpGet("all")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult listAllProduct([FromRoute] int pageSize, [FromRoute] int page, [FromRoute] string name)
+        public ObjectResult listAllProduct(int pageSize, int page, string name)
         {
             IDictionary<string, object> dataRes = new Dictionary<string, object>();
             ServerResponse<IDictionary<string, object>> res = new ServerResponse<IDictionary<string, object>>();
+            var count = this.productService.getAllProductCount(name);
             var products = this.productService.getAllProduct(pageSize, page, name);
             dataRes.Add("products", products);
-            dataRes.Add("count", products.Count);
+            dataRes.Add("count", count);
             res.data = dataRes;
             return new ObjectResult(res.getResponse());
         }
 
-        [HttpGet("{productId}")]
+        [HttpGet("")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult getAProduct([FromRoute] string productId)
+        public ObjectResult getAProduct(string productId)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
 
             Product product = this.productService.getProductByProductId(productId);
             if (product == null)
             {
-                res.setErrorMessage("product with given productId not exist");
-                return new BadRequestObjectResult(res.getResponse());
+                res.setErrorMessage("product with given productId not found");
+                return new NotFoundObjectResult(res.getResponse());
             }
 
             res.data = product;
@@ -333,8 +334,8 @@ namespace store.Src.ProductModule
             var category = this.productService.getCategoryByCategoryId(body.categoryId);
             if (category == null)
             {
-                res.setErrorMessage("Category with given categoryId not exist");
-                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+                res.setErrorMessage("Category with given categoryId not found");
+                return new NotFoundObjectResult(res.getResponse()) { StatusCode = 500 };
             }
             category.name = body.name;
             category.status = body.status;
@@ -359,8 +360,8 @@ namespace store.Src.ProductModule
             var subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
             if (subCategory == null)
             {
-                res.setErrorMessage("SubCategory with given subCategoryId not exist");
-                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+                res.setErrorMessage("SubCategory with given subCategoryId not found");
+                return new NotFoundObjectResult(res.getResponse()) { StatusCode = 500 };
             }
             subCategory.name = body.name;
             subCategory.status = body.status;
@@ -391,10 +392,10 @@ namespace store.Src.ProductModule
             return new ObjectResult(res.getResponse());
         }
 
-        [HttpGet("subcategory/all/{pageSize}/{page}/{name}")]
+        [HttpGet("subcategory/all")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult listAllSubCategory([FromRoute] int pageSize, [FromRoute] int page, [FromRoute] string name)
+        public ObjectResult listAllSubCategory(int pageSize, int page, string name)
         {
             IDictionary<string, object> dataRes = new Dictionary<string, object>();
             ServerResponse<IDictionary<string, object>> res = new ServerResponse<IDictionary<string, object>>();
@@ -406,10 +407,10 @@ namespace store.Src.ProductModule
             return new ObjectResult(res.getResponse());
         }
 
-        [HttpGet("subcategory/categoryId/{categoryId}")]
+        [HttpGet("subcategory/category/")]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(AuthGuard))]
-        public ObjectResult listSubCategoryByCategoryId([FromRoute] string categoryId)
+        public ObjectResult listSubCategoryByCategoryId(string categoryId)
         {
             ServerResponse<List<SubCategory>> res = new ServerResponse<List<SubCategory>>();
             var isValidCategoryId = productService.getCategoryByCategoryId(categoryId);
@@ -441,7 +442,7 @@ namespace store.Src.ProductModule
             if (importInfo == null)
             {
                 res.setErrorMessage("ImportInfo with given importInfoId not exist");
-                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+                return new NotFoundObjectResult(res.getResponse()) { StatusCode = 500 };
             }
             importInfo.importDate = body.importDate;
             importInfo.importPrice = body.importPrice;
@@ -471,7 +472,7 @@ namespace store.Src.ProductModule
             if (importInfo == null)
             {
                 res.setErrorMessage("ImportInfo with given importInfoId not exist");
-                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+                return new NotFoundObjectResult(res.getResponse()) { StatusCode = 500 };
             }
             bool isDelete = this.productService.deleteImportInfo(importInfo.importInfoId);
             if (!isDelete)

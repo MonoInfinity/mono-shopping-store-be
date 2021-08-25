@@ -9,7 +9,7 @@ namespace store.Src.UserModule.Interface
         public User getUserByUsername(string username);
 
         public User getUserByUserId(string userId);
-        public List<User> getAllUsers(int pageSize, int currentPage, string name);
+        public List<User> getAllUsers(int pageSize, int currentPage, string name, string role);
         public int getAllUsersCount(string name);
 
         public bool saveUser(User user);

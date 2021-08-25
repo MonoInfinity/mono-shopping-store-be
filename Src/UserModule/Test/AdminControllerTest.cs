@@ -60,7 +60,7 @@ namespace store.Src.UserModule.Test
         [Fact]
         public void PassGetAllUser()
         {
-            var result = this.adminController.listAllUser(12, 0, "");
+            var result = this.adminController.listAllUser(12, 0, "", "");
             var res = (Dictionary<string, object>)result.Value;
             var user = res["data"] as List<User>;
 
@@ -70,7 +70,7 @@ namespace store.Src.UserModule.Test
         [Fact]
         public void PassGetAllUserPageSize()
         {
-            var result = this.adminController.listAllUser(20, 0, "");
+            var result = this.adminController.listAllUser(20, 0, "", "");
             var res = (Dictionary<string, object>)result.Value;
             var user = res["data"] as List<User>;
 
@@ -82,7 +82,7 @@ namespace store.Src.UserModule.Test
         [Fact]
         public void PassGetAllUserPageLessThanZero()
         {
-            var result = this.adminController.listAllUser(12, -1, "");
+            var result = this.adminController.listAllUser(12, -1, "", "");
             var res = (Dictionary<string, object>)result.Value;
             var user = res["data"] as List<User>;
 
