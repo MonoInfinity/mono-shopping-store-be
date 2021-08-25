@@ -129,5 +129,16 @@ namespace store.Src.ProductModule
             return subCategories;
         }
 
+        public Category getCategoryByCategoryName(string name)
+        {
+            Category category = this.categoryRepository.getCategoryByName(name);
+            return category;
+        }
+
+        public SubCategory getSubCategoryBySubCategoryName(string name)
+        {
+            SubCategory subCategory = this.subCategoryRepository.getSubCategoryByname(name);
+            return subCategory;
+        }
     }
 }
