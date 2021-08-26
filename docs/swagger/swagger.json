@@ -58,6 +58,17 @@
     },
 
     "components": {
-        "schemas": {}
+        "schemas": {
+            "user": { "$ref": "./schema/entity/user.json" },
+            "userRole": { "$ref": "./schema/entity/userRole.json" },
+            "userStatus": { "$ref": "./schema/entity/userStatus.json" },
+            "subCategory": { "$ref": "./schema/entity/subCategory.json" },
+            "subCategoryStatus": { "$ref": "./schema/entity/subCategoryStatus.json" },
+            "category": { "$ref": "./schema/entity/category.json" },
+            "categoryStatus": { "$ref": "./schema/entity/categoryStatus.json" },
+            "product": { "$ref": "./schema/entity/product.json" },
+            "productStatus": { "$ref": "./schema/entity/productStatus.json" },
+            "importInfo": { "$ref": "./schema/entity/importInfo.json" }
+        }
     }
 }

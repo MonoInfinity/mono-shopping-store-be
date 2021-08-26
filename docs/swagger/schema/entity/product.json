@@ -1,0 +1,62 @@
+{
+    "type": "object",
+    "description": "all information about Product",
+    "properties": {
+        "productId": {
+            "type": "string",
+            "example": "1a06bf14-eaa0-4bce-820f-96a32fbec254"
+        },
+        "name": {
+            "type": "string",
+            "example": "Nước mắm Nam Ngư"
+        },
+        "description": {
+            "type": "string",
+            "example": "This is a description"
+        },
+        "location": {
+            "type": "string",
+            "example": "this is description"
+        },
+        "status": {
+            "type": "integer",
+            "$ref": "productStatus.json"
+        },
+        "expiryDate": {
+            "type": "string",
+            "example": "8/26/2023",
+            "description": "mm/dd/yyyy"
+        },
+        "wholesalePrice": {
+            "type": "double",
+            "example": "200000"
+        },
+        "retailPrice": {
+            "type": "double",
+            "example": "10000"
+        },
+        "createDate": {
+            "type": "string",
+            "example": "8/26/2021",
+            "description": "mm/dd/yyyy"
+        },
+        "quantity": {
+            "type": "integer",
+            "example": 200
+        },
+        "imageUrl": {
+            "type": "string",
+            "example": ""
+        },
+        "subCategoryId": {
+            "type": "string",
+            "example": "023713ed-80d2-468d-9408-1b0c9a6edeaa",
+            "$ref": "subCategory.json"
+        },
+        "importInfoId": {
+            "type": "string",
+            "example": "00c88a52-12aa-49f1-b6fb-5fe3e597d62e",
+            "$ref": "importInfo.json"
+        }
+    }
+}

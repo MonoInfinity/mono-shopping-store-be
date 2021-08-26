@@ -79,27 +79,27 @@
     },
     "delete": {
         "tags": ["product"],
-        "description": "Update ImportInfo",
+        "description": "Delete ImportInfo",
         "requestBody": {
-            "$ref": "../../dto/updateImportInfo.json"
+            "$ref": "../../dto/deleteImportInfo.json"
         },
         "responses": {
             "200": {
-                "description": "Update ImportInfo success",
+                "description": "Delete ImportInfo success",
                 "content": {
                     "application/json": {
                         "schema": {
-                            "$ref": "../../schema/product/updateImportInfoResponse.json"
+                            "$ref": "../../schema/product/deleteImportInfoResponse.json"
                         }
                     }
                 }
             },
             "404": {
-                "description": "Update Category fail: not found importInfoId",
+                "description": "Delete Category fail: not found importInfoId",
                 "content": {
                     "application/json": {
                         "schema": {
-                            "$ref": "../../schema/product/notfoundUpdateCategoryResponse.json"
+                            "$ref": "../../schema/product/notfoundDeleteCategoryResponse.json"
                         }
                     }
                 }

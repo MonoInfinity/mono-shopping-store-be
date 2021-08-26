@@ -1,0 +1,5 @@
+{
+    "description": "status of Category",
+    "type": "string",
+    "enum": ["NOT_SALE(0)", "SALE(1)"]
+}
