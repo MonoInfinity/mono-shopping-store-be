@@ -1,0 +1,60 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Store-V1",
+        "description": "",
+        "contact": {
+            "name": "Pham Vinh Nhan",
+            "email": "heaty566@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "2.1.7"
+    },
+    "tags": [
+        {
+            "name": "auth",
+            "description": "handle authentication"
+        },
+        {
+            "name": "user",
+            "description": "service for user"
+        },
+        {
+            "name": "admin",
+            "description": "service for administrator, have to login and with role is ADMIN"
+        },
+        {
+            "name": "product",
+            "description": "service for product"
+        }
+    ],
+    "servers": [
+        {
+            "url": "http://localhost:4000",
+            "description": "Development server"
+        }
+    ],
+    "paths": {
+        "/api/auth/login":{"$ref": "./path/auth/login.json"},
+        "/api/auth/register":{"$ref": "./path/auth/register.json"},
+
+        "/api/user": {"$ref": "./path/user/[].json"},
+        "/api/user/password":{"$ref":"./path/user/updatePassword.json"},
+
+        "/api/admin/user/employee":{"$ref":"./path/admin/updateEmp.json"},
+        "/api/admin/user/all?pageSize={}&page={}&name={}&role={}":{"$ref": "./path/admin/getUserList.json"},
+        "/api/admin/user?userId={}":{"$ref": "./path/admin/getOneUSer.json"},
+
+        "/api/product/category/all":{"$ref":"./path/product/getProductList.json"},
+        "/api/product/subcategory/all?pageSize={}&page={}&name={}":{"$ref": "./path/product/getSucCategoryList.json"},
+        "/api/product/subcategory/category?categoryId={}":{"$ref": "./path/product/getSubCategory.json"},
+        "/api/product":{"$ref":"./path/product/[].json"}
+    },
+
+    "components": {
+        "schemas": {}
+    }
+}

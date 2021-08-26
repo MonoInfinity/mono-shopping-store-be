@@ -1,0 +1,18 @@
+{
+    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "errorMessage": {
+                                                    "type": "string",
+                                                    "example": ["User with given Id not found"]
+                                                }
+                                            }
+                                        }
+                                    }
+}
