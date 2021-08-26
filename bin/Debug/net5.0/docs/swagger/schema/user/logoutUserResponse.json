@@ -1,0 +1,11 @@
+{ "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "example": {}
+                                        }
+                                    }}

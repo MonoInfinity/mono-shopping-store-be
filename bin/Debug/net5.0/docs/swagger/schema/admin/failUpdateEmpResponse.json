@@ -1,0 +1,22 @@
+{
+    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "errorMessage": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "'salary' must be greater than or equal to '0'.",
+                                                        "'role' must be between 1 and 5.",
+                                                        "'status' must be between 0 and 1."
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+}

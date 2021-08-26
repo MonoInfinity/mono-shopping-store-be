@@ -1,0 +1,40 @@
+{"put": {
+                "tags": ["admin"],
+                "description": "Update Employee",
+                "requestBody": {
+                    "$ref":"../../dto/updateEmp.json"
+                },
+                "responses": {
+                    "200": {
+                        "description": "update employee success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"../../schema/admin/updateEmpResponse.json"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Fail to update employee",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"../../schema/admin/failUpdateEmpResponse.json"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found employee",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"../../schema/admin/notfoundUpdateEmpResponse.json"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }

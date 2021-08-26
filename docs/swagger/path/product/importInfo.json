@@ -1,0 +1,109 @@
+{
+    "post": {
+        "tags": ["product"],
+        "description": "Create New Category",
+        "requestBody": {
+            "$ref": "../../dto/createImportInfo.json"
+        },
+        "responses": {
+            "200": {
+                "description": "Create ImportInfo success",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/createImportInfoResponse.json"
+                        }
+                    }
+                }
+            },
+            "400": {
+                "description": "Create Category fail: bad request",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/failCreateImportInfoResponse.json"
+                        }
+                    }
+                }
+            },
+            "404": {
+                "description": "Create Category fail: not found managerId",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/notfoundCreateImportInfoResponse.json"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "put": {
+        "tags": ["product"],
+        "description": "Update ImportInfo",
+        "requestBody": {
+            "$ref": "../../dto/updateImportInfo.json"
+        },
+        "responses": {
+            "200": {
+                "description": "Update ImportInfo success",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/updateImportInfoResponse.json"
+                        }
+                    }
+                }
+            },
+            "404": {
+                "description": "Update ImportInfo fail: not found importInfoId",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/notfoundUpdateImportInfoResponse.json"
+                        }
+                    }
+                }
+            },
+            "400": {
+                "description": "Update ImportInfo fail: bad request",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/failUpdateImportInfoResponse.json"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "delete": {
+        "tags": ["product"],
+        "description": "Update ImportInfo",
+        "requestBody": {
+            "$ref": "../../dto/updateImportInfo.json"
+        },
+        "responses": {
+            "200": {
+                "description": "Update ImportInfo success",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/updateImportInfoResponse.json"
+                        }
+                    }
+                }
+            },
+            "404": {
+                "description": "Update Category fail: not found importInfoId",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/notfoundUpdateCategoryResponse.json"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

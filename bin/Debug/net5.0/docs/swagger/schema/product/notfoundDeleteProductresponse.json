@@ -1,0 +1,18 @@
+{
+    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "product with given productId not exist"
+                                                }
+                                            }
+                                        }
+                                    }
+}

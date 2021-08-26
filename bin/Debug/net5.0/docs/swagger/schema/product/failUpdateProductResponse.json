@@ -1,0 +1,22 @@
+{
+    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "errorMessage": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "'product Id' must not be empty.",
+                                                        "'wholesale Price' must be greater than '0'.",
+                                                        "..."
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+}

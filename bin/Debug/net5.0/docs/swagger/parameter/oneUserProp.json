@@ -1,0 +1,13 @@
+{
+    "in": "query",
+                        "name": "userId",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "userId": {
+                                    "type": "string",
+                                    "example": "02a4f752-2770-4296-89c1-c680b933cd61"
+                                }
+                            }
+                        }
+}

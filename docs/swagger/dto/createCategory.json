@@ -1,0 +1,15 @@
+{
+    "content": {
+        "form-data": {
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "New Category"
+                    }
+                }
+            }
+        }
+    }
+}
