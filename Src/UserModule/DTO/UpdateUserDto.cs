@@ -1,6 +1,5 @@
-
+using System.Text.RegularExpressions;
 using FluentValidation;
-using Microsoft.AspNetCore.Http;
 using store.Src.Utils.Validator;
 namespace store.Src.UserModule.DTO
 {
@@ -31,7 +30,7 @@ namespace store.Src.UserModule.DTO
         {
             RuleFor(x => x.name).NotEmpty().Length(UserValidator.NAME_MIN, UserValidator.NAME_MAX).NotNull();
             RuleFor(x => x.email).NotEmpty().EmailAddress().NotNull();
-            RuleFor(x => x.phone).NotEmpty().Length(7, 11).NotNull().NotNull();
+            RuleFor(x => x.phone).NotEmpty().NotNull().NotNull().Matches(new Regex(@"^(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b"));
             RuleFor(x => x.address).NotEmpty().Length(UserValidator.ADDRESS_MIN, UserValidator.ADDRESS_MAX).NotNull();
         }
     }

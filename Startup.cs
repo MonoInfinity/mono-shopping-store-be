@@ -29,7 +29,6 @@ using store.Src.ProductModule.Interface;
 using store.Src.ProductModule;
 using store.Src.ProductModule.DTO;
 using System.Collections.Generic;
-using System;
 
 namespace store
 {
@@ -67,7 +66,6 @@ namespace store
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IImportInfoRepository, ImportInfoRepository>();
-            services.AddScoped<IImportInfoService, ImportInfoService>();
 
             //Validator  
             services.AddScoped<ValidateFilter>();
@@ -86,6 +84,9 @@ namespace store
             services.AddScoped<UpdateSubCategoryDtoValidator>();
             services.AddScoped<UpdateImportInfoDtoValidator>();
             services.AddScoped<DeleteImportInfoDtoValidator>();
+
+            // Locale
+            services.AddScoped<LocaleFilter>();
 
             services.AddCors(options =>
                      options.AddPolicy("AllowSpecific", p => p.WithOrigins("http://localhost:3000").AllowCredentials()
@@ -125,20 +126,22 @@ namespace store
 
             app.Use(next => context =>
             {
-                var cookies = new Dictionary<string, string>();
-                var values = ((string)context.Request.Headers["Cookie"]).TrimEnd(';').Split(';');
-
-                foreach (var parts in values)
-                {
-                    var cookieArray = parts.Trim().Split('=');
-                    cookies.Add(cookieArray[0], cookieArray[1]);
-                }
-
                 var lang = "en";
-                var outValue = "";
-                if (cookies.TryGetValue("lang", out outValue))
-                {
-                    lang = outValue;
+                var cookies = new Dictionary<string, string>();
+                var values = ((string)context.Request.Headers["Cookie"])?.Split(',');
+
+                if(values != null){
+                    foreach (var parts in values)
+                    {
+                        var cookieArray = parts.Trim().Split('=');
+                        cookies.Add(cookieArray[0], cookieArray[1]);
+                    }
+
+                    var outValue = "";
+                    if (cookies.TryGetValue("lang", out outValue))
+                    {
+                        lang = outValue;
+                    }
                 }
                 ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo(lang);
                 return next(context);

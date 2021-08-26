@@ -90,7 +90,9 @@ namespace store.Src.Utils.Validator
                     if (propertyValue.Contains("\""))
                     {
                         propertyValue = propertyValue.Replace("\"", "");
-                        propertys[i].SetValue(obj, propertyValue);
+                        if (propertys[i].PropertyType == typeof(string)){
+                            propertys[i].SetValue(obj, propertyValue);
+                        }
                     }
 
                     else

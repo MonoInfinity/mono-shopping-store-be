@@ -1,5 +1,3 @@
-using store.Src.UserModule.Entity;
-
 namespace store.Src.Utils.Interface
 {
     public interface IJwtService

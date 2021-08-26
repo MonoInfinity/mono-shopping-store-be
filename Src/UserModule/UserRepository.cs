@@ -216,7 +216,7 @@ namespace store.Src.UserModule
             bool res = false;
             string sql = "UPDATE tblUser SET name=@newName, email=@newEmail, phone=@newPhone, address=@newAddress, avatarUrl=@avatarUrl  WHERE userId=@userId";
             SqlCommand Command = new SqlCommand(sql, connection);
-            Console.WriteLine(user.name);
+            
             try
             {
                 connection.Open();

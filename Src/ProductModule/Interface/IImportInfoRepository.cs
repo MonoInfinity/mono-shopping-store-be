@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using store.Src.ProductModule.Entity;
 
 namespace store.Src.ProductModule.Interface

@@ -1,21 +1,16 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 using store.Src.AuthModule.DTO;
+using store.Src.AuthModule.Interface;
 using store.Src.UserModule.Entity;
 using store.Src.Utils.Common;
 using store.Src.UserModule.Interface;
-using store.Src.AuthModule.Interface;
-using store.Src.Utils.Interface;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Http;
 using store.Src.Utils.Validator;
 using store.Src.Utils;
-using FluentValidation.Results;
-using FluentValidation.Resources;
-using System.Globalization;
-using FluentValidation;
+using store.Src.Utils.Interface;
 using static store.Src.Utils.Locale.CustomLanguageValidator;
+
 
 namespace store.Src.AuthModule
 {
@@ -45,16 +40,12 @@ namespace store.Src.AuthModule
         {
             ServerResponse<User> res = new ServerResponse<User>();
 
-
-
             User existedUser = this.userService.getUserByUsername(body.username);
             if (existedUser == null)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_LoginFail);
                 return new BadRequestObjectResult(res.getResponse());
             }
-
-
 
             bool isMatchPassword = this.authService.comparePassword(body.password, existedUser.password);
             if (!isMatchPassword)
@@ -87,7 +78,7 @@ namespace store.Src.AuthModule
             User user = this.userService.getUserByUsername(body.username);
             if (user != null)
             {
-                res.setErrorMessage(ErrorMessageKey.Error_UsernameExist, "username");
+                res.setErrorMessage(ErrorMessageKey.Error_Existed, "username");
                 return new BadRequestObjectResult(res.getResponse());
             }
 
@@ -107,7 +98,7 @@ namespace store.Src.AuthModule
             bool isInserted = this.userService.saveUser(insertedUser);
             if (!isInserted)
             {
-                res.setErrorMessage(ErrorMessageKey.Error_FailToSaveUser);
+                res.setErrorMessage(ErrorMessageKey.Error_FailToSave);
                 return new ObjectResult(res.getResponse()) { StatusCode = 500 };
             }
             res.data = insertedUser;

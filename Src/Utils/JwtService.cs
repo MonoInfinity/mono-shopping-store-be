@@ -5,7 +5,6 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using store.Src.Utils.Interface;
-using store.Src.UserModule.Entity;
 
 namespace store.Src.Utils
 {

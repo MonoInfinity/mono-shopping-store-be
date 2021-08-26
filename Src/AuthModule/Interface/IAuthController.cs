@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
 using store.Src.AuthModule.DTO;
-
 using Microsoft.AspNetCore.Mvc;
 
 namespace store.Src.AuthModule.Interface

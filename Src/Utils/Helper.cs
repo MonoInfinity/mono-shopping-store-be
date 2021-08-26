@@ -18,8 +18,11 @@ namespace store.Src.Utils
 
         public static string StringFormat(string format, IDictionary<string, object> values)
         {
-            foreach(var p in values)
-                format = format.Replace("{" + p.Key + "}", p.Value.ToString());
+            if(values == null) return format;
+            foreach (var p in values)
+            {
+                format = format.Replace("{" + p.Key + "}", p.Value?.ToString());
+            }
             return format;
         }
     }

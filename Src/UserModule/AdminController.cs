@@ -1,20 +1,12 @@
-using System;
 using System.Collections.Generic;
-using FluentValidation.Results;
-
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
-using store.Src.Utils.Interface;
-using store.Src.AuthModule.DTO;
-using store.Src.AuthModule.Interface;
 using store.Src.UserModule.DTO;
 using store.Src.UserModule.Entity;
 using store.Src.UserModule.Interface;
 using store.Src.Utils.Common;
 using store.Src.AuthModule;
-using System.Diagnostics;
-
-
+using static store.Src.Utils.Locale.CustomLanguageValidator;
+using store.Src.Utils.Validator;
 
 namespace store.Src.UserModule
 {
@@ -56,16 +48,12 @@ namespace store.Src.UserModule
         }
 
         [HttpPut("user/employee")]
+        [ValidateFilterAttribute(typeof(UpdateEmployeeDto))]
+        [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult updateEmployee([FromBody] UpdateEmployeeDto body)
         {
             ServerResponse<User> res = new ServerResponse<User>();
-            ValidationResult result = this.updateEmployeeDtoValidator.Validate(body);
-            res.mapDetails(result);
-
-            if (!result.IsValid)
-            {
-                return new BadRequestObjectResult(res.getResponse());
-            }
+            
             UpdateEmployeeDto userUpdate = new UpdateEmployeeDto();
             userUpdate.userId = body.userId;
             userUpdate.role = body.role;
@@ -76,29 +64,29 @@ namespace store.Src.UserModule
             User user = this.userService.getUserById(userUpdate.userId);
             if (user == null)
             {
-                res.setErrorMessage("User with given Id not found");
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "userId");
                 return new NotFoundObjectResult(res.getResponse());
             }
 
             if (user.role.ToString().Equals("MANAGER") || user.role.ToString().Equals("OWNER"))
             {
-                res.setErrorMessage("You can't update admin status");
+                res.setErrorMessage(ErrorMessageKey.Error_NotAllow);
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 406 };
             }
             if (userUpdate.role == 1 && userUpdate.salary != 0)
             {
-                res.setErrorMessage("You can't update customer salary");
+                res.setErrorMessage(ErrorMessageKey.Error_NotAllow);
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 406 };
             }
 
             bool isUpdate = this.adminService.updateEmployee(userUpdate);
             if (!isUpdate)
             {
-                res.setErrorMessage("Update status user fail");
+                res.setErrorMessage(ErrorMessageKey.Error_FailToSave);
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
             }
 
-            res.setMessage("Update Status User successfully");
+            res.setMessage(MessageKey.Message_UpdateSuccess);
             return new ObjectResult(res.getResponse());
 
         }
@@ -110,7 +98,7 @@ namespace store.Src.UserModule
             User user = this.userService.getUserById(userId);
             if (user == null)
             {
-                res.setErrorMessage("User with given Id was not found");
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "userId");
                 return new NotFoundObjectResult(res.getResponse());
             }
             user.password = "";

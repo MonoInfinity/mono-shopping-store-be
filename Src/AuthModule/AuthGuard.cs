@@ -1,10 +1,7 @@
-using Microsoft.VisualBasic.CompilerServices;
 using System.Collections.Generic;
-using System.Net;
 using System;
 using Microsoft.AspNetCore.Mvc.Filters;
 using store.Src.Utils.Interface;
-using store.Src.Utils;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using store.Src.UserModule.Interface;
@@ -36,7 +33,7 @@ namespace store.Src.AuthModule
             var res = new ServerResponse<object>();
 
             var cookies = new Dictionary<string, string>();
-            var values = ((string)context.HttpContext.Request.Headers["Cookie"]).TrimEnd(';').Split(';');
+            var values = ((string)context.HttpContext.Request.Headers["Cookie"]).Split(',');
 
 
             foreach (var parts in values)
