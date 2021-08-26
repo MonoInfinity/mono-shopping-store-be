@@ -85,6 +85,9 @@ namespace store
             services.AddScoped<UpdateImportInfoDtoValidator>();
             services.AddScoped<DeleteImportInfoDtoValidator>();
 
+            // Locale
+            services.AddScoped<LocaleFilter>();
+
             services.AddCors(options =>
                      options.AddPolicy("AllowSpecific", p => p.WithOrigins("http://localhost:3000").AllowCredentials()
                                                                .WithMethods("GET").WithMethods("POST").WithMethods("PUT")
@@ -123,20 +126,22 @@ namespace store
 
             app.Use(next => context =>
             {
-                var cookies = new Dictionary<string, string>();
-                var values = ((string)context.Request.Headers["Cookie"]).TrimEnd(';').Split(';');
-
-                foreach (var parts in values)
-                {
-                    var cookieArray = parts.Trim().Split('=');
-                    cookies.Add(cookieArray[0], cookieArray[1]);
-                }
-
                 var lang = "en";
-                var outValue = "";
-                if (cookies.TryGetValue("lang", out outValue))
-                {
-                    lang = outValue;
+                var cookies = new Dictionary<string, string>();
+                var values = ((string)context.Request.Headers["Cookie"])?.Split(',');
+
+                if(values != null){
+                    foreach (var parts in values)
+                    {
+                        var cookieArray = parts.Trim().Split('=');
+                        cookies.Add(cookieArray[0], cookieArray[1]);
+                    }
+
+                    var outValue = "";
+                    if (cookies.TryGetValue("lang", out outValue))
+                    {
+                        lang = outValue;
+                    }
                 }
                 ValidatorOptions.Global.LanguageManager.Culture = new CultureInfo(lang);
                 return next(context);
