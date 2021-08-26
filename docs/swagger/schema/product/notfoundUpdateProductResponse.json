@@ -1,18 +1,18 @@
 {
     "type": "object",
-                                    "properties": {
-                                        "data": {
-                                            "type": "object",
-                                            "example": null
-                                        },
-                                        "details": {
-                                            "type": "object",
-                                            "properties": {
-                                                "errorMessage": {
-                                                    "type": "string",
-                                                    "example": "The product with the given id was not found"
-                                                }
-                                            }
-                                        }
-                                    }
+    "properties": {
+        "data": {
+            "type": "object",
+            "example": null
+        },
+        "details": {
+            "type": "object",
+            "properties": {
+                "productId": {
+                    "type": "string",
+                    "example": "is not found"
+                }
+            }
+        }
+    }
 }

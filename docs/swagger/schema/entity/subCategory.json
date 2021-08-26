@@ -1,0 +1,28 @@
+{
+    "type": "object",
+    "description": "all information about SubCategory",
+    "properties": {
+        "subCategoryId": {
+            "type": "string",
+            "example": "0d8f126d-e949-4155-91d1-e25c8b56ffbd"
+        },
+        "name": {
+            "type": "string",
+            "example": " Nước uống trái cây "
+        },
+        "createDate": {
+            "type": "string",
+            "example": "8/26/2021",
+            "description": "mm/dd/yyyy"
+        },
+        "status": {
+            "type": "integer",
+            "$ref": "subCategoryStatus.json"
+        },
+        "categoryId": {
+            "type": "string",
+            "example": "023713ed-80d2-468d-9408-1b0c9a6edeaa",
+            "$ref": "category.json"
+        }
+    }
+}

@@ -1,0 +1,109 @@
+{
+    "post": {
+                "tags": ["product"],
+                "description": "Create New Product",
+                "requestBody": {
+                    "$ref":"../../dto/createProduct.json"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create Product success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"../../schema/product/createProductResponse.json"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Create Product fail: Wrong Id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"../../schema/product/notfoundCreateProductResponse.json" 
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Create Product fail: bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"../../schema/product/failCreateProductResponse.json" 
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["product"],
+                "description": "Update Product",
+                "requestBody": {
+                    "$ref":"../../dto/updateProduct.json"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Product success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"../../schema/product/updateProductResponse.json"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Update Product fail: Wrong productId",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"../../schema/product/notfoundUpdateProductResponse.json"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Update Product fail: Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"../../schema/product/failUpdateProductResponse.json"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["product"],
+                "description": "Delete Product",
+                "requestBody": {
+                    "$ref":"../../dto/deleteProduct.json"
+                },
+                "responses": {
+                    "200": {
+                        "description": "Delete Product Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"../../schema/product/deleteProductResponse.json"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Delete Product Fail: Wrong ProductId",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"../../schema/product/notfoundDeleteProductResponse.json"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }

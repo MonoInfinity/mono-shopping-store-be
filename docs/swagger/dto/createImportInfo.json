@@ -1,0 +1,39 @@
+{
+    "content": {
+        "form-data": {
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "importDate": {
+                        "type": "string",
+                        "example": "01/01/2021"
+                    },
+                    "importPrice": {
+                        "type": "number",
+                        "example": "200000"
+                    },
+                    "expiryDate": {
+                        "type": "string",
+                        "example": "01/0/2023"
+                    },
+                    "importQuantity": {
+                        "type": "integer",
+                        "example": 100
+                    },
+                    "note": {
+                        "type": "string",
+                        "example": "this is note"
+                    },
+                    "brand": {
+                        "type": "string",
+                        "example": "Local brand"
+                    },
+                    "managerId": {
+                        "type": "string",
+                        "example": "4504b5d6-cfd1-4cad-97c8-4a1b8e55a1b7"
+                    }
+                }
+            }
+        }
+    }
+}

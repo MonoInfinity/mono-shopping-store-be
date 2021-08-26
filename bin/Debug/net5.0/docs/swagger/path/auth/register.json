@@ -1,0 +1,17 @@
+{
+    "post": {
+                "tags": ["auth"],
+                "description": "Create new User",
+                "requestBody": {"$ref":"../../dto/registerUSer.json"},
+                "responses": {
+                    "200": {
+                        "description": "return new User's Object",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+}
