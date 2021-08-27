@@ -1,21 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ACER\\Desktop\\Mono-Shop\\mono-shopping-store-be\\store.csproj": {}
+    "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ACER\\Desktop\\Mono-Shop\\mono-shopping-store-be\\store.csproj": {
+    "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ACER\\Desktop\\Mono-Shop\\mono-shopping-store-be\\store.csproj",
+        "projectUniqueName": "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
         "projectName": "store",
-        "projectPath": "C:\\Users\\ACER\\Desktop\\Mono-Shop\\mono-shopping-store-be\\store.csproj",
-        "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ACER\\Desktop\\Mono-Shop\\mono-shopping-store-be\\obj\\",
+        "projectPath": "C:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
+        "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Lenovo\\Desktop\\shop\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
@@ -59,6 +63,10 @@
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[16.11.0, )"
+            },
+            "SendGrid": {
+              "target": "Package",
+              "version": "[9.24.2, )"
             },
             "Serilog.Extensions.Logging.File": {
               "target": "Package",
