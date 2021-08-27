@@ -1,13 +1,13 @@
 version: "3"
 services:
-    server:
-        build: .
-        image: tantruong2303/mono-shopping-store-be:latest
-        expose:
-            - 4000
-        volumes:
-            - ./config:/app/config
-    redis:
-        image: "redis:alpine"
-        ports:
-            - 6379:6379
+        server:
+                build: .
+                image: heaty566/mono-shopping-store-be:latest
+                expose:
+                        - 80
+                volumes:
+                        - ./config:/app/config
+        # redis:
+        #         image: "redis:alpine"
+        #         ports:
+        #                 - 6379:6379

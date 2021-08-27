@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using System;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -44,6 +45,7 @@ namespace store.Src.AuthModule
             var outValue = "";
             if (!cookies.TryGetValue("auth-token", out outValue))
             {
+
                 res.setErrorMessage(ErrorMessageKey.Error_NotAllow);
                 context.Result = new UnauthorizedObjectResult(res.getResponse());
                 return;
