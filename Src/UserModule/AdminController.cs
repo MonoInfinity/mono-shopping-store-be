@@ -53,7 +53,7 @@ namespace store.Src.UserModule
         public ObjectResult updateEmployee([FromBody] UpdateEmployeeDto body)
         {
             ServerResponse<User> res = new ServerResponse<User>();
-            
+
             UpdateEmployeeDto userUpdate = new UpdateEmployeeDto();
             userUpdate.userId = body.userId;
             userUpdate.role = body.role;
@@ -71,12 +71,12 @@ namespace store.Src.UserModule
             if (user.role.ToString().Equals("MANAGER") || user.role.ToString().Equals("OWNER"))
             {
                 res.setErrorMessage(ErrorMessageKey.Error_NotAllow);
-                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 406 };
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 403 };
             }
             if (userUpdate.role == 1 && userUpdate.salary != 0)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_NotAllow);
-                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 406 };
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 403 };
             }
 
             bool isUpdate = this.adminService.updateEmployee(userUpdate);
