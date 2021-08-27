@@ -28,6 +28,8 @@ using Microsoft.AspNetCore.Http;
 using store.Src.ProductModule.Interface;
 using store.Src.ProductModule;
 using store.Src.ProductModule.DTO;
+using store.Src.Providers.Smail;
+using store.Src.Providers.Smail.Interface;
 using System.Collections.Generic;
 
 namespace store
@@ -50,6 +52,7 @@ namespace store
             services.AddScoped<IRedis, Redis>();
             services.AddScoped<IUploadFileService, UploadFileService>();
             services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<ISmailService, SmailService>();
 
             // Auth Module
             services.AddScoped<IAuthService, AuthService>();
@@ -97,12 +100,13 @@ namespace store
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "store", Version = "v1" });
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            
+
             ValidatorOptions.Global.LanguageManager = new CustomLanguageValidator();
 
             if (env.IsDevelopment())
@@ -124,7 +128,8 @@ namespace store
                 var cookies = new Dictionary<string, string>();
                 var values = ((string)context.Request.Headers["Cookie"])?.Split(',', ';');
 
-                if(values != null){
+                if (values != null)
+                {
                     foreach (var parts in values)
                     {
                         var cookieArray = parts.Trim().Split('=');

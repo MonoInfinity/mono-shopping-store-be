@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "iGg7d8sgXl7XRDwezk6/9PpiEOBx9a8oxSGtkrNiBDuH98TbFL1ENLDJfIBAdJXW+RQvgxNRQaukPUIL7WwqsQ==",
+  "dgSpecHash": "/+FUMY4lV8UHnZoix24LUuF3v5gaVpi5dkxK/fkNxVhALRROoH82XpLmhCF1BGfeIBJY9ANSls3VdP2UJx7q/A==",
   "success": true,
   "projectFilePath": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj",
   "expectedPackageFiles": [
@@ -56,6 +56,7 @@
     "C:\\Users\\HaiCao\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\HaiCao\\.nuget\\packages\\sendgrid\\9.24.2\\sendgrid.9.24.2.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\serilog\\2.5.0\\serilog.2.5.0.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\serilog.extensions.logging\\2.0.2\\serilog.extensions.logging.2.0.2.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\serilog.extensions.logging.file\\2.0.0\\serilog.extensions.logging.file.2.0.0.nupkg.sha512",
@@ -64,6 +65,7 @@
     "C:\\Users\\HaiCao\\.nuget\\packages\\serilog.sinks.file\\3.2.0\\serilog.sinks.file.3.2.0.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\serilog.sinks.rollingfile\\3.3.0\\serilog.sinks.rollingfile.3.3.0.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\stackexchange.redis\\2.2.62\\stackexchange.redis.2.2.62.nupkg.sha512",
+    "C:\\Users\\HaiCao\\.nuget\\packages\\starkbank-ecdsa\\1.3.1\\starkbank-ecdsa.1.3.1.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
@@ -153,5 +155,12 @@
     "C:\\Users\\HaiCao\\.nuget\\packages\\xunit.extensibility.execution\\2.4.1\\xunit.extensibility.execution.2.4.1.nupkg.sha512",
     "C:\\Users\\HaiCao\\.nuget\\packages\\xunit.runner.visualstudio\\2.4.3\\xunit.runner.visualstudio.2.4.3.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

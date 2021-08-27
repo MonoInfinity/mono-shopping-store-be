@@ -1289,6 +1289,7 @@ E:\MinhThuan\mono-store\update-category&subCategory\mono-shopping-store-be\obj\D
 E:\MinhThuan\mono-store\update-category&subCategory\mono-shopping-store-be\obj\Debug\net5.0\store.RazorTargetAssemblyInfo.cache
 E:\MinhThuan\mono-store\update-category&subCategory\mono-shopping-store-be\obj\Debug\net5.0\store.csproj.CopyComplete
 E:\MinhThuan\mono-store\update-category&subCategory\mono-shopping-store-be\obj\Debug\net5.0\store.genruntimeconfig.cache
+<<<<<<< HEAD
 E:\MinhThuan\mono-store\thuan-v3\mono-shopping-store-be\bin\Debug\net5.0\testhost.exe
 E:\MinhThuan\mono-store\thuan-v3\mono-shopping-store-be\bin\Debug\net5.0\testhost.dll
 E:\MinhThuan\mono-store\thuan-v3\mono-shopping-store-be\bin\Debug\net5.0\appsettings.Development.json
@@ -1567,3 +1568,9 @@ C:\Users\HaiCao\Desktop\mono_store_be_v2\bin\Debug\net5.0\docs\swagger\schema\us
 C:\Users\HaiCao\Desktop\mono_store_be_v2\bin\Debug\net5.0\docs\swagger\schema\user\updateUserPasswordresponse.json
 C:\Users\HaiCao\Desktop\mono_store_be_v2\bin\Debug\net5.0\docs\swagger\schema\user\updateUserResponse.json
 C:\Users\HaiCao\Desktop\mono_store_be_v2\bin\Debug\net5.0\docs\swagger\swagger.json
+=======
+C:\Users\Lenovo\Desktop\shop\bin\Debug\net5.0\SendGrid.dll
+C:\Users\Lenovo\Desktop\shop\bin\Debug\net5.0\StarkbankEcdsa.dll
+>>>>>>> c73055e72c2f2a910d960b0967f5bb94e40037db
+C:\Users\HaiCao\Desktop\mono_store_be_v2\bin\Debug\net5.0\SendGrid.dll
+C:\Users\HaiCao\Desktop\mono_store_be_v2\bin\Debug\net5.0\StarkbankEcdsa.dll

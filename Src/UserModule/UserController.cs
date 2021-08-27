@@ -8,6 +8,9 @@ using store.Src.Utils.Common;
 using store.Src.AuthModule;
 using store.Src.Utils.Validator;
 using store.Src.Utils.Interface;
+using store.Src.Utils;
+using System;
+using store.Src.Providers.Smail.Interface;
 using static store.Src.Utils.Locale.CustomLanguageValidator;
 
 namespace store.Src.UserModule
@@ -16,6 +19,7 @@ namespace store.Src.UserModule
     [Route("/api/user")]
     public class UserController : Controller, IUserController
     {
+        private readonly ISmailService smailService;
         private readonly IUploadFileService uploadFileService;
         private readonly IUserService userService;
         private readonly IAuthService authService;
@@ -23,9 +27,9 @@ namespace store.Src.UserModule
         private readonly RegisterUserDtoValidator registerUserDtoValidator;
         private readonly UpdateUserDtoValidator updateUserDtoValidator;
         private readonly UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator;
-        public UserController(IUploadFileService uploadFileService, IUserService userService, IAuthService authService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator, UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator)
+        public UserController(ISmailService smailService, IUploadFileService uploadFileService, IUserService userService, IAuthService authService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator, UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator)
         {
-            // this.loggerr = loggerr;
+            this.smailService = smailService;
             this.uploadFileService = uploadFileService;
             this.userService = userService;
             this.updateUserDtoValidator = updateUserDtoValidator;
@@ -34,7 +38,6 @@ namespace store.Src.UserModule
             this.registerUserDtoValidator = registerUserDtoValidator;
             this.authService = authService;
         }
-
 
         [HttpGet("")]
         [ServiceFilter(typeof(AuthGuard))]
