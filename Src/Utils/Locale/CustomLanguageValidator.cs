@@ -11,6 +11,8 @@ namespace store.Src.Utils.Locale
             public const string Error_Wrong = "Error_Wrong";
             public const string Error_NotFound = "Error_NotFound";
             public const string Error_NotAllow = "Error_NotAllow";
+            public const string Error_PasswordNotContainRequiredCharacter = "Error_PasswordNotContainRequiredCharacter";
+            public const string Error_PasswordContainWhiteSpace = "Error_PasswordContainWhiteSpace";
         }
 
         public static class MessageKey {
@@ -39,7 +41,7 @@ namespace store.Src.Utils.Locale
             AddTranslation("vi", "Message_LogoutSuccess", "đăng xuất thành công");
             AddTranslation("vi", "Message_UpdateSuccess", "cập nhật thành công");
             AddTranslation("vi", "Message_AddSuccess", "thêm mới thành công");
-            AddTranslation("en", "Message_DeleteSuccess", "xóa thành công");
+            AddTranslation("vi", "Message_DeleteSuccess", "xóa thành công");
 
             // Error message
             // EN
@@ -51,16 +53,20 @@ namespace store.Src.Utils.Locale
             AddTranslation("en", "Error_Wrong", "is wrong");
             AddTranslation("en", "Error_NotFound", "is not found");
             AddTranslation("en", "Error_NotAllow", "not allow");
+            AddTranslation("en", "Error_PasswordNotContainRequiredCharacter", "should contain at least 1 uppercase, 1 lowwercase, 1 number");
+            AddTranslation("en", "Error_PasswordContainWhiteSpace", "should not contain white space");
 
             // VI
             AddTranslation("vi", "Error_LoginFail", "username hoặc password không đúng");
             AddTranslation("vi", "Error_Existed", "đã tồn tại");
             AddTranslation("vi", "Error_FailToSaveUser", "lỗi cơ sở dữ liệu");
             AddTranslation("vi", "Error_UpdateFail", "cập nhật không thành công");
-            AddTranslation("en", "Error_DeleteFail", "xóa không thành công");
+            AddTranslation("vi", "Error_DeleteFail", "xóa không thành công");
             AddTranslation("vi", "Error_Wrong", "không đúng");
             AddTranslation("vi", "Error_NotFound", "không tìm thấy");
             AddTranslation("vi", "Error_NotAllow", "không có quyền");
+            AddTranslation("vi", "Error_PasswordNotContainRequiredCharacter", "phải có ít nhất 1 kí tự hoa, 1 kí tự thường, 1 số");
+            AddTranslation("vi", "Error_PasswordContainWhiteSpace", "không được chứa khoảng trắng");
 
 
 

@@ -32,25 +32,9 @@ namespace store.Src.ProductModule.DTO
         public UpdateImportInfoDtoValidator()
         {
             RuleFor(x => x.importInfoId).NotEmpty().NotNull();
-            RuleFor(x => x.importDate).NotEmpty().NotNull().Custom((value, context) =>
-            {
-                Regex defaultFormat = new Regex(@"^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$");
-                if (value == null || !defaultFormat.IsMatch(value))
-                {
-                    context.AddFailure("Invalid date");
-                }
-                else return;
-            });
+            RuleFor(x => x.importDate).NotEmpty().NotNull().Matches(new Regex(@"^(0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])[\/\-]\d{4}$"));
             RuleFor(x => x.importPrice).NotEmpty().NotNull().GreaterThan(0);
-            RuleFor(x => x.expiryDate).NotEmpty().NotNull().Custom((value, context) =>
-            {
-                Regex defaultFormat = new Regex(@"^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$");
-                if (value == null || !defaultFormat.IsMatch(value))
-                {
-                    context.AddFailure("Invalid date");
-                }
-                else return;
-            });
+            RuleFor(x => x.expiryDate).NotEmpty().NotNull().Matches(new Regex(@"^(0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])[\/\-]\d{4}$"));
             RuleFor(x => x.importQuantity).NotEmpty().NotNull().GreaterThan(0);
             RuleFor(x => x.note).NotEmpty().NotNull();
             RuleFor(x => x.brand).NotEmpty().Length(1, 40).NotNull();

@@ -121,18 +121,12 @@ namespace store
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/document/swagger/v1.json", "Store v1"));
             }
-            // app.UseStaticFiles();
-            // app.UseStaticFiles(new StaticFileOptions
-            // {
-            //     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "public")),
-            //     RequestPath = "/public"
-            // });
 
             app.Use(next => context =>
             {
                 var lang = "en";
                 var cookies = new Dictionary<string, string>();
-                var values = ((string)context.Request.Headers["Cookie"])?.Split(',');
+                var values = ((string)context.Request.Headers["Cookie"])?.Split(',', ';');
 
                 if (values != null)
                 {
@@ -160,7 +154,6 @@ namespace store
                         });
 
             app.UseHttpsRedirection();
-
 
             app.UseRouting();
 

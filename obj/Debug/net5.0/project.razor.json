@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
+  "FilePath": "c:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj",
+=======
   "FilePath": "c:\\Users\\Lenovo\\Desktop\\shop\\store.csproj",
+>>>>>>> c73055e72c2f2a910d960b0967f5bb94e40037db
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "5.0",

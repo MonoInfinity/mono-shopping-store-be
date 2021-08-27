@@ -1,0 +1,23 @@
+{
+    "type": "object",
+    "properties": {
+        "data": {
+            "type": "object",
+            "properties": {
+                "importInfoId": {
+                    "type": "string",
+                    "example": "f11471de-34ab-4feb-a7c2-6f854b89148f"
+                }
+            }
+        },
+        "details": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "add success"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "type": "object",
+    "description": "all information about Category",
+    "properties": {
+        "categoryId": {
+            "type": "string",
+            "example": "023713ed-80d2-468d-9408-1b0c9a6edeaa"
+        },
+        "name": {
+            "type": "string",
+            "example": "ĐỒ UỐNG CÁC LOẠI"
+        },
+        "createDate": {
+            "type": "string",
+            "example": "8/26/2021",
+            "description": "mm/dd/yyyy"
+        },
+        "status": {
+            "type": "integer",
+            "$ref": "categoryStatus.json"
+        }
+    }
+}

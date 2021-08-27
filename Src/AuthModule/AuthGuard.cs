@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using store.Src.UserModule.Interface;
 using store.Src.Utils.Common;
 using store.Src.UserModule.Entity;
+using static store.Src.Utils.Locale.CustomLanguageValidator;
 
 namespace store.Src.AuthModule
 {
@@ -31,9 +32,8 @@ namespace store.Src.AuthModule
         {
 
             var res = new ServerResponse<object>();
-
             var cookies = new Dictionary<string, string>();
-            var values = ((string)context.HttpContext.Request.Headers["Cookie"]).Split(',');
+            var values = ((string)context.HttpContext.Request.Headers["Cookie"]).Split(',', ';');
 
 
             foreach (var parts in values)
@@ -44,27 +44,26 @@ namespace store.Src.AuthModule
             var outValue = "";
             if (!cookies.TryGetValue("auth-token", out outValue))
             {
-                res.setErrorMessage("Action is not allow");
-                context.Result = new UnauthorizedObjectResult(res);
+                res.setErrorMessage(ErrorMessageKey.Error_NotAllow);
+                context.Result = new UnauthorizedObjectResult(res.getResponse());
                 return;
             }
-
             try
             {
                 var token = this.jwtService.VerifyToken(cookies["auth-token"]).Split(";");
 
                 if (token[0] == null)
                 {
-                    res.setErrorMessage("Action is not allow");
-                    context.Result = new UnauthorizedObjectResult(res);
+                    res.setErrorMessage(ErrorMessageKey.Error_NotAllow);
+                    context.Result = new UnauthorizedObjectResult(res.getResponse());
                     return;
 
                 }
                 var user = this.userService.getUserById(token[0]);
                 if (user == null)
                 {
-                    res.setErrorMessage("Action is not allow");
-                    context.Result = new UnauthorizedObjectResult(res);
+                    res.setErrorMessage(ErrorMessageKey.Error_NotAllow);
+                    context.Result = new UnauthorizedObjectResult(res.getResponse());
                     return;
                 }
                 Controller controller = context.Controller as Controller;
@@ -78,8 +77,8 @@ namespace store.Src.AuthModule
                     UserRole[] roles = context.ActionArguments["roles"] as UserRole[];
                     if (!roles.Contains(user.role))
                     {
-                        res.setErrorMessage("Action is not allow");
-                        context.Result = new ObjectResult(res) { StatusCode = 403 };
+                        res.setErrorMessage(ErrorMessageKey.Error_NotAllow);
+                        context.Result = new UnauthorizedObjectResult(res.getResponse());
                         return;
                     }
                 }
@@ -88,8 +87,8 @@ namespace store.Src.AuthModule
                 // check user status
                 if (user.status == UserStatus.DISABLE)
                 {
-                    res.setErrorMessage("Action is not allow");
-                    context.Result = new UnauthorizedObjectResult(res);
+                    res.setErrorMessage(ErrorMessageKey.Error_NotAllow);
+                    context.Result = new UnauthorizedObjectResult(res.getResponse());
                     return;
                 }
             }
@@ -99,8 +98,8 @@ namespace store.Src.AuthModule
 
                 //k du do dai 
                 // can fix sau
-                res.setErrorMessage("Action is not allow");
-                context.Result = new UnauthorizedObjectResult(res);
+                res.setErrorMessage(ErrorMessageKey.Error_NotAllow);
+                context.Result = new UnauthorizedObjectResult(res.getResponse());
                 return;
             }
         }

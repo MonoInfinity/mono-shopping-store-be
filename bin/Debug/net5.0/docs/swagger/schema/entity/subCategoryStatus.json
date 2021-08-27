@@ -1,0 +1,5 @@
+{
+    "description": "status of SubCategory",
+    "type": "string",
+    "enum": ["NOT_SALE(0)", "SALE(1)"]
+}
