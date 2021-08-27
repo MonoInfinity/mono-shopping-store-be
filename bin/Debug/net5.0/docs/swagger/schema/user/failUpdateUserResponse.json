@@ -1,0 +1,16 @@
+{ "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "errorMessage": {
+                                                    "type": "string",
+                                                    "example": "'address' must not be empty."
+                                                }
+                                            }
+                                        }
+                                    }}

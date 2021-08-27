@@ -1,0 +1,39 @@
+{
+     "content": {
+                        "form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "productId": {
+                                        "type": "string",
+                                        "example": "c6249183-61f6-4756-af37-b9fc5e7be00f"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Nước mắm Nam Ngư"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "this is description"
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "HCM"
+                                    },
+                                    "wholesalePrice": {
+                                        "type": "number",
+                                        "example": 20000
+                                    },
+                                    "retailPrice": {
+                                        "type": "number",
+                                        "example": 3000
+                                    },
+                                    "quantity": {
+                                        "type": "integer",
+                                        "example": 20
+                                    }
+                                }
+                            }
+                        }
+                    }
+}

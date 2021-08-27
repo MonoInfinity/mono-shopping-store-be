@@ -1,0 +1,1655 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Store-V1",
+        "description": "",
+        "contact": {
+            "name": "Pham Vinh Nhan",
+            "email": "heaty566@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "2.1.7"
+    },
+    "tags": [
+        {
+            "name": "auth",
+            "description": "handle authentication"
+        },
+        {
+            "name": "user",
+            "description": "service for user"
+        },
+        {
+            "name": "admin",
+            "description": "service for administrator, have to login and with role is ADMIN"
+        },
+        {
+            "name": "product",
+            "description": "service for product"
+        }
+    ],
+    "servers": [
+        {
+            "url": "http://localhost:4000",
+            "description": "Development server"
+        }
+    ],
+    "paths": {
+        "/api/auth/login": {
+            "post": {
+                "tags": ["auth"],
+                "description": "Login User and set Cookie",
+                "requestBody": {
+                    "content": {
+                        "form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "vinhnhan001"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "1234567"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "return cookie",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/register": {
+            "post": {
+                "tags": ["auth"],
+                "description": "Create new User",
+                "requestBody": {
+                    "content": {
+                        "form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "thinh"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "thaithinh"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "thinh@gmail.com"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "08535228202"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "Thu Duc, Tp.HCM"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345"
+                                    },
+                                    "confirmPassword": {
+                                        "type": "string",
+                                        "example": "12345"
+                                    },
+                                    "avatarUrl": {
+                                        "type": "string",
+                                        "example": "''"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "return new User's Object",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user": {
+            "put": {
+                "tags": ["user"],
+                "description": "Update User information",
+                "requestBody": {
+                    "content": {
+                        "form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "thaithinh"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "thinh@gmail.com"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "08535228202"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "Thu Duc, Tp.HCM"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "update user information success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Update User successfully"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "update user information fail",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "errorMessage": {
+                                                    "type": "string",
+                                                    "example": "'address' must not be empty."
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+
+            "get": {
+                "tags": ["user"],
+                "description": "Get Current User",
+                "requestBody": {
+                    "content": {}
+                },
+                "responses": {
+                    "200": {
+                        "description": "get Current User Information",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "subCategories": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "userId": {
+                                                            "type": "string",
+                                                            "example": "41a68a48-9b0f-4ee6-b3d0-68643955f6e8"
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "Lesley Kynaston"
+                                                        },
+                                                        "username": {
+                                                            "type": "string",
+                                                            "example": "lkynastonw"
+                                                        },
+                                                        "password": {
+                                                            "type": "string",
+                                                            "example": ""
+                                                        },
+                                                        "email": {
+                                                            "type": "string",
+                                                            "example": "lkynastonw@bloomberg.com"
+                                                        },
+                                                        "phone": {
+                                                            "type": "string",
+                                                            "example": "0862334000"
+                                                        },
+                                                        "address": {
+                                                            "type": "string",
+                                                            "example": "51392 Red Cloud Way"
+                                                        },
+                                                        "googleId": {
+                                                            "type": "string",
+                                                            "example": ""
+                                                        },
+                                                        "createDate": {
+                                                            "type": "string",
+                                                            "example": ""
+                                                        },
+                                                        "salary": {
+                                                            "type": "number",
+                                                            "example": 0
+                                                        },
+                                                        "role": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "status": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "avatarUrl": {
+                                                            "type": "string",
+                                                            "example": "/vit14.jpg"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "example": {}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["user"],
+                "description": "Logout User",
+                "requestBody": {
+                    "content": {}
+                },
+                "responses": {
+                    "200": {
+                        "description": "Logout Current User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "example": {}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/user/password": {
+            "put": {
+                "tags": ["user"],
+                "description": "Update User Password",
+                "requestBody": {
+                    "content": {
+                        "form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345"
+                                    },
+                                    "newPassword": {
+                                        "type": "string",
+                                        "example": "12345"
+                                    },
+                                    "confirmPassword": {
+                                        "type": "string",
+                                        "example": "12345"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "update password success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Update User password successfully"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "update password fail",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "errorMessage": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "Password is wrong",
+                                                        "'confirm Password' must be equal to 'newPassword'"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/admin/user/employee": {
+            "put": {
+                "tags": ["admin"],
+                "description": "Update Employee",
+                "requestBody": {
+                    "content": {
+                        "form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "userId": {
+                                        "type": "string",
+                                        "example": "16bc8098-f8ba-4526-8594-47e0d512cf7f"
+                                    },
+                                    "role": {
+                                        "type": "integer",
+                                        "minimum": 1,
+                                        "maximum": 5,
+                                        "example": 4
+                                    },
+                                    "status": {
+                                        "type": "integer",
+                                        "minimum": 0,
+                                        "maximum": 1,
+                                        "example": 1
+                                    },
+                                    "salary": {
+                                        "type": "number",
+                                        "minimum": 0,
+                                        "example": 6000000
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "update employee success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Update Employee successfully"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "update employee success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "errorMessage": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "'salary' must be greater than or equal to '0'.",
+                                                        "'role' must be between 1 and 5.",
+                                                        "'status' must be between 0 and 1."
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "update employee success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "errorMessage": {
+                                                    "type": "string",
+                                                    "example": ["User with given Id not found"]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/admin/user/all?pageSize={}&page={}&name={}&role={}": {
+            "get": {
+                "tags": ["admin"],
+                "description": "Get List User",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "{pageSize}/{page}/{name}/{role}",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "pageSize": {
+                                    "type": "integer",
+                                    "example": 10
+                                },
+                                "page": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "example": ""
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get list User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "users": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "userId": {
+                                                                "type": "string",
+                                                                "example": "41a68a48-9b0f-4ee6-b3d0-68643955f6e8"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Lesley Kynaston"
+                                                            },
+                                                            "username": {
+                                                                "type": "string",
+                                                                "example": "lkynastonw"
+                                                            },
+                                                            "password": {
+                                                                "type": "string",
+                                                                "example": ""
+                                                            },
+                                                            "email": {
+                                                                "type": "string",
+                                                                "example": "lkynastonw@bloomberg.com"
+                                                            },
+                                                            "phone": {
+                                                                "type": "string",
+                                                                "example": "0862334000"
+                                                            },
+                                                            "address": {
+                                                                "type": "string",
+                                                                "example": "51392 Red Cloud Way"
+                                                            },
+                                                            "googleId": {
+                                                                "type": "string",
+                                                                "example": ""
+                                                            },
+                                                            "createDate": {
+                                                                "type": "string",
+                                                                "example": ""
+                                                            },
+                                                            "salary": {
+                                                                "type": "number",
+                                                                "example": 0
+                                                            },
+                                                            "role": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "status": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "avatarUrl": {
+                                                                "type": "string",
+                                                                "example": "/vit14.jpg"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "count": {
+                                                    "type": "integer",
+                                                    "example": 60
+                                                }
+                                            }
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "example": {}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/admin/user?userId={}": {
+            "get": {
+                "tags": ["admin"],
+                "description": "Get One User",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "userId",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "userId": {
+                                    "type": "string",
+                                    "example": "02a4f752-2770-4296-89c1-c680b933cd61"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get One User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "users": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "userId": {
+                                                                "type": "string",
+                                                                "example": "41a68a48-9b0f-4ee6-b3d0-68643955f6e8"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Lesley Kynaston"
+                                                            },
+                                                            "username": {
+                                                                "type": "string",
+                                                                "example": "lkynastonw"
+                                                            },
+                                                            "password": {
+                                                                "type": "string",
+                                                                "example": ""
+                                                            },
+                                                            "email": {
+                                                                "type": "string",
+                                                                "example": "lkynastonw@bloomberg.com"
+                                                            },
+                                                            "phone": {
+                                                                "type": "string",
+                                                                "example": "0862334000"
+                                                            },
+                                                            "address": {
+                                                                "type": "string",
+                                                                "example": "51392 Red Cloud Way"
+                                                            },
+                                                            "googleId": {
+                                                                "type": "string",
+                                                                "example": ""
+                                                            },
+                                                            "createDate": {
+                                                                "type": "string",
+                                                                "example": ""
+                                                            },
+                                                            "salary": {
+                                                                "type": "number",
+                                                                "example": 0
+                                                            },
+                                                            "role": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "status": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "avatarUrl": {
+                                                                "type": "string",
+                                                                "example": "/vit14.jpg"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "example": {}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/product/category/all": {
+            "get": {
+                "tags": ["product"],
+                "description": "Get All Product",
+                "requestBody": {
+                    "content": {}
+                },
+                "responses": {
+                    "200": {
+                        "description": "get One User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "example": {
+                                                    "categoryId": {
+                                                        "type": "string",
+                                                        "example": "023713ed-80d2-468d-9408-1b0c9a6edeaa"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "ĐỒ UỐNG CÁC LOẠI"
+                                                    },
+                                                    "status": {
+                                                        "type": "integer",
+                                                        "example": 0
+                                                    },
+                                                    "createDate": {
+                                                        "type": "string",
+                                                        "example": "8/24/2021"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "example": {}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/product/subcategory/all?pageSize={}&page={}&name={}": {
+            "get": {
+                "tags": ["product"],
+                "description": "Get all SubCategory",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "{pageSize}/{page}/{name}",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "pageSize": {
+                                    "type": "integer",
+                                    "example": 10
+                                },
+                                "page": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "example": ""
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get One User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "subCategories": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "subCategoryId": {
+                                                                "type": "string",
+                                                                "example": "23d38182-582d-4dcc-baab-36c7762cc6c5"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": " Khăn ướt, khăn sữa "
+                                                            },
+                                                            "status": {
+                                                                "type": "integer",
+                                                                "example": 0
+                                                            },
+                                                            "createDate": {
+                                                                "type": "string",
+                                                                "example": "8/24/2021"
+                                                            },
+                                                            "category": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "categoryId": {
+                                                                        "type": "string",
+                                                                        "example": "1faae802-a0ce-46f9-ab96-c03200c596a6"
+                                                                    },
+                                                                    "name": {
+                                                                        "type": "string",
+                                                                        "example": "TÃ, ĐỒ CHO BÉ"
+                                                                    },
+                                                                    "status": {
+                                                                        "type": "integer",
+                                                                        "example": 0
+                                                                    },
+                                                                    "createDate": {
+                                                                        "type": "string",
+                                                                        "example": "8/24/2021"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "count": {
+                                                    "type": "integer",
+                                                    "example": 64
+                                                }
+                                            }
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "example": {}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/product/subcategory/category?categoryId={}": {
+            "get": {
+                "tags": ["product"],
+                "description": "Get SubCategory by categoryId",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "{categoryId}",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "categoryId": {
+                                    "type": "string",
+                                    "example": "023713ed-80d2-468d-9408-1b0c9a6edeaa"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get One User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "subCategories": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "subCategoryId": {
+                                                                "type": "string",
+                                                                "example": "0d8f126d-e949-4155-91d1-e25c8b56ffbd"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": " Nước uống trái cây "
+                                                            },
+                                                            "status": {
+                                                                "type": "integer",
+                                                                "example": 0
+                                                            },
+                                                            "createDate": {
+                                                                "type": "string",
+                                                                "example": "8/24/2021"
+                                                            },
+                                                            "category": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "categoryId": {
+                                                                        "type": "string",
+                                                                        "example": "023713ed-80d2-468d-9408-1b0c9a6edeaa"
+                                                                    },
+                                                                    "name": {
+                                                                        "type": "string",
+                                                                        "example": "ĐỒ UỐNG CÁC LOẠI"
+                                                                    },
+                                                                    "status": {
+                                                                        "type": "integer",
+                                                                        "example": 0
+                                                                    },
+                                                                    "createDate": {
+                                                                        "type": "string",
+                                                                        "example": "8/24/2021"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "example": {}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/product": {
+            "post": {
+                "tags": ["product"],
+                "description": "Create New Product",
+                "requestBody": {
+                    "content": {
+                        "form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Nước mắm Nam Ngư"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "this is description"
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "HCM"
+                                    },
+                                    "expiryDate": {
+                                        "type": "string",
+                                        "example": "01/01/2023"
+                                    },
+                                    "wholesalePrice": {
+                                        "type": "number",
+                                        "example": 20000
+                                    },
+                                    "retailPrice": {
+                                        "type": "number",
+                                        "example": 25000
+                                    },
+                                    "quantity": {
+                                        "type": "integer",
+                                        "example": 100
+                                    },
+                                    "subCategoryId": {
+                                        "type": "string",
+                                        "example": "1180bff6-dcbd-4bb9-83b9-bd34c4c92560"
+                                    },
+                                    "importInfoId": {
+                                        "type": "string",
+                                        "example": "00c88a52-12aa-49f1-b6fb-5fe3e597d62e"
+                                    },
+                                    "imageUrl": {
+                                        "type": "string",
+                                        "example": "''"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create Product success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "productId": {
+                                                    "type": "string",
+                                                    "example": "1a91e9f1-f81d-449f-9bd0-6ae2884a7261"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "Nước mắm Nam Ngư"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "this is description"
+                                                },
+                                                "location": {
+                                                    "type": "string",
+                                                    "example": "HCM"
+                                                },
+                                                "status": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                },
+                                                "expiryDate": {
+                                                    "type": "string",
+                                                    "example": "01/01/2023"
+                                                },
+                                                "wholesalePrice": {
+                                                    "type": "number",
+                                                    "example": 20000
+                                                },
+                                                "retailPrice": {
+                                                    "type": "number",
+                                                    "example": 25000
+                                                },
+                                                "createDate": {
+                                                    "type": "string",
+                                                    "example": "8/25/2021"
+                                                },
+                                                "quantity": {
+                                                    "type": "integer",
+                                                    "example": 100
+                                                },
+                                                "imageUrl": {
+                                                    "type": "string",
+                                                    "example": "''"
+                                                },
+                                                "subCategory": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "subCategoryId": {
+                                                            "type": "string",
+                                                            "example": "1180bff6-dcbd-4bb9-83b9-bd34c4c92560"
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": " Nước uống tăng lực "
+                                                        },
+                                                        "status": {
+                                                            "type": "integer",
+                                                            "example": 0
+                                                        },
+                                                        "createDate": {
+                                                            "type": "string",
+                                                            "example": "8/24/2021"
+                                                        }
+                                                    }
+                                                },
+                                                "importInfo": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "importInfoId": {
+                                                            "type": "string",
+                                                            "example": "00c88a52-12aa-49f1-b6fb-5fe3e597d62e"
+                                                        },
+                                                        "importDate": {
+                                                            "type": "string",
+                                                            "example": "8/24/2021"
+                                                        },
+                                                        "importPrice": {
+                                                            "type": "number",
+                                                            "example": 496000
+                                                        },
+                                                        "expiryDate": {
+                                                            "type": "string",
+                                                            "example": "12/24/2021"
+                                                        },
+                                                        "importQuantity": {
+                                                            "type": "integer",
+                                                            "example": 100
+                                                        },
+                                                        "createDate": {
+                                                            "type": "string",
+                                                            "example": "8/25/2021"
+                                                        },
+                                                        "note": {
+                                                            "type": "string",
+                                                            "example": "this is a note"
+                                                        },
+                                                        "brand": {
+                                                            "type": "string",
+                                                            "example": "this is a brand"
+                                                        },
+                                                        "manager": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "userId": {
+                                                                    "type": "string",
+                                                                    "example": "9a802582-aa9b-4cfb-8f43-eae4449315fc"
+                                                                },
+                                                                "name": {
+                                                                    "type": "string",
+                                                                    "example": "Cao Chi Hai"
+                                                                },
+                                                                "username": {
+                                                                    "type": "string",
+                                                                    "example": "haicao"
+                                                                },
+                                                                "password": {
+                                                                    "type": "string",
+                                                                    "example": "$2a$08$PJLjuyjpP3v1K5iofmbaj.o.AQBsZDOrVeCE4HUpexfVd7l4GzPpu"
+                                                                },
+                                                                "email": {
+                                                                    "type": "string",
+                                                                    "example": "haicao@gmail.com"
+                                                                },
+                                                                "phone": {
+                                                                    "type": "string",
+                                                                    "example": "0853528202"
+                                                                },
+                                                                "address": {
+                                                                    "type": "string",
+                                                                    "example": "this is address"
+                                                                },
+                                                                "googleId": {
+                                                                    "type": "string",
+                                                                    "example": "''"
+                                                                },
+                                                                "createDate": {
+                                                                    "type": "string",
+                                                                    "example": "8/23/2021"
+                                                                },
+                                                                "salary": {
+                                                                    "type": "number",
+                                                                    "example": 0
+                                                                },
+                                                                "role": {
+                                                                    "type": "integer",
+                                                                    "example": 4
+                                                                },
+                                                                "status": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                },
+                                                                "avatarUrl": {
+                                                                    "type": "string",
+                                                                    "example": "''"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "example": {}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Create Product fail: Wrong Id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "errorMessage": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "The sub category with the given id was not found",
+                                                        "The import information with the given id was not found"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Create Product fail: bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "errorMessage": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "'name' must not be empty.",
+                                                        "'quantity' must be greater than '1'.",
+                                                        "..."
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["product"],
+                "description": "Update Product",
+                "requestBody": {
+                    "content": {
+                        "form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "productId": {
+                                        "type": "string",
+                                        "example": "c6249183-61f6-4756-af37-b9fc5e7be00f"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Nước mắm Nam Ngư"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "this is description"
+                                    },
+                                    "location": {
+                                        "type": "string",
+                                        "example": "HCM"
+                                    },
+                                    "wholesalePrice": {
+                                        "type": "number",
+                                        "example": 20000
+                                    },
+                                    "retailPrice": {
+                                        "type": "number",
+                                        "example": 3000
+                                    },
+                                    "quantity": {
+                                        "type": "integer",
+                                        "example": 20
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update Product success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "productId": {
+                                                    "type": "string",
+                                                    "example": "1a91e9f1-f81d-449f-9bd0-6ae2884a7261"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "new name"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "new description"
+                                                },
+                                                "location": {
+                                                    "type": "string",
+                                                    "example": "new location"
+                                                },
+                                                "status": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                },
+                                                "expiryDate": {
+                                                    "type": "string",
+                                                    "example": "01/01/2023"
+                                                },
+                                                "wholesalePrice": {
+                                                    "type": "number",
+                                                    "example": 20000
+                                                },
+                                                "retailPrice": {
+                                                    "type": "number",
+                                                    "example": 30000
+                                                },
+                                                "createDate": {
+                                                    "type": "string",
+                                                    "example": "8/25/2021"
+                                                },
+                                                "quantity": {
+                                                    "type": "integer",
+                                                    "example": 20
+                                                },
+                                                "imageUrl": {
+                                                    "type": "string",
+                                                    "example": "''"
+                                                },
+                                                "subCategory": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "subCategoryId": {
+                                                            "type": "string",
+                                                            "example": "1180bff6-dcbd-4bb9-83b9-bd34c4c92560"
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": " Nước uống tăng lực "
+                                                        },
+                                                        "status": {
+                                                            "type": "integer",
+                                                            "example": 0
+                                                        },
+                                                        "createDate": {
+                                                            "type": "string",
+                                                            "example": "8/24/2021"
+                                                        }
+                                                    }
+                                                },
+                                                "importInfo": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "importInfoId": {
+                                                            "type": "string",
+                                                            "example": "00c88a52-12aa-49f1-b6fb-5fe3e597d62e"
+                                                        },
+                                                        "importDate": {
+                                                            "type": "string",
+                                                            "example": "8/24/2021"
+                                                        },
+                                                        "importPrice": {
+                                                            "type": "number",
+                                                            "example": 496000
+                                                        },
+                                                        "expiryDate": {
+                                                            "type": "string",
+                                                            "example": "12/24/2021"
+                                                        },
+                                                        "importQuantity": {
+                                                            "type": "integer",
+                                                            "example": 100
+                                                        },
+                                                        "createDate": {
+                                                            "type": "string",
+                                                            "example": "8/25/2021"
+                                                        },
+                                                        "note": {
+                                                            "type": "string",
+                                                            "example": "this is a note"
+                                                        },
+                                                        "brand": {
+                                                            "type": "string",
+                                                            "example": "this is a brand"
+                                                        },
+                                                        "manager": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "userId": {
+                                                                    "type": "string",
+                                                                    "example": "9a802582-aa9b-4cfb-8f43-eae4449315fc"
+                                                                },
+                                                                "name": {
+                                                                    "type": "string",
+                                                                    "example": "Cao Chi Hai"
+                                                                },
+                                                                "username": {
+                                                                    "type": "string",
+                                                                    "example": "haicao"
+                                                                },
+                                                                "password": {
+                                                                    "type": "string",
+                                                                    "example": "$2a$08$PJLjuyjpP3v1K5iofmbaj.o.AQBsZDOrVeCE4HUpexfVd7l4GzPpu"
+                                                                },
+                                                                "email": {
+                                                                    "type": "string",
+                                                                    "example": "haicao@gmail.com"
+                                                                },
+                                                                "phone": {
+                                                                    "type": "string",
+                                                                    "example": "0853528202"
+                                                                },
+                                                                "address": {
+                                                                    "type": "string",
+                                                                    "example": "this is address"
+                                                                },
+                                                                "googleId": {
+                                                                    "type": "string",
+                                                                    "example": "''"
+                                                                },
+                                                                "createDate": {
+                                                                    "type": "string",
+                                                                    "example": "8/23/2021"
+                                                                },
+                                                                "salary": {
+                                                                    "type": "number",
+                                                                    "example": 0
+                                                                },
+                                                                "role": {
+                                                                    "type": "integer",
+                                                                    "example": 4
+                                                                },
+                                                                "status": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                },
+                                                                "avatarUrl": {
+                                                                    "type": "string",
+                                                                    "example": "''"
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": {}
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Update Product fail: Wrong productId",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "errorMessage": {
+                                                    "type": "string",
+                                                    "example": "The product with the given id was not found"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Update Product fail: Bad request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "errorMessage": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "'product Id' must not be empty.",
+                                                        "'wholesale Price' must be greater than '0'.",
+                                                        "..."
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["product"],
+                "description": "Delete Product",
+                "requestBody": {
+                    "content": {
+                        "form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "productId": {
+                                        "type": "string",
+                                        "example": "0341fbee-8713-4c7a-9840-d8c3dd570e97"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Delete Product Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Delete Product Successfully"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Delete Product Fail: Wrong ProductId",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "product with given productId not exist"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {}
+    }
+}

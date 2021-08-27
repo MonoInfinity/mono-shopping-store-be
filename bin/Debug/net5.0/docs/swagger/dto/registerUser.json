@@ -1,0 +1,43 @@
+{
+    "content": {
+                        "form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "thinh"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "thaithinh"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "thinh@gmail.com"
+                                    },
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "08535228202"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "example": "Thu Duc, Tp.HCM"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "12345"
+                                    },
+                                    "confirmPassword": {
+                                        "type": "string",
+                                        "example": "12345"
+                                    },
+                                    "avatarUrl": {
+                                        "type": "string",
+                                        "example": "''"
+                                    }
+                                }
+                            }
+                        }
+                    }
+}

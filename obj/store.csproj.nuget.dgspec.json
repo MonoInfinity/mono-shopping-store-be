@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "e:\\server\\mua5\\mono-shopping-store-be\\store\\store.csproj": {}
+    "E:\\server\\net\\mono-shopping-store-be\\store.csproj": {}
   },
   "projects": {
-    "e:\\server\\mua5\\mono-shopping-store-be\\store\\store.csproj": {
+    "E:\\server\\net\\mono-shopping-store-be\\store.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "e:\\server\\mua5\\mono-shopping-store-be\\store\\store.csproj",
+        "projectUniqueName": "E:\\server\\net\\mono-shopping-store-be\\store.csproj",
         "projectName": "store",
-        "projectPath": "e:\\server\\mua5\\mono-shopping-store-be\\store\\store.csproj",
+        "projectPath": "E:\\server\\net\\mono-shopping-store-be\\store.csproj",
         "packagesPath": "C:\\Users\\heaty566\\.nuget\\packages\\",
-        "outputPath": "e:\\server\\mua5\\mono-shopping-store-be\\store\\obj\\",
+        "outputPath": "E:\\server\\net\\mono-shopping-store-be\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\heaty566\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,9 +40,63 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.2, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[10.3.0, )"
+            },
+            "Microsoft.AspNet.WebApi.Client": {
+              "target": "Package",
+              "version": "[5.2.7, )"
+            },
+            "Microsoft.AspNetCore.Authentication.Google": {
+              "target": "Package",
+              "version": "[5.0.9, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.11.0, )"
+            },
+            "SendGrid": {
+              "target": "Package",
+              "version": "[9.24.2, )"
+            },
+            "Serilog.Extensions.Logging.File": {
+              "target": "Package",
+              "version": "[2.0.0, )"
+            },
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.2.62, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.2, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.12.1, )"
+            },
+            "Uma.Uuid": {
+              "target": "Package",
+              "version": "[0.1.0, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.3, )"
             }
           },
           "imports": [

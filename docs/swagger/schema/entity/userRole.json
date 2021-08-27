@@ -1,0 +1,4 @@
+{
+    "type": "string",
+    "enum": ["CUSTOMER(1)", "QUEEN(2)", "SHIPPER(3)", "CASHIER(4)", "OWNER(5)"]
+}

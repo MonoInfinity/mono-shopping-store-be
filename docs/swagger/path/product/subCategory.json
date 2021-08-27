@@ -1,0 +1,70 @@
+{
+    "post": {
+        "tags": ["product"],
+        "description": "Create New SubCategory",
+        "requestBody": {
+            "$ref": "../../dto/createSubCategory.json"
+        },
+        "responses": {
+            "200": {
+                "description": "Create SubCategory success",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/createSubCategoryResponse.json"
+                        }
+                    }
+                }
+            },
+            "400": {
+                "description": "Create Category fail: already exist subCategoryName",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/failCreateSubCategoryResponse.json"
+                        }
+                    }
+                }
+            },
+            "404": {
+                "description": "Create Category fail: categoryId not found",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/notfoundCreateSubCategoryResponse.json"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "put": {
+        "tags": ["product"],
+        "description": "Update SubCategory",
+        "requestBody": {
+            "$ref": "../../dto/updateSubCategory.json"
+        },
+        "responses": {
+            "200": {
+                "description": "update SubCategory success",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/updateSubCategoryResponse.json"
+                        }
+                    }
+                }
+            },
+            "404": {
+                "description": "Create Category fail: not found subCategoryId",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/notfoundUpdateSubCategoryResponse.json"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

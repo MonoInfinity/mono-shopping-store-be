@@ -1,0 +1,46 @@
+{
+    "type": "object",
+    "description": "all information about Category",
+    "properties": {
+        "importInfoId": {
+            "type": "string",
+            "example": "023713ed-80d2-468d-9408-1b0c9a6edeaa"
+        },
+        "importDate": {
+            "type": "string",
+            "example": "8/26/2021",
+            "description": "mm/dd/yyyy"
+        },
+        "importPrice": {
+            "type": "double",
+            "example": 200000
+        },
+        "importQuantity": {
+            "type": "integer",
+            "example": 100
+        },
+        "expiryDate": {
+            "type": "string",
+            "example": "8/26/2023",
+            "description": "mm/dd/yyyy"
+        },
+        "note": {
+            "type": "string",
+            "example": "this is note"
+        },
+        "brand": {
+            "type": "string",
+            "example": "local brand"
+        },
+        "createDate": {
+            "type": "string",
+            "example": "8/26/2021",
+            "description": "mm/dd/yyyy"
+        },
+        "managerId": {
+            "type": "string",
+            "description": "userId of manager who import product",
+            "$ref": "user.json"
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "type": "object",
+    "properties": {
+        "data": {
+            "type": "object",
+            "example": null
+        },
+        "details": {
+            "type": "object",
+            "properties": {
+                "subCategoryId": {
+                    "type": "string",
+                    "example": "is not found"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,63 @@
+{
+    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "subCategories": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "subCategoryId": {
+                                                                "type": "string",
+                                                                "example": "23d38182-582d-4dcc-baab-36c7762cc6c5"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": " Khăn ướt, khăn sữa "
+                                                            },
+                                                            "status": {
+                                                                "type": "integer",
+                                                                "example": 0
+                                                            },
+                                                            "createDate": {
+                                                                "type": "string",
+                                                                "example": "8/24/2021"
+                                                            },
+                                                            "category": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "categoryId": {
+                                                                        "type": "string",
+                                                                        "example": "1faae802-a0ce-46f9-ab96-c03200c596a6"
+                                                                    },
+                                                                    "name": {
+                                                                        "type": "string",
+                                                                        "example": "TÃ, ĐỒ CHO BÉ"
+                                                                    },
+                                                                    "status": {
+                                                                        "type": "integer",
+                                                                        "example": 0
+                                                                    },
+                                                                    "createDate": {
+                                                                        "type": "string",
+                                                                        "example": "8/24/2021"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "count": {
+                                                    "type": "integer",
+                                                    "example": 64
+                                                }
+                                            }
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "example": {}
+                                        }
+                                    }
+}

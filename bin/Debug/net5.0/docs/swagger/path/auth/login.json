@@ -1,0 +1,17 @@
+{
+    "post": {
+                "tags": ["auth"],
+                "description": "Login User and set Cookie",
+                "requestBody": {"$ref":"../../dto/loginUser.json"},
+                "responses": {
+                    "200": {
+                        "description": "return cookie",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+    }
+}

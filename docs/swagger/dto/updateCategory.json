@@ -1,0 +1,19 @@
+{
+    "content": {
+        "form-data": {
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "categoryId": {
+                        "type": "string",
+                        "example": "1627eb49-2f5e-459b-a32d-b356b7484b4a"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "New name"
+                    }
+                }
+            }
+        }
+    }
+}
