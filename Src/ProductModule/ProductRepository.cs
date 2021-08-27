@@ -24,8 +24,8 @@ namespace store.Src.ProductModule
         {
             SqlConnection connection = this.dBHelper.getDBConnection();
             bool res = false;
-            string sql = "INSERT INTO tblProduct(productId,name,description,location,status,expiryDate,wholesalePrice,retailPrice,createDate,quantity,imageUrl,subCategoryId,importInfoId) " +
-            " VALUES(@productId, @name, @description, @location, @status, @expiryDate, @wholesalePrice, @retailPrice, @createDate, @quantity, @imageUrl, @subCategoryId, @importInfoId)";
+            string sql = "INSERT INTO tblProduct(productId,name,description,location,status,wholesalePrice,retailPrice,createDate,quantity,imageUrl,subCategoryId,importInfoId) " +
+            " VALUES(@productId, @name, @description, @location, @status, @wholesalePrice, @retailPrice, @createDate, @quantity, @imageUrl, @subCategoryId, @importInfoId)";
             SqlCommand command = new SqlCommand(sql, connection);
 
             try
@@ -36,7 +36,6 @@ namespace store.Src.ProductModule
                 command.Parameters.AddWithValue("@description", product.description);
                 command.Parameters.AddWithValue("@location", product.location);
                 command.Parameters.AddWithValue("@status", product.status);
-                command.Parameters.AddWithValue("@expiryDate", product.expiryDate);
                 command.Parameters.AddWithValue("@wholesalePrice", product.wholesalePrice);
                 command.Parameters.AddWithValue("@retailPrice", product.retailPrice);
                 command.Parameters.AddWithValue("@createDate", product.createDate);
@@ -101,7 +100,6 @@ namespace store.Src.ProductModule
                         product.description = reader.GetString("description");
                         product.location = reader.GetString("location");
                         product.status = (ProductStatus)reader.GetInt32("status");
-                        product.expiryDate = reader.GetString("expiryDate");
                         product.wholesalePrice = reader.GetDouble("wholesalePrice");
                         product.retailPrice = reader.GetDouble("retailPrice");
                         product.createDate = reader.GetString("createDate");
@@ -179,7 +177,6 @@ namespace store.Src.ProductModule
                         product.description = reader.GetString("description");
                         product.location = reader.GetString("location");
                         product.status = (ProductStatus)reader.GetInt32("status");
-                        product.expiryDate = reader.GetString("expiryDate");
                         product.wholesalePrice = reader.GetDouble("wholesalePrice");
                         product.retailPrice = reader.GetDouble("retailPrice");
                         product.createDate = reader.GetString("createDate");
@@ -264,7 +261,6 @@ namespace store.Src.ProductModule
                         product.description = reader.GetString("description");
                         product.location = reader.GetString("location");
                         product.status = (ProductStatus)reader.GetInt32("status");
-                        product.expiryDate = reader.GetString("expiryDate");
                         product.wholesalePrice = reader.GetDouble("wholesalePrice");
                         product.retailPrice = reader.GetDouble("retailPrice");
                         product.createDate = reader.GetString("createDate");

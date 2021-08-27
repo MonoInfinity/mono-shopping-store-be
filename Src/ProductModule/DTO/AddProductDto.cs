@@ -8,7 +8,6 @@ namespace store.Src.ProductModule.DTO
         public string name { get; set; }
         public string description { get; set; }
         public string location { get; set; }
-        public string expiryDate { get; set; }
         public double wholesalePrice { get; set; }
         public double retailPrice { get; set; }
         public int quantity { get; set; }
@@ -17,12 +16,11 @@ namespace store.Src.ProductModule.DTO
         public string importInfoId { get; set; }
 
         public AddProductDto() { }
-        public AddProductDto(string name, string description, string location, string expiryDate, double wholesalePrice, double retailPrice, int quantity, string imageUrl, string subCategoryId, string importInfoId)
+        public AddProductDto(string name, string description, string location, double wholesalePrice, double retailPrice, int quantity, string imageUrl, string subCategoryId, string importInfoId)
         {
             this.name = name;
             this.description = description;
             this.location = location;
-            this.expiryDate = expiryDate;
             this.wholesalePrice = wholesalePrice;
             this.retailPrice = retailPrice;
             this.quantity = quantity;
@@ -39,7 +37,6 @@ namespace store.Src.ProductModule.DTO
             RuleFor(x => x.name).NotEmpty().Length(1, 40).NotNull();
             RuleFor(x => x.description).NotEmpty().Length(1, 500).NotNull();
             RuleFor(x => x.location).NotEmpty().Length(1, 500).NotNull();
-            RuleFor(x => x.expiryDate).NotEmpty().NotNull().Matches(new Regex(@"^(0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])[\/\-]\d{4}$"));
             RuleFor(x => x.wholesalePrice).NotEmpty().NotNull().GreaterThan(0);
             RuleFor(x => x.retailPrice).NotEmpty().NotNull().GreaterThan(0);
             RuleFor(x => x.quantity).NotEmpty().NotNull().GreaterThan(1);

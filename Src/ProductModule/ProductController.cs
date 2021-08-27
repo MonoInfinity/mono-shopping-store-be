@@ -207,7 +207,6 @@ namespace store.Src.ProductModule
             newProduct.name = body.name;
             newProduct.description = body.description;
             newProduct.location = body.location;
-            newProduct.expiryDate = body.expiryDate;
             newProduct.wholesalePrice = body.wholesalePrice;
             newProduct.retailPrice = body.retailPrice;
             newProduct.imageUrl = body.imageUrl;
