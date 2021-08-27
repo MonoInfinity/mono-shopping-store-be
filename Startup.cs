@@ -31,6 +31,8 @@ using store.Src.ProductModule.DTO;
 using store.Src.Providers.Smail;
 using store.Src.Providers.Smail.Interface;
 using System.Collections.Generic;
+using store.Src.Providers.BotTelegram;
+using store.Src.Providers.BotTelegram.Interface;
 
 namespace store
 {
@@ -53,6 +55,7 @@ namespace store
             services.AddScoped<IUploadFileService, UploadFileService>();
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<ISmailService, SmailService>();
+            services.AddScoped<IBotTelegramService, BotTelegramService>();
 
             // Auth Module
             services.AddScoped<IAuthService, AuthService>();
