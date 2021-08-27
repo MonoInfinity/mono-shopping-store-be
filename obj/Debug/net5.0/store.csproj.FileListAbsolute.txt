@@ -1289,3 +1289,5 @@ E:\MinhThuan\mono-store\update-category&subCategory\mono-shopping-store-be\obj\D
 E:\MinhThuan\mono-store\update-category&subCategory\mono-shopping-store-be\obj\Debug\net5.0\store.RazorTargetAssemblyInfo.cache
 E:\MinhThuan\mono-store\update-category&subCategory\mono-shopping-store-be\obj\Debug\net5.0\store.csproj.CopyComplete
 E:\MinhThuan\mono-store\update-category&subCategory\mono-shopping-store-be\obj\Debug\net5.0\store.genruntimeconfig.cache
+C:\Users\Lenovo\Desktop\shop\bin\Debug\net5.0\SendGrid.dll
+C:\Users\Lenovo\Desktop\shop\bin\Debug\net5.0\StarkbankEcdsa.dll

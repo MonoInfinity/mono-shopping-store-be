@@ -28,6 +28,8 @@ using Microsoft.AspNetCore.Http;
 using store.Src.ProductModule.Interface;
 using store.Src.ProductModule;
 using store.Src.ProductModule.DTO;
+using store.Src.Providers.Smail;
+using store.Src.Providers.Smail.Interface;
 
 namespace store
 {
@@ -49,6 +51,7 @@ namespace store
             services.AddScoped<IRedis, Redis>();
             services.AddScoped<IUploadFileService, UploadFileService>();
             services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<ISmailService, SmailService>();
 
             // Auth Module
             services.AddScoped<IAuthService, AuthService>();
@@ -92,6 +95,7 @@ namespace store
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "store", Version = "v1" });
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
