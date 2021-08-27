@@ -1,0 +1,5 @@
+{
+    "description": "status of User",
+    "type": "string",
+    "enum": ["DISABLE(0)", "ENABLE(1)"]
+}

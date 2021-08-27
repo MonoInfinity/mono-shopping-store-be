@@ -6,13 +6,13 @@
             "properties": {
                 "categoryId": {
                     "type": "string",
-                    "example": "9093305b-6665-49e9-ad47-984b83d90de7"
+                    "example": "1627eb49-2f5e-459b-a32d-b356b7484b4a"
                 }
             }
         },
         "details": {
-            "type": "object",
-            "example": {}
+            "type": "string",
+            "example": "categoryName is already exist"
         }
     }
 }

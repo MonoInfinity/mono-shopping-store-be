@@ -8,7 +8,7 @@
         "details": {
             "type": "object",
             "properties": {
-                "productId": {
+                "categoryId": {
                     "type": "string",
                     "example": "is not found"
                 }

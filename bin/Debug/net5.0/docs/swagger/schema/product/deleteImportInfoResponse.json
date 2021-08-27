@@ -8,9 +8,9 @@
         "details": {
             "type": "object",
             "properties": {
-                "productId": {
+                "message": {
                     "type": "string",
-                    "example": "is not found"
+                    "example": "Delete ImportInfo Successfully"
                 }
             }
         }

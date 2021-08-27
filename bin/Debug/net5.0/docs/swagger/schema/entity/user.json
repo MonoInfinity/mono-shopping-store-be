@@ -1,0 +1,62 @@
+{
+    "type": "object",
+    "description": "all information about user",
+    "properties": {
+        "userId": {
+            "type": "string",
+            "example": "9a802582-aa9b-4cfb-8f43-eae4449315fc"
+        },
+        "username": {
+            "type": "string",
+            "example": "haicao"
+        },
+        "name": {
+            "type": "string",
+            "example": "Cao Chi Hai"
+        },
+        "password": {
+            "type": "string",
+            "example": "12345",
+            "description": "Allow Null"
+        },
+        "email": {
+            "type": "string",
+            "example": "yourmail@gmail.com"
+        },
+        "phone": {
+            "type": "string",
+            "example": "123456789"
+        },
+        "address": {
+            "type": "string",
+            "example": "HCM City",
+            "description": "Allow Null"
+        },
+        "googleId": {
+            "type": "string",
+            "example": "",
+            "description": "Allow Null"
+        },
+        "createDate": {
+            "type": "string",
+            "example": "8/26/2021",
+            "description": "mm/dd/yyyy"
+        },
+        "salary": {
+            "type": "double",
+            "example": 100000
+        },
+        "role": {
+            "type": "integer",
+            "$ref": "userRole.json"
+        },
+        "status": {
+            "type": "integer",
+            "$ref": "userStatus.json"
+        },
+        "avatarUrl": {
+            "type": "string",
+            "example": ""
+        }
+    }
+}

@@ -52,10 +52,23 @@
         "/api/product/subcategory/all?pageSize={}&page={}&name={}": { "$ref": "./path/product/getSucCategoryList.json" },
         "/api/product/subcategory/category?categoryId={}": { "$ref": "./path/product/getSubCategory.json" },
         "/api/product": { "$ref": "./path/product/[].json" },
-        "/api/product/category": { "$ref": "./path/product/category/postCategory.json" }
+        "/api/product/category": { "$ref": "./path/product/category.json" },
+        "/api/product/subcategory": { "$ref": "./path/product/subCategory.json" },
+        "/api/product/importInfo": { "$ref": "./path/product/importInfo.json" }
     },
 
     "components": {
-        "schemas": {}
+        "schemas": {
+            "user": { "$ref": "./schema/entity/user.json" },
+            "userRole": { "$ref": "./schema/entity/userRole.json" },
+            "userStatus": { "$ref": "./schema/entity/userStatus.json" },
+            "subCategory": { "$ref": "./schema/entity/subCategory.json" },
+            "subCategoryStatus": { "$ref": "./schema/entity/subCategoryStatus.json" },
+            "category": { "$ref": "./schema/entity/category.json" },
+            "categoryStatus": { "$ref": "./schema/entity/categoryStatus.json" },
+            "product": { "$ref": "./schema/entity/product.json" },
+            "productStatus": { "$ref": "./schema/entity/productStatus.json" },
+            "importInfo": { "$ref": "./schema/entity/importInfo.json" }
+        }
     }
 }
