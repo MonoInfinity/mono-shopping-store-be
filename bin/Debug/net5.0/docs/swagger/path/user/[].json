@@ -1,0 +1,68 @@
+{
+    "put": {
+                "tags": ["user"],
+                "description": "Update User information",
+                "requestBody": {"$ref":"../../dto/updateUser.json"},
+                "responses": {
+                    "200": {
+                        "description": "update user information success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"../../schema/user/updateUserResponse.json"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "update user information fail",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"../../schema/user/failUpdateUserResponse.json"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+
+            "get": {
+                "tags": ["user"],
+                "description": "Get Current User",
+                "requestBody": {
+                    "content": {}
+                },
+                "responses": {
+                    "200": {
+                        "description": "get Current User Information",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"../../schema/user/getUserResponse.json"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["user"],
+                "description": "Logout User",
+                "requestBody": {
+                    "content": {}
+                },
+                "responses": {
+                    "200": {
+                        "description": "Logout Current User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"../../schema/user/logoutUserResponse.json"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+}

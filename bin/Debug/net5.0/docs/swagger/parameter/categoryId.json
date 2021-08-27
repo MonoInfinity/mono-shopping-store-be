@@ -1,0 +1,11 @@
+{ "in": "query",
+                        "name": "{categoryId}",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "categoryId": {
+                                    "type": "string",
+                                    "example": "023713ed-80d2-468d-9408-1b0c9a6edeaa"
+                                }
+                            }
+                        }}

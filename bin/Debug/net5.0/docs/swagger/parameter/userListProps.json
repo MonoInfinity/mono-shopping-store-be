@@ -1,0 +1,21 @@
+{
+    "in": "query",
+                        "name": "{pageSize}/{page}/{name}/{role}",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "pageSize": {
+                                    "type": "integer",
+                                    "example": 10
+                                },
+                                "page": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "name": {
+                                    "type": "string",
+                                    "example": ""
+                                }
+                            }
+                        }
+}

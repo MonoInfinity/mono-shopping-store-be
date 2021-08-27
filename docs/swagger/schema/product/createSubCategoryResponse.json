@@ -1,0 +1,18 @@
+{
+    "type": "object",
+    "properties": {
+        "data": {
+            "type": "object",
+            "properties": {
+                "subCategoryId": {
+                    "type": "string",
+                    "example": "180a5adf-5117-43ad-95f3-ff06cf6056e3"
+                }
+            }
+        },
+        "details": {
+            "type": "object",
+            "example": {}
+        }
+    }
+}

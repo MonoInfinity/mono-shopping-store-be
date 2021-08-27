@@ -1,0 +1,23 @@
+{
+    "get": {
+                "tags": ["admin"],
+                "description": "Get List User",
+                "parameters": [
+                    {
+                        "$ref":"../../parameter/userListProps.json"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get list User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"../../schema/admin/getUserListResponse.json"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+}

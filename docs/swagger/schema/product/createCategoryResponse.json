@@ -1,0 +1,18 @@
+{
+    "type": "object",
+    "properties": {
+        "data": {
+            "type": "object",
+            "properties": {
+                "categoryId": {
+                    "type": "string",
+                    "example": "9093305b-6665-49e9-ad47-984b83d90de7"
+                }
+            }
+        },
+        "details": {
+            "type": "object",
+            "example": {}
+        }
+    }
+}

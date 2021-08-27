@@ -1,0 +1,19 @@
+{
+    "content": {
+                        "form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "vinhnhan001"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "1234567"
+                                    }
+                                }
+                            }
+                        }
+                    }
+}

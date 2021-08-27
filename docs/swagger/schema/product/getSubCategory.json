@@ -1,0 +1,59 @@
+{
+    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "subCategories": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "subCategoryId": {
+                                                                "type": "string",
+                                                                "example": "0d8f126d-e949-4155-91d1-e25c8b56ffbd"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": " Nước uống trái cây "
+                                                            },
+                                                            "status": {
+                                                                "type": "integer",
+                                                                "example": 0
+                                                            },
+                                                            "createDate": {
+                                                                "type": "string",
+                                                                "example": "8/24/2021"
+                                                            },
+                                                            "category": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "categoryId": {
+                                                                        "type": "string",
+                                                                        "example": "023713ed-80d2-468d-9408-1b0c9a6edeaa"
+                                                                    },
+                                                                    "name": {
+                                                                        "type": "string",
+                                                                        "example": "ĐỒ UỐNG CÁC LOẠI"
+                                                                    },
+                                                                    "status": {
+                                                                        "type": "integer",
+                                                                        "example": 0
+                                                                    },
+                                                                    "createDate": {
+                                                                        "type": "string",
+                                                                        "example": "8/24/2021"
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "example": {}
+                                        }
+                                    }
+}

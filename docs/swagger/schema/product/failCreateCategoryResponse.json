@@ -1,0 +1,18 @@
+{
+    "type": "object",
+    "properties": {
+        "data": {
+            "type": "object",
+            "properties": {
+                "categoryId": {
+                    "type": "string",
+                    "example": "1627eb49-2f5e-459b-a32d-b356b7484b4a"
+                }
+            }
+        },
+        "details": {
+            "type": "string",
+            "example": "categoryName is already exist"
+        }
+    }
+}
