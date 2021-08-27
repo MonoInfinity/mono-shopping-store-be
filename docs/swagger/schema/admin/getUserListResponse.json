@@ -1,0 +1,78 @@
+{
+    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "users": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "userId": {
+                                                                "type": "string",
+                                                                "example": "41a68a48-9b0f-4ee6-b3d0-68643955f6e8"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Lesley Kynaston"
+                                                            },
+                                                            "username": {
+                                                                "type": "string",
+                                                                "example": "lkynastonw"
+                                                            },
+                                                            "password": {
+                                                                "type": "string",
+                                                                "example": ""
+                                                            },
+                                                            "email": {
+                                                                "type": "string",
+                                                                "example": "lkynastonw@bloomberg.com"
+                                                            },
+                                                            "phone": {
+                                                                "type": "string",
+                                                                "example": "0862334000"
+                                                            },
+                                                            "address": {
+                                                                "type": "string",
+                                                                "example": "51392 Red Cloud Way"
+                                                            },
+                                                            "googleId": {
+                                                                "type": "string",
+                                                                "example": ""
+                                                            },
+                                                            "createDate": {
+                                                                "type": "string",
+                                                                "example": ""
+                                                            },
+                                                            "salary": {
+                                                                "type": "number",
+                                                                "example": 0
+                                                            },
+                                                            "role": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "status": {
+                                                                "type": "integer",
+                                                                "example": 1
+                                                            },
+                                                            "avatarUrl": {
+                                                                "type": "string",
+                                                                "example": "/vit14.jpg"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                "count": {
+                                                    "type": "integer",
+                                                    "example": 60
+                                                }
+                                            }
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "example": {}
+                                        }
+                                    }
+}

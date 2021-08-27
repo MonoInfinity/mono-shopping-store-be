@@ -1,6 +1,4 @@
 using store.Src.AuthModule.Interface;
-using store.Src.Utils.Interface;
-
 
 namespace store.Src.AuthModule
 {

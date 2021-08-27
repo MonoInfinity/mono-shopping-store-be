@@ -1,0 +1,13 @@
+{
+    "type": "object",
+    "properties": {
+        "data": {
+            "type": "object",
+            "example": {}
+        },
+        "details": {
+            "type": "string",
+            "example": ["importDate should not be empty", "importQuantity should greater than 0"]
+        }
+    }
+}

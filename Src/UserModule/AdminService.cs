@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-
 using store.Src.UserModule.Entity;
 using store.Src.UserModule.Interface;
-using System;
 using store.Src.UserModule.DTO;
 
 namespace store.Src.UserModule
@@ -16,9 +14,9 @@ namespace store.Src.UserModule
         }
 
 
-        public List<User> getAllUser(int currentPage, int pageSize, string name)
+        public List<User> getAllUser(int currentPage, int pageSize, string name, string role)
         {
-            var users = this.userRepository.getAllUsers(pageSize, currentPage, name);
+            var users = this.userRepository.getAllUsers(pageSize, currentPage, name, role);
 
             return users;
         }

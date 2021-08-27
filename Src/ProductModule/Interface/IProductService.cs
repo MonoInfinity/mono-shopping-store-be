@@ -10,7 +10,9 @@ namespace store.Src.ProductModule.Interface
         public bool updateCategory(Category category);
         public bool updateSubCategory(SubCategory subCategory);
         public Category getCategoryByCategoryId(string categoryId);
+        public Category getCategoryByCategoryName(string name);
         public SubCategory getSubCategoryBySubCategoryId(string subCategoryId);
+        public SubCategory getSubCategoryBySubCategoryName(string name);
         public bool saveProduct(Product product);
         public bool updateProduct(Product product);
         public Product getProductByName(string name);
@@ -24,5 +26,7 @@ namespace store.Src.ProductModule.Interface
         public List<SubCategory> getAllSubCategory(int currentPage, int pageSize, string name);
         public int getAllSubCategoryCount(string name);
         public List<SubCategory> getSubCategoryByCategoryId(string categoryId);
+        public bool updateImportInfo(ImportInfo importInfo);
+        public bool deleteImportInfo(string importInfoId);
     }
 }

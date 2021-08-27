@@ -1,0 +1,60 @@
+{
+    "post": {
+        "tags": ["product"],
+        "description": "Create New Category",
+        "requestBody": {
+            "$ref": "../../dto/createCategory.json"
+        },
+        "responses": {
+            "200": {
+                "description": "Create Category success",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/createCategoryResponse.json"
+                        }
+                    }
+                }
+            },
+            "400": {
+                "description": "Create Category fail: already exist categoryName",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/failCreateCategoryResponse.json"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "put": {
+        "tags": ["product"],
+        "description": "Update Category",
+        "requestBody": {
+            "$ref": "../../dto/updateCategory.json"
+        },
+        "responses": {
+            "200": {
+                "description": "Update Category success",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/updateCategoryResponse.json"
+                        }
+                    }
+                }
+            },
+            "404": {
+                "description": "Update Category fail: not found categoryId",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/notfoundUpdateCategoryResponse.json"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

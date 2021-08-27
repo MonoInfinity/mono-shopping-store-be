@@ -79,9 +79,9 @@ namespace store.Src.ProductModule
             SqlConnection connection = this.dBHelper.getDBConnection();
 
             var products = new List<Product>();
-            string sql = "SELECT TOP (@limit) * FROM tblProduct WHERE name Like @name "+
-                         " EXCEPT " + 
-                         " SELECT TOP (@skip) * FROM tblProduct WHERE name Like @name ";
+            string sql = "SELECT TOP (@limit) * FROM tblProduct WHERE name Like @name " +
+                         " EXCEPT " +
+                         " SELECT TOP (@skip) * FROM tblProduct";
             SqlCommand Command = new SqlCommand(sql, connection);
             try
             {
@@ -112,7 +112,7 @@ namespace store.Src.ProductModule
                         ImportInfo importInfo = this.importInfoRepository.getImportInfoByImportInfoId(importInfoId);
                         product.subCategory = subCategory;
                         product.importInfo = importInfo;
-                        
+
                         products.Add(product);
                     }
 
@@ -166,11 +166,11 @@ namespace store.Src.ProductModule
                     {
                         var subCategoryId = reader.GetString("subCategoryId");
                         SubCategory subCategory = this.subCategoryRepository.getSubCategoryBySubCategoryId(subCategoryId);
-                        if(subCategory == null) break;
+                        if (subCategory == null) break;
 
                         var importInfoId = reader.GetString("importInfoId");
                         ImportInfo importInfo = this.importInfoRepository.getImportInfoByImportInfoId(importInfoId);
-                        if(importInfo == null) break;
+                        if (importInfo == null) break;
 
 
                         product = new Product();
@@ -256,7 +256,7 @@ namespace store.Src.ProductModule
 
                         string importInfoId = reader.GetString("importInfoId");
                         ImportInfo importInfo = this.importInfoRepository.getImportInfoByImportInfoId(importInfoId);
-                        if(importInfo == null) break;
+                        if (importInfo == null) break;
 
                         product = new Product();
                         product.productId = reader.GetString("productId");

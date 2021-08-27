@@ -1,0 +1,51 @@
+{
+    "content": {
+        "form-data": {
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "example": "Nước mắm Nam Ngư"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "this is description"
+                    },
+                    "location": {
+                        "type": "string",
+                        "example": "HCM"
+                    },
+                    "expiryDate": {
+                        "type": "string",
+                        "example": "01/01/2023"
+                    },
+                    "wholesalePrice": {
+                        "type": "number",
+                        "example": 20000
+                    },
+                    "retailPrice": {
+                        "type": "number",
+                        "example": 25000
+                    },
+                    "quantity": {
+                        "type": "integer",
+                        "example": 100
+                    },
+                    "subCategoryId": {
+                        "type": "string",
+                        "example": "1180bff6-dcbd-4bb9-83b9-bd34c4c92560"
+                    },
+                    "importInfoId": {
+                        "type": "string",
+                        "example": "00c88a52-12aa-49f1-b6fb-5fe3e597d62e"
+                    },
+                    "imageUrl": {
+                        "type": "string",
+                        "example": "''"
+                    }
+                }
+            }
+        }
+    }
+}

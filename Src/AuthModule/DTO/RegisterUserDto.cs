@@ -1,6 +1,3 @@
-
-using System;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using FluentValidation;
 using store.Src.Utils.Validator;
@@ -41,15 +38,7 @@ namespace store.Src.AuthModule.DTO
             RuleFor(x => x.confirmPassword).NotEmpty().Equal(x => x.password);
             RuleFor(x => x.name).NotEmpty().Length(UserValidator.NAME_MIN, UserValidator.NAME_MAX);
             RuleFor(x => x.email).NotEmpty().EmailAddress();
-            RuleFor(x => x.phone).NotEmpty().NotNull().Custom((value, context) =>
-            {
-                Regex defaultFormat = new Regex(@"^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$");
-                if (value == null || !defaultFormat.IsMatch(value))
-                {
-                    context.AddFailure("Invalid phone number");
-                }
-                else return;
-            });
+            RuleFor(x => x.phone).NotEmpty().NotNull().Matches(new Regex(@"^(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b"));
             RuleFor(x => x.address).NotEmpty().Length(UserValidator.ADDRESS_MIN, UserValidator.ADDRESS_MAX);
         }
     }

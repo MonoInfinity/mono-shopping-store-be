@@ -1,0 +1,23 @@
+{
+    "get": {
+                "tags": ["admin"],
+                "description": "Get One User",
+                "parameters": [
+                    {
+                        "$ref":"../../parameter/oneUserProp.json"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "get One User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref":"../../schema/admin/getOneUserResponse.json"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+}

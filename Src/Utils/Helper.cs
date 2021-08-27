@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace store.Src.Utils
 {
@@ -13,6 +14,16 @@ namespace store.Src.Utils
             Random random = new Random();
             int randomNumber = random.Next(15);
             return "/" + avatars[randomNumber];
+        }
+
+        public static string StringFormat(string format, IDictionary<string, object> values)
+        {
+            if(values == null) return format;
+            foreach (var p in values)
+            {
+                format = format.Replace("{" + p.Key + "}", p.Value?.ToString());
+            }
+            return format;
         }
     }
 }

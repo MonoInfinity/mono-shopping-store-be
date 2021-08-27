@@ -106,17 +106,18 @@ namespace store.Src.UserModule
             return user;
         }
 
-        public List<User> getAllUsers(int pageSize, int currentPage, string name)
+        public List<User> getAllUsers(int pageSize, int currentPage, string name, string role)
         {
             SqlConnection connection = this.dbHelper.getDBConnection();
 
             var users = new List<User>();
-            string sql = "SELECT TOP (@limit) * FROM tblUser  WHERE name Like  @name EXCEPT SELECT TOP (@skip) * FROM tblUser";
+            string sql = "SELECT TOP (@limit) * FROM tblUser  WHERE name Like  @name AND role Like @role EXCEPT SELECT TOP (@skip) * FROM tblUser";
             SqlCommand Command = new SqlCommand(sql, connection);
             try
             {
                 connection.Open();
                 Command.Parameters.AddWithValue("@name ", "%" + name + "%");
+                Command.Parameters.AddWithValue("@role ", "%" + role + "%");
                 Command.Parameters.AddWithValue("@limit ", (pageSize + 1) * currentPage);
                 Command.Parameters.AddWithValue("@skip ", currentPage * pageSize);
                 SqlDataReader reader = Command.ExecuteReader();
@@ -215,7 +216,7 @@ namespace store.Src.UserModule
             bool res = false;
             string sql = "UPDATE tblUser SET name=@newName, email=@newEmail, phone=@newPhone, address=@newAddress, avatarUrl=@avatarUrl  WHERE userId=@userId";
             SqlCommand Command = new SqlCommand(sql, connection);
-            Console.WriteLine(user.name);
+            
             try
             {
                 connection.Open();

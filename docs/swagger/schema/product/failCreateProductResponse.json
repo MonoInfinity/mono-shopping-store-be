@@ -1,0 +1,22 @@
+{
+    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "object",
+                                            "example": null
+                                        },
+                                        "details": {
+                                            "type": "object",
+                                            "properties": {
+                                                "errorMessage": {
+                                                    "type": "string",
+                                                    "example": [
+                                                        "'name' must not be empty.",
+                                                        "'quantity' must be greater than '1'.",
+                                                        "..."
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    }
+}

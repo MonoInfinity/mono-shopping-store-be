@@ -1,7 +1,6 @@
 using store.Src.ProductModule.Entity;
 using store.Src.ProductModule.Interface;
 using System.Collections.Generic;
-using System;
 
 namespace store.Src.ProductModule
 {
@@ -129,5 +128,27 @@ namespace store.Src.ProductModule
             return subCategories;
         }
 
+        public Category getCategoryByCategoryName(string name)
+        {
+            Category category = this.categoryRepository.getCategoryByName(name);
+            return category;
+        }
+
+        public SubCategory getSubCategoryBySubCategoryName(string name)
+        {
+            SubCategory subCategory = this.subCategoryRepository.getSubCategoryByname(name);
+            return subCategory;
+        }
+        public bool updateImportInfo(ImportInfo importInfo)
+        {
+            bool res = this.importInfoRepository.updateImportInfo(importInfo);
+            return res;
+        }
+
+        public bool deleteImportInfo(string importInfoId)
+        {
+            bool res = this.importInfoRepository.deleteImportInfo(importInfoId);
+            return res;
+        }
     }
 }

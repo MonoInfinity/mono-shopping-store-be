@@ -1,0 +1,21 @@
+{
+    "get": {
+        "tags": ["product"],
+        "description": "Get All Product",
+        "requestBody": {
+            "content": {}
+        },
+        "responses": {
+            "200": {
+                "description": "get All Product",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "../../schema/product/getProductListResponse.json"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
