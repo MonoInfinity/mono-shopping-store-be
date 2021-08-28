@@ -71,27 +71,27 @@ namespace store.Src.ProductModule
             return product;
         }
 
-        // public Product getProductByName(string name)
-        // {
-        //     Product product = this.productRepository.getProductByName(name);
-        //     return product;
-        // }
+        public Product getProductByName(string name)
+        {
+            Product product = this.productRepository.getProductByName(name);
+            return product;
+        }
         public bool deleteProduct(string productId)
         {
             bool res = productRepository.deleteProduct(productId);
             return res;
         }
 
-        // public List<Product> getAllProduct(int currentPage, int pageSize, string name)
-        // {
-        //     List<Product> products = this.productRepository.getAllProducts(pageSize, currentPage, name);
-        //     return products;
-        // }
-        // public int getAllProductCount(string name)
-        // {
-        //     var count = this.productRepository.getAllProductsCount(name);
-        //     return count;
-        // }
+        public List<Product> getAllProduct(int currentPage, int pageSize, string name)
+        {
+            List<Product> products = this.productRepository.getAllProducts(pageSize, currentPage, name);
+            return products;
+        }
+        public int getAllProductCount(string name)
+        {
+            var count = this.productRepository.getAllProductsCount(name);
+            return count;
+        }
 
         public bool saveImportInfo(ImportInfo importInfo)
         {

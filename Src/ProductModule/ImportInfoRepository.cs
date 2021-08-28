@@ -64,8 +64,8 @@ namespace store.Src.ProductModule
         {
             SqlConnection connection = this.dBHelper.getDBConnection();
             bool res = false;
-            string sql = "INSERT INTO tblImportInfo(importInfoId, importDate, importPrice, importQuantity, expiryDate, note, brand, createDate, managerId) " +
-            " VALUES(@importInfoId, @importDate, @importPrice, @importQuantity, @expiryDate, @note, @brand, @createDate, @managerId)";
+            string sql = "INSERT INTO tblImportInfo(importInfoId, importDate, importPrice, importQuantity, expiryDate, note, brand, createDate, managerId, productId) " +
+            " VALUES(@importInfoId, @importDate, @importPrice, @importQuantity, @expiryDate, @note, @brand, @createDate, @managerId, @productId)";
             SqlCommand command = new SqlCommand(sql, connection);
 
             try
@@ -80,6 +80,7 @@ namespace store.Src.ProductModule
                 command.Parameters.AddWithValue("@brand", importInfo.brand);
                 command.Parameters.AddWithValue("@createDate", importInfo.createDate);
                 command.Parameters.AddWithValue("@managerId", importInfo.manager.userId);
+                command.Parameters.AddWithValue("@productId", importInfo.product.productId);
 
                 res = command.ExecuteNonQuery() > 0;
                 connection.Close();

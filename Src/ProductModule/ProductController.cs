@@ -219,47 +219,6 @@ namespace store.Src.ProductModule
             return new ObjectResult(res.getResponse());
         }
 
-
-        // [HttpPost("importInfo")]
-        // [ValidateFilterAttribute(typeof(AddImportInfoDto))]
-        // [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        // [ServiceFilter(typeof(AuthGuard))]
-        // [ServiceFilter(typeof(ValidateFilter))]
-        // public ObjectResult addImportInfo([FromBody] AddImportInfoDto body)
-        // {
-        //     ServerResponse<Dictionary<string, string>> res = new ServerResponse<Dictionary<string, string>>();
-
-        //     User manager = this.userService.getUserById(body.managerId);
-        //     if (manager == null)
-        //     {
-        //         res.setErrorMessage(ErrorMessageKey.Error_NotFound, "managerId");
-        //         return new BadRequestObjectResult(res.getResponse());
-        //     }
-
-        //     ImportInfo importInfo = new ImportInfo();
-        //     importInfo.importInfoId = Guid.NewGuid().ToString();
-        //     importInfo.importDate = body.importDate;
-        //     importInfo.importPrice = body.importPrice;
-        //     importInfo.importQuantity = body.importQuantity;
-        //     importInfo.expiryDate = body.expiryDate;
-        //     importInfo.note = body.note;
-        //     importInfo.brand = body.brand;
-        //     importInfo.manager = manager;
-
-        //     bool isInserted = this.productService.saveImportInfo(importInfo);
-        //     if (!isInserted)
-        //     {
-        //         res.setErrorMessage(ErrorMessageKey.Error_FailToSave);
-        //         return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
-        //     }
-
-        //     Dictionary<string, string> dataRes = new Dictionary<string, string>();
-        //     dataRes.Add("importInfoId", importInfo.importInfoId);
-        //     res.data = dataRes;
-        //     res.setMessage(MessageKey.Message_AddSuccess);
-        //     return new ObjectResult(res.getResponse());
-        // }
-
         [HttpPost("")]
         [ValidateFilterAttribute(typeof(AddProductDto))]
         [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
@@ -362,93 +321,143 @@ namespace store.Src.ProductModule
 
         }
 
-        // [HttpGet("all")]
-        // [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        // [ServiceFilter(typeof(AuthGuard))]
-        // public ObjectResult listAllProduct(int pageSize, int page, string name)
-        // {
-        //     IDictionary<string, object> dataRes = new Dictionary<string, object>();
-        //     ServerResponse<IDictionary<string, object>> res = new ServerResponse<IDictionary<string, object>>();
-        //     var count = this.productService.getAllProductCount(name);
-        //     var products = this.productService.getAllProduct(pageSize, page, name);
-        //     dataRes.Add("products", products);
-        //     dataRes.Add("count", count);
-        //     res.data = dataRes;
-        //     return new ObjectResult(res.getResponse());
-        // }
+        [HttpGet("all")]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        public ObjectResult listAllProduct(int pageSize, int page, string name)
+        {
+            IDictionary<string, object> dataRes = new Dictionary<string, object>();
+            ServerResponse<IDictionary<string, object>> res = new ServerResponse<IDictionary<string, object>>();
+            var count = this.productService.getAllProductCount(name);
+            var products = this.productService.getAllProduct(pageSize, page, name);
+            dataRes.Add("products", products);
+            dataRes.Add("count", count);
+            res.data = dataRes;
+            return new ObjectResult(res.getResponse());
+        }
 
-        // [HttpGet("")]
-        // [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        // [ServiceFilter(typeof(AuthGuard))]
-        // public ObjectResult getAProduct(string productId)
-        // {
-        //     ServerResponse<Product> res = new ServerResponse<Product>();
+        [HttpGet("")]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        public ObjectResult getAProduct(string productId)
+        {
+            ServerResponse<Product> res = new ServerResponse<Product>();
 
-        //     Product product = this.productService.getProductByProductId(productId);
-        //     if (product == null)
-        //     {
-        //         res.setErrorMessage(ErrorMessageKey.Error_NotFound, "productId");
-        //         return new BadRequestObjectResult(res.getResponse());
-        //     }
+            Product product = this.productService.getProductByProductId(productId);
+            if (product == null)
+            {
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "productId");
+                return new BadRequestObjectResult(res.getResponse());
+            }
 
-        //     res.data = product;
-        //     return new ObjectResult(res.getResponse());
-        // }
+            res.data = product;
+            return new ObjectResult(res.getResponse());
+        }
 
 
+        [HttpPost("importInfo")]
+        [ValidateFilterAttribute(typeof(AddImportInfoDto))]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        [ServiceFilter(typeof(ValidateFilter))]
+        public ObjectResult addImportInfo([FromBody] AddImportInfoDto body)
+        {
+            ServerResponse<Dictionary<string, string>> res = new ServerResponse<Dictionary<string, string>>();
 
-        // [HttpPut("importInfo")]
-        // [ValidateFilterAttribute(typeof(UpdateImportInfoDto))]
-        // [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        // [ServiceFilter(typeof(AuthGuard))]
-        // [ServiceFilter(typeof(ValidateFilter))]
-        // public ObjectResult updateImportInfo([FromBody] UpdateImportInfoDto body)
-        // {
-        //     ServerResponse<ImportInfo> res = new ServerResponse<ImportInfo>();
-        //     var importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
-        //     if (importInfo == null)
-        //     {
-        //         res.setErrorMessage(ErrorMessageKey.Error_NotFound, "importInfoId");
-        //         return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
-        //     }
-        //     importInfo.importDate = body.importDate;
-        //     importInfo.importPrice = body.importPrice;
-        //     importInfo.importQuantity = body.importQuantity;
-        //     importInfo.expiryDate = body.expiryDate;
-        //     importInfo.brand = body.brand;
-        //     importInfo.note = body.note;
-        //     bool isUpdate = this.productService.updateImportInfo(importInfo);
-        //     if (!isUpdate)
-        //     {
-        //         res.setErrorMessage(ErrorMessageKey.Error_UpdateFail);
-        //         return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
-        //     }
-        //     res.setMessage(MessageKey.Message_UpdateSuccess);
-        //     return new ObjectResult(res.getResponse());
-        // }
+            User manager = this.userService.getUserById(body.managerId);
+            if (manager == null)
+            {
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "managerId");
+                return new BadRequestObjectResult(res.getResponse());
+            }
 
-        // [HttpDelete("importInfo")]
-        // [ValidateFilterAttribute(typeof(DeleteImportInfoDto))]
-        // [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        // [ServiceFilter(typeof(AuthGuard))]
-        // [ServiceFilter(typeof(ValidateFilter))]
-        // public ObjectResult deleteImportInfo([FromBody] DeleteImportInfoDto body)
-        // {
-        //     ServerResponse<ImportInfo> res = new ServerResponse<ImportInfo>();
-        //     var importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
-        //     if (importInfo == null)
-        //     {
-        //         res.setErrorMessage(ErrorMessageKey.Error_NotFound, "importInfoId");
-        //         return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
-        //     }
-        //     bool isDelete = this.productService.deleteImportInfo(importInfo.importInfoId);
-        //     if (!isDelete)
-        //     {
-        //         res.setErrorMessage(ErrorMessageKey.Error_DeleteFail);
-        //         return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
-        //     }
-        //     res.setMessage(MessageKey.Message_DeleteSuccess);
-        //     return new ObjectResult(res.getResponse());
-        // }
+
+            Product product = this.productService.getProductByProductId(body.productId);
+            if (product == null)
+            {
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "productId");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+
+            ImportInfo importInfo = new ImportInfo();
+            importInfo.importInfoId = Guid.NewGuid().ToString();
+            importInfo.importDate = body.importDate;
+            importInfo.importPrice = body.importPrice;
+            importInfo.importQuantity = body.importQuantity;
+            importInfo.expiryDate = body.expiryDate;
+            importInfo.note = body.note;
+            importInfo.brand = body.brand;
+            importInfo.manager = manager;
+            importInfo.product = product;
+
+
+            bool isInserted = this.productService.saveImportInfo(importInfo);
+            if (!isInserted)
+            {
+                res.setErrorMessage(ErrorMessageKey.Error_FailToSave);
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+
+            Dictionary<string, string> dataRes = new Dictionary<string, string>();
+            dataRes.Add("importInfoId", importInfo.importInfoId);
+            res.data = dataRes;
+            res.setMessage(MessageKey.Message_AddSuccess);
+            return new ObjectResult(res.getResponse());
+        }
+
+
+        [HttpPut("importInfo")]
+        [ValidateFilterAttribute(typeof(UpdateImportInfoDto))]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        [ServiceFilter(typeof(ValidateFilter))]
+        public ObjectResult updateImportInfo([FromBody] UpdateImportInfoDto body)
+        {
+            ServerResponse<ImportInfo> res = new ServerResponse<ImportInfo>();
+            var importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
+            if (importInfo == null)
+            {
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "importInfoId");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            importInfo.importDate = body.importDate;
+            importInfo.importPrice = body.importPrice;
+            importInfo.importQuantity = body.importQuantity;
+            importInfo.expiryDate = body.expiryDate;
+            importInfo.brand = body.brand;
+            importInfo.note = body.note;
+            bool isUpdate = this.productService.updateImportInfo(importInfo);
+            if (!isUpdate)
+            {
+                res.setErrorMessage(ErrorMessageKey.Error_UpdateFail);
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            res.setMessage(MessageKey.Message_UpdateSuccess);
+            return new ObjectResult(res.getResponse());
+        }
+
+        [HttpDelete("importInfo")]
+        [ValidateFilterAttribute(typeof(DeleteImportInfoDto))]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        [ServiceFilter(typeof(ValidateFilter))]
+        public ObjectResult deleteImportInfo([FromBody] DeleteImportInfoDto body)
+        {
+            ServerResponse<ImportInfo> res = new ServerResponse<ImportInfo>();
+            var importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
+            if (importInfo == null)
+            {
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "importInfoId");
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            bool isDelete = this.productService.deleteImportInfo(importInfo.importInfoId);
+            if (!isDelete)
+            {
+                res.setErrorMessage(ErrorMessageKey.Error_DeleteFail);
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            res.setMessage(MessageKey.Message_DeleteSuccess);
+            return new ObjectResult(res.getResponse());
+        }
     }
 }

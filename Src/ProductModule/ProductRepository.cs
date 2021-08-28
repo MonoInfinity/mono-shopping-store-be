@@ -72,76 +72,74 @@ namespace store.Src.ProductModule
             }
             return res;
         }
-        // public List<Product> getAllProducts(int pageSize, int currentPage, string name)
-        // {
-        //     SqlConnection connection = this.dBHelper.getDBConnection();
+        public List<Product> getAllProducts(int pageSize, int currentPage, string name)
+        {
+            SqlConnection connection = this.dBHelper.getDBConnection();
 
-        //     var products = new List<Product>();
-        //     string sql = "SELECT TOP (@limit) * FROM tblProduct WHERE name Like @name " +
-        //                  " EXCEPT " +
-        //                  " SELECT TOP (@skip) * FROM tblProduct";
-        //     SqlCommand Command = new SqlCommand(sql, connection);
-        //     try
-        //     {
-        //         connection.Open();
-        //         Command.Parameters.AddWithValue("@name ", "%" + name + "%");
-        //         Command.Parameters.AddWithValue("@limit ", (pageSize + 1) * currentPage);
-        //         Command.Parameters.AddWithValue("@skip ", currentPage * pageSize);
-        //         SqlDataReader reader = Command.ExecuteReader();
+            var products = new List<Product>();
+            string sql = "SELECT TOP (@limit) * FROM tblProduct WHERE name Like @name " +
+                         " EXCEPT " +
+                         " SELECT TOP (@skip) * FROM tblProduct";
+            SqlCommand Command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                Command.Parameters.AddWithValue("@name ", "%" + name + "%");
+                Command.Parameters.AddWithValue("@limit ", (pageSize + 1) * currentPage);
+                Command.Parameters.AddWithValue("@skip ", currentPage * pageSize);
+                SqlDataReader reader = Command.ExecuteReader();
 
-        //         if (reader.HasRows)
-        //         {
-        //             while (reader.Read())
-        //             {
-        //                 Product product = new Product();
-        //                 product.productId = reader.GetString("productId");
-        //                 product.name = reader.GetString("name");
-        //                 product.description = reader.GetString("description");
-        //                 product.location = reader.GetString("location");
-        //                 product.status = (ProductStatus)reader.GetInt32("status");
-        //                 product.wholesalePrice = reader.GetDouble("wholesalePrice");
-        //                 product.retailPrice = reader.GetDouble("retailPrice");
-        //                 product.createDate = reader.GetString("createDate");
-        //                 product.quantity = reader.GetInt32("quantity");
-        //                 var subCategoryId = reader.GetString("subCategoryId");
-        //                 SubCategory subCategory = this.subCategoryRepository.getSubCategoryBySubCategoryId(subCategoryId);
-        //                 var importInfoId = reader.GetString("importInfoId");
-        //                 ImportInfo importInfo = this.importInfoRepository.getImportInfoByImportInfoId(importInfoId);
-        //                 product.subCategory = subCategory;
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Product product = new Product();
+                        product.productId = reader.GetString("productId");
+                        product.name = reader.GetString("name");
+                        product.description = reader.GetString("description");
+                        product.location = reader.GetString("location");
+                        product.status = (ProductStatus)reader.GetInt32("status");
+                        product.wholesalePrice = reader.GetDouble("wholesalePrice");
+                        product.retailPrice = reader.GetDouble("retailPrice");
+                        product.createDate = reader.GetString("createDate");
+                        product.quantity = reader.GetInt32("quantity");
+                        var subCategoryId = reader.GetString("subCategoryId");
+                        SubCategory subCategory = this.subCategoryRepository.getSubCategoryBySubCategoryId(subCategoryId);
+                        product.subCategory = subCategory;
 
-        //                 products.Add(product);
-        //             }
+                        products.Add(product);
+                    }
 
-        //         }
+                }
 
-        //         connection.Close();
-        //     }
-        //     catch (SqlException e)
-        //     {
-        //         Console.WriteLine(e.Message);
-        //     }
-        //     return products;
-        // }
-        // public int getAllProductsCount(string name)
-        // {
-        //     SqlConnection connection = this.dBHelper.getDBConnection();
-        //     int count = 0;
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return products;
+        }
+        public int getAllProductsCount(string name)
+        {
+            SqlConnection connection = this.dBHelper.getDBConnection();
+            int count = 0;
 
-        //     string sql = "SELECT COUNT(*) FROM tblProduct where name Like @name";
-        //     SqlCommand Command = new SqlCommand(sql, connection);
-        //     try
-        //     {
-        //         connection.Open();
-        //         Command.Parameters.AddWithValue("@name ", "%" + name + "%");
-        //         count = (Int32)Command.ExecuteScalar();
-        //         connection.Close();
-        //     }
-        //     catch (SqlException e)
-        //     {
-        //         Console.WriteLine(e.Message);
-        //     }
-        //     return count;
-        // }
+            string sql = "SELECT COUNT(*) FROM tblProduct where name Like @name";
+            SqlCommand Command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                Command.Parameters.AddWithValue("@name ", "%" + name + "%");
+                count = (Int32)Command.ExecuteScalar();
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return count;
+        }
 
         public Product getProductByProductId(string productId)
         {
@@ -221,54 +219,54 @@ namespace store.Src.ProductModule
             return res;
         }
 
-        // public Product getProductByName(string name)
-        // {
-        //     SqlConnection connection = this.dBHelper.getDBConnection();
-        //     Product product = null;
-        //     string sql = "SELECT * FROM tblProduct WHERE name=@name";
-        //     SqlCommand command = new SqlCommand(sql, connection);
+        public Product getProductByName(string name)
+        {
+            SqlConnection connection = this.dBHelper.getDBConnection();
+            Product product = null;
+            string sql = "SELECT * FROM tblProduct WHERE name=@name";
+            SqlCommand command = new SqlCommand(sql, connection);
 
-        //     try
-        //     {
-        //         connection.Open();
-        //         command.Parameters.AddWithValue("@name", name);
-        //         SqlDataReader reader = command.ExecuteReader();
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@name", name);
+                SqlDataReader reader = command.ExecuteReader();
 
-        //         if (reader.HasRows)
-        //         {
-        //             while (reader.Read())
-        //             {
-        //                 string subCategoryId = reader.GetString("subCategoryId");
-        //                 SubCategory subCategory = this.subCategoryRepository.getSubCategoryBySubCategoryId(subCategoryId);
-        //                 if (subCategory == null) break;
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        string subCategoryId = reader.GetString("subCategoryId");
+                        SubCategory subCategory = this.subCategoryRepository.getSubCategoryBySubCategoryId(subCategoryId);
+                        if (subCategory == null) break;
 
-        //                 string importInfoId = reader.GetString("importInfoId");
-        //                 ImportInfo importInfo = this.importInfoRepository.getImportInfoByImportInfoId(importInfoId);
-        //                 if (importInfo == null) break;
+                        string importInfoId = reader.GetString("importInfoId");
+                        ImportInfo importInfo = this.importInfoRepository.getImportInfoByImportInfoId(importInfoId);
+                        if (importInfo == null) break;
 
-        //                 product = new Product();
-        //                 product.productId = reader.GetString("productId");
-        //                 product.name = reader.GetString("name");
-        //                 product.description = reader.GetString("description");
-        //                 product.location = reader.GetString("location");
-        //                 product.status = (ProductStatus)reader.GetInt32("status");
-        //                 product.wholesalePrice = reader.GetDouble("wholesalePrice");
-        //                 product.retailPrice = reader.GetDouble("retailPrice");
-        //                 product.createDate = reader.GetString("createDate");
-        //                 product.quantity = reader.GetInt32("quantity");
-        //                 product.subCategory = subCategory;
-        //                 product.imageUrl = reader.GetString("imageUrl");
-        //             }
+                        product = new Product();
+                        product.productId = reader.GetString("productId");
+                        product.name = reader.GetString("name");
+                        product.description = reader.GetString("description");
+                        product.location = reader.GetString("location");
+                        product.status = (ProductStatus)reader.GetInt32("status");
+                        product.wholesalePrice = reader.GetDouble("wholesalePrice");
+                        product.retailPrice = reader.GetDouble("retailPrice");
+                        product.createDate = reader.GetString("createDate");
+                        product.quantity = reader.GetInt32("quantity");
+                        product.subCategory = subCategory;
+                        product.imageUrl = reader.GetString("imageUrl");
+                    }
 
-        //         }
+                }
 
-        //         connection.Close();
-        //     }
-        //     catch (SqlException e)
-        //     {
-        //         Console.WriteLine(e.Message);
-        //     }
-        //     return product;
-        // }
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            return product;
+        }
     }
 }
