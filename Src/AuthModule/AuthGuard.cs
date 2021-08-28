@@ -78,7 +78,7 @@ namespace store.Src.AuthModule
                 controller.ViewData["user"] = user;
 
                 var objOut = new Object();
-                Console.WriteLine(user.role);
+
                 // check user's role
                 if (context.ActionArguments.TryGetValue("roles", out objOut))
                 {

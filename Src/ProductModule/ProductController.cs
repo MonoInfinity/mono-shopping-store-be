@@ -298,69 +298,69 @@ namespace store.Src.ProductModule
             return new ObjectResult(res.getResponse());
         }
 
-        // [HttpPut("")]
-        // [ValidateFilterAttribute(typeof(UpdateProductDto))]
-        // [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        // [ServiceFilter(typeof(ValidateFilter))]
-        // [ServiceFilter(typeof(AuthGuard))]
-        // public ObjectResult updateProduct([FromBody] UpdateProductDto body)
-        // {
-        //     ServerResponse<Product> res = new ServerResponse<Product>();
+        [HttpPut("")]
+        [ValidateFilterAttribute(typeof(UpdateProductDto))]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(ValidateFilter))]
+        [ServiceFilter(typeof(AuthGuard))]
+        public ObjectResult updateProduct([FromBody] UpdateProductDto body)
+        {
+            ServerResponse<Product> res = new ServerResponse<Product>();
 
-        //     Product updateProduct = this.productService.getProductByProductId(body.productId);
-        //     if (updateProduct == null)
-        //     {
-        //         res.setErrorMessage(ErrorMessageKey.Error_NotFound, "productId");
-        //         return new BadRequestObjectResult(res.getResponse());
-        //     }
+            Product updateProduct = this.productService.getProductByProductId(body.productId);
+            if (updateProduct == null)
+            {
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "productId");
+                return new BadRequestObjectResult(res.getResponse());
+            }
 
-        //     updateProduct.name = body.name;
-        //     updateProduct.description = body.description;
-        //     updateProduct.location = body.location;
-        //     updateProduct.status = body.status;
-        //     updateProduct.wholesalePrice = body.wholesalePrice;
-        //     updateProduct.retailPrice = body.retailPrice;
-        //     updateProduct.quantity = body.quantity;
-        //     if (body.imageUrl != null)
-        //     {
-        //         updateProduct.imageUrl = body.imageUrl;
-        //     }
-        //     bool isInserted = this.productService.updateProduct(updateProduct);
-        //     if (!isInserted)
-        //     {
-        //         res.setErrorMessage(ErrorMessageKey.Error_FailToSave);
-        //         return new ObjectResult(res.getResponse()) { StatusCode = 500 };
-        //     }
-        //     res.data = updateProduct;
-        //     res.setMessage(MessageKey.Message_UpdateSuccess);
-        //     return new ObjectResult(res.getResponse());
-        // }
+            updateProduct.name = body.name;
+            updateProduct.description = body.description;
+            updateProduct.location = body.location;
+            updateProduct.status = body.status;
+            updateProduct.wholesalePrice = body.wholesalePrice;
+            updateProduct.retailPrice = body.retailPrice;
+            updateProduct.quantity = body.quantity;
+            if (body.imageUrl != null)
+            {
+                updateProduct.imageUrl = body.imageUrl;
+            }
+            bool isInserted = this.productService.updateProduct(updateProduct);
+            if (!isInserted)
+            {
+                res.setErrorMessage(ErrorMessageKey.Error_FailToSave);
+                return new ObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
+            res.data = updateProduct;
+            res.setMessage(MessageKey.Message_UpdateSuccess);
+            return new ObjectResult(res.getResponse());
+        }
 
-        // [HttpDelete("")]
-        // [ValidateFilterAttribute(typeof(DeleteProductDto))]
-        // [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        // [ServiceFilter(typeof(AuthGuard))]
-        // [ServiceFilter(typeof(ValidateFilter))]
-        // public ObjectResult deleteProduct([FromBody] DeleteProductDto body)
-        // {
-        //     ServerResponse<Product> res = new ServerResponse<Product>();
-        //     Product product = this.productService.getProductByProductId(body.productId);
-        //     if (product == null)
-        //     {
-        //         res.setErrorMessage(ErrorMessageKey.Error_NotFound, "productId");
-        //         return new BadRequestObjectResult(res.getResponse());
-        //     }
-        //     bool isDelete = this.productService.deleteProduct(body.productId);
-        //     if (!isDelete)
-        //     {
-        //         res.setErrorMessage(ErrorMessageKey.Error_DeleteFail);
-        //         return new ObjectResult(res.getResponse()) { StatusCode = 500 };
-        //     }
+        [HttpDelete("")]
+        [ValidateFilterAttribute(typeof(DeleteProductDto))]
+        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+        [ServiceFilter(typeof(AuthGuard))]
+        [ServiceFilter(typeof(ValidateFilter))]
+        public ObjectResult deleteProduct([FromBody] DeleteProductDto body)
+        {
+            ServerResponse<Product> res = new ServerResponse<Product>();
+            Product product = this.productService.getProductByProductId(body.productId);
+            if (product == null)
+            {
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "productId");
+                return new BadRequestObjectResult(res.getResponse());
+            }
+            bool isDelete = this.productService.deleteProduct(body.productId);
+            if (!isDelete)
+            {
+                res.setErrorMessage(ErrorMessageKey.Error_DeleteFail);
+                return new ObjectResult(res.getResponse()) { StatusCode = 500 };
+            }
 
-        //     res.setMessage(MessageKey.Message_DeleteSuccess);
-        //     return new ObjectResult(res.getResponse());
+            res.setMessage(MessageKey.Message_DeleteSuccess);
+            return new ObjectResult(res.getResponse());
 
-        // }
+        }
 
         // [HttpGet("all")]
         // [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]

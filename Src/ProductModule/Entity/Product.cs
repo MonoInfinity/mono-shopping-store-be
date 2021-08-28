@@ -19,6 +19,7 @@ namespace store.Src.ProductModule.Entity
         public ProductStatus status { get; set; }
         public double wholesalePrice { get; set; }
         public double retailPrice { get; set; }
+        public double price { get; set; }
         public string createDate { get; set; }
         public int quantity { get; set; }
         public string imageUrl { get; set; }
@@ -33,6 +34,7 @@ namespace store.Src.ProductModule.Entity
             this.status = ProductStatus.NOT_SALE;
             this.wholesalePrice = 0;
             this.retailPrice = 0;
+            this.price = 0;
             this.createDate = DateTime.Now.ToShortDateString();
             this.quantity = 0;
             this.subCategory = new SubCategory();

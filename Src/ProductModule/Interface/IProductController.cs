@@ -9,10 +9,10 @@ namespace store.Src.ProductModule.Interface
         public ObjectResult addSubCategory(AddSubCategoryDto body);
         public ObjectResult updateCategory(UpdateCategoryDto body);
         public ObjectResult updateSubCategory(UpdateSubCategoryDto body);
+        public ObjectResult updateProduct(UpdateProductDto body);
 
         // public ObjectResult addImportInfo(AddImportInfoDto body);
         // public ObjectResult addProduct(AddProductDto body);
-        // public ObjectResult updateProduct(UpdateProductDto body);
         // public ObjectResult deleteProduct(DeleteProductDto body);
         // public ObjectResult getAProduct(string productId);
         // public ObjectResult listAllProduct(int pageSize, int page, string name);
