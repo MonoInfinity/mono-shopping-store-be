@@ -11,6 +11,6 @@ namespace store.Src.ProductModule.Interface
         public List<Product> getAllProducts(int pageSize, int page, string name);
         public int getAllProductsCount(string name);
         public Product getProductByProductId(string productId);
-        public Product getProductByname(string name);
+        public Product getProductByName(string name);
     }
 }

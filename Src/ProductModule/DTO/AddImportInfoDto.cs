@@ -13,8 +13,11 @@ namespace store.Src.ProductModule.DTO
         public string brand { get; set; }
         public string managerId { get; set; }
 
-        public AddImportInfoDto(){}
-        public AddImportInfoDto(string importDate, double importPrice, string expiryDate, int importQuantity, string note, string brand, string managerId){
+        public string productId { get; set; }
+
+        public AddImportInfoDto() { }
+        public AddImportInfoDto(string importDate, double importPrice, string expiryDate, int importQuantity, string note, string brand, string managerId, string productId)
+        {
             this.importDate = importDate;
             this.importPrice = importPrice;
             this.expiryDate = expiryDate;
@@ -22,10 +25,11 @@ namespace store.Src.ProductModule.DTO
             this.note = note;
             this.brand = brand;
             this.managerId = managerId;
+            this.productId = productId;
         }
     }
 
-    public class AddImportInfoDtoValidator: AbstractValidator<AddImportInfoDto>
+    public class AddImportInfoDtoValidator : AbstractValidator<AddImportInfoDto>
     {
         public AddImportInfoDtoValidator()
         {

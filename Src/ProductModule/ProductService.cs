@@ -73,7 +73,7 @@ namespace store.Src.ProductModule
 
         public Product getProductByName(string name)
         {
-            Product product = this.productRepository.getProductByname(name);
+            Product product = this.productRepository.getProductByName(name);
             return product;
         }
         public bool deleteProduct(string productId)

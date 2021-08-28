@@ -23,19 +23,11 @@ namespace store.Src.UserModule
         private readonly IUploadFileService uploadFileService;
         private readonly IUserService userService;
         private readonly IAuthService authService;
-        private readonly LoginUserDtoValidator loginUserDtoValidator;
-        private readonly RegisterUserDtoValidator registerUserDtoValidator;
-        private readonly UpdateUserDtoValidator updateUserDtoValidator;
-        private readonly UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator;
-        public UserController(ISmailService smailService, IUploadFileService uploadFileService, IUserService userService, IAuthService authService, LoginUserDtoValidator loginUserDtoValidator, RegisterUserDtoValidator registerUserDtoValidator, UpdateUserDtoValidator updateUserDtoValidator, UpdateUserPasswordDtoValidator updateUserPasswordDtoValidator)
+        public UserController(ISmailService smailService, IUploadFileService uploadFileService, IUserService userService, IAuthService authService)
         {
             this.smailService = smailService;
             this.uploadFileService = uploadFileService;
             this.userService = userService;
-            this.updateUserDtoValidator = updateUserDtoValidator;
-            this.updateUserPasswordDtoValidator = updateUserPasswordDtoValidator;
-            this.loginUserDtoValidator = loginUserDtoValidator;
-            this.registerUserDtoValidator = registerUserDtoValidator;
             this.authService = authService;
         }
 

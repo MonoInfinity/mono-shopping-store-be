@@ -1,4 +1,6 @@
 
+
+
 using System.Collections.Generic;
 using System;
 using Microsoft.AspNetCore.Mvc.Filters;
@@ -28,23 +30,27 @@ namespace store.Src.AuthModule
 
 
         }
-
+        string getCookieValueFromContext(ActionExecutingContext context, string cookieName)
+        {
+            foreach (var headers in context.HttpContext.Request.Headers.Values)
+                foreach (var header in headers)
+                {
+                    if (header.StartsWith($"{cookieName}="))
+                    {
+                        var p1 = header.IndexOf('=');
+                        return header.Substring(p1 + 1, header.Length - p1 - 1);
+                    }
+                }
+            return null;
+        }
         public void OnActionExecuting(ActionExecutingContext context)
         {
 
             var res = new ServerResponse<object>();
-            var cookies = new Dictionary<string, string>();
-            var values = ((string)context.HttpContext.Request.Headers["Cookie"]).Split(',', ';');
-
-
-            foreach (var parts in values)
+            var authToken = getCookieValueFromContext(context, "auth-token");
+            if (authToken == null)
             {
-                var cookieArray = parts.Trim().Split('=');
-                cookies.Add(cookieArray[0], cookieArray[1]);
-            }
-            var outValue = "";
-            if (!cookies.TryGetValue("auth-token", out outValue))
-            {
+
 
                 res.setErrorMessage(ErrorMessageKey.Error_NotAllow);
                 context.Result = new UnauthorizedObjectResult(res.getResponse());
@@ -52,7 +58,7 @@ namespace store.Src.AuthModule
             }
             try
             {
-                var token = this.jwtService.VerifyToken(cookies["auth-token"]).Split(";");
+                var token = this.jwtService.VerifyToken(authToken).Split(";");
 
                 if (token[0] == null)
                 {
