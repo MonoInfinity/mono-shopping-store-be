@@ -168,12 +168,12 @@ namespace store.Src.ProductModule
                 return new BadRequestObjectResult(res.getResponse());
             }
 
-            ImportInfo importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
-            if (importInfo == null)
-            {
-                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "importInfoId");
-                return new BadRequestObjectResult(res.getResponse());
-            }
+            // ImportInfo importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
+            // if (importInfo == null)
+            // {
+            //     res.setErrorMessage(ErrorMessageKey.Error_NotFound, "importInfoId");
+            //     return new BadRequestObjectResult(res.getResponse());
+            // }
 
             Product newProduct = new Product();
             newProduct.productId = Guid.NewGuid().ToString();
@@ -184,7 +184,6 @@ namespace store.Src.ProductModule
             newProduct.retailPrice = body.retailPrice;
             newProduct.imageUrl = body.imageUrl;
             newProduct.subCategory = subCategory;
-            newProduct.importInfo = importInfo;
 
             bool isInserted = this.productService.saveProduct(newProduct);
             if (!isInserted)

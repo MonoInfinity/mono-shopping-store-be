@@ -42,7 +42,6 @@ namespace store.Src.ProductModule
                 command.Parameters.AddWithValue("@quantity", product.quantity);
                 command.Parameters.AddWithValue("@imageUrl", product.imageUrl);
                 command.Parameters.AddWithValue("@subCategoryId", product.subCategory.subCategoryId);
-                command.Parameters.AddWithValue("@importInfoId", product.importInfo.importInfoId);
                 res = command.ExecuteNonQuery() > 0;
                 connection.Close();
             }
@@ -109,7 +108,6 @@ namespace store.Src.ProductModule
                         var importInfoId = reader.GetString("importInfoId");
                         ImportInfo importInfo = this.importInfoRepository.getImportInfoByImportInfoId(importInfoId);
                         product.subCategory = subCategory;
-                        product.importInfo = importInfo;
 
                         products.Add(product);
                     }
@@ -183,7 +181,6 @@ namespace store.Src.ProductModule
                         product.quantity = reader.GetInt32("quantity");
                         product.imageUrl = reader.GetString("imageUrl");
                         product.subCategory = subCategory;
-                        product.importInfo = importInfo;
                     }
 
                 }
@@ -217,7 +214,6 @@ namespace store.Src.ProductModule
                 command.Parameters.AddWithValue("@quantity", product.quantity);
                 command.Parameters.AddWithValue("@imageUrl", product.imageUrl);
                 command.Parameters.AddWithValue("@subCategoryId", product.subCategory.subCategoryId);
-                command.Parameters.AddWithValue("@importInfoId", product.importInfo.importInfoId);
                 command.Parameters.AddWithValue("@productId", product.productId);
                 res = command.ExecuteNonQuery() > 0;
                 connection.Close();
@@ -266,7 +262,6 @@ namespace store.Src.ProductModule
                         product.createDate = reader.GetString("createDate");
                         product.quantity = reader.GetInt32("quantity");
                         product.subCategory = subCategory;
-                        product.importInfo = importInfo;
                         product.imageUrl = reader.GetString("imageUrl");
                     }
 

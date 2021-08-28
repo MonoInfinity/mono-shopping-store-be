@@ -23,7 +23,6 @@ namespace store.Src.ProductModule.Entity
         public int quantity { get; set; }
         public string imageUrl { get; set; }
         public SubCategory subCategory { get; set; }
-        public ImportInfo importInfo { get; set; }
         public Product()
         {
             this.productId = "";
@@ -37,14 +36,13 @@ namespace store.Src.ProductModule.Entity
             this.createDate = DateTime.Now.ToShortDateString();
             this.quantity = 0;
             this.subCategory = new SubCategory();
-            this.importInfo = new ImportInfo();
         }
 
         public override string ToString()
         {
             return "Product: \nProductId: " + productId + " \nName: " + name + " \nImageUrl" + imageUrl + " \nDescription: " + description + " \nLocation: " +
-                            location + " \nStatus: " + status  + " \nWholesale Price: " + wholesalePrice + " \nRetail Price: " +
-                            retailPrice + " \nCreateDate: " + createDate + " \nQuantity: " + quantity + " \nSubCategogyId: " + subCategory.subCategoryId + " \nImportInfoId: " + importInfo.importInfoId;
+                            location + " \nStatus: " + status + " \nWholesale Price: " + wholesalePrice + " \nRetail Price: " +
+                            retailPrice + " \nCreateDate: " + createDate + " \nQuantity: " + quantity + " \nSubCategogyId: " + subCategory.subCategoryId;
         }
     }
 }
