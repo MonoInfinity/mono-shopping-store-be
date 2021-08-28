@@ -46,7 +46,9 @@ namespace store.Src.UserModule
                         user.googleId = reader.GetString("googleId");
                         user.createDate = reader.GetString("createDate");
                         user.salary = reader.GetDouble("salary");
-                        user.role = (UserRole)reader.GetInt32("role");
+
+                        user.role =
+                            (UserRole)reader.GetInt32("role");
                         user.status = (UserStatus)reader.GetInt32("status");
                         user.avatarUrl = reader.GetString("avatarUrl");
                     }
@@ -216,7 +218,7 @@ namespace store.Src.UserModule
             bool res = false;
             string sql = "UPDATE tblUser SET name=@newName, email=@newEmail, phone=@newPhone, address=@newAddress, avatarUrl=@avatarUrl  WHERE userId=@userId";
             SqlCommand Command = new SqlCommand(sql, connection);
-            
+
             try
             {
                 connection.Open();
