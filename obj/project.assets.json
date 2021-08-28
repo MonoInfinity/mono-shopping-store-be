@@ -8235,11 +8235,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\server\\net\\mono-shopping-store-be\\store.csproj",
+      "projectUniqueName": "E:\\server\\mua5\\mono-shopping-store-be\\store.csproj",
       "projectName": "store",
-      "projectPath": "E:\\server\\net\\mono-shopping-store-be\\store.csproj",
+      "projectPath": "E:\\server\\mua5\\mono-shopping-store-be\\store.csproj",
       "packagesPath": "C:\\Users\\heaty566\\.nuget\\packages\\",
-      "outputPath": "E:\\server\\net\\mono-shopping-store-be\\obj\\",
+      "outputPath": "E:\\server\\mua5\\mono-shopping-store-be\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\heaty566\\AppData\\Roaming\\NuGet\\NuGet.Config",

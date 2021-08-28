@@ -20,43 +20,16 @@ namespace store.Src.ProductModule
     {
         private readonly IProductService productService;
         private readonly IUserService userService;
-        private readonly AddCategoryDtoValidator addCategoryDtoValidator;
-        private readonly AddSubCategoryDtoValidator addSubCategoryDtoValidator;
-        private readonly AddProductDtoValidator addProductValidator;
-        private readonly DeleteProductDtoValidator deleteProductDtoValidator;
-        private readonly UpdateProductDtoValidator updateProductDtoValidator;
         private readonly IUploadFileService uploadFileService;
-        private readonly UpdateCategoryDtoValidator updateCategoryDtoValidator;
-        private readonly UpdateSubCategoryDtoValidator updateSubCategoryDtoValidator;
-        private readonly UpdateImportInfoDtoValidator updateImportInfoDtoValidator;
-        private readonly DeleteImportInfoDtoValidator deleteImportInfoDtoValidator;
         public ProductController(
                                 IProductService productService,
                                 IUserService userService,
-                                AddCategoryDtoValidator addCategoryDtoValidator,
-                                AddSubCategoryDtoValidator addSubCategoryDtoValidator,
-                                AddProductDtoValidator addProductValidator,
-                                DeleteProductDtoValidator deleteProductDtoValidator,
-                                UpdateProductDtoValidator updateProductDtoValidator,
-                                IUploadFileService uploadFileService,
-                                UpdateCategoryDtoValidator updateCategoryDtoValidator,
-                                UpdateSubCategoryDtoValidator updateSubCategoryDtoValidator,
-                                UpdateImportInfoDtoValidator updateImportInfoDtoValidator,
-                                DeleteImportInfoDtoValidator deleteImportInfoDtoValidator
+                                IUploadFileService uploadFileService
             )
         {
             this.productService = productService;
             this.userService = userService;
-            this.addCategoryDtoValidator = addCategoryDtoValidator;
-            this.addSubCategoryDtoValidator = addSubCategoryDtoValidator;
-            this.addProductValidator = addProductValidator;
-            this.deleteProductDtoValidator = deleteProductDtoValidator;
-            this.updateProductDtoValidator = updateProductDtoValidator;
             this.uploadFileService = uploadFileService;
-            this.updateCategoryDtoValidator = updateCategoryDtoValidator;
-            this.updateSubCategoryDtoValidator = updateSubCategoryDtoValidator;
-            this.updateImportInfoDtoValidator = updateImportInfoDtoValidator;
-            this.deleteImportInfoDtoValidator = deleteImportInfoDtoValidator;
         }
 
         [HttpPost("category")]
