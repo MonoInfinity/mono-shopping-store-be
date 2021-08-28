@@ -8230,19 +8230,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HaiCao\\.nuget\\packages\\": {}
+    "C:\\Users\\heaty566\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj",
+      "projectUniqueName": "E:\\server\\mua5\\mono-shopping-store-be\\store.csproj",
       "projectName": "store",
-      "projectPath": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\store.csproj",
-      "packagesPath": "C:\\Users\\HaiCao\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\obj\\",
+      "projectPath": "E:\\server\\mua5\\mono-shopping-store-be\\store.csproj",
+      "packagesPath": "C:\\Users\\heaty566\\.nuget\\packages\\",
+      "outputPath": "E:\\server\\mua5\\mono-shopping-store-be\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\HaiCao\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\heaty566\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8348,13 +8348,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problem reading the cache file C:\\Users\\HaiCao\\Desktop\\mono_store_be_v2\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  }
 }

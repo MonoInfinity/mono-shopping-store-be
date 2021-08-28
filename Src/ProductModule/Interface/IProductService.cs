@@ -13,20 +13,23 @@ namespace store.Src.ProductModule.Interface
         public Category getCategoryByCategoryName(string name);
         public SubCategory getSubCategoryBySubCategoryId(string subCategoryId);
         public SubCategory getSubCategoryBySubCategoryName(string name);
-        public bool saveProduct(Product product);
-        public bool updateProduct(Product product);
-        public Product getProductByName(string name);
-        public bool deleteProduct(string productId);
-        public List<Product> getAllProduct(int currentPage, int pageSize, string name);
-        public int getAllProductCount(string name);
-        public Product getProductByProductId(string productId);
-        public bool saveImportInfo(ImportInfo importInfo);
-        public ImportInfo getImportInfoByImportInfoId(string importInfoId);
+
         public List<Category> getAllCategory();
         public List<SubCategory> getAllSubCategory(int currentPage, int pageSize, string name);
         public int getAllSubCategoryCount(string name);
         public List<SubCategory> getSubCategoryByCategoryId(string categoryId);
-        public bool updateImportInfo(ImportInfo importInfo);
-        public bool deleteImportInfo(string importInfoId);
+
+        public bool saveProduct(Product product);
+        // public bool updateProduct(Product product);
+        // public Product getProductByName(string name);
+        // public bool deleteProduct(string productId);
+        // public List<Product> getAllProduct(int currentPage, int pageSize, string name);
+        // public int getAllProductCount(string name);
+        // public Product getProductByProductId(string productId);
+        // public bool saveImportInfo(ImportInfo importInfo);
+        // public ImportInfo getImportInfoByImportInfoId(string importInfoId);
+
+        // public bool updateImportInfo(ImportInfo importInfo);
+        // public bool deleteImportInfo(string importInfoId);
     }
 }
