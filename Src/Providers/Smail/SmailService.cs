@@ -1,6 +1,5 @@
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using System;
 using store.Src.Providers.Smail.Interface;
 using store.Src.Utils.Interface;
 

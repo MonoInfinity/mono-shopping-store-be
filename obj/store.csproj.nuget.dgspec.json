@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\server\\mua5\\mono-shopping-store-be\\store.csproj": {}
+    "e:\\server\\mua5\\mono-shopping-store-be\\store.csproj": {}
   },
   "projects": {
-    "E:\\server\\mua5\\mono-shopping-store-be\\store.csproj": {
+    "e:\\server\\mua5\\mono-shopping-store-be\\store.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\server\\mua5\\mono-shopping-store-be\\store.csproj",
+        "projectUniqueName": "e:\\server\\mua5\\mono-shopping-store-be\\store.csproj",
         "projectName": "store",
-        "projectPath": "E:\\server\\mua5\\mono-shopping-store-be\\store.csproj",
+        "projectPath": "e:\\server\\mua5\\mono-shopping-store-be\\store.csproj",
         "packagesPath": "C:\\Users\\heaty566\\.nuget\\packages\\",
-        "outputPath": "E:\\server\\mua5\\mono-shopping-store-be\\obj\\",
+        "outputPath": "e:\\server\\mua5\\mono-shopping-store-be\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\heaty566\\AppData\\Roaming\\NuGet\\NuGet.Config",

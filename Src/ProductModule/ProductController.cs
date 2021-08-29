@@ -16,16 +16,14 @@ namespace store.Src.ProductModule
 {
     [ApiController]
     [Route("/api/product")]
+    [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
+    [ServiceFilter(typeof(AuthGuard))]
     public class ProductController : Controller, IProductController
     {
         private readonly IProductService productService;
         private readonly IUserService userService;
         private readonly IUploadFileService uploadFileService;
-        public ProductController(
-                                IProductService productService,
-                                IUserService userService,
-                                IUploadFileService uploadFileService
-            )
+        public ProductController(IProductService productService, IUserService userService, IUploadFileService uploadFileService)
         {
             this.productService = productService;
             this.userService = userService;
@@ -34,8 +32,6 @@ namespace store.Src.ProductModule
 
         [HttpPost("category")]
         [ValidateFilterAttribute(typeof(AddCategoryDto))]
-        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult addCategory([FromBody] AddCategoryDto body)
         {
@@ -70,8 +66,6 @@ namespace store.Src.ProductModule
 
         [HttpPost("subcategory")]
         [ValidateFilterAttribute(typeof(AddSubCategoryDto))]
-        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult addSubCategory([FromBody] AddSubCategoryDto body)
         {
@@ -114,8 +108,6 @@ namespace store.Src.ProductModule
 
         [HttpPut("category")]
         [ValidateFilterAttribute(typeof(UpdateCategoryDto))]
-        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult updateCategory([FromBody] UpdateCategoryDto body)
         {
@@ -140,8 +132,6 @@ namespace store.Src.ProductModule
 
         [HttpPut("subCategory")]
         [ValidateFilterAttribute(typeof(UpdateSubCategoryDto))]
-        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult updateSubCategory([FromBody] UpdateSubCategoryDto body)
         {
@@ -166,8 +156,6 @@ namespace store.Src.ProductModule
         }
 
         [HttpGet("category/all")]
-        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult listAllCategory()
         {
             ServerResponse<List<Category>> res = new ServerResponse<List<Category>>();
@@ -182,8 +170,6 @@ namespace store.Src.ProductModule
         }
 
         [HttpGet("subcategory/all")]
-        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult listAllSubCategory(int pageSize, int page, string name)
         {
             IDictionary<string, object> dataRes = new Dictionary<string, object>();
@@ -197,8 +183,6 @@ namespace store.Src.ProductModule
         }
 
         [HttpGet("subcategory/category/")]
-        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult listSubCategoryByCategoryId(string categoryId)
         {
             ServerResponse<List<SubCategory>> res = new ServerResponse<List<SubCategory>>();
@@ -221,9 +205,7 @@ namespace store.Src.ProductModule
 
         [HttpPost("")]
         [ValidateFilterAttribute(typeof(AddProductDto))]
-        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(ValidateFilter))]
-        [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult addProduct([FromBody] AddProductDto body)
         {
             ServerResponse<Dictionary<string, string>> res = new ServerResponse<Dictionary<string, string>>();
@@ -259,9 +241,7 @@ namespace store.Src.ProductModule
 
         [HttpPut("")]
         [ValidateFilterAttribute(typeof(UpdateProductDto))]
-        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
         [ServiceFilter(typeof(ValidateFilter))]
-        [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult updateProduct([FromBody] UpdateProductDto body)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
@@ -297,8 +277,6 @@ namespace store.Src.ProductModule
 
         [HttpDelete("")]
         [ValidateFilterAttribute(typeof(DeleteProductDto))]
-        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult deleteProduct([FromBody] DeleteProductDto body)
         {
@@ -322,8 +300,6 @@ namespace store.Src.ProductModule
         }
 
         [HttpGet("all")]
-        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult listAllProduct(int pageSize, int page, string name)
         {
             IDictionary<string, object> dataRes = new Dictionary<string, object>();
@@ -337,8 +313,6 @@ namespace store.Src.ProductModule
         }
 
         [HttpGet("")]
-        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult getAProduct(string productId)
         {
             ServerResponse<Product> res = new ServerResponse<Product>();
@@ -357,8 +331,6 @@ namespace store.Src.ProductModule
 
         [HttpPost("importInfo")]
         [ValidateFilterAttribute(typeof(AddImportInfoDto))]
-        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult addImportInfo([FromBody] AddImportInfoDto body)
         {
@@ -408,8 +380,6 @@ namespace store.Src.ProductModule
 
         [HttpPut("importInfo")]
         [ValidateFilterAttribute(typeof(UpdateImportInfoDto))]
-        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult updateImportInfo([FromBody] UpdateImportInfoDto body)
         {
@@ -438,8 +408,6 @@ namespace store.Src.ProductModule
 
         [HttpDelete("importInfo")]
         [ValidateFilterAttribute(typeof(DeleteImportInfoDto))]
-        [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
-        [ServiceFilter(typeof(AuthGuard))]
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult deleteImportInfo([FromBody] DeleteImportInfoDto body)
         {
