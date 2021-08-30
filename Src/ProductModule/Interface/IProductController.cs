@@ -5,20 +5,10 @@ namespace store.Src.ProductModule.Interface
 {
     public interface IProductController
     {
-        public ObjectResult addCategory(AddCategoryDto body);
-        public ObjectResult addSubCategory(AddSubCategoryDto body);
-        public ObjectResult updateCategory(UpdateCategoryDto body);
-        public ObjectResult updateSubCategory(UpdateSubCategoryDto body);
-        public ObjectResult listAllCategory();
-        public ObjectResult listAllSubCategory(int pageSize, int page, string name);
-        public ObjectResult listSubCategoryByCategoryId(string categoryId);
         public ObjectResult addProduct(AddProductDto body);
         public ObjectResult updateProduct(UpdateProductDto body);
         public ObjectResult deleteProduct(DeleteProductDto body);
         public ObjectResult listAllProduct(int pageSize, int page, string name);
         public ObjectResult getAProduct(string productId);
-        public ObjectResult addImportInfo(AddImportInfoDto body);
-        public ObjectResult updateImportInfo(UpdateImportInfoDto body);
-        public ObjectResult deleteImportInfo(DeleteImportInfoDto body);
     }
 }
