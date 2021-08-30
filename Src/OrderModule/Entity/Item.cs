@@ -6,7 +6,7 @@ namespace store.Src.OrderModule.Entity
     {
 
         public string itemId { get; set; }
-        public int quality { get; set; }
+        public int quantity { get; set; }
         public double salePrice { get; set; }
         public string createDate { get; set; }
         public Product product { get; set; }
@@ -14,7 +14,7 @@ namespace store.Src.OrderModule.Entity
         public Item()
         {
             this.itemId = "";
-            this.quality = 0;
+            this.quantity = 0;
             this.salePrice = 0;
             this.createDate = DateTime.Now.ToLongDateString();
             this.product = new Product();
@@ -23,7 +23,7 @@ namespace store.Src.OrderModule.Entity
 
         public override string ToString()
         {
-            return "Item: \nItemId: " + itemId + " \nQuality: " + quality + " \nSalePrice: " + salePrice + " \ncreateDate: " + createDate + " \nProductId: " +
+            return "Item: \nItemId: " + itemId + " \nQuantity: " + quantity + " \nSalePrice: " + salePrice + " \ncreateDate: " + createDate + " \nProductId: " +
                             product.productId + "\nOderId" + order.orderId;
         }
 
