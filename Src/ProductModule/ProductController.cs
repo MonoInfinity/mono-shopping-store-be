@@ -75,7 +75,7 @@ namespace store.Src.ProductModule
             Category category = this.productService.getCategoryByCategoryId(body.categoryId);
             if (category == null)
             {
-                res.setErrorMessage("The category with the given id was not found");
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "categoryId");
                 return new NotFoundObjectResult(res.getResponse());
             }
 
@@ -116,7 +116,7 @@ namespace store.Src.ProductModule
             if (category == null)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "categoryId");
-                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 400 };
             }
             category.name = body.name;
             category.status = body.status;
@@ -140,7 +140,7 @@ namespace store.Src.ProductModule
             if (subCategory == null)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "subCategory");
-                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 400 };
             }
             subCategory.name = body.name;
             subCategory.status = body.status;
@@ -176,7 +176,7 @@ namespace store.Src.ProductModule
             ServerResponse<IDictionary<string, object>> res = new ServerResponse<IDictionary<string, object>>();
             var subCategories = this.productService.getAllSubCategory(pageSize, page, name);
             var count = this.productService.getAllSubCategoryCount(name);
-            dataRes.Add("users", subCategories);
+            dataRes.Add("subCategories", subCategories);
             dataRes.Add("count", count);
             res.data = dataRes;
             return new ObjectResult(res.getResponse());
@@ -388,7 +388,7 @@ namespace store.Src.ProductModule
             if (importInfo == null)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "importInfoId");
-                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
+                return new BadRequestObjectResult(res.getResponse()) { StatusCode = 400 };
             }
             importInfo.importDate = body.importDate;
             importInfo.importPrice = body.importPrice;
