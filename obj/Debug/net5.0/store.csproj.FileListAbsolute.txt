@@ -2123,3 +2123,13 @@ C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\docs
 C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\docs\swagger\swagger.json
 C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\SendGrid.dll
 C:\Users\ACER\Desktop\Mono-Shop-dev\mono-shopping-store-be\bin\Debug\net5.0\StarkbankEcdsa.dll
+E:\MinhThuan\mono-store\item&order\mono-shopping-store-be\obj\Debug\net5.0\store.csproj.AssemblyReference.cache
+E:\MinhThuan\mono-store\item&order\mono-shopping-store-be\obj\Debug\net5.0\store.GeneratedMSBuildEditorConfig.editorconfig
+E:\MinhThuan\mono-store\item&order\mono-shopping-store-be\obj\Debug\net5.0\store.AssemblyInfoInputs.cache
+E:\MinhThuan\mono-store\item&order\mono-shopping-store-be\obj\Debug\net5.0\store.AssemblyInfo.cs
+E:\MinhThuan\mono-store\item&order\mono-shopping-store-be\obj\Debug\net5.0\store.csproj.CoreCompileInputs.cache
+E:\MinhThuan\mono-store\item&order\mono-shopping-store-be\obj\Debug\net5.0\store.MvcApplicationPartsAssemblyInfo.cs
+E:\MinhThuan\mono-store\item&order\mono-shopping-store-be\obj\Debug\net5.0\store.MvcApplicationPartsAssemblyInfo.cache
+E:\MinhThuan\mono-store\item&order\mono-shopping-store-be\obj\Debug\net5.0\store.dll
+E:\MinhThuan\mono-store\item&order\mono-shopping-store-be\obj\Debug\net5.0\ref\store.dll
+E:\MinhThuan\mono-store\item&order\mono-shopping-store-be\obj\Debug\net5.0\store.pdb

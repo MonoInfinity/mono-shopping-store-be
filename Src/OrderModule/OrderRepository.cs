@@ -47,5 +47,38 @@ namespace store.Src.OrderModule
             return res;
 
         }
+
+        public bool saveItem(Item item)
+        {
+
+            SqlConnection connection = this.dBHelper.getDBConnection();
+            bool res = false;
+            string sql = "INSERT INTO tblItem (itemId, quality, salePrice, createDate, productId, orderID) " +
+            " VALUES(@itemId, @quality, @salePrice, @createDate, @productId, @orderId)";
+            SqlCommand command = new SqlCommand(sql, connection);
+
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@itemId", item.itemId);
+                command.Parameters.AddWithValue("@quality", item.quality);
+                command.Parameters.AddWithValue("@salePrice", item.salePrice);
+                command.Parameters.AddWithValue("@createDate", item.createDate);
+                command.Parameters.AddWithValue("@productId", item.product.productId);
+                command.Parameters.AddWithValue("@orderId", item.order.orderId);
+
+
+
+                res = command.ExecuteNonQuery() > 0;
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return res;
+
+        }
     }
 }
