@@ -17,12 +17,13 @@ namespace store.Src.ProductModule
     [Route("/api/product")]
     [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
     [ServiceFilter(typeof(AuthGuard))]
-    public class CategoryController: Controller, ICategoryController
+    public class CategoryController : Controller, ICategoryController
     {
-        private readonly IProductService productService;
-        public CategoryController(IProductService productService)
+        private readonly ICategoryService categoryService;
+
+        public CategoryController(ICategoryService categoryService)
         {
-            this.productService = productService;
+            this.categoryService = categoryService;
         }
 
         [HttpPost("category")]
@@ -32,7 +33,7 @@ namespace store.Src.ProductModule
         {
             ServerResponse<Dictionary<string, string>> res = new ServerResponse<Dictionary<string, string>>();
             Dictionary<string, string> dataRes = new Dictionary<string, string>();
-            Category category = this.productService.getCategoryByCategoryName(body.name);
+            Category category = this.categoryService.getCategoryByCategoryName(body.name);
             if (category != null)
             {
                 dataRes.Add("categoryId", category.categoryId);
@@ -47,7 +48,7 @@ namespace store.Src.ProductModule
             newCategory.createDate = DateTime.Now.ToShortDateString();
             newCategory.status = CategoryStatus.NOT_SALE;
 
-            bool isInserted = this.productService.saveCategory(newCategory);
+            bool isInserted = this.categoryService.saveCategory(newCategory);
             if (!isInserted)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_FailToSave);
@@ -67,14 +68,14 @@ namespace store.Src.ProductModule
             ServerResponse<Dictionary<string, string>> res = new ServerResponse<Dictionary<string, string>>();
             Dictionary<string, string> dataRes = new Dictionary<string, string>();
 
-            Category category = this.productService.getCategoryByCategoryId(body.categoryId);
+            Category category = this.categoryService.getCategoryByCategoryId(body.categoryId);
             if (category == null)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "categoryId");
                 return new NotFoundObjectResult(res.getResponse());
             }
 
-            SubCategory subCategory = this.productService.getSubCategoryBySubCategoryName(body.name);
+            SubCategory subCategory = this.categoryService.getSubCategoryBySubCategoryName(body.name);
             if (subCategory != null)
             {
                 dataRes.Add("subCategoryId", subCategory.subCategoryId);
@@ -90,7 +91,7 @@ namespace store.Src.ProductModule
             newSubCategory.status = SubCategoryStatus.NOT_SALE;
             newSubCategory.category = category;
 
-            bool isInserted = this.productService.saveSubCategory(newSubCategory);
+            bool isInserted = this.categoryService.saveSubCategory(newSubCategory);
             if (!isInserted)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_FailToSave);
@@ -107,7 +108,7 @@ namespace store.Src.ProductModule
         public ObjectResult updateCategory([FromBody] UpdateCategoryDto body)
         {
             ServerResponse<Category> res = new ServerResponse<Category>();
-            var category = this.productService.getCategoryByCategoryId(body.categoryId);
+            var category = this.categoryService.getCategoryByCategoryId(body.categoryId);
             if (category == null)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "categoryId");
@@ -115,7 +116,7 @@ namespace store.Src.ProductModule
             }
             category.name = body.name;
             category.status = body.status;
-            bool isUpdate = this.productService.updateCategory(category);
+            bool isUpdate = this.categoryService.updateCategory(category);
             if (!isUpdate)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_UpdateFail);
@@ -131,7 +132,7 @@ namespace store.Src.ProductModule
         public ObjectResult updateSubCategory([FromBody] UpdateSubCategoryDto body)
         {
             ServerResponse<SubCategory> res = new ServerResponse<SubCategory>();
-            var subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
+            var subCategory = this.categoryService.getSubCategoryBySubCategoryId(body.subCategoryId);
             if (subCategory == null)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "subCategory");
@@ -139,7 +140,7 @@ namespace store.Src.ProductModule
             }
             subCategory.name = body.name;
             subCategory.status = body.status;
-            bool isUpdate = this.productService.updateSubCategory(subCategory);
+            bool isUpdate = this.categoryService.updateSubCategory(subCategory);
             if (!isUpdate)
             {
                 Console.WriteLine(subCategory);
@@ -154,7 +155,7 @@ namespace store.Src.ProductModule
         public ObjectResult listAllCategory()
         {
             ServerResponse<List<Category>> res = new ServerResponse<List<Category>>();
-            var categories = this.productService.getAllCategory();
+            var categories = this.categoryService.getAllCategory();
             if (categories == null)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "categories");
@@ -169,26 +170,26 @@ namespace store.Src.ProductModule
         {
             IDictionary<string, object> dataRes = new Dictionary<string, object>();
             ServerResponse<IDictionary<string, object>> res = new ServerResponse<IDictionary<string, object>>();
-            var subCategories = this.productService.getAllSubCategory(pageSize, page, name);
-            var count = this.productService.getAllSubCategoryCount(name);
+            var subCategories = this.categoryService.getAllSubCategory(pageSize, page, name);
+            var count = this.categoryService.getAllSubCategoryCount(name);
             dataRes.Add("subCategories", subCategories);
             dataRes.Add("count", count);
             res.data = dataRes;
             return new ObjectResult(res.getResponse());
         }
 
-        [HttpGet("subcategory/category/")]
+        [HttpGet("subcategory/category")]
         public ObjectResult listSubCategoryByCategoryId(string categoryId)
         {
             ServerResponse<List<SubCategory>> res = new ServerResponse<List<SubCategory>>();
-            var isValidCategoryId = productService.getCategoryByCategoryId(categoryId);
+            var isValidCategoryId = categoryService.getCategoryByCategoryId(categoryId);
             if (isValidCategoryId == null)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "categoryId");
                 return new NotFoundObjectResult(res.getResponse());
             }
 
-            var subCategories = this.productService.getSubCategoryByCategoryId(categoryId);
+            var subCategories = this.categoryService.getSubCategoryByCategoryId(categoryId);
             if (subCategories == null)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "subCategories");

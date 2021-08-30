@@ -12,21 +12,24 @@ using store.Src.Utils.Validator;
 using static store.Src.Utils.Locale.CustomLanguageValidator;
 
 namespace store.Src.ProductModule
-{   [ApiController]
-    [Route("/api/product")]
+{
+    [ApiController]
+    [Route("/api/product/importInfo")]
     [RoleGuardAttribute(new UserRole[] { UserRole.MANAGER })]
     [ServiceFilter(typeof(AuthGuard))]
-    public class ImportInfoController: Controller, IImportInfoController
+    public class ImportInfoController : Controller, IImportInfoController
     {
         private readonly IProductService productService;
+        private readonly IImportService importService;
         private readonly IUserService userService;
-        public ImportInfoController(IProductService productService, IUserService userService)
+        public ImportInfoController(IProductService productService, IUserService userService, IImportService importService)
         {
             this.productService = productService;
             this.userService = userService;
+            this.importService = importService;
         }
 
-        [HttpPost("importInfo")]
+        [HttpPost()]
         [ValidateFilterAttribute(typeof(AddImportInfoDto))]
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult addImportInfo([FromBody] AddImportInfoDto body)
@@ -60,7 +63,7 @@ namespace store.Src.ProductModule
             importInfo.product = product;
 
 
-            bool isInserted = this.productService.saveImportInfo(importInfo);
+            bool isInserted = this.importService.saveImportInfo(importInfo);
             if (!isInserted)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_FailToSave);
@@ -75,13 +78,13 @@ namespace store.Src.ProductModule
         }
 
 
-        [HttpPut("importInfo")]
+        [HttpPut()]
         [ValidateFilterAttribute(typeof(UpdateImportInfoDto))]
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult updateImportInfo([FromBody] UpdateImportInfoDto body)
         {
             ServerResponse<ImportInfo> res = new ServerResponse<ImportInfo>();
-            var importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
+            var importInfo = this.importService.getImportInfoByImportInfoId(body.importInfoId);
             if (importInfo == null)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "importInfoId");
@@ -93,7 +96,7 @@ namespace store.Src.ProductModule
             importInfo.expiryDate = body.expiryDate;
             importInfo.brand = body.brand;
             importInfo.note = body.note;
-            bool isUpdate = this.productService.updateImportInfo(importInfo);
+            bool isUpdate = this.importService.updateImportInfo(importInfo);
             if (!isUpdate)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_UpdateFail);
@@ -103,19 +106,19 @@ namespace store.Src.ProductModule
             return new ObjectResult(res.getResponse());
         }
 
-        [HttpDelete("importInfo")]
+        [HttpDelete()]
         [ValidateFilterAttribute(typeof(DeleteImportInfoDto))]
         [ServiceFilter(typeof(ValidateFilter))]
         public ObjectResult deleteImportInfo([FromBody] DeleteImportInfoDto body)
         {
             ServerResponse<ImportInfo> res = new ServerResponse<ImportInfo>();
-            var importInfo = this.productService.getImportInfoByImportInfoId(body.importInfoId);
+            var importInfo = this.importService.getImportInfoByImportInfoId(body.importInfoId);
             if (importInfo == null)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "importInfoId");
                 return new BadRequestObjectResult(res.getResponse()) { StatusCode = 500 };
             }
-            bool isDelete = this.productService.deleteImportInfo(importInfo.importInfoId);
+            bool isDelete = this.importService.deleteImportInfo(importInfo.importInfoId);
             if (!isDelete)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_DeleteFail);

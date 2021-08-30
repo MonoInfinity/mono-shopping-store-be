@@ -21,10 +21,12 @@ namespace store.Src.ProductModule
     {
         private readonly IProductService productService;
         private readonly IUserService userService;
-        public ProductController(IProductService productService, IUserService userService)
+        private readonly ICategoryService categoryService;
+        public ProductController(IProductService productService, IUserService userService, ICategoryService categoryService)
         {
             this.productService = productService;
             this.userService = userService;
+            this.categoryService = categoryService;
         }
 
         [HttpPost("")]
@@ -34,7 +36,7 @@ namespace store.Src.ProductModule
         {
             ServerResponse<Dictionary<string, string>> res = new ServerResponse<Dictionary<string, string>>();
 
-            SubCategory subCategory = this.productService.getSubCategoryBySubCategoryId(body.subCategoryId);
+            SubCategory subCategory = this.categoryService.getSubCategoryBySubCategoryId(body.subCategoryId);
             if (subCategory == null)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_NotFound, "subCategoryId");

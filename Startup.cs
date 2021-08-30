@@ -73,6 +73,8 @@ namespace store
             services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IImportService, ImportService>();
+            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IImportInfoRepository, ImportInfoRepository>();
 
             //Validator  
