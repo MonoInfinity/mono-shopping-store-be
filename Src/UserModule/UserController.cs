@@ -56,9 +56,14 @@ namespace store.Src.UserModule
             userUpdate.email = body.email;
             userUpdate.phone = body.phone;
             userUpdate.address = body.address;
-            if (body.avatarUrl != null)
+
+            if (body.avatarUrl.Length != 0)
             {
                 userUpdate.avatarUrl = body.avatarUrl;
+            }
+            else
+            {
+                userUpdate.avatarUrl = user.avatarUrl;
             }
 
 
