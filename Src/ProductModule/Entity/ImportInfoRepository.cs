@@ -1,13 +1,12 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using store.Src.ProductModule.Entity;
 using store.Src.ProductModule.Interface;
 using store.Src.UserModule.Entity;
 using store.Src.UserModule.Interface;
 using store.Src.Utils.Interface;
 
-namespace store.Src.ProductModule
+namespace store.Src.ProductModule.Entity
 {
     public class ImportInfoRepository : IImportInfoRepository
     {

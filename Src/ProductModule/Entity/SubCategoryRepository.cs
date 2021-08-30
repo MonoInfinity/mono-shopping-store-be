@@ -1,12 +1,11 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using store.Src.ProductModule.Entity;
 using store.Src.ProductModule.Interface;
 using store.Src.Utils.Interface;
 using System.Collections.Generic;
 
-namespace store.Src.ProductModule
+namespace store.Src.ProductModule.Entity
 {
     public class SubCategoryRepository : ISubCategoryRepository
     {
