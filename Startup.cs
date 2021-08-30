@@ -33,6 +33,8 @@ using store.Src.Providers.Smail.Interface;
 using System.Collections.Generic;
 using store.Src.Providers.BotTelegram;
 using store.Src.Providers.BotTelegram.Interface;
+using store.Src.ProductModule.Entity;
+using store.Src.UserModule.Entity;
 
 namespace store
 {

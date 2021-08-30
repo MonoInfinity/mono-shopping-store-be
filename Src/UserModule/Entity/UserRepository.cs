@@ -7,7 +7,7 @@ using store.Src.Utils.Interface;
 using store.Src.UserModule.Entity;
 using store.Src.UserModule.DTO;
 
-namespace store.Src.UserModule
+namespace store.Src.UserModule.Entity
 {
     public class UserRepository : IUserRepository
     {
