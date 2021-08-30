@@ -103,5 +103,31 @@ namespace store.Src.OrderModule
             return res;
 
         }
+
+        public string getLastOrderId(string customerId)
+        {
+            SqlConnection connection = this.dBHelper.getDBConnection();
+            string orderId = "";
+            string sql = "SELECT TOP 1 orderId FROM tblOrder WHERE customerId=@customerId ORDER BY count desc";
+            SqlCommand command = new SqlCommand(sql, connection);
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@customerId", customerId);
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    orderId = reader.GetString("orderId");
+                }
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return orderId;
+        }
     }
 }
