@@ -15,7 +15,10 @@ namespace store.Src.ProductModule.Entity
         public string brand { get; set; }
         public User manager { get; set; }
 
-        public ImportInfo(){
+        public Product product { get; set; }
+
+        public ImportInfo()
+        {
             this.importInfoId = "";
             this.importDate = DateTime.Now.ToShortDateString();
             this.importPrice = 0;
@@ -25,6 +28,7 @@ namespace store.Src.ProductModule.Entity
             this.note = "";
             this.brand = "";
             this.manager = new User();
+            this.product = null;
         }
 
         public override string ToString()

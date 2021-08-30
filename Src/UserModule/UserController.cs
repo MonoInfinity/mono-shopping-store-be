@@ -17,6 +17,7 @@ namespace store.Src.UserModule
 {
     [ApiController]
     [Route("/api/user")]
+    [ServiceFilter(typeof(AuthGuard))]
     public class UserController : Controller, IUserController
     {
         private readonly ISmailService smailService;
@@ -32,7 +33,6 @@ namespace store.Src.UserModule
         }
 
         [HttpGet("")]
-        [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult getUser()
         {
             ServerResponse<User> res = new ServerResponse<User>();
@@ -45,7 +45,6 @@ namespace store.Src.UserModule
         [HttpPut("")]
         [ValidateFilterAttribute(typeof(UpdateUserDto))]
         [ServiceFilter(typeof(ValidateFilter))]
-        [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult updateUser([FromBody] UpdateUserDto body)
         {
             ServerResponse<User> res = new ServerResponse<User>();
@@ -77,14 +76,12 @@ namespace store.Src.UserModule
         [HttpPut("password")]
         [ValidateFilterAttribute(typeof(UpdateUserPasswordDto))]
         [ServiceFilter(typeof(ValidateFilter))]
-        [ServiceFilter(typeof(AuthGuard))]
         public ObjectResult updateUserPassword([FromBody] UpdateUserPasswordDto body)
         {
             ServerResponse<User> res = new ServerResponse<User>();
             var user = this.ViewData["user"] as User;
 
             bool isMatchPassword = this.authService.comparePassword(body.password, user.password);
-
             if (!isMatchPassword)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_Wrong, "password");
@@ -94,7 +91,6 @@ namespace store.Src.UserModule
             user.password = this.authService.hashingPassword(body.newPassword);
 
             bool isUpdate = this.userService.updateUserPassword(user.userId, user.password);
-
             if (!isUpdate)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_UpdateFail);

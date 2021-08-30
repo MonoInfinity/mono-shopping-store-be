@@ -19,17 +19,14 @@ namespace store.Src.UserModule
     {
 
         private readonly IUserService userService;
-
         private readonly IAdminService adminService;
         private readonly UpdateEmployeeDtoValidator updateEmployeeDtoValidator;
 
         public AdminController(IUserService userService, IAdminService adminService, UpdateEmployeeDtoValidator updateEmployeeDtoValidator)
         {
-
             this.userService = userService;
             this.adminService = adminService;
             this.updateEmployeeDtoValidator = updateEmployeeDtoValidator;
-
         }
 
 
