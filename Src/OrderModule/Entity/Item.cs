@@ -16,7 +16,7 @@ namespace store.Src.OrderModule.Entity
             this.itemId = "";
             this.quantity = 0;
             this.salePrice = 0;
-            this.createDate = DateTime.Now.ToLongDateString();
+            this.createDate = DateTime.Now.ToShortDateString();
             this.product = new Product();
             this.order = new Order();
         }

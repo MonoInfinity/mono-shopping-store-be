@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ACER\\Desktop\\Mono-Shop\\mono-shopping-store-be\\store.csproj": {}
+    "E:\\MinhThuan\\mono-store\\item&order\\mono-shopping-store-be\\store.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ACER\\Desktop\\Mono-Shop\\mono-shopping-store-be\\store.csproj": {
+    "E:\\MinhThuan\\mono-store\\item&order\\mono-shopping-store-be\\store.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ACER\\Desktop\\Mono-Shop\\mono-shopping-store-be\\store.csproj",
+        "projectUniqueName": "E:\\MinhThuan\\mono-store\\item&order\\mono-shopping-store-be\\store.csproj",
         "projectName": "store",
-        "projectPath": "C:\\Users\\ACER\\Desktop\\Mono-Shop\\mono-shopping-store-be\\store.csproj",
-        "packagesPath": "C:\\Users\\ACER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ACER\\Desktop\\Mono-Shop\\mono-shopping-store-be\\obj\\",
+        "projectPath": "E:\\MinhThuan\\mono-store\\item&order\\mono-shopping-store-be\\store.csproj",
+        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+        "outputPath": "E:\\MinhThuan\\mono-store\\item&order\\mono-shopping-store-be\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\ACER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

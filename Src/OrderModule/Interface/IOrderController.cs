@@ -6,9 +6,7 @@ namespace store.Src.OrderModule.Interface
 {
     public interface IOrderController
     {
-        public ObjectResult addOrder(Order order);
-        public ObjectResult addItem(Item item);
-        public ObjectResult getQuantityByProductId(Item item);
-        public ObjectResult getLastOrderId(string customerId);
+        public ObjectResult createOrder(Order order);
+        public ObjectResult createItem(Item item);
     }
 }

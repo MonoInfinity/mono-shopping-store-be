@@ -6,7 +6,8 @@ namespace store.Src.OrderModule.Entity
     public enum OrderStatus
     {
         NOT_PAID = 0,
-        PAID = 1
+        PAID = 1,
+        CANCEL = 2,
     }
     public enum OrderPaymentMethod
     {
