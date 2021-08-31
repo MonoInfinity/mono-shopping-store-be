@@ -33,6 +33,9 @@ using store.Src.Providers.Smail.Interface;
 using System.Collections.Generic;
 using store.Src.Providers.BotTelegram;
 using store.Src.Providers.BotTelegram.Interface;
+using store.Src.OrderModule;
+using store.Src.OrderModule.DTO;
+using store.Src.OrderModule.Interface;
 
 namespace store
 {
@@ -73,6 +76,10 @@ namespace store
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IImportInfoRepository, ImportInfoRepository>();
 
+            // Order Module
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderService, OrderService>();
+
             //Validator  
             services.AddScoped<ValidateFilter>();
             services.AddScoped<LoginUserDtoValidator>();
@@ -90,6 +97,8 @@ namespace store
             services.AddScoped<UpdateSubCategoryDtoValidator>();
             services.AddScoped<UpdateImportInfoDtoValidator>();
             services.AddScoped<DeleteImportInfoDtoValidator>();
+            services.AddScoped<CreateOrderDtoValidator>();
+            services.AddScoped<CreateItemDtoValidator>();
 
             // Locale
             services.AddScoped<LocaleFilter>();

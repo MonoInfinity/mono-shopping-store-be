@@ -10,7 +10,7 @@ using store.Src.Utils.Common;
 using Microsoft.AspNetCore.Mvc;
 using store.Src.UserModule.DTO;
 using store.Src.ProductModule.DTO;
-
+using store.Src.OrderModule.DTO;
 namespace store.Src.Utils.Validator
 {
     public class ValidateFilter : IActionFilter
@@ -30,6 +30,8 @@ namespace store.Src.Utils.Validator
         private readonly AddImportInfoDtoValidator addImportInfoValidator;
         private readonly UpdateImportInfoDtoValidator updateImportInfoDtoValidator;
         private readonly DeleteImportInfoDtoValidator deleteImportInfoDtoValidator;
+        private readonly CreateOrderDtoValidator createOrderDtoValidator;
+        private readonly CreateItemDtoValidator createItemDtoValidator;
         public ValidateFilter(
                                 LoginUserDtoValidator loginUserDtoValidator,
                                 RegisterUserDtoValidator registerUserDtoValidator,
@@ -45,7 +47,9 @@ namespace store.Src.Utils.Validator
                                 UpdateSubCategoryDtoValidator updateSubCategoryDtoValidator,
                                 AddImportInfoDtoValidator addImportInfoValidator,
                                 UpdateImportInfoDtoValidator updateImportInfoDtoValidator,
-                                DeleteImportInfoDtoValidator deleteImportInfoDtoValidator
+                                DeleteImportInfoDtoValidator deleteImportInfoDtoValidator,
+                                CreateOrderDtoValidator createOrderDtoValidator,
+                                CreateItemDtoValidator createItemDtoValidator
                             )
         {
             this.loginUserDtoValidator = loginUserDtoValidator;
@@ -63,6 +67,8 @@ namespace store.Src.Utils.Validator
             this.addImportInfoValidator = addImportInfoValidator;
             this.updateImportInfoDtoValidator = updateImportInfoDtoValidator;
             this.deleteImportInfoDtoValidator = deleteImportInfoDtoValidator;
+            this.createOrderDtoValidator = createOrderDtoValidator;
+            this.createItemDtoValidator = createItemDtoValidator;
         }
 
         private T assignValue<T>(string bodyString, Type type)
@@ -90,7 +96,8 @@ namespace store.Src.Utils.Validator
                     if (propertyValue.Contains("\""))
                     {
                         propertyValue = propertyValue.Replace("\"", "");
-                        if (propertys[i].PropertyType == typeof(string)){
+                        if (propertys[i].PropertyType == typeof(string))
+                        {
                             propertys[i].SetValue(obj, propertyValue);
                         }
                     }
@@ -216,6 +223,14 @@ namespace store.Src.Utils.Validator
             if (typeof(DeleteImportInfoDto) == dtoType)
             {
                 result = this.deleteImportInfoDtoValidator.Validate(assignValue<DeleteImportInfoDto>(bodyStr, dtoType));
+            }
+            if (typeof(CreateOrderDto) == dtoType)
+            {
+                result = this.createOrderDtoValidator.Validate(assignValue<CreateOrderDto>(bodyStr, dtoType));
+            }
+            if (typeof(CreateItemDto) == dtoType)
+            {
+                result = this.createItemDtoValidator.Validate(assignValue<CreateItemDto>(bodyStr, dtoType));
             }
 
             if (!result.IsValid)

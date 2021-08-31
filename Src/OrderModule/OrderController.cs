@@ -25,16 +25,19 @@ namespace store.Src.OrderModule
     {
         private readonly IOrderService orderService;
         private readonly IProductService productService;
-        public OrderController(IOrderService orderService, IProductService productService)
+        private readonly IUserService userService;
+        public OrderController(IOrderService orderService, IProductService productService, IUserService userService)
         {
             this.orderService = orderService;
+            this.productService = productService;
+            this.userService = userService;
         }
 
-        [HttpPost("/item")]
+        [HttpPost("item")]
         [ValidateFilterAttribute(typeof(CreateItemDto))]
         [ServiceFilter(typeof(ValidateFilter))]
 
-        public ObjectResult createItem(CreateItemDto body)
+        public ObjectResult createItem([FromBody] CreateItemDto body)
         {
             ServerResponse<Dictionary<string, string>> res = new ServerResponse<Dictionary<string, string>>();
             Dictionary<string, string> dataRes = new Dictionary<string, string>();
@@ -46,6 +49,8 @@ namespace store.Src.OrderModule
                 res.setErrorMessage("This product no longer exist");
                 return new NotFoundObjectResult(res.getResponse());
             }
+            new ServerResponse<User>();
+            var user = this.ViewData["user"] as User;
 
             Item createItem = new Item();
             createItem.itemId = Guid.NewGuid().ToString();
@@ -63,12 +68,13 @@ namespace store.Src.OrderModule
             }
             dataRes.Add("itemId", createItem.itemId);
             res.data = dataRes;
+            return new ObjectResult(res.getResponse());
         }
 
         [HttpPost("")]
         [ValidateFilterAttribute(typeof(CreateOrderDto))]
         [ServiceFilter(typeof(ValidateFilter))]
-        public ObjectResult createOrder(CreateOrderDto body)
+        public ObjectResult createOrder([FromBody] CreateOrderDto body)
         {
             ServerResponse<Dictionary<string, string>> res = new ServerResponse<Dictionary<string, string>>();
             Dictionary<string, string> dataRes = new Dictionary<string, string>();
@@ -82,14 +88,15 @@ namespace store.Src.OrderModule
             createOrder.customer.userId = body.costumerId;
             createOrder.casher.userId = body.casherId;
 
-            bool isCreated = this.orderService.saveOrder(createOrder);
-            if (!isCreated)
+            bool isOrderCreated = this.orderService.saveOrder(createOrder);
+            if (!isOrderCreated)
             {
                 res.setErrorMessage(ErrorMessageKey.Error_FailToSave);
                 return new ObjectResult(res.getResponse()) { StatusCode = 500 };
             }
             dataRes.Add("orderId", createOrder.orderId);
             res.data = dataRes;
+            return new ObjectResult(res.getResponse());
         }
 
 

@@ -25,9 +25,9 @@ namespace store.Src.OrderModule
             return res;
         }
 
-        public int getQuantityByProductId(Item item)
+        public int getQuantityByProductId(string productId)
         {
-            int quantity = this.orderRepository.getQuantityByProductId(item);
+            int quantity = this.orderRepository.getQuantityByProductId(productId);
             return quantity;
         }
 

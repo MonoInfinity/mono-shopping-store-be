@@ -49,7 +49,7 @@ namespace store.Src.OrderModule
 
         }
 
-        public int getQuantityByProductId(Item item)
+        public int getQuantityByProductId(string productId)
         {
             SqlConnection connection = this.dBHelper.getDBConnection();
             int itemQuantity = 0;
@@ -59,7 +59,7 @@ namespace store.Src.OrderModule
             try
             {
                 connection.Open();
-                command.Parameters.AddWithValue("@productId", item.product.productId);
+                command.Parameters.AddWithValue("@productId", productId);
                 SqlDataReader reader = command.ExecuteReader();
                 if (reader.HasRows)
                 {
