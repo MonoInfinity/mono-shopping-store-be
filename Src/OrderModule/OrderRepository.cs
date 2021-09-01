@@ -129,5 +129,30 @@ namespace store.Src.OrderModule
 
             return orderId;
         }
+
+        public bool decreaseQuantity(string productId, int quantity)
+        {
+
+            SqlConnection connection = this.dBHelper.getDBConnection();
+            bool res = false;
+            string sql = "UPDATE tblProduct SET quantity=quantity-@quantity WHERE productId=@productId";
+            SqlCommand command = new SqlCommand(sql, connection);
+
+            try
+            {
+                connection.Open();
+                command.Parameters.AddWithValue("@quantity", quantity);
+                command.Parameters.AddWithValue("@productId", productId);
+                res = command.ExecuteNonQuery() > 0;
+                connection.Close();
+            }
+            catch (SqlException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return res;
+
+        }
     }
 }

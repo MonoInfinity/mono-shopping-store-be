@@ -9,5 +9,7 @@ namespace store.Src.OrderModule.Interface
         public bool saveItem(Item item);
         public int getQuantityByProductId(string productId);
         public string getLastOrderId(string customerId);
+        public bool decreaseQuantity(string productId, int quantity);
+
     }
 }

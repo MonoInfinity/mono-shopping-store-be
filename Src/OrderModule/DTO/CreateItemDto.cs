@@ -5,18 +5,14 @@ namespace store.Src.OrderModule.DTO
     public class CreateItemDto
     {
         public int quantity { get; set; }
-        public double salePrice { get; set; }
         public string productId { get; set; }
-        public string orderId { get; set; }
 
 
         public CreateItemDto() { }
-        public CreateItemDto(int quantity, double salePrice, string productId, string orderId)
+        public CreateItemDto(int quantity, string productId)
         {
             this.quantity = quantity;
-            this.salePrice = salePrice;
             this.productId = productId;
-            this.orderId = orderId;
         }
     }
 
@@ -24,10 +20,8 @@ namespace store.Src.OrderModule.DTO
     {
         public CreateItemDtoValidator()
         {
-            RuleFor(x => x.quantity).NotEmpty().NotNull().GreaterThan(1);
-            RuleFor(x => x.salePrice).NotEmpty().NotNull().GreaterThan(0);
+            RuleFor(x => x.quantity).NotEmpty().NotNull().GreaterThan(0);
             RuleFor(x => x.productId).NotEmpty().NotNull();
-            RuleFor(x => x.orderId).NotEmpty().NotNull();
         }
     }
 }

@@ -7,7 +7,6 @@ namespace store.Src.OrderModule.Interface
 {
     public interface IOrderController
     {
-        public ObjectResult createOrder(CreateOrderDto body);
-        public ObjectResult createItem(CreateItemDto body);
+        public ObjectResult createOrder(List<CreateItemDto> body);
     }
 }

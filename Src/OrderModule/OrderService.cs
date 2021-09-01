@@ -36,5 +36,11 @@ namespace store.Src.OrderModule
             string orderId = this.orderRepository.getLastOrderId(costumerId);
             return orderId;
         }
+        public bool decreaseQuantity(string productId, int quantity)
+        {
+            bool res = this.orderRepository.decreaseQuantity(productId, quantity);
+            return res;
+        }
+
     }
 }
