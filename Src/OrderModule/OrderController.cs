@@ -46,9 +46,15 @@ namespace store.Src.OrderModule
 
             if (product == null)
             {
-                res.setErrorMessage("This product no longer exist");
+                res.setErrorMessage(ErrorMessageKey.Error_NotFound, "productId");
                 return new NotFoundObjectResult(res.getResponse());
             }
+            if (product.quantity < body.quantity)
+            {
+                res.setErrorMessage(ErrorMessageKey.Error_NotEnoughtQuantity, "product quantity");
+                return new NotFoundObjectResult(res.getResponse());
+            }
+
             new ServerResponse<User>();
             var user = this.ViewData["user"] as User;
 
@@ -59,6 +65,7 @@ namespace store.Src.OrderModule
             createItem.createDate = DateTime.Now.ToShortTimeString();
             createItem.product.productId = body.productId;
             createItem.order.orderId = body.orderId;
+
 
             bool isCreated = this.orderService.saveItem(createItem);
             if (!isCreated)

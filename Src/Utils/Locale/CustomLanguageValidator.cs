@@ -2,7 +2,8 @@ namespace store.Src.Utils.Locale
 {
     public class CustomLanguageValidator : FluentValidation.Resources.LanguageManager
     {
-        public static class ErrorMessageKey {
+        public static class ErrorMessageKey
+        {
             public const string Error_LoginFail = "Error_LoginFail";
             public const string Error_Existed = "Error_Existed";
             public const string Error_FailToSave = "Error_FailToSave";
@@ -13,9 +14,11 @@ namespace store.Src.Utils.Locale
             public const string Error_NotAllow = "Error_NotAllow";
             public const string Error_PasswordNotContainRequiredCharacter = "Error_PasswordNotContainRequiredCharacter";
             public const string Error_PasswordContainWhiteSpace = "Error_PasswordContainWhiteSpace";
+            public const string Error_NotEnoughtQuantity = "Error_NotEnoughtQuantity";
         }
 
-        public static class MessageKey {
+        public static class MessageKey
+        {
             public const string Message_LoginSuccess = "Message_LoginSuccess";
             public const string Message_RegisterSuccess = "Message_RegisterSuccess";
             public const string Message_LogoutSuccess = "Message_LogoutSuccess";
@@ -25,7 +28,7 @@ namespace store.Src.Utils.Locale
         }
         public CustomLanguageValidator()
         {
-            
+
             // Success message
             // EN
             AddTranslation("en", "Message_LoginSuccess", "login success");
@@ -55,6 +58,7 @@ namespace store.Src.Utils.Locale
             AddTranslation("en", "Error_NotAllow", "not allow");
             AddTranslation("en", "Error_PasswordNotContainRequiredCharacter", "should contain at least 1 uppercase, 1 lowwercase, 1 number");
             AddTranslation("en", "Error_PasswordContainWhiteSpace", "should not contain white space");
+            AddTranslation("en", "Error_NotEnoughtQuantity", "not enough quantity");
 
             // VI
             AddTranslation("vi", "Error_LoginFail", "username hoặc password không đúng");
@@ -67,6 +71,8 @@ namespace store.Src.Utils.Locale
             AddTranslation("vi", "Error_NotAllow", "không có quyền");
             AddTranslation("vi", "Error_PasswordNotContainRequiredCharacter", "phải có ít nhất 1 kí tự hoa, 1 kí tự thường, 1 số");
             AddTranslation("vi", "Error_PasswordContainWhiteSpace", "không được chứa khoảng trắng");
+            AddTranslation("vi", "Error_NotEnoughtQuantity", "Không còn đủ số lượng");
+
 
 
 
